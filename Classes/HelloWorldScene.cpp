@@ -79,10 +79,11 @@ bool HelloWorld::init()
 	Sprite3D *sprite3D[COUNT];
 	for( int i = 0; i < COUNT; i++)
 	{
-		sprite3D[i] = Sprite3D::create( "sarari.c3d");
-//		sprite3D[i] -> setTexture( "tortoise.png");
-		addChild( sprite3D[i]);
-		auto animation = Animation3D::create( "sarari.c3b");
+		auto sprite_3d = Sprite3D::create( "sarari.c3t");
+		addChild( sprite_3d);
+//		sprite3D[i] = Sprite3D::create( "sarari.c3t");
+//		addChild( sprite3D[i]);
+		auto animation = Animation3D::create( "sarari.c3t");
 		auto animate = Animate3D::create( animation, 0.f, 1.933f);
 		sprite3D[i] -> runAction( RepeatForever::create( animate));
 		//		Animate3D::create(animation, 1.933f, 2.8f);
