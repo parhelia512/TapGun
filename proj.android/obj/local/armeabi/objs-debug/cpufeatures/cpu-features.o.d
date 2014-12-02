@@ -1,173 +1,173 @@
 ./obj/local/armeabi/objs-debug/cpufeatures/cpu-features.o: \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/sources/android/cpufeatures/cpu-features.c \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/system_properties.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/cdefs.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/cdefs_elf.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/android/api-level.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/pthread.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/time.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/time.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/stdint.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/_types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/_types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/_wchar_limits.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/posix_types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/stddef.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/compiler.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/posix_types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/kernel.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/sysmacros.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/time.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/siginfo.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/siginfo.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/signal.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/limits.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/limits.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/limits.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/internal_types.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/limits.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/syslimits.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/page.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/string.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/malloc.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/signal.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/signal.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/sigcontext.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sched.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/sources/android/cpufeatures/cpu-features.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/stdio.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/stdlib.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/alloca.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/strings.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/memory.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/fcntl.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/fcntl.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/fcntl.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/fcntl.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/unistd.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/select.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/sysconf.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/capability.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/pathconf.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/errno.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/errno.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/errno.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/errno.h \
-  /Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/errno-base.h
+  E:/Programs/android/android-ndk-r9d/sources/android/cpufeatures/cpu-features.c \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/system_properties.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/cdefs.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/cdefs_elf.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\android/api-level.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\pthread.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\time.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/time.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\stdint.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/_types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/_types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/_wchar_limits.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/posix_types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/stddef.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/compiler.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/posix_types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/kernel.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/sysmacros.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/time.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/siginfo.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/siginfo.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\signal.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\limits.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/limits.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/limits.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/internal_types.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/limits.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/syslimits.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/page.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\string.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\malloc.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/signal.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/signal.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/sigcontext.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sched.h \
+  E:/Programs/android/android-ndk-r9d/sources/android/cpufeatures/cpu-features.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\stdio.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\stdlib.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\alloca.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\strings.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\memory.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\fcntl.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/fcntl.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/fcntl.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/fcntl.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\unistd.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/select.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/sysconf.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/capability.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\pathconf.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\errno.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/errno.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/errno.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/errno.h \
+  E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/errno-base.h
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/system_properties.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/system_properties.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/cdefs.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/cdefs.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/cdefs_elf.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/cdefs_elf.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/android/api-level.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\android/api-level.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/pthread.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\pthread.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/time.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\time.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/time.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/time.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/stdint.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\stdint.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/_types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/_types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/_types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/_types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/_wchar_limits.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/_wchar_limits.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/posix_types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/posix_types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/stddef.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/stddef.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/compiler.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/compiler.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/posix_types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/posix_types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/kernel.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/kernel.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/sysmacros.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/sysmacros.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/time.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/time.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/siginfo.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/siginfo.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/siginfo.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/siginfo.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/signal.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\signal.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/limits.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\limits.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/limits.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/limits.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/limits.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/limits.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/internal_types.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/internal_types.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/machine/limits.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\machine/limits.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/syslimits.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/syslimits.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/page.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/page.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/string.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\string.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/malloc.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\malloc.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/signal.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/signal.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/signal.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/signal.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/sigcontext.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/sigcontext.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sched.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sched.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/sources/android/cpufeatures/cpu-features.h:
+E:/Programs/android/android-ndk-r9d/sources/android/cpufeatures/cpu-features.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/stdio.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\stdio.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/stdlib.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\stdlib.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/alloca.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\alloca.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/strings.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\strings.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/memory.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\memory.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/fcntl.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\fcntl.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/fcntl.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/fcntl.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/fcntl.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/fcntl.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/fcntl.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/fcntl.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/unistd.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\unistd.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/select.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/select.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/sys/sysconf.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\sys/sysconf.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/capability.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/capability.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/pathconf.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\pathconf.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/errno.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\errno.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/errno.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\linux/errno.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm/errno.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm/errno.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/errno.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/errno.h:
 
-/Users/InoueKazunori/Documents/Programs/Tools/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/asm-generic/errno-base.h:
+E:/Programs/android/android-ndk-r9d/platforms/android-9/arch-arm/usr/include\asm-generic/errno-base.h:

@@ -1,6 +1,6 @@
-/Users/InoueKazunori/Documents/Programs/Projects/Ilohas/proj.android/gen/amg/TestProject/minaka/Sasebon/R.java \
- : /Users/InoueKazunori/Documents/Programs/Projects/Ilohas/proj.android/res/drawable-hdpi/icon.png \
-/Users/InoueKazunori/Documents/Programs/Projects/Ilohas/proj.android/res/drawable-ldpi/icon.png \
-/Users/InoueKazunori/Documents/Programs/Projects/Ilohas/proj.android/res/drawable-mdpi/icon.png \
-/Users/InoueKazunori/Documents/Programs/Projects/Ilohas/proj.android/res/values/strings.xml \
-/Users/InoueKazunori/Documents/Programs/Projects/Ilohas/proj.android/bin/AndroidManifest.xml \
+E:\Programs\Repository\214b_ilohas\proj.android\gen\amg\ProjectIholas\Sasebon\minaka\R.java \
+ : E:\Programs\Repository\214b_ilohas\proj.android\res\drawable-hdpi\icon.png \
+E:\Programs\Repository\214b_ilohas\proj.android\res\drawable-ldpi\icon.png \
+E:\Programs\Repository\214b_ilohas\proj.android\res\drawable-mdpi\icon.png \
+E:\Programs\Repository\214b_ilohas\proj.android\res\values\strings.xml \
+E:\Programs\Repository\214b_ilohas\proj.android\bin\AndroidManifest.xml \
