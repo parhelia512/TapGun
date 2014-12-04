@@ -95,9 +95,9 @@ bool HelloWorld::init()
 	auto sprite3d = Sprite3D::create( "sarari.c3b");
 	sprite3d -> setTexture( "test.png");
 	addChild( sprite3d);
-	auto animation = Animation3D::create( "sarari.c3b");
-	auto animate = Animate3D::create( animation, 1.933f, 2.8f);
-	sprite3d -> runAction( RepeatForever::create( animate));
+//	auto animation = Animation3D::create( "sarari.c3b");
+//	auto animate = Animate3D::create( animation, 1.933f, 2.8f);
+//	sprite3d -> runAction( RepeatForever::create( animate));
 	sprite3d -> setPosition(Vec2( visibleSize.width / 2, visibleSize.height / 3));
 	sprite3d -> setPositionZ( 0.0);
 	sprite3d -> setScale( 14.0f);
