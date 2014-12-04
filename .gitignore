@@ -32,3 +32,4 @@ proj.android
 proj.ios_mac
 proj.win32
 proj.linux
+!Android.mk
