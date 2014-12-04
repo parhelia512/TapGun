@@ -28,3 +28,7 @@
 *.app
 cocos2d
 bin
+proj.android
+proj.ios_mac
+proj.win32
+proj.linux
