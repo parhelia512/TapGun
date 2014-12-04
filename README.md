@@ -3,6 +3,15 @@ Ilohas
 
 ### cocos2d-x を使用した3Dシューティングゲーム
 
+#### 使用するライブラリ
+
+##### cocos2d-x ver 3.2
+ * android adk 
+ * android ndk r9d
+ * apache ant 1.9.4
+
+---------------------------------------------
+
 #### 想定プラットフォーム及び実機
 
 ##### Android 4.x ~ 5.0
@@ -25,12 +34,4 @@ Ilohas
 
 ##### Linux Mint 17
 
-
 ---------------------------------------------
-
-### 使用するライブラリ
-
-##### cocos2d-x ver 3.2
- * android adk 
- * android ndk r9d
- * apache ant 1.9.4
