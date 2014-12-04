@@ -74,23 +74,35 @@ bool HelloWorld::init()
 	
 	auto _bg = LayerColor::create(Color4B::WHITE, visibleSize.width, visibleSize.height);
 	this->addChild(_bg);
+//	
+//#define COUNT 1
+//	Sprite3D *sprite3D[COUNT];
+//	for( int i = 0; i < COUNT; i++)
+//	{
+//		sprite3D[i] = Sprite3D::create( "sarari.c3b");
+////		sprite3D[i] -> setTexture( "tortoise.png");
+//		addChild( sprite3D[i]);
+//		auto animation = Animation3D::create( "sarari.c3b");
+//		auto animate = Animate3D::create( animation, 0.f, 1.933f);
+//		sprite3D[i] -> runAction( RepeatForever::create( animate));
+//		//		Animate3D::create(animation, 1.933f, 2.8f);
+//		sprite3D[i] -> setPosition(Vec2( visibleSize.width / 2, visibleSize.height / 2));
+//		sprite3D[i] -> setPositionZ( 0.0);
+//		auto rotation = RotateBy::create( 10, Vec3(0, 360, 0));
+//		sprite3D[i] -> runAction( RepeatForever::create(rotation));
+//	}
 	
-#define COUNT 1
-	Sprite3D *sprite3D[COUNT];
-	for( int i = 0; i < COUNT; i++)
-	{
-		sprite3D[i] = Sprite3D::create( "sarari.c3b");
-//		sprite3D[i] -> setTexture( "tortoise.png");
-		addChild( sprite3D[i]);
-		auto animation = Animation3D::create( "sarari.c3b");
-		auto animate = Animate3D::create( animation, 0.f, 1.933f);
-		sprite3D[i] -> runAction( RepeatForever::create( animate));
-		//		Animate3D::create(animation, 1.933f, 2.8f);
-		sprite3D[i] -> setPosition(Vec2( visibleSize.width / 2, visibleSize.height / 2));
-		sprite3D[i] -> setPositionZ( 0.0);
-		auto rotation = RotateBy::create( 10, Vec3(0, 360, 0));
-		sprite3D[i] -> runAction( RepeatForever::create(rotation));
-	}
+	auto sprite3d = Sprite3D::create( "sarari.c3b");
+	sprite3d -> setTexture( "test.png");
+	addChild( sprite3d);
+	auto animation = Animation3D::create( "sarari.c3b");
+	auto animate = Animate3D::create( animation, 1.933f, 2.8f);
+	sprite3d -> runAction( RepeatForever::create( animate));
+	sprite3d -> setPosition(Vec2( visibleSize.width / 2, visibleSize.height / 3));
+	sprite3d -> setPositionZ( 0.0);
+	sprite3d -> setScale( 14.0f);
+//	auto rotation = RotateBy::create( 10, Vec3(0, 360, 0));
+//	sprite3d -> runAction( RepeatForever::create( rotation));
 	
 	return true;
 }
