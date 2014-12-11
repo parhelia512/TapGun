@@ -94,7 +94,12 @@ bool HelloWorld::init()
 
 	std::string fileName = "sarari.c3t";
 	auto sprite3d = Sprite3D::create( fileName);
-//	sprite3d -> setTexture( "test.png");
+	for( int i = 0; i < sprite3d -> getMeshCount(); i++)
+	{
+		auto mesh = sprite3d -> getMeshByIndex( i);
+		if( i % 2) mesh -> setTexture( "box_tex.png");
+		else mesh -> setTexture( "box_head_tex.png");
+	}
 	addChild( sprite3d);
 	auto animation = Animation3D::create( fileName);
 	auto animate = Animate3D::create( animation);
@@ -107,8 +112,14 @@ bool HelloWorld::init()
 //	sprite3d -> runAction( RepeatForever::create( rotation));
 	
 	fileName = "box.c3t";
-	auto _sprite3d = Sprite3D::create( fileName);
-//	_sprite3d -> setTexture( "test.png");
+	auto _sprite3d = Sprite3D::create( fileName);//, "box_head_tex.png");
+	for( int i = 0; i < _sprite3d -> getMeshCount(); i++)
+	{
+		auto mesh = _sprite3d -> getMeshByIndex( i);
+		if( i % 2) mesh -> setTexture( "box_tex.png");
+		else mesh -> setTexture( "box_head_tex.png");
+	}
+	
 	addChild( _sprite3d);
 	auto _animation = Animation3D::create( fileName);
 	auto _animate = Animate3D::create( _animation);
@@ -118,7 +129,7 @@ bool HelloWorld::init()
 	_sprite3d -> setPositionZ( 0.0);
 	_sprite3d -> setScale( 1.0f);
 	auto _rotation = RotateBy::create( 10, Vec3(0, 360, 0));
-//	_sprite3d -> runAction( RepeatForever::create( _rotation));
+	_sprite3d -> runAction( RepeatForever::create( _rotation));
 
 	return true;
 }
