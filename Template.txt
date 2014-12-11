@@ -1,3 +1,4 @@
+
 コメントの記述方法
 /**
  *	関数名
@@ -15,12 +16,18 @@ void initPlayer( std::string fileName)
 
 
 例外処理の記述方法
-#ifdef ？？？	// ios専用
-	#include "Player.h"
-#elif　？？？	// android専用
-	#include "Object/Player.h"
-#else			// windows専用
-	#include "Object/Player.h"
+
+#include "cocos2d.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+
+
+#else
+
+
 #endif
 
 
@@ -160,6 +167,3 @@ ResourceFile
 　　├Effect
 　　├Scene
 　　└Stage
-
-
-
