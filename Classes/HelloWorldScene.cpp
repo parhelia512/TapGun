@@ -92,14 +92,14 @@ bool HelloWorld::init()
 //		sprite3D[i] -> runAction( RepeatForever::create(rotation));
 //	}
 
-	std::string fileName = "sarari.c3t";
+	std::string fileName = "sarari.c3b";
 	auto sprite3d = Sprite3D::create( fileName);
-	for( int i = 0; i < sprite3d -> getMeshCount(); i++)
-	{
-		auto mesh = sprite3d -> getMeshByIndex( i);
-		if( i % 2) mesh -> setTexture( "box_tex.png");
-		else mesh -> setTexture( "box_head_tex.png");
-	}
+	sprite3d -> setTexture( "box_head_tex.png");
+	auto mesh = sprite3d -> getMeshByName( "dou");
+	mesh -> setTexture( "box_tex.png");
+	mesh = sprite3d -> getMeshByName( "megane");
+//	mesh -> setTexture( "box_tex.png");
+	
 	addChild( sprite3d);
 	auto animation = Animation3D::create( fileName);
 	auto animate = Animate3D::create( animation);
@@ -113,12 +113,10 @@ bool HelloWorld::init()
 	
 	fileName = "box.c3t";
 	auto _sprite3d = Sprite3D::create( fileName);//, "box_head_tex.png");
-	for( int i = 0; i < _sprite3d -> getMeshCount(); i++)
-	{
-		auto mesh = _sprite3d -> getMeshByIndex( i);
-		if( i % 2) mesh -> setTexture( "box_tex.png");
-		else mesh -> setTexture( "box_head_tex.png");
-	}
+	_sprite3d -> setTexture( "box_tex.png");
+	auto _mesh = _sprite3d -> getMeshByName( "Box001");
+	_mesh -> setTexture( "box_head_tex.png");
+	
 	
 	addChild( _sprite3d);
 	auto _animation = Animation3D::create( fileName);
@@ -130,6 +128,17 @@ bool HelloWorld::init()
 	_sprite3d -> setScale( 1.0f);
 	auto _rotation = RotateBy::create( 10, Vec3(0, 360, 0));
 	_sprite3d -> runAction( RepeatForever::create( _rotation));
+
+	auto shader = new GLProgram();
+	shader -> initWithFilenames( "test.vsh", "test.fsh");
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORDS);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
+	shader -> link();
+	shader -> updateUniforms();
+	shader -> setUniformLocationWith1i( shader -> getUniformLocationForName( "u_mosaicLevel"), 10);
+	shader -> setUniformLocationWith2f( shader -> getUniformLocationForName( "u_texSize"), visibleSize.width / 4, visibleSize.height / 3);
+	sprite3d -> setShaderProgram( shader);
 
 	return true;
 }
