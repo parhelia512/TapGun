@@ -11,12 +11,22 @@ public:
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
-    
+
+	void update( float delta);
+
+	void moveTime( float delta);
+	
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    
+
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+
+	std::string fileName;
+	cocos2d::Size visibleSize;
+    cocos2d::Sprite3D* sprite3d[2];
+	cocos2d::Animation3D* animation[2];
+    cocos2d::Animate3D* animate[2];
 };
 
 #endif // __HELLOWORLD_SCENE_H__

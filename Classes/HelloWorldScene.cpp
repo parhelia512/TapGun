@@ -6,7 +6,7 @@ Scene* HelloWorld::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	
+
 	// 'layer' is an autorelease object
 	auto layer = HelloWorld::create();
 
@@ -26,8 +26,8 @@ bool HelloWorld::init()
 	{
 		return false;
 	}
-	
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	/////////////////////////////
@@ -39,7 +39,7 @@ bool HelloWorld::init()
 										   "CloseNormal.png",
 										   "CloseSelected.png",
 										   CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-	
+
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
 								origin.y + closeItem->getContentSize().height/2));
 
@@ -53,9 +53,9 @@ bool HelloWorld::init()
 
 	// add a label shows "Hello World"
 	// create and initialize a label
-	
+
 	auto label = LabelTTF::create("Hello World", "Arial", 24);
-	
+
 	// position the label on the center of the screen
 	label->setPosition(Vec2(origin.x + visibleSize.width/2,
 							origin.y + visibleSize.height - label->getContentSize().height));
@@ -71,10 +71,10 @@ bool HelloWorld::init()
 
 	// add the sprite as a child to this layer
  //   this->addChild(sprite, 0);
-	
+
 	auto _bg = LayerColor::create(Color4B::WHITE, visibleSize.width, visibleSize.height);
 	this->addChild(_bg);
-//	
+//
 //#define COUNT 1
 //	Sprite3D *sprite3D[COUNT];
 //	for( int i = 0; i < COUNT; i++)
@@ -92,43 +92,21 @@ bool HelloWorld::init()
 //		sprite3D[i] -> runAction( RepeatForever::create(rotation));
 //	}
 
-	std::string fileName = "sarari.c3b";
-	auto sprite3d = Sprite3D::create( fileName);
-	sprite3d -> setTexture( "box_head_tex.png");
-	auto mesh = sprite3d -> getMeshByName( "dou");
-	mesh -> setTexture( "box_tex.png");
-	mesh = sprite3d -> getMeshByName( "megane");
-//	mesh -> setTexture( "box_tex.png");
-	
-	addChild( sprite3d);
-	auto animation = Animation3D::create( fileName);
-	auto animate = Animate3D::create( animation);
-	sprite3d -> runAction( RepeatForever::create( animate));	
 
-	sprite3d -> setPosition(Vec2( visibleSize.width / 2, visibleSize.height / 3));
-	sprite3d -> setPositionZ( 0.0);
-	sprite3d -> setScale( 14.0f);
-	auto rotation = RotateBy::create( 10, Vec3(0, 360, 0));
-//	sprite3d -> runAction( RepeatForever::create( rotation));
-	
-	fileName = "box.c3t";
-	auto _sprite3d = Sprite3D::create( fileName);//, "box_head_tex.png");
-	_sprite3d -> setTexture( "box_tex.png");
-	auto _mesh = _sprite3d -> getMeshByName( "Box001");
-	_mesh -> setTexture( "box_head_tex.png");
-	
-	
-	addChild( _sprite3d);
-	auto _animation = Animation3D::create( fileName);
-	auto _animate = Animate3D::create( _animation);
-	_sprite3d -> runAction( RepeatForever::create( _animate));	
-
-	_sprite3d -> setPosition(Vec2( visibleSize.width / 2 + visibleSize.width / 4, visibleSize.height / 3));
-	_sprite3d -> setPositionZ( 0.0);
-	_sprite3d -> setScale( 1.0f);
-	auto _rotation = RotateBy::create( 10, Vec3(0, 360, 0));
-	_sprite3d -> runAction( RepeatForever::create( _rotation));
-
+	fileName = "test_box.c3b";
+	for( int i = 0; i < 2; i++)
+	{
+		sprite3d[i] = Sprite3D::create( fileName);
+		sprite3d[i] -> setTexture( "box_tex.png");
+		sprite3d[i] -> setScale( 3.0f);
+		animation[i] = Animation3D::create( fileName);
+		animate[i] = Animate3D::create( animation[i]);
+		sprite3d[i] -> runAction( RepeatForever::create( animate[i]));
+		if( i == 0) sprite3d[0] -> setPosition3D( Vec3( visibleSize.width / 4, visibleSize.height / 4, 0.0f));
+		else sprite3d[1] -> setPosition3D( Vec3( visibleSize.width / 4 * 3, visibleSize.height / 4, 0.0f));
+		addChild( sprite3d[i]);
+	}
+	/*
 	auto shader = new GLProgram();
 	shader -> initWithFilenames( "test.vsh", "test.fsh");
 	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
@@ -139,10 +117,39 @@ bool HelloWorld::init()
 	shader -> setUniformLocationWith1i( shader -> getUniformLocationForName( "u_mosaicLevel"), 10);
 	shader -> setUniformLocationWith2f( shader -> getUniformLocationForName( "u_texSize"), visibleSize.width / 4, visibleSize.height / 3);
 	sprite3d -> setShaderProgram( shader);
+	*/
 
+	this -> scheduleUpdate();
+	this -> schedule(schedule_selector(HelloWorld::moveTime), 0.016f);
 	return true;
 }
 
+void HelloWorld::moveTime( float delta)
+{
+	static int frame = 1;
+	if( frame % 60 == 0)
+	{
+		sprite3d[0] -> pauseSchedulerAndActions();
+		
+	}
+	else if( frame % 60 == 30)
+	{
+		sprite3d[0] -> resumeSchedulerAndActions();
+	}
+	if( frame == 120)
+	{
+		sprite3d[1] -> stopAllActions();
+		animation[1] = Animation3D::create( fileName);
+		animate[1] = Animate3D::create( animation[1]);
+		sprite3d[1] -> runAction( RepeatForever::create( animate[1]));
+	}
+	frame++;
+}
+
+void HelloWorld::update( float delta)
+{
+	
+}
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {

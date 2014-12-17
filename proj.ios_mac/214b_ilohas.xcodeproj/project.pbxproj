@@ -68,6 +68,11 @@
 		8247CD261A39B10B00421AE9 /* sarari.c3t in Resources */ = {isa = PBXBuildFile; fileRef = 8247CD1B1A39B10B00421AE9 /* sarari.c3t */; };
 		8247CD271A39B10B00421AE9 /* sarari.FBX in Resources */ = {isa = PBXBuildFile; fileRef = 8247CD1C1A39B10B00421AE9 /* sarari.FBX */; };
 		8247CD281A39B10B00421AE9 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 8247CD1D1A39B10B00421AE9 /* test.png */; };
+		82C3B62E1A417E6400896403 /* map.c3b in Resources */ = {isa = PBXBuildFile; fileRef = 82C3B62B1A417E6400896403 /* map.c3b */; };
+		82C3B62F1A417E6400896403 /* map.c3t in Resources */ = {isa = PBXBuildFile; fileRef = 82C3B62C1A417E6400896403 /* map.c3t */; };
+		82C3B6301A417E6400896403 /* stage_tex.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C3B62D1A417E6400896403 /* stage_tex.png */; };
+		82C3B6331A41808600896403 /* test_box.c3b in Resources */ = {isa = PBXBuildFile; fileRef = 82C3B6311A41808600896403 /* test_box.c3b */; };
+		82C3B6341A41808600896403 /* test_box.c3t in Resources */ = {isa = PBXBuildFile; fileRef = 82C3B6321A41808600896403 /* test_box.c3t */; };
 		82CC568B1A3ABBD1001AAF1D /* test.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 82CC56891A3ABBD1001AAF1D /* test.fsh */; };
 		82CC568C1A3ABBD1001AAF1D /* test.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 82CC568A1A3ABBD1001AAF1D /* test.vsh */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -169,6 +174,11 @@
 		8247CD1B1A39B10B00421AE9 /* sarari.c3t */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sarari.c3t; sourceTree = "<group>"; };
 		8247CD1C1A39B10B00421AE9 /* sarari.FBX */ = {isa = PBXFileReference; lastKnownFileType = file; path = sarari.FBX; sourceTree = "<group>"; };
 		8247CD1D1A39B10B00421AE9 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		82C3B62B1A417E6400896403 /* map.c3b */ = {isa = PBXFileReference; lastKnownFileType = file; path = map.c3b; sourceTree = "<group>"; };
+		82C3B62C1A417E6400896403 /* map.c3t */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = map.c3t; sourceTree = "<group>"; };
+		82C3B62D1A417E6400896403 /* stage_tex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stage_tex.png; sourceTree = "<group>"; };
+		82C3B6311A41808600896403 /* test_box.c3b */ = {isa = PBXFileReference; lastKnownFileType = file; path = test_box.c3b; sourceTree = "<group>"; };
+		82C3B6321A41808600896403 /* test_box.c3t */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_box.c3t; sourceTree = "<group>"; };
 		82CC56891A3ABBD1001AAF1D /* test.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.fsh; sourceTree = "<group>"; };
 		82CC568A1A3ABBD1001AAF1D /* test.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.vsh; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -292,6 +302,11 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82C3B6311A41808600896403 /* test_box.c3b */,
+				82C3B6321A41808600896403 /* test_box.c3t */,
+				82C3B62B1A417E6400896403 /* map.c3b */,
+				82C3B62C1A417E6400896403 /* map.c3t */,
+				82C3B62D1A417E6400896403 /* stage_tex.png */,
 				8247CD111A39B10B00421AE9 /* box_head_tex.png */,
 				8247CD121A39B10B00421AE9 /* box_tex.png */,
 				8247CD131A39B10B00421AE9 /* box.c3b */,
@@ -487,6 +502,7 @@
 				82CC568B1A3ABBD1001AAF1D /* test.fsh in Resources */,
 				8247CD261A39B10B00421AE9 /* sarari.c3t in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				82C3B6341A41808600896403 /* test_box.c3t in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				8247CD1F1A39B10B00421AE9 /* box_tex.png in Resources */,
 				8247CD251A39B10B00421AE9 /* sarari.c3b in Resources */,
@@ -499,7 +515,9 @@
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				8247CD221A39B10B00421AE9 /* box.FBX in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				82C3B62E1A417E6400896403 /* map.c3b in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
+				82C3B6301A417E6400896403 /* stage_tex.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
@@ -512,6 +530,8 @@
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				8247CD281A39B10B00421AE9 /* test.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
+				82C3B6331A41808600896403 /* test_box.c3b in Resources */,
+				82C3B62F1A417E6400896403 /* map.c3t in Resources */,
 				8247CD271A39B10B00421AE9 /* sarari.FBX in Resources */,
 				82CC568C1A3ABBD1001AAF1D /* test.vsh in Resources */,
 			);
