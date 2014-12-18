@@ -1,14 +1,16 @@
-#include "HelloWorldScene.h"
+
+#include "TestScene.h"
 
 USING_NS_CC;
+using namespace TapGun;
 
-Scene* HelloWorld::createScene()
+Scene* Test::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
 
 	// 'layer' is an autorelease object
-	auto layer = HelloWorld::create();
+	auto layer = Test::create();
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -18,7 +20,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool Test::init()
 {
 	//////////////////////////////
 	// 1. super init first
@@ -36,9 +38,9 @@ bool HelloWorld::init()
 
 	// add a "close" icon to exit the progress. it's an autorelease object
 	auto closeItem = MenuItemImage::create(
-										   "CloseNormal.png",
-										   "CloseSelected.png",
-										   CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+										   "Graph/Pictures/CloseNormal.png",
+										   "Graph/Pictures/CloseSelected.png",
+										   CC_CALLBACK_1(Test::menuCloseCallback, this));
 
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
 								origin.y + closeItem->getContentSize().height/2));
@@ -54,7 +56,7 @@ bool HelloWorld::init()
 	// add a label shows "Hello World"
 	// create and initialize a label
 
-	auto label = LabelTTF::create("Hello World", "Arial", 24);
+	auto label = LabelTTF::create("Graph/Pictures/Hello World", "Arial", 24);
 
 	// position the label on the center of the screen
 	label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -63,8 +65,8 @@ bool HelloWorld::init()
 	// add the label as a child to this layer
 	this->addChild(label, 1);
 
-	// add "HelloWorld" splash screen"
-	auto sprite = Sprite::create("HelloWorld.png");
+	// add "Test" splash screen"
+	auto sprite = Sprite::create("Graph/Textures/Test.png");
 
 	// position the sprite on the center of the screen
 	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -93,11 +95,11 @@ bool HelloWorld::init()
 //	}
 
 
-	fileName = "test_box.c3b";
+	fileName = "Graph/Models/test_box.c3b";
 	for( int i = 0; i < 2; i++)
 	{
 		sprite3d[i] = Sprite3D::create( fileName);
-		sprite3d[i] -> setTexture( "box_tex.png");
+		sprite3d[i] -> setTexture( "Graph/Textures/box_tex.png");
 		sprite3d[i] -> setScale( 3.0f);
 		animation[i] = Animation3D::create( fileName);
 		animate[i] = Animate3D::create( animation[i]);
@@ -120,11 +122,11 @@ bool HelloWorld::init()
 	*/
 
 	this -> scheduleUpdate();
-	this -> schedule(schedule_selector(HelloWorld::moveTime), 0.016f);
+	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 	return true;
 }
 
-void HelloWorld::moveTime( float delta)
+void Test::moveTime( float delta)
 {
 	static int frame = 1;
 	if( frame % 60 == 0)
@@ -146,12 +148,12 @@ void HelloWorld::moveTime( float delta)
 	frame++;
 }
 
-void HelloWorld::update( float delta)
+void Test::update( float delta)
 {
 	
 }
 
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void Test::menuCloseCallback(Ref* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
