@@ -10,6 +10,8 @@ namespace TapGun
 class Test : public cocos2d::Layer
 {
 public:
+	static double frame;
+	
 	std::string fileName;
 	cocos2d::Size visibleSize;
 	cocos2d::Sprite3D* sprite3d[2];

@@ -1,5 +1,10 @@
 #include "AppDelegate.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "TestScene.h"
+#else
 #include "Scene/TestScene.h"
+#endif
 
 USING_NS_CC;
 
@@ -36,7 +41,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
-
+	TapGun::Test::frame = director -> _animationInterval;
 	// create a scene. it's an autorelease object
 	auto scene = TapGun::Test::createScene();
 

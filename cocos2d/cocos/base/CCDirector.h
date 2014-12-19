@@ -441,8 +441,9 @@ protected:
 
     //texture cache belongs to this director
     TextureCache *_textureCache;
-
+public:
     double _animationInterval;
+protected:
     double _oldAnimationInterval;
 
     /* landscape mode ? */
