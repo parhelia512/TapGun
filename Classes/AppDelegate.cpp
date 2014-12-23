@@ -8,8 +8,8 @@
 
 USING_NS_CC;
 
-AppDelegate::AppDelegate() {
-
+AppDelegate::AppDelegate()
+{
 }
 
 AppDelegate::~AppDelegate() 
@@ -27,21 +27,26 @@ void AppDelegate::initGLContextAttrs()
 	GLView::setGLContextAttrs(glContextAttrs);
 }
 
-bool AppDelegate::applicationDidFinishLaunching() {
+bool AppDelegate::applicationDidFinishLaunching()
+{
 	// initialize director
 	auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
-	if(!glview) {
+	if(!glview)
+	{
 		glview = GLViewImpl::create("My Game");
 		director->setOpenGLView(glview);
 	}
 
 	// turn on display FPS
 	director->setDisplayStats(true);
+	
+	// window size set
+	glview->setDesignResolutionSize( 1280, 720, ResolutionPolicy::SHOW_ALL);
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
-	TapGun::Test::frame = director -> _animationInterval;
+	
 	// create a scene. it's an autorelease object
 	auto scene = TapGun::Test::createScene();
 
@@ -52,7 +57,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
-void AppDelegate::applicationDidEnterBackground() {
+void AppDelegate::applicationDidEnterBackground()
+{
 	Director::getInstance()->stopAnimation();
 
 	// if you use SimpleAudioEngine, it must be pause
@@ -60,7 +66,8 @@ void AppDelegate::applicationDidEnterBackground() {
 }
 
 // this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground() {
+void AppDelegate::applicationWillEnterForeground()
+{
 	Director::getInstance()->startAnimation();
 
 	// if you use SimpleAudioEngine, it must resume here

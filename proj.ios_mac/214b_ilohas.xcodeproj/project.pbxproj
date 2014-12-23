@@ -49,6 +49,11 @@
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
+		8265AC611A43F34800620D56 /* mazuru_gs.png in Resources */ = {isa = PBXBuildFile; fileRef = 8265AC5F1A43F34800620D56 /* mazuru_gs.png */; };
+		8265AC621A43F34800620D56 /* _mazuru.png in Resources */ = {isa = PBXBuildFile; fileRef = 8265AC601A43F34800620D56 /* _mazuru.png */; };
+		8265AC651A43F3AF00620D56 /* mazuru.c3b in Resources */ = {isa = PBXBuildFile; fileRef = 8265AC631A43F3AF00620D56 /* mazuru.c3b */; };
+		8265AC661A43F3AF00620D56 /* mazuru.c3t in Resources */ = {isa = PBXBuildFile; fileRef = 8265AC641A43F3AF00620D56 /* mazuru.c3t */; };
+		8272BC881A48099B00EF163B /* nikotyan.png in Resources */ = {isa = PBXBuildFile; fileRef = 8272BC871A48099B00EF163B /* nikotyan.png */; };
 		8276946D1A43A861000BB3A9 /* box.c3b in Resources */ = {isa = PBXBuildFile; fileRef = 827694581A43A861000BB3A9 /* box.c3b */; };
 		8276946E1A43A861000BB3A9 /* box.c3t in Resources */ = {isa = PBXBuildFile; fileRef = 827694591A43A861000BB3A9 /* box.c3t */; };
 		8276946F1A43A861000BB3A9 /* box.FBX in Resources */ = {isa = PBXBuildFile; fileRef = 8276945A1A43A861000BB3A9 /* box.FBX */; };
@@ -156,6 +161,11 @@
 		521A8E6219F0C34300D177D7 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		8265AC5F1A43F34800620D56 /* mazuru_gs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mazuru_gs.png; sourceTree = "<group>"; };
+		8265AC601A43F34800620D56 /* _mazuru.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = _mazuru.png; sourceTree = "<group>"; };
+		8265AC631A43F3AF00620D56 /* mazuru.c3b */ = {isa = PBXFileReference; lastKnownFileType = file; path = mazuru.c3b; sourceTree = "<group>"; };
+		8265AC641A43F3AF00620D56 /* mazuru.c3t */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazuru.c3t; sourceTree = "<group>"; };
+		8272BC871A48099B00EF163B /* nikotyan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nikotyan.png; sourceTree = "<group>"; };
 		827694581A43A861000BB3A9 /* box.c3b */ = {isa = PBXFileReference; lastKnownFileType = file; path = box.c3b; sourceTree = "<group>"; };
 		827694591A43A861000BB3A9 /* box.c3t */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = box.c3t; sourceTree = "<group>"; };
 		8276945A1A43A861000BB3A9 /* box.FBX */ = {isa = PBXFileReference; lastKnownFileType = file; path = box.FBX; sourceTree = "<group>"; };
@@ -381,6 +391,8 @@
 		827694571A43A861000BB3A9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8265AC631A43F3AF00620D56 /* mazuru.c3b */,
+				8265AC641A43F3AF00620D56 /* mazuru.c3t */,
 				827694581A43A861000BB3A9 /* box.c3b */,
 				827694591A43A861000BB3A9 /* box.c3t */,
 				8276945A1A43A861000BB3A9 /* box.FBX */,
@@ -410,6 +422,9 @@
 		827694681A43A861000BB3A9 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				8272BC871A48099B00EF163B /* nikotyan.png */,
+				8265AC5F1A43F34800620D56 /* mazuru_gs.png */,
+				8265AC601A43F34800620D56 /* _mazuru.png */,
 				827694691A43A861000BB3A9 /* box_head_tex.png */,
 				8276946A1A43A861000BB3A9 /* box_tex.png */,
 				8276946B1A43A861000BB3A9 /* stage_tex.png */,
@@ -551,7 +566,9 @@
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				8276947D1A43A861000BB3A9 /* box_tex.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				8265AC611A43F34800620D56 /* mazuru_gs.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				8265AC621A43F34800620D56 /* _mazuru.png in Resources */,
 				8276946F1A43A861000BB3A9 /* box.FBX in Resources */,
 				827694711A43A861000BB3A9 /* map.c3t in Resources */,
 				8276947F1A43A861000BB3A9 /* test.png in Resources */,
@@ -560,17 +577,20 @@
 				827694701A43A861000BB3A9 /* map.c3b in Resources */,
 				8276947E1A43A861000BB3A9 /* stage_tex.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				8272BC881A48099B00EF163B /* nikotyan.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				827694791A43A861000BB3A9 /* HelloWorld.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				827694721A43A861000BB3A9 /* sarari.c3b in Resources */,
 				8276947C1A43A861000BB3A9 /* box_head_tex.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				8265AC651A43F3AF00620D56 /* mazuru.c3b in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				8265AC661A43F3AF00620D56 /* mazuru.c3t in Resources */,
 				827694781A43A861000BB3A9 /* CloseSelected.png in Resources */,
 				8276948D1A43A87D000BB3A9 /* Template.txt in Resources */,
 				827694751A43A861000BB3A9 /* test_box.c3b in Resources */,

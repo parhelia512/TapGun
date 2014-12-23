@@ -47,32 +47,35 @@ bool Test::init()
 	label->setPosition(Vec2(origin.x + visibleSize.width/2,
 							origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
-
+	
 	auto _bg = LayerColor::create(Color4B::WHITE, visibleSize.width, visibleSize.height);
 	this->addChild(_bg);
+//
+//#define COUNT 1
+//	Sprite3D *sprite3D[COUNT];
+//	for( int i = 0; i < COUNT; i++)
+//	{
+//		sprite3D[i] = Sprite3D::create( "map.c3b");
+//		sprite3D[i] -> setTexture( "stage_tex.png");
+//		sprite3D[i] -> setPosition3D( Vec3( visibleSize.width / 2, -visibleSize.height / 8, 0.0f));
+//		sprite3D[i] -> setScale( 40.0f);
+//		addChild( sprite3D[i]);
+//	}
 
-#define COUNT 1
-	Sprite3D *sprite3D[COUNT];
-	for( int i = 0; i < COUNT; i++)
-	{
-		sprite3D[i] = Sprite3D::create( "map.c3b");
-		sprite3D[i] -> setTexture( "stage_tex.png");
-		sprite3D[i] -> setPosition3D( Vec3( visibleSize.width / 2, -visibleSize.height / 8, 0.0f));
-		sprite3D[i] -> setScale( 40.0f);
-		addChild( sprite3D[i]);
-	}
 
 
-/*
 	for( int i = 0; i < 2; i++)
 	{
 		sprite3d[i] = Sprite3D::create( fileName);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		sprite3d[i] -> setTexture( "box_tex.png");	
+		sprite3d[i] -> setTexture( "nikotyan.png");
 #else
 		sprite3d[i] -> setTexture( "Graph/Textures/box_tex.png");
 #endif
 		sprite3d[i] -> setScale( 3.0f);
+		auto mesh = sprite3d[i] -> getMeshByName( "Box001");
+		mesh -> setTexture( "nikotyan.png");
+		sprite3d[i] -> setBlendFunc( BlendFunc::ALPHA_PREMULTIPLIED);
 		auto animation = Animation3D::create( fileName);
 	
 		if( i == 0)
@@ -89,7 +92,7 @@ bool Test::init()
 		}
 		sprite3d[i] -> runAction( RepeatForever::create( animate[i]));
 		addChild( sprite3d[i]);
-	}*/
+	}
 	/*
 	auto shader = new GLProgram();
 	shader -> initWithFilenames( "test.vsh", "test.fsh");
@@ -103,6 +106,10 @@ bool Test::init()
 	sprite3d -> setShaderProgram( shader);
 	*/
 
+	auto sprite = Sprite::create( "nikotyan.png");
+	sprite -> setPosition( visibleSize.width / 2, visibleSize.height / 2);
+//	addChild( sprite);
+	
 	this -> scheduleUpdate();
 	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 	return true;
