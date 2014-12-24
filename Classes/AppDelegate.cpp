@@ -25,14 +25,14 @@ void AppDelegate::initGLContextAttrs()
 bool AppDelegate::applicationDidFinishLaunching()
 {
 	auto director = Director::getInstance();
-	auto glview = director->getOpenGLView();
+	auto glview = director -> getOpenGLView();
 
 	if(!glview)
 	{
 		glview = GLViewImpl::create( "TapGun");
 		director -> setOpenGLView( glview);
 	}
-
+	
 	director -> setDisplayStats( true) ;
 //	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
 	director -> setAnimationInterval( 1.0 / 60);

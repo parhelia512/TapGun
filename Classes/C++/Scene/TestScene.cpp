@@ -1,10 +1,16 @@
 
+#include <sstream>
 #include "TestScene.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
+using namespace std;
 using namespace TapGun;
+using namespace CocosDenshion;
 
 double Test::frame;
+std::string str = "";
+auto text = Label::createWithSystemFont( str, "consolas", 48);
 
 Scene* Test::createScene()
 {
@@ -21,9 +27,15 @@ bool Test::init()
 		return false;
 	}
 
-	visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	visibleSize = Director::getInstance() -> getVisibleSize();
+	Vec2 origin = Director::getInstance() -> getVisibleOrigin();
 
+	SimpleAudioEngine::getInstance() -> preloadBackgroundMusic( "Sound/BGM/test.wav");
+	SimpleAudioEngine::getInstance() -> setBackgroundMusicVolume( 0.001f);
+	//SimpleAudioEngine::getInstance() -> playBackgroundMusic( "Sound/BGM/test.wav",true);
+	//’âŽ~
+	//SimpleAudioEngine::getInstance() -> stopBackgroundMusic();
+ 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto closeItem = MenuItemImage::create(
 										   "CloseNormal.png",
@@ -48,7 +60,7 @@ bool Test::init()
 							origin.y + visibleSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 	
-	auto _bg = LayerColor::create(Color4B::WHITE, visibleSize.width, visibleSize.height);
+	auto _bg = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
 	this->addChild(_bg);
 //
 //#define COUNT 1
@@ -61,8 +73,6 @@ bool Test::init()
 //		sprite3D[i] -> setScale( 40.0f);
 //		addChild( sprite3D[i]);
 //	}
-
-
 
 	for( int i = 0; i < 1; i++)
 	{
@@ -104,10 +114,14 @@ bool Test::init()
 	sprite3d -> setShaderProgram( shader);
 	*/
 
-	auto sprite = Sprite::create( "nikotyan.png");
-	sprite -> setPosition( visibleSize.width / 2, visibleSize.height / 2);
+//	auto sprite = Sprite::create( "nikotyan.png");
+//	sprite -> setPosition( visibleSize.width / 2, visibleSize.height / 2);
 //	addChild( sprite);
 	
+	
+	text -> setPosition( Point( visibleSize.width / 2, visibleSize.height / 2));
+	this -> addChild( text);
+
 	this -> scheduleUpdate();
 	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 	return true;
@@ -120,6 +134,21 @@ void Test::moveTime( float delta)
 
 void Test::update( float delta)
 {
+	auto director = Director::getInstance();
+	auto time = director -> getDeltaTime();
+	
+//	text -> setVisible( false);
+	text -> removeFromParentAndCleanup( true);
+	stringstream ss;
+	timeval tv;
+	gettimeofday( &tv, nullptr);
+	ss << tv.tv_sec;
+	ss >> str;
+	text = Label::createWithSystemFont( str, "consolas", 48);
+	text -> setPosition( Point( visibleSize.width / 2, visibleSize.height / 2));
+	this -> addChild( text);
+//	text -> setVisible( true);
+
 	static auto frame = 0;
 	frame++;
 	auto f = frame % 180;
