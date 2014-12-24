@@ -6,6 +6,7 @@
 #include "C++/Scene/TestScene.h"
 #endif
 
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate()

@@ -30,6 +30,30 @@ void initPlayer( std::string fileName)
 
 #endif
 
+USING_NS_CC;
+
+
+デバッグモード時専用処理記述方法
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+  #ifdef DEBUG
+	
+  #else
+	
+  #endif
+
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#else
+
+  #ifdef _DEBUG
+	
+  #else
+	
+  #endif
+
+#endif
+
 
 変数名
 	先頭小文字　+　単語の先頭大文字

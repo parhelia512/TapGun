@@ -48,6 +48,12 @@
     <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
       <Filter>source\C++\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp">
+      <Filter>source\C++\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Wrapper.cpp">
+      <Filter>source\C++\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -58,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
       <Filter>source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Errorfunc.h">
+      <Filter>source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Wrapper.h">
+      <Filter>source\C++\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,5 +84,10 @@
     <None Include="..\Classes\Shader\test.vsh">
       <Filter>source\Shader</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Classes\Template.txt">
+      <Filter>source</Filter>
+    </Text>
   </ItemGroup>
 </Project>
