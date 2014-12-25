@@ -1,13 +1,22 @@
+
 #include "AppDelegate.h"
+#include "Define.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
 #include "TestScene.h"
+
 #else
+
 #include "C++/Scene/TestScene.h"
+
 #endif
 
-
 USING_NS_CC;
+using namespace TapGun;
+
+cocos2d::Size SystemValue::windowSize;
+cocos2d::Vec2 SystemValue::origin;
 
 AppDelegate::AppDelegate()
 {
@@ -40,7 +49,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	auto scene = TapGun::Test::createScene();
 	director -> runWithScene( scene);
-
+	
 	return true;
 }
 

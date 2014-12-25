@@ -71,6 +71,9 @@
     <ClInclude Include="..\Classes\C++\System\Wrapper.h">
       <Filter>source\C++\System</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Define.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

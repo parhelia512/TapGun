@@ -148,6 +148,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\C++\Scene\TestScene.h" />
     <ClInclude Include="..\Classes\C++\System\Errorfunc.h" />
     <ClInclude Include="..\Classes\C++\System\Wrapper.h" />
+    <ClInclude Include="..\Classes\Define.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

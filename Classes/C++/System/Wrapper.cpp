@@ -21,7 +21,7 @@ using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
-
+/*
 cocos2d::Sprite* Wrapper::load2DObject( std::string fileName)
 {
 
@@ -117,3 +117,4 @@ int Wrapper::releaseSound( std::string fileName)
 }
 
 
+*/

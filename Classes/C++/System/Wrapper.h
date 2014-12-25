@@ -10,7 +10,8 @@ namespace TapGun
 class Wrapper 
 {
 public:
-	enum Flag {
+	enum Flag 
+	{
 		_TRUE = 1,
 		_FALSE = 0,
 	};

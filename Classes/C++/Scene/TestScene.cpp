@@ -2,6 +2,8 @@
 #include <sstream>
 #include "TestScene.h"
 #include "SimpleAudioEngine.h"
+#include "Define.h"
+#include "C++/System/Errorfunc.h"
 
 USING_NS_CC;
 using namespace std;
@@ -27,8 +29,8 @@ bool Test::init()
 		return false;
 	}
 
-	visibleSize = Director::getInstance() -> getVisibleSize();
-	Vec2 origin = Director::getInstance() -> getVisibleOrigin();
+	SystemValue::windowSize = Director::getInstance() -> getVisibleSize();
+	SystemValue::origin = Director::getInstance() -> getVisibleOrigin();
 
 	SimpleAudioEngine::getInstance() -> preloadBackgroundMusic( "Sound/BGM/test.wav");
 	SimpleAudioEngine::getInstance() -> setBackgroundMusicVolume( 0.001f);
@@ -49,19 +51,26 @@ bool Test::init()
 										   CC_CALLBACK_1(Test::menuCloseCallback, this));
 	fileName = "Graph/Models/test.c3b";
 #endif
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-								origin.y + closeItem->getContentSize().height/2));
+	closeItem->setPosition(Vec2( SystemValue::origin.x + SystemValue::windowSize.width - closeItem->getContentSize().width/2 ,
+								SystemValue::origin.y + closeItem->getContentSize().height/2));
 	auto menu = Menu::create(closeItem, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 	
 	auto label = LabelTTF::create("Hello World", "Arial", 24);
-	label->setPosition(Vec2(origin.x + visibleSize.width/2,
-							origin.y + visibleSize.height - label->getContentSize().height));
+	label->setPosition(Vec2(SystemValue::origin.x + SystemValue::windowSize.width/2,
+							SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 	
-	auto _bg = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
+	auto _bg = LayerColor::create(Color4B::BLACK, SystemValue::windowSize.width, SystemValue::windowSize.height);
 	this->addChild(_bg);
+
+	for( int i = 0; i < 5; i++)
+	{
+		Errorfunc::getInstance() -> SET_MESSAGE( "test");
+	}
+
+	Errorfunc::getInstance() -> drawMessage( this);
 //
 //#define COUNT 1
 //	Sprite3D *sprite3D[COUNT];
@@ -69,7 +78,7 @@ bool Test::init()
 //	{
 //		sprite3D[i] = Sprite3D::create( "map.c3b");
 //		sprite3D[i] -> setTexture( "stage_tex.png");
-//		sprite3D[i] -> setPosition3D( Vec3( visibleSize.width / 2, -visibleSize.height / 8, 0.0f));
+//		sprite3D[i] -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, -SystemValue::windowSize.height / 8, 0.0f));
 //		sprite3D[i] -> setScale( 40.0f);
 //		addChild( sprite3D[i]);
 //	}
@@ -83,23 +92,23 @@ bool Test::init()
 		sprite3d[i] -> setTexture( "Graph/Textures/box_tex.png");
 #endif
 		sprite3d[i] -> setScale( 250.0f);
-		sprite3d[i] -> setPosition3D( Vec3( visibleSize.width / 2, visibleSize.height / 2, 0));
+		sprite3d[i] -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
 		auto animation = Animation3D::create( fileName);
 		animate[i] = Animate3D::create( animation);
 //		if( i == 0)
 //		{
-//			sprite3d[0] -> setPosition3D( Vec3( visibleSize.width / 4, visibleSize.height / 4, 0.0f));
+//			sprite3d[0] -> setPosition3D( Vec3( SystemValue::windowSize.width / 4, SystemValue::windowSize.height / 4, 0.0f));
 //			animate[0] = Animate3D::create( animation, 0, 0.016 * 44);
 //			animate[0] -> setSpeed(1);
 //		}
 //		if( i == 1)
 //		{
-//			sprite3d[1] -> setPosition3D( Vec3( visibleSize.width / 4 * 3, visibleSize.height / 4, 0.0f));
+//			sprite3d[1] -> setPosition3D( Vec3( SystemValue::windowSize.width / 4 * 3, SystemValue::windowSize.height / 4, 0.0f));
 //			animate[1] = Animate3D::create( animation, 0.016 * 45, 0.016 * 60);
 //			animate[1] -> setSpeed(1);
 //		}
-		sprite3d[i] -> runAction( RepeatForever::create( animate[i]));
-		addChild( sprite3d[i]);
+//		sprite3d[i] -> runAction( RepeatForever::create( animate[i]));
+//		addChild( sprite3d[i]);
 	}
 	/*
 	auto shader = new GLProgram();
@@ -110,16 +119,16 @@ bool Test::init()
 	shader -> link();
 	shader -> updateUniforms();
 	shader -> setUniformLocationWith1i( shader -> getUniformLocationForName( "u_mosaicLevel"), 10);
-	shader -> setUniformLocationWith2f( shader -> getUniformLocationForName( "u_texSize"), visibleSize.width / 4, visibleSize.height / 3);
+	shader -> setUniformLocationWith2f( shader -> getUniformLocationForName( "u_texSize"), SystemValue::windowSize.width / 4, SystemValue::windowSize.height / 3);
 	sprite3d -> setShaderProgram( shader);
 	*/
 
 //	auto sprite = Sprite::create( "nikotyan.png");
-//	sprite -> setPosition( visibleSize.width / 2, visibleSize.height / 2);
+//	sprite -> setPosition( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2);
 //	addChild( sprite);
 	
 	
-	text -> setPosition( Point( visibleSize.width / 2, visibleSize.height / 2));
+	text -> setPosition( Point( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2));
 	this -> addChild( text);
 
 	this -> scheduleUpdate();
@@ -145,7 +154,7 @@ void Test::update( float delta)
 	ss << tv.tv_sec;
 	ss >> str;
 	text = Label::createWithSystemFont( str, "consolas", 48);
-	text -> setPosition( Point( visibleSize.width / 2, visibleSize.height / 2));
+	text -> setPosition( Point( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2));
 	this -> addChild( text);
 //	text -> setVisible( true);
 
@@ -154,7 +163,7 @@ void Test::update( float delta)
 	auto f = frame % 180;
 //	sprite3d[0] -> setRotation3D( Vec3( f, 0.0f, 0.0f));
 	auto p = frame % 20;
-	sprite3d[0] -> setPosition3D( Vec3( visibleSize.width / 2, visibleSize.height / 2, 0));
+//	sprite3d[0] -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
 //	sprite3d[0] -> setPosition3D( Vec3( 0, 0, 0));
 }
 
