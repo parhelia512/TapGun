@@ -4,9 +4,11 @@
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
+#include "Errorfunc.h"
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
+#include "C++/System/Errorfunc.h"
 
 #else
 
@@ -39,6 +41,7 @@ void Errorfunc::drawMessage( Layer* layer)
 {
 	int size = errorList.size();
 	string str;
+	
 	if( size == 0) return;
 	auto bg = LayerColor::create( Color4B::BLACK, SystemValue::windowSize.width, SystemValue::windowSize.height);
 	layer -> addChild( bg, SystemValue::ERROR_MESSAGE);
@@ -47,24 +50,23 @@ void Errorfunc::drawMessage( Layer* layer)
 		size_t pos1;
 		string fileName;
 		string filePass = errorList[i].fileName;
-#if ( (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID))
-		pos1 = filePass.rfind('/');
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+		pos1 = filePass.rfind('\\');
 		if( pos1 != string::npos)
 		{
 			fileName = filePass.substr( pos1 + 1, filePass.size() - pos1 - 1);
 		}
 #else
-		pos1 = filePass.rfind('\\');
+		pos1 = filePass.rfind('/');
 		if( pos1 != string::npos)
 		{
 			fileName = filePass.substr( pos1 + 1, filePass.size() - pos1 - 1);
 		}
 #endif
 		str = "Error! / " + fileName + " / " + errorList[i].functionName + " / "
-			+ std::to_string( errorList[i].lineNumber) + " / " + errorList[i].errorMessage;
+			+ errorList[i].errorMessage;
 		auto message = Label::create( str, "Arial", 20);
-		message -> setPosition( Point( message -> getContentSize().width / 2 + 10, SystemValue::windowSize.height - 
-										message -> getContentSize().height - (message -> getContentSize().height * i)));
+		message -> setPosition( Point( message -> getContentSize().width / 2 + 10, SystemValue::windowSize.height - message -> getContentSize().height - (message -> getContentSize().height * i)));
 		layer -> addChild( message, SystemValue::ERROR_MESSAGE);
 	}
 }

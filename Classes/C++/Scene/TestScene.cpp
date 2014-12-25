@@ -3,7 +3,20 @@
 #include "TestScene.h"
 #include "SimpleAudioEngine.h"
 #include "Define.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+#include "Errorfunc.h"
+
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+
 #include "C++/System/Errorfunc.h"
+
+#else
+
+#include "C++/System/Errorfunc.h"
+
+#endif
 
 USING_NS_CC;
 using namespace std;
