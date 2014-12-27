@@ -7,35 +7,8 @@
     <Filter Include="resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source">
+    <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\C++">
-      <UniqueIdentifier>{4d5e5fb3-0359-4131-8cdd-aaf2d52da097}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\Java">
-      <UniqueIdentifier>{727fde77-9fc2-464c-8303-6142124242a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\Objective-C">
-      <UniqueIdentifier>{74bdaf51-1834-4ca6-9793-cf9ea2c5ebea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\Shader">
-      <UniqueIdentifier>{6ade2538-e515-49ca-97d3-88e85a15f394}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\C++\Base">
-      <UniqueIdentifier>{a26fa795-dd07-4c23-a786-98c3dfb49a1f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\C++\Object">
-      <UniqueIdentifier>{8620d5fd-8956-4e89-8267-9ac06b4c375f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\C++\Scene">
-      <UniqueIdentifier>{ee2541cd-43d9-4737-94b9-39f36c351ad0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\C++\Stage">
-      <UniqueIdentifier>{efcf47bd-2ac1-4d89-b4dc-4323b111e25e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\C++\System">
-      <UniqueIdentifier>{620e6018-3650-4230-819b-0989f50711fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,16 +16,10 @@
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
-      <Filter>source\C++\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp">
-      <Filter>source\C++\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Wrapper.cpp">
-      <Filter>source\C++\System</Filter>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,37 +27,15 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
-      <Filter>source\C++\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Errorfunc.h">
-      <Filter>source\C++\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Wrapper.h">
-      <Filter>source\C++\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Define.h">
-      <Filter>source</Filter>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Classes\Shader\test.fsh">
-      <Filter>source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\test.vsh">
-      <Filter>source\Shader</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\Classes\Template.txt">
-      <Filter>source</Filter>
-    </Text>
   </ItemGroup>
 </Project>

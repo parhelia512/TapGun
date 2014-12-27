@@ -24,6 +24,8 @@ using namespace TapGun;
 using namespace CocosDenshion;
 
 double Test::frame;
+LayerColor* bg;
+Sprite* ty;
 std::string str = "";
 auto text = Label::createWithSystemFont( str, "consolas", 48);
 
@@ -62,7 +64,7 @@ bool Test::init()
 										   "Graph/Pictures/CloseNormal.png",
 										   "Graph/Pictures/CloseSelected.png",
 										   CC_CALLBACK_1(Test::menuCloseCallback, this));
-	fileName = "Graph/Models/test.c3b";
+	fileName = "Graph/Models/Food.c3t";
 #endif
 	closeItem->setPosition(Vec2( SystemValue::origin.x + SystemValue::windowSize.width - closeItem->getContentSize().width/2 ,
 								SystemValue::origin.y + closeItem->getContentSize().height/2));
@@ -75,8 +77,13 @@ bool Test::init()
 							SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
 	this->addChild(label, 1);
 	
-	auto _bg = LayerColor::create(Color4B::BLACK, SystemValue::windowSize.width, SystemValue::windowSize.height);
-	this->addChild(_bg);
+	/*ty = Sprite::create( "Graph/Pictures/ty.png");
+	ty -> setPosition( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2);
+	ty -> setOpacity( 0);
+	this -> addChild( ty, 5);
+	bg = LayerColor::create( Color4B::WHITE, SystemValue::windowSize.width, SystemValue::windowSize.height);
+	bg -> setOpacity( 0);
+	this -> addChild( bg, 0);*/
 
 	for( int i = 0; i < 5; i++)
 	{
@@ -102,12 +109,14 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		sprite3d[i] -> setTexture( "box_tex.png");
 #else
-		sprite3d[i] -> setTexture( "Graph/Textures/box_tex.png");
+		sprite3d[i] -> setTexture( "Graph/Textures/hemp-cloth-05.jpg");
 #endif
 		sprite3d[i] -> setScale( 250.0f);
-		sprite3d[i] -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
+		sprite3d[i] -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
+		
 		auto animation = Animation3D::create( fileName);
 		animate[i] = Animate3D::create( animation);
+
 //		if( i == 0)
 //		{
 //			sprite3d[0] -> setPosition3D( Vec3( SystemValue::windowSize.width / 4, SystemValue::windowSize.height / 4, 0.0f));
@@ -120,7 +129,7 @@ bool Test::init()
 //			animate[1] = Animate3D::create( animation, 0.016 * 45, 0.016 * 60);
 //			animate[1] -> setSpeed(1);
 //		}
-//		sprite3d[i] -> runAction( RepeatForever::create( animate[i]));
+		sprite3d[i] -> runAction( RepeatForever::create( animate[i]));
 //		addChild( sprite3d[i]);
 	}
 	/*
@@ -141,8 +150,8 @@ bool Test::init()
 //	addChild( sprite);
 	
 	
-	text -> setPosition( Point( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2));
-	this -> addChild( text);
+//	text -> setPosition( Point( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2));
+//	this -> addChild( text);
 
 	this -> scheduleUpdate();
 	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
@@ -160,22 +169,48 @@ void Test::update( float delta)
 	auto time = director -> getDeltaTime();
 	
 //	text -> setVisible( false);
-	text -> removeFromParentAndCleanup( true);
-	stringstream ss;
-	timeval tv;
-	gettimeofday( &tv, nullptr);
-	ss << tv.tv_sec;
-	ss >> str;
-	text = Label::createWithSystemFont( str, "consolas", 48);
-	text -> setPosition( Point( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2));
-	this -> addChild( text);
+//	text -> removeFromParentAndCleanup( true);
+	//stringstream ss;
+	//timeval tv;
+	//gettimeofday( &tv, nullptr);
+	//ss << tv.tv_sec;
+	//ss >> str;
+	//text = Label::createWithSystemFont( str, "consolas", 48);
+	//text -> setPosition( Point( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2));
+//	this -> addChild( text);
 //	text -> setVisible( true);
-
+		
 	static auto frame = 0;
 	frame++;
-	auto f = frame % 180;
-//	sprite3d[0] -> setRotation3D( Vec3( f, 0.0f, 0.0f));
+	auto f = frame % 360;
+//	sprite3d[0] -> setRotation3D( Vec3( 0.0f, 90.0f, 270.0f));
 	auto p = frame % 20;
+	//if( frame < 256)
+	//{
+	//	if( frame < 128)
+	//	{
+	//		bg -> setOpacity( frame * 2);
+	//	}
+	//	else if( frame < 128 + 64)
+	//	{
+	//		ty -> setOpacity( frame * 4);
+	//	}
+	//}
+	//else if( frame < 512 - 128)
+	//{
+	//	static auto a = 255;
+	//	if( a > 0)
+	//	{
+	//		ty -> setOpacity( a);
+	//	}
+	//	if( a < 32)
+	//	{
+	//		static auto a = 255;
+	//		bg -> setOpacity( a);
+	//		a -= 12;
+	//	}
+	//	a -= 2;
+	//}
 //	sprite3d[0] -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
 //	sprite3d[0] -> setPosition3D( Vec3( 0, 0, 0));
 }

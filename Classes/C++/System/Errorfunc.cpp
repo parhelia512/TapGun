@@ -20,6 +20,13 @@ USING_NS_CC;
 using namespace std;
 using namespace TapGun;
 
+template<class T> string valueToString( T value)
+{
+	ostringstream os ;
+	os << value ;
+	return os.str();
+}
+
 Errorfunc* Errorfunc::getInstance( void)
 {
 	static Errorfunc* P;
@@ -64,7 +71,7 @@ void Errorfunc::drawMessage( Layer* layer)
 		}
 #endif
 		str = "Error! / " + fileName + " / " + errorList[i].functionName + " / "
-			+ errorList[i].errorMessage;
+			+ valueToString( errorList[i].lineNumber) + " / " + errorList[i].errorMessage;
 		auto message = Label::create( str, "Arial", 20);
 		message -> setPosition( Point( message -> getContentSize().width / 2 + 10, SystemValue::windowSize.height - message -> getContentSize().height - (message -> getContentSize().height * i)));
 		layer -> addChild( message, SystemValue::ERROR_MESSAGE);
