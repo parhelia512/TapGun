@@ -64,7 +64,7 @@ bool Test::init()
 										   "Graph/Pictures/CloseNormal.png",
 										   "Graph/Pictures/CloseSelected.png",
 										   CC_CALLBACK_1(Test::menuCloseCallback, this));
-	fileName = "Graph/Models/Food.c3t";
+	fileName = "Graph/Models/runPlayer.c3t";
 #endif
 	closeItem->setPosition(Vec2( SystemValue::origin.x + SystemValue::windowSize.width - closeItem->getContentSize().width/2 ,
 								SystemValue::origin.y + closeItem->getContentSize().height/2));
@@ -90,7 +90,7 @@ bool Test::init()
 		Errorfunc::getInstance() -> SET_MESSAGE( "test");
 	}
 
-	Errorfunc::getInstance() -> drawMessage( this);
+//	Errorfunc::getInstance() -> drawMessage( this);
 //
 //#define COUNT 1
 //	Sprite3D *sprite3D[COUNT];
@@ -102,18 +102,25 @@ bool Test::init()
 //		sprite3D[i] -> setScale( 40.0f);
 //		addChild( sprite3D[i]);
 //	}
-
 	for( int i = 0; i < 1; i++)
 	{
 		sprite3d[i] = Sprite3D::create( fileName);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		sprite3d[i] -> setTexture( "box_tex.png");
 #else
-		sprite3d[i] -> setTexture( "Graph/Textures/hemp-cloth-05.jpg");
+		sprite3d[i] -> setTexture( "Graph/Textures/test.png");
 #endif
 		sprite3d[i] -> setScale( 250.0f);
 		sprite3d[i] -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
+//		sprite3d[i] -> setRotation3D( Vec3( 0.0f, 90.0f, 270.0f));
+//		sprite3d[i] -> setRotation3D( Vec3( 0.0f, 45.0f, 0.0f));
 		
+		auto sp = Sprite3D::create( "Graph/Models/gun.c3t");	
+		sp -> setTexture( "Graph/Textures/box_head_tex.png");
+//		sp -> setScale( 250.0f);
+		sp -> setRotation3D( Vec3( -39.134f, 5.346f, -70.672f));	
+//		this -> addChild( sp);
+		sprite3d[i] -> getAttachNode( "Bip001 R Hand") -> addChild(sp);
 		auto animation = Animation3D::create( fileName);
 		animate[i] = Animate3D::create( animation);
 
@@ -130,7 +137,8 @@ bool Test::init()
 //			animate[1] -> setSpeed(1);
 //		}
 		sprite3d[i] -> runAction( RepeatForever::create( animate[i]));
-//		addChild( sprite3d[i]);
+		addChild( sprite3d[i]);
+		
 	}
 	/*
 	auto shader = new GLProgram();

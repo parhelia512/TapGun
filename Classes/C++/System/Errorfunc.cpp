@@ -76,6 +76,7 @@ void Errorfunc::drawMessage( Layer* layer)
 		message -> setPosition( Point( message -> getContentSize().width / 2 + 10, SystemValue::windowSize.height - message -> getContentSize().height - (message -> getContentSize().height * i)));
 		layer -> addChild( message, SystemValue::ERROR_MESSAGE);
 	}
+	releaseMessage();
 }
 
 void Errorfunc::releaseMessage( void)
