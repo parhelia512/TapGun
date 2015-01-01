@@ -54,6 +54,9 @@
     <ClCompile Include="..\Classes\C++\System\Wrapper.cpp">
       <Filter>Source\C++\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Script.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -69,6 +72,9 @@
       <Filter>Source\C++\System</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\System\Wrapper.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Script.h">
       <Filter>Source\C++\System</Filter>
     </ClInclude>
   </ItemGroup>
