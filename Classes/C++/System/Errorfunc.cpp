@@ -6,10 +6,6 @@
 
 #include "Errorfunc.h"
 
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-
-#include "C++/System/Errorfunc.h"
-
 #else
 
 #include "C++/System/Errorfunc.h"

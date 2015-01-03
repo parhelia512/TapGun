@@ -20,12 +20,6 @@ public:
 	Wrapper& operator= ( const Wrapper &P) = delete;
 	static Wrapper* getInstance( void);
 
-	int loadSound( const std::string& fileName);
-	int playSound( const std::string& fileName);
-	int playSoundLoop( const std::string& fileName);
-	int stopSound( const std::string& fileName);
-	int releaseSound( const std::string& fileName);
-
 private:
 	Wrapper() {}
 

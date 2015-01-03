@@ -7,14 +7,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "Errorfunc.h"
-
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-
-#include "C++/System/Errorfunc.h"
+#include "Sound.h"
 
 #else
 
 #include "C++/System/Errorfunc.h"
+#include "C++/System/Sound.h"
 
 #endif
 
@@ -43,18 +41,19 @@ bool Test::init()
 	}
 	setCocos();
 
+
 	auto test = Sprite3D::create( "Player_test", "test.png");
 	test -> startAnimationLoop("Test");
 	test -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
 	test -> setScale( 250.0f);
 	this -> addChild(test);
 	
+	this -> scheduleUpdate();
 	return true;
 }
 
 void Test::update( float delta)
 {
-	// this -> scheduleUpdate();
 }
 
 void Test::moveTime( float delta)
