@@ -7,30 +7,34 @@
 namespace TapGun
 {
 
+struct ErrorData;
 class Errorfunc
 {
 public:
-	#define SET_MESSAGE( string) setMessage( __LINE__, __FILE__, __FUNCTION__, string)
+#define SET_MESSAGE( str) Errorfunc::getInstance() -> setMessage( __LINE__, __FILE__, __FUNCTION__, str)
+
+	Errorfunc( const Errorfunc &P) = delete;
+	Errorfunc& operator= ( const Errorfunc &P) = delete;
 	static Errorfunc* getInstance( void);
+
 	void setMessage( int lineNumber, std::string fileName, std::string functionName, std::string errorMessage);
 	void drawMessage( cocos2d::Layer* layer);
 	void releaseMessage( void);
 	
-	Errorfunc( const Errorfunc &P) = delete;
-	Errorfunc& operator= ( const Errorfunc &P) = delete;
-
 private:
-	struct ErrorData
-	{
-		int lineNumber;
-		std::string fileName;
-		std::string functionName;
-		std::string errorMessage;
-	};
+	std::vector<ErrorData*> errorList;
+
 	Errorfunc() {}
-	std::vector<ErrorData> errorList;
+
 };
 
+struct ErrorData
+{
+	int lineNumber;
+	std::string fileName;
+	std::string functionName;
+	std::string errorMessage;
+};
 
 
 }

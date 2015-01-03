@@ -10,15 +10,23 @@ namespace TapGun
 class Script 
 {
 public:
-	int loadSctiptFile( const std::string& fileName);
+	Script();
+	Script( const Script& p) = delete;	
+	Script& operator=( const Script& P) = delete;
+	~Script();
+	int loadScriptFile( const std::string& fileName);
 	int loadCommand( int index);
+
 private:
-	struct commandSet {
+	struct commandSet 
+	{
 		std::string name;
 		void* data;
 	};
-	std::vector<commandSet> scriptList;
+
 	std::ifstream file;
+	std::vector<commandSet> scriptList;
+
 };
 
 }

@@ -150,6 +150,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\C++\System\Errorfunc.h" />
     <ClInclude Include="..\Classes\C++\System\Script.h" />
     <ClInclude Include="..\Classes\C++\System\Wrapper.h" />
+    <ClInclude Include="..\Classes\Define.h" />
+    <ClInclude Include="..\Classes\Test.txt" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +172,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <None Include="..\Classes\Shader\test.fsh" />
     <None Include="..\Classes\Shader\test.vsh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Classes\Template.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -77,6 +77,12 @@
     <ClInclude Include="..\Classes\C++\System\Script.h">
       <Filter>Source\C++\System</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Define.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Test.txt">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -90,5 +96,10 @@
     <None Include="..\Classes\Shader\test.vsh">
       <Filter>Source\Shader</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Classes\Template.txt">
+      <Filter>Source</Filter>
+    </Text>
   </ItemGroup>
 </Project>

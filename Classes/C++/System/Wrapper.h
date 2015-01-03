@@ -15,25 +15,19 @@ public:
 		True = 1,
 		False = 0,
 	};
-	cocos2d::Sprite* load2DObject( const std::string& fileName);
-	cocos2d::Sprite* load2DObjectFrame( const std::string& fileName);
-	cocos2d::Sprite3D* load3DObject( const std::string& fileName);
-	int start3DObjectAnime( cocos2d::Sprite3D* sprite3D, int animeNumber);
-	int start3DObjectAnime( cocos2d::Sprite3D* sprite3D, const std::string& animeName);
-	int start3DObjectAnime( cocos2d::Sprite3D* sprite3D, int animeNumber, Flag loopFlag);
-	int start3DObjectAnime( cocos2d::Sprite3D* sprite3D, const std::string& animeName, Flag loopFlag);
-	int stop3DObjectAnime( cocos2d::Sprite3D* sprite3D);
-	int get3DObjectAnimeState( cocos2d::Sprite3D* sprite3D);
-	int release2DObject( cocos2d::Sprite* sprite);
-	int release3DObject( cocos2d::Sprite3D* sprite3D);
+
+	Wrapper( const Wrapper &P) = delete;
+	Wrapper& operator= ( const Wrapper &P) = delete;
+	static Wrapper* getInstance( void);
 
 	int loadSound( const std::string& fileName);
 	int playSound( const std::string& fileName);
-	int playSound( const std::string& fileName, Flag loopFlag);
+	int playSoundLoop( const std::string& fileName);
 	int stopSound( const std::string& fileName);
 	int releaseSound( const std::string& fileName);
 
 private:
+	Wrapper() {}
 
 };
 

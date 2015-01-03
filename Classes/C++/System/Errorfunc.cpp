@@ -20,6 +20,14 @@ USING_NS_CC;
 using namespace std;
 using namespace TapGun;
 
+/**
+ *	数値を文字列へ変換
+ *
+ *	@author	minaka
+ *	@param	value 変換元となるデータ
+ *	@return	変換した文字列
+ *	@date	12/28 Ver 1.0
+ */
 template<class T> string valueToString( T value)
 {
 	ostringstream os ;
@@ -27,6 +35,13 @@ template<class T> string valueToString( T value)
 	return os.str();
 }
 
+/**
+ *	エラー処理クラスのインスタンスを取得
+ *
+ *	@author	minaka
+ *	@return	作成済みのインスタンスへのポインタ
+ *	@date	12/28 Ver 1.0
+ */
 Errorfunc* Errorfunc::getInstance( void)
 {
 	static Errorfunc* P;
@@ -34,16 +49,33 @@ Errorfunc* Errorfunc::getInstance( void)
 	return P;
 }
 
+/**
+ *	エラー情報を設定
+ *
+ *	@author	minaka
+ *	@param	lineNumber	 呼び出し先行番号
+ *	@param	fileName	 呼び出し先ファイル名
+ *	@param	functionName 呼び出し先関数名
+ *	@param	errorMessage 表示したい文字列
+ *	@date	12/28 Ver 1.0
+ */
 void Errorfunc::setMessage( int lineNumber, string fileName, string functionName, string errorMessage)
 {
-	ErrorData data;
-	data.lineNumber		= lineNumber;
-	data.fileName		= fileName;
-	data.functionName	= functionName;
-	data.errorMessage	= errorMessage;
+	ErrorData* data			= new ErrorData;
+	data -> lineNumber		= lineNumber;
+	data -> fileName		= fileName;
+	data -> functionName	= functionName;
+	data -> errorMessage	= errorMessage;
 	errorList.push_back( data);
 }
 
+/**
+ *	エラー情報を表示
+ *
+ *	@author	minaka
+ *	@param	layer 表示するレイヤーへのポインタ
+ *	@date	12/28 Ver 1.0
+ */
 void Errorfunc::drawMessage( Layer* layer)
 {
 	int size = errorList.size();
@@ -56,7 +88,7 @@ void Errorfunc::drawMessage( Layer* layer)
 	{
 		size_t pos1;
 		string fileName;
-		string filePass = errorList[i].fileName;
+		string filePass = errorList[i] -> fileName;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		pos1 = filePass.rfind('\\');
 		if( pos1 != string::npos)
@@ -70,8 +102,8 @@ void Errorfunc::drawMessage( Layer* layer)
 			fileName = filePass.substr( pos1 + 1, filePass.size() - pos1 - 1);
 		}
 #endif
-		str = "Error! / " + fileName + " / " + errorList[i].functionName + " / "
-			+ valueToString( errorList[i].lineNumber) + " / " + errorList[i].errorMessage;
+		str = "Error! / " + fileName + " / " + errorList[i] -> functionName + " / "
+			+ valueToString( errorList[i] -> lineNumber) + " / " + errorList[i] -> errorMessage;
 		auto message = Label::create( str, "Arial", 20);
 		message -> setPosition( Point( message -> getContentSize().width / 2 + 10, SystemValue::windowSize.height - message -> getContentSize().height - (message -> getContentSize().height * i)));
 		layer -> addChild( message, SystemValue::ERROR_MESSAGE);
@@ -79,7 +111,13 @@ void Errorfunc::drawMessage( Layer* layer)
 	releaseMessage();
 }
 
+/**
+ *	エラー処理で使用したメモリの開放
+ *
+ *	@author	minaka
+ *	@date	12/28 Ver 1.0
+ */
 void Errorfunc::releaseMessage( void)
 {
-
+	vector<ErrorData*>().swap(errorList);
 }

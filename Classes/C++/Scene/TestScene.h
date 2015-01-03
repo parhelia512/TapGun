@@ -23,6 +23,7 @@ public:
 	void update( float delta);
 	void moveTime( float delta);	
 	void menuCloseCallback(cocos2d::Ref* pSender);
+	void setCocos( void);
 
 	CREATE_FUNC(Test);
 };
