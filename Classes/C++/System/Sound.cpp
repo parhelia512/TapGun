@@ -45,7 +45,7 @@ int Sound::loadBGM( const string& fileName, float Volume)
 int Sound::playBGM( void)
 {
 	string str = Sound::getInstance() -> bgmFileName;
-	if( str.length() != NULL)
+	if( str.length() != NULL && !Sound::getInstance() -> playCheckBGM())
 	{
 		SimpleAudioEngine::getInstance() -> playBackgroundMusic( str.c_str(), false);
 		return 0;

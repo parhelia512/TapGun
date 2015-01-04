@@ -41,7 +41,6 @@ bool Test::init()
 	}
 	setCocos();
 
-
 	auto test = Sprite3D::create( "Player_test", "test.png");
 	test -> startAnimationLoop("Test");
 	test -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
