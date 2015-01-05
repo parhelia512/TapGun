@@ -38,7 +38,6 @@
 #include "3d/CCBundle3DData.h"
 #include "3d/CCMeshVertexIndexData.h"
 
-
 NS_CC_BEGIN
 
 class Mesh;
@@ -47,6 +46,7 @@ class MeshSkin;
 class AttachNode;
 class Animate3D;
 class Animation3D;
+enum ResouceType;
 struct NodeData;
 struct ModelAnimeData;
 /** Sprite3D: A sprite can be loaded from 3D model files, .obj, .c3t, .c3b, then can be drawed as sprite */
@@ -54,18 +54,14 @@ class CC_DLL Sprite3D : public Node, public BlendProtocol
 {
 public:
 	/** creates a Sprite3D*/
-	static Sprite3D* create(const std::string &modelPath);
-  
-	// creates a Sprite3D. It only supports one texture, and overrides the internal texture with 'texturePath'
-	static Sprite3D* create(const std::string &modelPath, const std::string &texturePath);
-	
-	static Sprite3D* Sprite3D::_create(const std::string &modelPath);
-	static Sprite3D* Sprite3D::_create(const std::string &modelPath, const std::string &texturePath);
+	static Sprite3D* create( const std::string &firstPath);
+	static Sprite3D* create( const std::string &firstPath, const std::string &secondPath);
+	static Sprite3D* create( const std::string &firstPath, const std::string &secondPath, const std::string &thirdPath);
 
-	int startAnimation( std::string animeName);
-	int startAnimationLoop( std::string animeName);
+	int startAnimation( const std::string &animeName);
+	int startAnimationLoop( const std::string &animeName);
 
-	int stopAnimation( std::string animeName);
+	int stopAnimation( const std::string &animeName);
 	int stopALLAnimation( void);
 
 	int setAnimationSpeed( float speed);
@@ -194,9 +190,20 @@ protected:
 	
 	Animation3D*                 animation;
 	Animate3D*                   animate;
-	std::vector<ModelAnimeData*> modelDataList;
-	int load3DModelData( const std::string &fileName);
+	static std::vector<ModelAnimeData*> modelDataList;
+	static std::string getResourcePath( ResouceType type);
+	static ResouceType checkResourcePath( const std::string& filePath);
+	static int load3DModelAnimeData( const std::string &fileName);
+	static int load3DModelTextureData( const std::string &fileName);
+};
 
+enum ResouceType
+{
+	Model,
+	Anime,
+	Texture,
+	Picture,
+	Num,
 };
 
 struct ModelAnimeData

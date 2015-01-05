@@ -49,160 +49,307 @@
 
 NS_CC_BEGIN
 
+std::vector<ModelAnimeData*> Sprite3D::modelDataList;
 std::string s_attributeNames[] = {GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::ATTRIBUTE_NAME_TEX_COORD1, GLProgram::ATTRIBUTE_NAME_TEX_COORD2,GLProgram::ATTRIBUTE_NAME_TEX_COORD3,GLProgram::ATTRIBUTE_NAME_NORMAL, GLProgram::ATTRIBUTE_NAME_BLEND_WEIGHT, GLProgram::ATTRIBUTE_NAME_BLEND_INDEX};
 
 /**
  *	3Dスプライトの作成	
  *
  *	@author	minaka
- *	@param	modelPath モデルデータへのパス
+ *	@param	firstPath リソースファイル名
  *	@return	作成したスプライトへのポインタ
  *	@date	1/3	Ver 1.0
  */
-Sprite3D* Sprite3D::create(const std::string &modelPath)
+Sprite3D* Sprite3D::create(const std::string &firstPath)
 {
-	if (modelPath.length() < 4)
+	if (firstPath.length() < 4)
 		CCASSERT(false, "improper name specified when creating Sprite3D");
+	if( firstPath.find( '.', firstPath.size()) != std::string::npos) return nullptr;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
   #ifdef DEBUG
-	std::string filePath = modelPath + ".c3t";
+	std::string filePath = firstPath + ".c3t";
   #else
-	std::string filePath = modelPath + ".c3b";
+	std::string filePath = firstPath + ".c3b";
   #endif
 #else
   #ifdef _DEBUG
-	std::string filePath = "Graph/Models/" + modelPath + ".c3t";
+	std::string filePath = "Graph/Models/" + firstPath + ".c3t";
   #else
-	std::string filePath = "Graph/Models/" + modelPath + ".c3b";
+	std::string filePath = "Graph/Models/" + firstPath + ".c3b";
   #endif
 #endif
 	auto sprite = new (std::nothrow) Sprite3D();
-
 	if (sprite && sprite->initWithFile(filePath))
 	{
 		sprite->_contentSize = sprite->getBoundingBox().size;
 		sprite->autorelease();
-		sprite -> animation = Animation3D::create(filePath);
-		if (sprite->load3DModelData(modelPath))
-		{
-			return nullptr;
-		}
 		return sprite;
 	}
 	CC_SAFE_DELETE(sprite);
 	return nullptr;
+}
+
+// static Sprite3D* create( const std::string &firstPath, const std::string &secondPath, const std::string &thirdPath);
+
+/**
+ *	3Dスプライトの作成	
+ *
+ *	@author	minaka
+ *	@param	firstPath リソースファイル名
+ *	@param	secondPath リソースファイル名
+ *	@return	作成したスプライトへのポインタ
+ *	@date	1/3	Ver 1.0
+ */
+Sprite3D* Sprite3D::create( const std::string &firstPath, const std::string &secondPath)
+{
+	const int num = 2;
+	bool Flag[ResouceType::Num] = { false };
+	std::string filePath;
+	std::string str[num] = { firstPath, secondPath };
+	auto sprite = new (std::nothrow) Sprite3D();
+	for( int i = 0; i < num; i++)
+	{
+		if (str[i].length() < 4)
+			CCASSERT(false, "improper name specified when creating Sprite3D");
+		switch( checkResourcePath(str[i]))
+		{
+		case ResouceType::Model:
+			if( Flag[ResouceType::Model] == false)
+			{
+				filePath = getResourcePath( ResouceType::Model);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+  #ifdef DEBUG
+				filePath = filePath + str[i] + ".c3t";
+  #else
+				filePath = filePath + str[i] + ".c3b";
+  #endif
+#else
+  #ifdef _DEBUG
+				filePath = filePath + str[i] + ".c3t";
+  #else
+				filePath = filePath + str[i] + ".c3b";
+  #endif
+#endif
+				if (sprite && sprite->initWithFile(filePath))
+				{
+					sprite->_contentSize = sprite->getBoundingBox().size;
+					sprite->autorelease();
+				}
+				Flag[ResouceType::Model] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		case ResouceType::Anime:
+			if( Flag[ResouceType::Anime] == false)
+			{
+				filePath = getResourcePath( ResouceType::Anime);
+				load3DModelAnimeData( filePath);
+				Flag[ResouceType::Anime] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		case ResouceType::Texture:
+			if( Flag[ResouceType::Texture] == false)
+			{
+				filePath = getResourcePath( ResouceType::Texture);
+				load3DModelTextureData( filePath);
+				Flag[ResouceType::Texture] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		case ResouceType::Picture:
+			if( Flag[ResouceType::Picture] == false)
+			{
+				filePath = getResourcePath( ResouceType::Picture);
+				filePath = filePath + str[i]; 
+				sprite->setTexture(filePath);
+				Flag[ResouceType::Picture] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		default:
+			CC_SAFE_DELETE(sprite);
+			return nullptr;
+		}
+    }
+	return sprite;
 }
 
 /**
  *	3Dスプライトの作成	
  *
  *	@author	minaka
- *	@param	modelPath モデルデータへのパス
- *	@param	texturePath テクスチャへのパス
+ *	@param	firstPath リソースファイル名
+ *	@param	secondPath リソースファイル名
+ *	@param	thirdPath リソースファイル名
  *	@return	作成したスプライトへのポインタ
- *	@date	1/3	Ver 1.0
+ *	@date	1/5	Ver 1.0
  */
-Sprite3D* Sprite3D::create(const std::string &modelPath, const std::string &texturePath)
+Sprite3D* Sprite3D::create( const std::string &firstPath, const std::string &secondPath, const std::string &thirdPath)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-  #ifdef DEBUG
-	std::string _texturePath = texturePath;
-  #else
-	std::string _texturePath = texturePath;
-  #endif
-#else
-  #ifdef _DEBUG
-	std::string _texturePath = "Graph/Textures/" + texturePath;
-  #else
-	std::string _texturePath = "Graph/Textures/" + texturePath;
-  #endif
-#endif
-	auto sprite = create(modelPath);
-	if (sprite)
-	{
-		sprite->setTexture(_texturePath);
-	}
-	return sprite;
-}
-
-/**
- *	3Dスプライトの作成（アニメーション設定無し）
- *
- *	@author	minaka
- *	@param	modelPath モデルデータへのパス
- *	@return	作成したスプライトへのポインタ
- *	@date	1/3	Ver 1.0
- */
-Sprite3D* Sprite3D::_create(const std::string &modelPath)
-{
-	if (modelPath.length() < 4)
-		CCASSERT(false, "improper name specified when creating Sprite3D");
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-  #ifdef DEBUG
-	std::string filePath = modelPath + ".c3t";
-  #else
-	std::string filePath = modelPath + ".c3b";
-  #endif
-#else
-  #ifdef _DEBUG
-	std::string filePath = "Graph/Models/" + modelPath + ".c3t";
-  #else
-	std::string filePath = "Graph/Models/" + modelPath + ".c3b";
-  #endif
-#endif
+	const int num = 3;
+	bool Flag[ResouceType::Num] = { false };
+	std::string filePath;
+	std::string str[num] = { firstPath, secondPath, thirdPath };
 	auto sprite = new (std::nothrow) Sprite3D();
-	if (sprite && sprite->initWithFile(filePath))
+	for( int i = 0; i < num; i++)
 	{
-		sprite->_contentSize = sprite->getBoundingBox().size;
-		sprite->autorelease();
-		return sprite;
-	}
-	CC_SAFE_DELETE(sprite);
-	return nullptr;
-}
-
-/**
- *	3Dスプライトの作成（アニメーション設定無し）
- *
- *	@author	minaka
- *	@param	modelPath モデルデータへのパス
- *	@param	texturePath テクスチャへのパス
- *	@return	作成したスプライトへのポインタ
- *	@date	1/3	Ver 1.0
- */
-Sprite3D* Sprite3D::_create(const std::string &modelPath, const std::string &texturePath)
-{
+		if (str[i].length() < 4)
+			CCASSERT(false, "improper name specified when creating Sprite3D");
+		switch( checkResourcePath(str[i]))
+		{
+		case ResouceType::Model:
+			if( Flag[ResouceType::Model] == false)
+			{
+				filePath = getResourcePath( ResouceType::Model);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
   #ifdef DEBUG
-	std::string _texturePath = texturePath;
+				filePath = filePath + str[i] + ".c3t";
   #else
-	std::string _texturePath = texturePath;
+				filePath = filePath + str[i] + ".c3b";
   #endif
 #else
   #ifdef _DEBUG
-	std::string _texturePath = "Graph/Textures/" + texturePath;
+				filePath = filePath + str[i] + ".c3t";
   #else
-	std::string _texturePath = "Graph/Textures/" + texturePath;
+				filePath = filePath + str[i] + ".c3b";
   #endif
 #endif
-	auto sprite = _create(modelPath);
-	if (sprite)
-	{
-		sprite->setTexture(_texturePath);
-	}
-	
+				if (sprite && sprite->initWithFile(filePath))
+				{
+					sprite->_contentSize = sprite->getBoundingBox().size;
+					sprite->autorelease();
+				}
+				Flag[ResouceType::Model] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		case ResouceType::Anime:
+			if( Flag[ResouceType::Anime] == false)
+			{
+				filePath = getResourcePath( ResouceType::Anime);
+				load3DModelAnimeData( filePath);
+				Flag[ResouceType::Anime] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		case ResouceType::Texture:
+			if( Flag[ResouceType::Texture] == false)
+			{
+				filePath = getResourcePath( ResouceType::Texture);
+				load3DModelTextureData( filePath);
+				Flag[ResouceType::Texture] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		case ResouceType::Picture:
+			if( Flag[ResouceType::Picture] == false)
+			{
+				filePath = getResourcePath( ResouceType::Picture);
+				filePath = filePath + str[i]; 
+				sprite->setTexture(filePath);
+				Flag[ResouceType::Picture] = true;
+			}
+			else
+			{
+				return nullptr;
+			}
+			break;
+
+		default:
+			CC_SAFE_DELETE(sprite);
+			return nullptr;
+		}
+    }
 	return sprite;
 }
 
+
+ResouceType Sprite3D::checkResourcePath( const std::string& filePath)
+{
+	std::string str = filePath;
+	int point = str.rfind( '.', str.size());
+	if( point == std::string::npos) return ResouceType::Model;
+	str.erase( 0, str.size() - ( str.size() - point));
+	if( str == ".anime") return ResouceType::Anime;
+	else if( str == ".texture") return ResouceType::Texture;
+	else return ResouceType::Picture;
+}
+
+std::string Sprite3D::getResourcePath( ResouceType type)
+{
+	switch( type)
+	{
+	case ResouceType::Model:
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+#else
+	return "Graph/Models/";
+#endif
+		break;
+	case ResouceType::Anime:
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+#else
+	return "Parameter/Animation/";
+#endif
+		break;
+	case ResouceType::Texture:
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+#else
+	return "Parameter/Texture/";
+#endif
+		break;
+	case ResouceType::Picture:
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+#else
+	return "Graph/Textures/";
+#endif
+		break;
+	default:
+		break;
+	}
+}
+
 /**
- *	3Dモデルデータ用設定ファイルの読み込み
+ *	3Dモデルデータ用アニメーション設定ファイルの読み込み
  *
  *	@author	minaka
  *	@param	fileName モデルデータ名
  *	@return	正常終了:0 エラー発生:-1
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::load3DModelData( const std::string &fileName)
+int Sprite3D::load3DModelAnimeData( const std::string &fileName)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string filePath = fileName + ".anime";
@@ -240,7 +387,7 @@ int Sprite3D::load3DModelData( const std::string &fileName)
  *	@return	正常終了:0 エラー発生:-1
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::startAnimation( std::string animeName)
+int Sprite3D::startAnimation( const std::string &animeName)
 {
 	for( int i = 0; i < modelDataList.size(); i++)
 	{
@@ -263,7 +410,7 @@ int Sprite3D::startAnimation( std::string animeName)
  *	@return	正常終了:0 エラー発生:-1
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::startAnimationLoop( std::string animeName)
+int Sprite3D::startAnimationLoop( const std::string &animeName)
 {
 	for( int i = 0; i < modelDataList.size(); i++)
 	{
@@ -286,7 +433,7 @@ int Sprite3D::startAnimationLoop( std::string animeName)
  *	@return	正常終了:0
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::stopAnimation( std::string animeName)
+int Sprite3D::stopAnimation( const std::string &animeName)
 {
 	stopAction( this -> animate);
 	return 0;
@@ -338,9 +485,28 @@ int Sprite3D::checkAnimationState( void)
 	}
 }
 
+/**
+ *	3Dモデルのアニメーション情報解放
+ *
+ *	@author	minaka
+ *	@date	1/3	Ver 1.0
+ */
 void Sprite3D::releaseAnimation( void)
 {
 	std::vector<ModelAnimeData*>().swap(modelDataList);
+}
+
+/**
+ *	3Dモデルデータ用テクスチャ設定ファイルの読み込み
+ *
+ *	@author	minaka
+ *	@param	fileName モデルデータ名
+ *	@return	正常終了:0 エラー発生:-1
+ *	@date	1/5	Ver 1.0
+ */
+int Sprite3D::load3DModelTextureData( const std::string &fileName)
+{
+	return 0;
 }
 
 bool Sprite3D::loadFromCache(const std::string& path)

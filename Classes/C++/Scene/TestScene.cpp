@@ -41,23 +41,26 @@ bool Test::init()
 	}
 	setCocos();
 
-	auto test = Sprite3D::create( "Player_test", "test.png");
-	test -> startAnimationLoop("Test");
-	test -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	test -> setScale( 250.0f);
-	this -> addChild(test);
+	auto sprite3D = Sprite3D::create( "test", "box_tex.png");
+	auto animation = Animation3D::create( "Graph/Models/test.c3t");
+	auto animate = Animate3D::create( animation);
+	sprite3D -> runAction( RepeatForever::create( animate));
+//	sprite3D -> startAnimationLoop("Test");
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
+	sprite3D -> setScale( 250.0f);
+	this -> addChild( sprite3D);
 	
-	this -> scheduleUpdate();
 	return true;
 }
 
 void Test::update( float delta)
 {
+//	this -> scheduleUpdate();
 }
 
 void Test::moveTime( float delta)
 {
-	// this -> schedule(schedule_selector(Test::moveTime), 0.016f);
+//	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 }
 
 void Test::menuCloseCallback(Ref* pSender)
