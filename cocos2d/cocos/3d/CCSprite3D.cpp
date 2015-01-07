@@ -59,7 +59,7 @@ std::string s_attributeNames[] = {GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram:
  *	@return	作成したスプライトへのポインタ
  *	@date	1/3	Ver 1.0
  */
-Sprite3D* Sprite3D::create(const std::string &firstPath)
+Sprite3D* Sprite3D::create(const std::string& firstPath)
 {
 	std::string filePath;
 	switch( checkResourcePath( firstPath))
@@ -109,7 +109,7 @@ Sprite3D* Sprite3D::create(const std::string &firstPath)
  *	@return	作成したスプライトへのポインタ
  *	@date	1/3	Ver 1.0
  */
-Sprite3D* Sprite3D::create( const std::string &firstPath, const std::string &secondPath)
+Sprite3D* Sprite3D::create( const std::string& firstPath, const std::string& secondPath)
 {
 	const int num = 2;
 	bool Flag[ResouceType::Num] = { false };
@@ -227,7 +227,7 @@ Sprite3D* Sprite3D::create( const std::string &firstPath, const std::string &sec
  *	@return	作成したスプライトへのポインタ
  *	@date	1/5	Ver 1.0
  */
-Sprite3D* Sprite3D::create( const std::string &firstPath, const std::string &secondPath, const std::string &thirdPath)
+Sprite3D* Sprite3D::create( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath)
 {
 	const int num = 3;
 	bool Flag[ResouceType::Num] = { false };
@@ -397,7 +397,7 @@ std::string Sprite3D::getResourcePath( ResouceType type)
  *	@return	正常終了:0 エラー発生:-1
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::load3DModelAnimeData( const std::string &fileName)
+int Sprite3D::load3DModelAnimeData( const std::string& fileName)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string filePath = fileName + ".anime";
@@ -435,7 +435,7 @@ int Sprite3D::load3DModelAnimeData( const std::string &fileName)
  *	@return	正常終了:0 エラー発生:-1
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::startAnimation( const std::string &animeName)
+int Sprite3D::startAnimation( const std::string& animeName)
 {
 	for( int i = 0; i < modelAnimeList.size(); i++)
 	{
@@ -458,7 +458,7 @@ int Sprite3D::startAnimation( const std::string &animeName)
  *	@return	正常終了:0 エラー発生:-1
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::startAnimationLoop( const std::string &animeName)
+int Sprite3D::startAnimationLoop( const std::string& animeName)
 {
 	for( int i = 0; i < modelAnimeList.size(); i++)
 	{
@@ -481,7 +481,7 @@ int Sprite3D::startAnimationLoop( const std::string &animeName)
  *	@return	正常終了:0
  *	@date	1/3	Ver 1.0
  */
-int Sprite3D::stopAnimation( const std::string &animeName)
+int Sprite3D::stopAnimation( const std::string& animeName)
 {
 	stopAction( this -> animate);
 	return 0;
@@ -552,7 +552,7 @@ void Sprite3D::releaseAnimation( void)
  *	@return	正常終了:0 エラー発生:-1
  *	@date	1/5	Ver 1.0
  */
-int Sprite3D::load3DModelTextureData( const std::string &fileName)
+int Sprite3D::load3DModelTextureData( const std::string& fileName)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string filePath = fileName + ".texture";
@@ -605,6 +605,34 @@ void Sprite3D::setTextureList( void)
 void Sprite3D::releaseTexture( void)
 {
 	std::vector<ModelTextureData*>().swap(modelTextureList);
+}
+
+int Sprite3D::setShaderFile( const std::string& fileName)
+{
+	auto shader = new GLProgram();
+	std::string filePath[2] = { "Shader/" + fileName + ".vsh", "Shader/" + fileName + ".fsh"};
+	shader -> initWithFilenames( filePath[0], filePath[1]);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORDS);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
+	shader -> link();
+	shader -> updateUniforms();
+	this -> setShaderProgram( shader);
+	return 0;
+}
+
+int Sprite3D::setShaderFile( const std::string& vshFile, const std::string& fshFile)
+{
+	auto shader = new GLProgram();
+	std::string filePath[2] = { "Shader/" + vshFile + ".vsh", "Shader/" + fshFile + ".fsh"};
+	shader -> initWithFilenames( filePath[0], filePath[1]);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORDS);
+	shader -> bindAttribLocation( GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
+	shader -> link();
+	shader -> updateUniforms();
+	this -> setShaderProgram( shader);
+	return 0;
 }
 
 bool Sprite3D::loadFromCache(const std::string& path)
@@ -724,7 +752,7 @@ Sprite3D::~Sprite3D()
 	releaseAnimation();
 }
 
-bool Sprite3D::initWithFile(const std::string &path)
+bool Sprite3D::initWithFile(const std::string& path)
 {
 	_meshes.clear();
 	_meshVertexDatas.clear();

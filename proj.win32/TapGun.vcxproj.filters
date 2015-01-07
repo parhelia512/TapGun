@@ -60,6 +60,9 @@
     <ClCompile Include="..\Classes\C++\System\Sound.cpp">
       <Filter>Source\C++\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Shader.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -87,6 +90,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\System\Sound.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Shader.h">
       <Filter>Source\C++\System</Filter>
     </ClInclude>
   </ItemGroup>

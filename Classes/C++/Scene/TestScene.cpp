@@ -33,8 +33,6 @@ Scene* Test::createScene()
 	return scene;
 }
 
-void setCocos( Layer *layer);
-
 bool Test::init()
 {
 	if ( !Layer::init() )
@@ -42,16 +40,18 @@ bool Test::init()
 		return false;
 	}
 	setCocos();
-
+	auto bg = LayerColor::create( Color4B::WHITE, SystemValue::windowSize.width, SystemValue::windowSize.height);
+//	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = Sprite3D::create( "map.c3b");
+	sprite3D = Sprite3D::create( "test.c3b", "dirt.png");
+	sprite3D -> setShaderFile( "toon");
 	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 	auto animate = Animate3D::create( animation);
-//	sprite3D -> runAction( RepeatForever::create( animate));
-//	sprite3D -> startAnimationLoop("Test");
+	sprite3D -> runAction( RepeatForever::create( animate));
+	sprite3D -> startAnimationLoop("Test");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	sprite3D -> setScale( 20.0f);
+	sprite3D -> setScale( 100.0f);
 	this -> addChild( sprite3D);
 	
 	return true;

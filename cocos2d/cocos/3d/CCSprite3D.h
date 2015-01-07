@@ -55,14 +55,14 @@ class CC_DLL Sprite3D : public Node, public BlendProtocol
 {
 public:
 	/** creates a Sprite3D*/
-	static Sprite3D* create( const std::string &firstPath);
-	static Sprite3D* create( const std::string &firstPath, const std::string &secondPath);
-	static Sprite3D* create( const std::string &firstPath, const std::string &secondPath, const std::string &thirdPath);
+	static Sprite3D* create( const std::string& firstPath);
+	static Sprite3D* create( const std::string& firstPath, const std::string& secondPath);
+	static Sprite3D* create( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath);
 
-	int startAnimation( const std::string &animeName);
-	int startAnimationLoop( const std::string &animeName);
+	int startAnimation( const std::string& animeName);
+	int startAnimationLoop( const std::string& animeName);
 
-	int stopAnimation( const std::string &animeName);
+	int stopAnimation( const std::string& animeName);
 	int stopALLAnimation( void);
 
 	int setAnimationSpeed( float speed);
@@ -72,6 +72,9 @@ public:
 	void releaseAnimation( void);
 
 	void releaseTexture( void);
+
+	int setShaderFile( const std::string& fileName);
+	int setShaderFile( const std::string& vshFile, const std::string& fshFile);
 
 	/**set texture, set the first if multiple textures exist*/
 	void setTexture(const std::string& texFile);
@@ -143,7 +146,7 @@ CC_CONSTRUCTOR_ACCESS:
 	
 	Sprite3D();
 	virtual ~Sprite3D();
-	bool initWithFile(const std::string &path);
+	bool initWithFile(const std::string& path);
 	
 	bool initFrom(const NodeDatas& nodedatas, const MeshDatas& meshdatas, const MaterialDatas& materialdatas);
 	
@@ -196,8 +199,8 @@ protected:
 	std::vector<ModelAnimeData*> modelAnimeList;
 	std::vector<ModelTextureData*> modelTextureList;
 	void setTextureList(void);
-	int load3DModelAnimeData( const std::string &fileName);
-	int load3DModelTextureData( const std::string &fileName);
+	int load3DModelAnimeData( const std::string& fileName);
+	int load3DModelTextureData( const std::string& fileName);
 	static std::string getResourcePath( ResouceType type);
 	static ResouceType checkResourcePath( const std::string& filePath);
 };

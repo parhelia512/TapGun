@@ -23,7 +23,7 @@ using namespace CocosDenshion;
  *	@author	minaka 
  *	@param	fileName ファイル名
  *	@return	正常終了:0 エラー発生:-1
- *	@date	12/28 Ver 0.1
+ *	@date	12/28 Ver 1.0
  */
 Sound* Sound::getInstance( void)
 {
