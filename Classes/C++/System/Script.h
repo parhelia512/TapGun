@@ -10,10 +10,10 @@ namespace TapGun
 class Script 
 {
 public:
-	Script();
 	Script( const Script& p) = delete;	
 	Script& operator=( const Script& P) = delete;
-	~Script();
+	static Script* getInstance( void);
+
 	int loadScriptFile( const std::string& fileName);
 	int loadCommand( int index);
 
@@ -26,7 +26,7 @@ private:
 
 	std::ifstream file;
 	std::vector<commandSet> scriptList;
-
+	Script() {}
 };
 
 }

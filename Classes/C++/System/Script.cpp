@@ -52,11 +52,6 @@ int Script::loadScriptFile( const std::string& fileName)
 
 }
 
-Script::~Script()
-{
-
-}
-
 int Script::loadCommand( int index)
 {
 	return 0;

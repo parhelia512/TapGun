@@ -21,13 +21,15 @@ using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
+Sprite3D* sprite3D;
+
 Scene* Test::createScene()
 {
 	SystemValue::windowSize = Director::getInstance() -> getVisibleSize();
 	SystemValue::origin = Director::getInstance() -> getVisibleOrigin();
 	auto scene = Scene::create();
 	auto layer = Test::create();
-	scene->addChild(layer);
+	scene -> addChild(layer);
 	return scene;
 }
 
@@ -41,13 +43,15 @@ bool Test::init()
 	}
 	setCocos();
 
-	auto sprite3D = Sprite3D::create( "test", "box_tex.png");
+	auto sound = Sound::getInstance();
+
+	sprite3D = Sprite3D::create( "map.c3b");
 	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 	auto animate = Animate3D::create( animation);
-	sprite3D -> runAction( RepeatForever::create( animate));
+//	sprite3D -> runAction( RepeatForever::create( animate));
 //	sprite3D -> startAnimationLoop("Test");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	sprite3D -> setScale( 250.0f);
+	sprite3D -> setScale( 20.0f);
 	this -> addChild( sprite3D);
 	
 	return true;
@@ -69,9 +73,7 @@ void Test::menuCloseCallback(Ref* pSender)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 	return;
 #endif
-
-	Director::getInstance()->end();
-
+	Director::getInstance() -> end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
@@ -79,15 +81,15 @@ void Test::menuCloseCallback(Ref* pSender)
 
 void Test::setCocos( void)
 {
-	auto closeItem = MenuItemImage::create( "CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(Test::menuCloseCallback, this));
-	closeItem->setPosition(Vec2( SystemValue::origin.x + SystemValue::windowSize.width - closeItem->getContentSize().width/2 ,
+	auto closeItem = MenuItemImage::create( "CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1( Test::menuCloseCallback, this));
+	closeItem -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width - closeItem->getContentSize().width/2 ,
 								SystemValue::origin.y + closeItem->getContentSize().height/2));
-	auto menu = Menu::create(closeItem, NULL);
-	menu->setPosition(Vec2::ZERO);
-	this->addChild(menu, 1);
+	auto menu = Menu::create( closeItem, NULL);
+	menu -> setPosition( Vec2::ZERO);
+	this -> addChild( menu, 1);
 	
-	auto label = LabelTTF::create("Hello World", "Arial", 24);
-	label->setPosition(Vec2(SystemValue::origin.x + SystemValue::windowSize.width/2,
+	auto label = LabelTTF::create( "Hello World", "Arial", 24);
+	label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
 							SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
-	this->addChild(label, 1);
+	this -> addChild( label, 1);
 }

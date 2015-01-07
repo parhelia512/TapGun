@@ -49,6 +49,7 @@ class Animation3D;
 enum ResouceType;
 struct NodeData;
 struct ModelAnimeData;
+struct ModelTextureData;
 /** Sprite3D: A sprite can be loaded from 3D model files, .obj, .c3t, .c3b, then can be drawed as sprite */
 class CC_DLL Sprite3D : public Node, public BlendProtocol
 {
@@ -69,6 +70,8 @@ public:
 	int checkAnimationState( void);
 
 	void releaseAnimation( void);
+
+	void releaseTexture( void);
 
 	/**set texture, set the first if multiple textures exist*/
 	void setTexture(const std::string& texFile);
@@ -190,15 +193,18 @@ protected:
 	
 	Animation3D*                 animation;
 	Animate3D*                   animate;
-	static std::vector<ModelAnimeData*> modelDataList;
+	std::vector<ModelAnimeData*> modelAnimeList;
+	std::vector<ModelTextureData*> modelTextureList;
+	void setTextureList(void);
+	int load3DModelAnimeData( const std::string &fileName);
+	int load3DModelTextureData( const std::string &fileName);
 	static std::string getResourcePath( ResouceType type);
 	static ResouceType checkResourcePath( const std::string& filePath);
-	static int load3DModelAnimeData( const std::string &fileName);
-	static int load3DModelTextureData( const std::string &fileName);
 };
 
 enum ResouceType
 {
+	NoExt,
 	Model,
 	Anime,
 	Texture,
@@ -211,6 +217,12 @@ struct ModelAnimeData
 	std::string animeName;
 	float startFrame;
 	float endFrame;
+};
+
+struct ModelTextureData
+{
+	std::string meshName;
+	std::string textureName;
 };
 
 ///////////////////////////////////////////////////////
