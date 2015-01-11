@@ -44,18 +44,18 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = Sprite3D::create( "BBOX_Pori");//, "BBOX.texture");
-	auto mesh = sprite3D -> getMeshArrayByName( "Box002");
-	mesh[0] -> setTexture( "Graph/Textures/box_head_tex.png");
-	mesh[1] -> setTexture( "Graph/Textures/box_tex.png");
+	sprite3D = Sprite3D::create( "uesita");//, "BBOX.texture");
+	auto mesh = sprite3D -> getMeshArrayByName( "Box001");
+	mesh[0] -> setTexture( "Graph/Textures/tex_ue.png");
+	mesh[1] -> setTexture( "Graph/Textures/tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 	auto animate = Animate3D::create( animation);
 //	sprite3D -> runAction( RepeatForever::create( animate));
 //	sprite3D -> startAnimationLoop("Test");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
 	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
-	sprite3D -> setScale( 10.0f);
+	sprite3D -> setScale( 120.0f);
 	this -> addChild( sprite3D);
 	
 	return true;
