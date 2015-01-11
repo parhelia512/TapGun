@@ -44,8 +44,10 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = Sprite3D::create( "BBOX");//, "BBOX.texture");
-	sprite3D -> setTexture( "01.png");
+	sprite3D = Sprite3D::create( "BBOX_Pori");//, "BBOX.texture");
+	auto mesh = sprite3D -> getMeshArrayByName( "Box002");
+	mesh[0] -> setTexture( "Graph/Textures/box_head_tex.png");
+	mesh[1] -> setTexture( "Graph/Textures/box_tex.png");
 //	sprite3D -> setShaderFile( "toon");
 	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 	auto animate = Animate3D::create( animation);
