@@ -29,10 +29,18 @@ private:
 	std::vector<TimeSheet*> timeList;
 
 	Script() {}
-	std::string functionNameCreate( const std::string& scriptText, cocos2d::Layer* layer);
+	std::string functionNameCreate( const std::string& scriptText);
 	std::string functionNameAnime( const std::string& scriptText);
 	std::string functionNamePrint( const std::string& scriptText, cocos2d::Layer* layer);
+	std::string functionNameClear( const std::string& scriptText);
+	std::string functionNameDelete( const std::string& scriptText);
 	std::string functionNamePlay( const std::string& scriptText);
+	std::string functionNameStop( const std::string& scriptText);
+	std::string functionNamePause( const std::string& scriptText);
+	std::string functionNameResume( const std::string& scriptText);
+	std::string functionNameStopAll( const std::string& scriptText);
+	std::string functionNamePauseAll( const std::string& scriptText);
+	std::string functionNameResumeAll( const std::string& scriptText);
 };
 
 enum FileNameFlag

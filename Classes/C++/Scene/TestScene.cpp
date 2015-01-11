@@ -44,14 +44,16 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = Sprite3D::create( "test.c3b", "dirt.png");
-	sprite3D -> setShaderFile( "toon");
+	sprite3D = Sprite3D::create( "BBOX");//, "BBOX.texture");
+	sprite3D -> setTexture( "01.png");
+//	sprite3D -> setShaderFile( "toon");
 	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 	auto animate = Animate3D::create( animation);
-	sprite3D -> runAction( RepeatForever::create( animate));
-	sprite3D -> startAnimationLoop("Test");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	sprite3D -> setScale( 100.0f);
+//	sprite3D -> runAction( RepeatForever::create( animate));
+//	sprite3D -> startAnimationLoop("Test");
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
+	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
+	sprite3D -> setScale( 10.0f);
 	this -> addChild( sprite3D);
 	
 	return true;

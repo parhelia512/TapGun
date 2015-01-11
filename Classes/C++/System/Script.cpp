@@ -70,7 +70,7 @@ string Script::loadScriptFile( const string& fileName, Layer* layer)
 		{
 			string s = str;
 			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameCreate( s, layer);
+			functionNameCreate( s);
 		}
 		else if( tmp == "Anime" || tmp == "anime")
 		{
@@ -84,11 +84,59 @@ string Script::loadScriptFile( const string& fileName, Layer* layer)
 			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
 			functionNamePrint( s, layer);
 		}
+		else if( tmp == "Clear" || tmp == "clear")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNameClear( s);
+		}
+		else if( tmp == "Delete" || tmp == "delete")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNameDelete( s);
+		}
 		else if( tmp == "Play" || tmp == "play")
 		{
 			string s = str;
 			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
 			functionNamePlay( s);
+		}
+		else if( tmp == "Stop" || tmp == "stop")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNameStop( s);
+		}
+		else if( tmp == "Pause" || tmp == "pause")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNamePause( s);
+		}
+		else if( tmp == "Resume" || tmp == "resume")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNameResume( s);
+		}
+		else if( tmp == "StopAll" || tmp == "stopAll")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNameStopAll( s);
+		}
+		else if( tmp == "PauseAll" || tmp == "pauseAll")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNamePauseAll( s);
+		}
+		else if( tmp == "ResumeAll" || tmp == "resumeAll")
+		{
+			string s = str;
+			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+			functionNameResumeAll( s);
 		}
 		else
 		{
@@ -100,7 +148,7 @@ string Script::loadScriptFile( const string& fileName, Layer* layer)
 	}
 }
 
-string Script::functionNameCreate( const string& scriptText, Layer* layer)
+string Script::functionNameCreate( const string& scriptText)
 {
 	FileNameFlag flag;
 	string str;
@@ -218,21 +266,22 @@ string Script::functionNameCreate( const string& scriptText, Layer* layer)
 		{
 			auto sprite = LabelTTF::create( data -> dataName, "Arial", 20);
 			sprite -> setPosition( Vec2( data -> position.x, data -> position.y));
-			layer -> addChild( sprite, data -> layerNumber);
+//			layer -> addChild( sprite, data -> layerNumber);
 			break;
 		}
 		case FileNameFlag::Picture:
 		{
 			auto sprite = Sprite::create( data -> dataName);
 			sprite -> setPosition( Vec2( data -> position.x, data -> position.y));
-			layer -> addChild( sprite, data -> layerNumber);
+//			layer -> addChild( sprite, data -> layerNumber);
 			break;
 		}
 		case FileNameFlag::Model:
 		{
 			auto sprite = Sprite3D::create( data -> dataName);
+
 			sprite -> setPosition3D( data -> position);
-			layer -> addChild( sprite, data -> layerNumber);
+//			layer -> addChild( sprite, data -> layerNumber);
 			break;
 		}
 		default:
@@ -253,7 +302,47 @@ string Script::functionNamePrint( const string& scriptText, Layer* layer)
 	return 0;
 }
 
+string Script::functionNameClear( const string& scriptText)
+{
+	return 0;
+}
+
+string Script::functionNameDelete( const string& scriptText)
+{
+	return 0;
+}
+
 string Script::functionNamePlay( const string& scriptText)
+{
+	return 0;
+}
+
+string Script::functionNameStop( const string& scriptText)
+{
+	return 0;
+}
+
+string Script::functionNamePause( const string& scriptText)
+{
+	return 0;
+}
+
+string Script::functionNameResume( const string& scriptText)
+{
+	return 0;
+}
+
+string Script::functionNameStopAll( const string& scriptText)
+{
+	return 0;
+}
+
+string Script::functionNamePauseAll( const string& scriptText)
+{
+	return 0;
+}
+
+string Script::functionNameResumeAll( const string& scriptText)
 {
 	return 0;
 }

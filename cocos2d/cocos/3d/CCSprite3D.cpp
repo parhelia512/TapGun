@@ -171,8 +171,8 @@ Sprite3D* Sprite3D::create( const std::string& firstPath, const std::string& sec
 		case ResouceType::Anime:
 			if( Flag[ResouceType::Anime] == false)
 			{
-				filePath = getResourcePath( ResouceType::Anime);
-				sprite -> load3DModelAnimeData( filePath);
+				//filePath = getResourcePath( ResouceType::Anime) + filePath;
+				sprite -> load3DModelAnimeData( str[i]);
 				Flag[ResouceType::Anime] = true;
 			}
 			else
@@ -184,8 +184,8 @@ Sprite3D* Sprite3D::create( const std::string& firstPath, const std::string& sec
 		case ResouceType::Texture:
 			if( Flag[ResouceType::Texture] == false)
 			{
-				filePath = getResourcePath( ResouceType::Texture);
-				sprite -> load3DModelTextureData( filePath);
+				//filePath = getResourcePath( ResouceType::Texture) + filePath;
+				sprite -> load3DModelTextureData( str[i]);
 				sprite -> setTextureList();
 				Flag[ResouceType::Texture] = true;
 			}
@@ -289,7 +289,7 @@ Sprite3D* Sprite3D::create( const std::string& firstPath, const std::string& sec
 		case ResouceType::Anime:
 			if( Flag[ResouceType::Anime] == false)
 			{
-				filePath = getResourcePath( ResouceType::Anime);
+				filePath = getResourcePath( ResouceType::Anime) + filePath;
 				sprite -> load3DModelAnimeData( filePath);
 				Flag[ResouceType::Anime] = true;
 			}
@@ -302,7 +302,7 @@ Sprite3D* Sprite3D::create( const std::string& firstPath, const std::string& sec
 		case ResouceType::Texture:
 			if( Flag[ResouceType::Texture] == false)
 			{
-				filePath = getResourcePath( ResouceType::Texture);
+				filePath = getResourcePath( ResouceType::Texture) + filePath;
 				sprite -> load3DModelTextureData( filePath);
 				sprite -> setTextureList();
 				Flag[ResouceType::Texture] = true;
@@ -400,9 +400,9 @@ std::string Sprite3D::getResourcePath( ResouceType type)
 int Sprite3D::load3DModelAnimeData( const std::string& fileName)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	std::string filePath = fileName + ".anime";
+	std::string filePath = fileName;
 #else
-	std::string filePath = "Parameter/Animation/" + fileName + ".anime";
+	std::string filePath = "Parameter/Animation/" + fileName;
 #endif
 	std::ifstream file( filePath, std::ios::in);
 	if( file.fail()) 
@@ -555,9 +555,9 @@ void Sprite3D::releaseAnimation( void)
 int Sprite3D::load3DModelTextureData( const std::string& fileName)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	std::string filePath = fileName + ".texture";
+	std::string filePath = fileName;
 #else
-	std::string filePath = "Parameter/Texture/" + fileName + ".texture";
+	std::string filePath = "Parameter/Texture/" + fileName;
 #endif
 	std::ifstream file( filePath, std::ios::in);
 	if( file.fail()) 
@@ -565,9 +565,9 @@ int Sprite3D::load3DModelTextureData( const std::string& fileName)
 		return -1;
 	}
 	std::string str;
-	ModelTextureData *data = new ModelTextureData;
 	while( std::getline( file, str))
 	{
+		ModelTextureData *data = new ModelTextureData;
 		std::string tmp;
 		std::istringstream stream(str);
 		getline( stream, tmp, ',');
@@ -590,14 +590,14 @@ void Sprite3D::setTextureList( void)
 {
 	for( int i = 0; i < modelTextureList.size(); i++)
 	{
-		std::string filePath = "Graph/Texture" + modelTextureList[i] -> textureName;
+		std::string filePath = "Graph/Textures/" + modelTextureList[i] -> textureName;
 		auto mesh = this -> getMeshByName( modelTextureList[i] -> meshName);
 		mesh -> setTexture( filePath);
 	}
 }
 
 /**
- *	3Dモデルのアニメーション情報解放
+ *	3Dモデルのテクスチャ情報解放
  *
  *	@author	minaka
  *	@date	1/3	Ver 1.0
