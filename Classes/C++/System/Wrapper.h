@@ -20,16 +20,16 @@ public:
 	Wrapper& operator= ( const Wrapper &P) = delete;
 	static Wrapper* getInstance( void);
 
-	static Scene* newCreateScene( layer* ( *Scene)( void));
+	static cocos2d::Scene* newCreateScene( cocos2d::Layer* ( *Scene)( void));
 
-	static Scene* getNowSceneObject( void);
-	static layer* getNowSceneLayer( void);
+	static cocos2d::Scene* getNowSceneObject( void);
+	static cocos2d::Layer* getNowSceneLayer( void);
 
 private:
 	Wrapper() {}
 
-	Scene* nowSceneObject;
-	layer* nowSceneLayer;
+	cocos2d::Scene* nowSceneObject;
+	cocos2d::Layer* nowSceneLayer;
 };
 
 }
