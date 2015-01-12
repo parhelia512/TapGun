@@ -46,7 +46,6 @@ class MeshSkin;
 class AttachNode;
 class Animate3D;
 class Animation3D;
-enum ResouceType;
 struct NodeData;
 struct ModelAnimeData;
 struct ModelTextureData;
@@ -201,18 +200,17 @@ protected:
 	void setTextureList(void);
 	int load3DModelAnimeData( const std::string& fileName);
 	int load3DModelTextureData( const std::string& fileName);
+	enum ResouceType
+	{
+		NoExt,
+		Model,
+		Anime,
+		Texture,
+		Picture,
+		Num,
+	};
 	static std::string getResourcePath( ResouceType type);
 	static ResouceType checkResourcePath( const std::string& filePath);
-};
-
-enum ResouceType
-{
-	NoExt,
-	Model,
-	Anime,
-	Texture,
-	Picture,
-	Num,
 };
 
 struct ModelAnimeData

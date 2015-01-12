@@ -335,7 +335,7 @@ Sprite3D* Sprite3D::create( const std::string& firstPath, const std::string& sec
 	return sprite;
 }
 
-ResouceType Sprite3D::checkResourcePath( const std::string& filePath)
+Sprite3D::ResouceType Sprite3D::checkResourcePath( const std::string& filePath)
 {
 	std::string str = filePath;
 	int point = str.rfind( '.', str.size());
@@ -347,7 +347,7 @@ ResouceType Sprite3D::checkResourcePath( const std::string& filePath)
 	else return ResouceType::Picture;
 }
 
-std::string Sprite3D::getResourcePath( ResouceType type)
+std::string Sprite3D::getResourcePath( Sprite3D::ResouceType type)
 {
 	switch( type)
 	{
