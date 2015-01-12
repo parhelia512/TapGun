@@ -7,10 +7,10 @@
 namespace TapGun
 {
 
-class Wrapper 
+class Wrapper
 {
 public:
-	enum Flag 
+	enum Flag
 	{
 		True = 1,
 		False = 0,
@@ -20,9 +20,16 @@ public:
 	Wrapper& operator= ( const Wrapper &P) = delete;
 	static Wrapper* getInstance( void);
 
+	static Scene* newCreateScene( layer* ( *Scene)( void));
+
+	static Scene* getNowSceneObject( void);
+	static layer* getNowSceneLayer( void);
+
 private:
 	Wrapper() {}
 
+	Scene* nowSceneObject;
+	layer* nowSceneLayer;
 };
 
 }

@@ -29,7 +29,7 @@ Scene* Test::createScene()
 	SystemValue::origin = Director::getInstance() -> getVisibleOrigin();
 	auto scene = Scene::create();
 	auto layer = Test::create();
-	scene -> addChild(layer);
+	scene -> addChild( layer);
 	return scene;
 }
 
@@ -57,7 +57,7 @@ bool Test::init()
 	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
 	sprite3D -> setScale( 120.0f);
 	this -> addChild( sprite3D);
-	
+
 	return true;
 }
 
@@ -91,7 +91,7 @@ void Test::setCocos( void)
 	auto menu = Menu::create( closeItem, NULL);
 	menu -> setPosition( Vec2::ZERO);
 	this -> addChild( menu, 1);
-	
+
 	auto label = LabelTTF::create( "Hello World", "Arial", 24);
 	label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
 							SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
