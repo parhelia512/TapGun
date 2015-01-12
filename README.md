@@ -7,7 +7,7 @@ TapGun
 
 ##### cocos2d-x ver 3.3
  * android adk 
- * android ndk r9d
+ * android ndk r10c
  * apache ant 1.9.4
 
 ---------------------------------------------
