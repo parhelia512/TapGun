@@ -5,10 +5,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "TestScene.h"
+#include "C++/Scene/GameScene.h"
 
 #else
 
 #include "C++/Scene/TestScene.h"
+#include "C++/Scene/GameScene.h"
 
 #endif
 
@@ -28,7 +30,7 @@ AppDelegate::~AppDelegate()
 
 void AppDelegate::initGLContextAttrs()
 {
-	GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 24, 8 };
+	GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 16, 8 };//深度バッファを16bitに設定
 	GLView::setGLContextAttrs(glContextAttrs);
 }
 
@@ -44,10 +46,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 	}
 	
 	director -> setDisplayStats( true) ;
-//	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
+	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
 	director -> setAnimationInterval( 1.0 / 60);
 
-	auto scene = TapGun::Test::createScene();
+	auto scene = TapGun::GameScene::CreateScene();
 	director -> runWithScene( scene);
 	
 	return true;

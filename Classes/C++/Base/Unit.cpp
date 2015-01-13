@@ -1,0 +1,164 @@
+#include"Unit.h"
+
+//Character::Character()
+//{
+//	valid = false;
+//}
+
+using namespace TapGun;
+
+
+
+
+/**
+*	Unitクラスのメンバ変数を初期化
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
+void Unit::Init( void)
+{
+	//初期化内容は随時更新します
+
+	//管理フラグ
+	valid = FALSE;
+	kind = UKIND_NONE;//Unit種別をNONEに
+
+	//変数
+	pos = Vec3(0, 0, 0);//モデル座標
+	speed = 0.0f;//移動速度
+	speed_vec = Vec3(0, 0, 0);//移動ベクトル
+	target_pos = Vec3(0, 0, 0);//移動目標
+	collision_vec = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
+
+	frame = 0;//管理フレーム
+
+}
+
+
+
+/**
+*	Unitクラスのメンバ変数を初期化
+*
+*	@author	sasebon
+*	@param	Unit配列の番号,Unit種別
+*	@return	正常終了:1 初期化エラー:-1
+*	@date	1/8 Ver 1.0
+*/
+int Unit::Init(int num, int utype)
+{
+	//初期化内容は随時更新します
+
+	//num番のUnit構造体が使用されているか初期化されていない、またはUnit種別が不正、または配列外の場合はエラー
+	if(FALSE != valid || 0 > utype || UKIND_NUM <= utype || 0 > num || MAX_MODEL <= num)
+	{
+		return FALSE;
+	}
+
+	//フラグの初期化
+	valid = TRUE;
+	kind = utype;
+
+	//変数
+	pos = Vec3(0, 0, 0);
+	speed = 0.0f;
+	speed_vec = Vec3(0, 0, 0);
+	target_pos = Vec3(0, 0, 0);
+
+	frame = 0;//管理フレーム
+
+	//モデルの種別によって当たり判定の設定を行う
+	//敵や弾の種類（副種別）によってさらに条件分けする
+	switch(utype)
+	{
+	case UKIND_ENEMY://エネミー
+
+		//		sprite3d
+	{
+						 int a = 0;
+						 a = 0;
+	}
+
+		break;
+	case UKIND_EBULLET://敵弾
+
+
+		break;
+	default:
+
+		break;
+	}
+
+
+	//必要ならばモデルやアニメーション関連のデータを初期化する
+}
+
+
+
+
+/**
+*	当たり判定の初期化
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
+void Unit::SetCollision(void)
+{
+	//当たり判定の定義（仮）
+	aabbBody = sprite3d->getAABB();
+
+	//当たり判定の移動
+	Vec3 collision_center = sprite3d->getPosition3D();
+
+	Vec3 collision_min = collision_center - collision_vec * 0.5f;
+	Vec3 collision_max = collision_center + collision_vec * 0.5f;
+
+	aabbBody.set(collision_min, collision_max);
+	obbHead = OBB(aabbBody);//
+}
+
+
+
+
+/**
+*	速度をもとにしたUnit移動
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
+void Unit::UpdatePos(void)
+{
+	pos = sprite3d->getPosition3D();
+	pos += speed_vec;
+	sprite3d->setPosition3D(pos);
+
+	//当たり判定の移動
+	Vec3 collision_min = pos - collision_vec / 2;
+	Vec3 collision_max = pos + collision_vec / 2;
+
+
+	aabbBody.set(collision_min, collision_max);
+	obbHead = OBB(aabbBody);//
+}
+
+
+
+/**
+*	引数座標へのUnit移動
+*
+*	@author	sasebon
+*	@param	座標
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
+void Unit::UpdatePos(Vec3 pos_vec)
+{
+	pos = pos_vec;
+	sprite3d->setPosition3D(pos_vec);
+}

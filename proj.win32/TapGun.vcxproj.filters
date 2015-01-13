@@ -63,6 +63,21 @@
     <ClCompile Include="..\Classes\C++\System\Shader.cpp">
       <Filter>Source\C++\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\TitleScene.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GameUILayer.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GameScene.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Base\Unit.cpp">
+      <Filter>Source\C++\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -94,6 +109,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\C++\System\Shader.h">
       <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\TitleScene.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GameScene.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GameUILayer.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Base\Unit.h">
+      <Filter>Source\C++\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
