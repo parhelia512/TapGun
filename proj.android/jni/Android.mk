@@ -18,6 +18,11 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/C++/System/Shader.cpp \
 				   ../../Classes/C++/System/Sound.cpp \
 				   ../../Classes/C++/System/Wrapper.cpp \
+				   ../../Classes/C++/Base/Unit.cpp \
+				   ../../Classes/C++/Scene/GameScene.cpp \
+				   ../../Classes/C++/Scene/GameModelsLayer.cpp \
+				   ../../Classes/C++/Scene/GameUILayer.cpp \
+				   ../../Classes/C++/Scene/TitleScene.cpp \
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
