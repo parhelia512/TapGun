@@ -6,7 +6,7 @@
 //}
 
 
-void Character::Init()
+void TapGun::Character::Init()
 {
 	//Œ»İ‚Í•K—v‚È‚à‚Ì‚Ì‚İ‰Šú‰»‚µ‚Ä‚¢‚Ü‚·
 	kind = CKIND_NONE;

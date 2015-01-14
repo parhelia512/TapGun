@@ -46,8 +46,8 @@ bool Test::init()
 
 	sprite3D = Sprite3D::create( "uesita");//, "BBOX.texture");
 	auto mesh = sprite3D -> getMeshArrayByName( "Box001");
-	mesh[0] -> setTexture( "Graph/Textures/tex_ue.png");
-	mesh[1] -> setTexture( "Graph/Textures/tex_sita.png");
+	mesh[0] -> setTexture( "tex_ue.png");
+	mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 //	auto animate = Animate3D::create( animation);
@@ -66,7 +66,7 @@ void Test::update( float delta)
 //	this -> scheduleUpdate();
 }
 
-void Test::moveTime( float delta)
+	void Test::moveTime( float delta)
 {
 //	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 }
