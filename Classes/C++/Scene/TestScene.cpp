@@ -8,6 +8,7 @@
 
 #include "Errorfunc.h"
 #include "Sound.h"
+#include "Sprite3D.h"
 
 #else
 
@@ -20,8 +21,6 @@ USING_NS_CC;
 using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
-
-Sprite3D* sprite3D;
 
 Scene* Test::createScene()
 {
@@ -44,10 +43,11 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = Sprite3D::create( "uesita");//, "BBOX.texture");
-	auto mesh = sprite3D -> getMeshArrayByName( "Box001");
-	mesh[0] -> setTexture( "tex_ue.png");
-	mesh[1] -> setTexture( "tex_sita.png");
+	auto sprite3D = TapGun::Sprite3D::create("");
+//	sprite3D = Sprite3D::create( "uesita");//, "BBOX.texture");
+//	auto mesh = sprite3D -> getMeshArrayByName( "Box001");
+//	mesh[0] -> setTexture( "tex_ue.png");
+//	mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 //	auto animate = Animate3D::create( animation);

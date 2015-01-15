@@ -18,63 +18,63 @@ using namespace std;
 using namespace TapGun;
 
 /**
- *	3DƒXƒvƒ‰ƒCƒg‚Ìì¬	
- *
- *	@author	minaka
- *	@param	firstPath ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹–¼
- *	@return	ì¬‚µ‚½ƒXƒvƒ‰ƒCƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
- *	@date	1/3	Ver 1.0
- */
+*	3Dã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ä½œæˆ
+*
+*	@author	minaka
+*	@param	firstPath ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@return	ä½œæˆã—ãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+*	@date	1/3	Ver 1.0
+*/
 Sprite3D* Sprite3D::create(const string& firstPath)
 {
 	string filePath;
 	switch( checkResourcePath( firstPath))
-	{
+{
 	case ResouceType::NoExt:
-		filePath = getResourcePath( ResouceType::NoExt);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-  #ifdef DEBUG
-		filePath = filePath + firstPath + ".c3t";
-  #else
-		filePath = filePath + firstPath + ".c3b";
-  #endif
-#else
-  #ifdef _DEBUG
-		filePath = filePath + firstPath + ".c3t";
-  #else
-		filePath = filePath + firstPath + ".c3b";
-  #endif
-#endif
-		break;
+	filePath = getResourcePath( ResouceType::NoExt);
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	#ifdef DEBUG
+	filePath = filePath + firstPath + ".c3t";
+	#else
+	filePath = filePath + firstPath + ".c3b";
+	#endif
+	#else
+	#ifdef _DEBUG
+	filePath = filePath + firstPath + ".c3t";
+	#else
+	filePath = filePath + firstPath + ".c3b";
+	#endif
+	#endif
+	break;
 
 	case ResouceType::Model:
-		filePath = getResourcePath( ResouceType::Model);
-		filePath = filePath + firstPath;
-		break;
+	filePath = getResourcePath( ResouceType::Model);
+	filePath = filePath + firstPath;
+	break;
 
 	default:
-		return nullptr;
-	}
-	auto sprite = new (nothrow) Sprite3D();
-	if (sprite && sprite->initWithFile(filePath))
-	{
-		sprite->_contentSize = sprite->getBoundingBox().size;
-		sprite->autorelease();
-		return sprite;
-	}
-	CC_SAFE_DELETE(sprite);
 	return nullptr;
+}
+auto sprite = new (nothrow) Sprite3D();
+if (sprite && sprite->initWithFile(filePath))
+{
+	sprite->_contentSize = sprite->getBoundingBox().size;
+	sprite->autorelease();
+	return sprite;
+}
+CC_SAFE_DELETE(sprite);
+return nullptr;
 }
 
 /**
- *	3DƒXƒvƒ‰ƒCƒg‚Ìì¬	
- *
- *	@author	minaka
- *	@param	firstPath ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹–¼
- *	@param	secondPath ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹–¼
- *	@return	ì¬‚µ‚½ƒXƒvƒ‰ƒCƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
- *	@date	1/3	Ver 1.0
- */
+*	3Dã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ä½œæˆ
+*
+*	@author	minaka
+*	@param	firstPath ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@param	secondPath ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@return	ä½œæˆã—ãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+*	@date	1/3	Ver 1.0
+*/
 Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath)
 {
 	const int num = 2;
@@ -85,114 +85,114 @@ Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath)
 	for( int i = 0; i < num; i++)
 	{
 		switch( checkResourcePath(str[i]))
-		{
+	{
 		case ResouceType::NoExt:
-			if( Flag[ResouceType::NoExt] == false)
+		if( Flag[ResouceType::NoExt] == false)
+		{
+			filePath = getResourcePath( ResouceType::NoExt);
+			#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+			#ifdef DEBUG
+			filePath = filePath + str[i] + ".c3t";
+			#else
+			filePath = filePath + str[i] + ".c3b";
+			#endif
+			#else
+			#ifdef _DEBUG
+			filePath = filePath + str[i] + ".c3t";
+			#else
+			filePath = filePath + str[i] + ".c3b";
+			#endif
+			#endif
+			if (sprite && sprite->initWithFile(filePath))
 			{
-				filePath = getResourcePath( ResouceType::NoExt);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-  #ifdef DEBUG
-				filePath = filePath + str[i] + ".c3t";
-  #else
-				filePath = filePath + str[i] + ".c3b";
-  #endif
-#else
-  #ifdef _DEBUG
-				filePath = filePath + str[i] + ".c3t";
-  #else
-				filePath = filePath + str[i] + ".c3b";
-  #endif
-#endif
-				if (sprite && sprite->initWithFile(filePath))
-				{
-					sprite->_contentSize = sprite->getBoundingBox().size;
-					sprite->autorelease();
-				}
-				Flag[ResouceType::NoExt] = true;
+				sprite->_contentSize = sprite->getBoundingBox().size;
+				sprite->autorelease();
 			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Model:
-			if( Flag[ResouceType::Model] == false)
-			{
-				filePath = getResourcePath( ResouceType::Model);
-				filePath = filePath + str[i];
-				if (sprite && sprite->initWithFile(filePath))
-				{
-					sprite->_contentSize = sprite->getBoundingBox().size;
-					sprite->autorelease();
-				}
-				Flag[ResouceType::Model] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Anime:
-			if( Flag[ResouceType::Anime] == false)
-			{
-				//filePath = getResourcePath( ResouceType::Anime) + filePath;
-				sprite -> load3DModelAnimeData( str[i]);
-				Flag[ResouceType::Anime] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Texture:
-			if( Flag[ResouceType::Texture] == false)
-			{
-				//filePath = getResourcePath( ResouceType::Texture) + filePath;
-				sprite -> load3DModelTextureData( str[i]);
-				sprite -> setTextureList();
-				Flag[ResouceType::Texture] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Picture:
-			if( Flag[ResouceType::Picture] == false)
-			{
-				filePath = getResourcePath( ResouceType::Picture);
-				filePath = filePath + str[i]; 
-				sprite->setTexture(filePath);
-				Flag[ResouceType::Picture] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		default:
-			CC_SAFE_DELETE(sprite);
+			Flag[ResouceType::NoExt] = true;
+		}
+		else
+		{
 			return nullptr;
 		}
+		break;
+
+		case ResouceType::Model:
+		if( Flag[ResouceType::Model] == false)
+		{
+			filePath = getResourcePath( ResouceType::Model);
+			filePath = filePath + str[i];
+			if (sprite && sprite->initWithFile(filePath))
+			{
+				sprite->_contentSize = sprite->getBoundingBox().size;
+				sprite->autorelease();
+			}
+			Flag[ResouceType::Model] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		case ResouceType::Anime:
+		if( Flag[ResouceType::Anime] == false)
+		{
+			//filePath = getResourcePath( ResouceType::Anime) + filePath;
+			sprite -> load3DModelAnimeData( str[i]);
+			Flag[ResouceType::Anime] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		case ResouceType::Texture:
+		if( Flag[ResouceType::Texture] == false)
+		{
+			//filePath = getResourcePath( ResouceType::Texture) + filePath;
+			sprite -> load3DModelTextureData( str[i]);
+			sprite -> setTextureList();
+			Flag[ResouceType::Texture] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		case ResouceType::Picture:
+		if( Flag[ResouceType::Picture] == false)
+		{
+			filePath = getResourcePath( ResouceType::Picture);
+			filePath = filePath + str[i];
+			sprite->setTexture(filePath);
+			Flag[ResouceType::Picture] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		default:
+		CC_SAFE_DELETE(sprite);
+		return nullptr;
 	}
-	return sprite;
+}
+return sprite;
 }
 
 /**
- *	3DƒXƒvƒ‰ƒCƒg‚Ìì¬	
- *
- *	@author	minaka
- *	@param	firstPath ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹–¼
- *	@param	secondPath ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹–¼
- *	@param	thirdPath ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹–¼
- *	@return	ì¬‚µ‚½ƒXƒvƒ‰ƒCƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
- *	@date	1/5	Ver 1.0
- */
+*	3Dã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ä½œæˆ
+*
+*	@author	minaka
+*	@param	firstPath ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@param	secondPath ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@param	thirdPath ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@return	ä½œæˆã—ãŸã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+*	@date	1/5	Ver 1.0
+*/
 Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath, const string& thirdPath)
 {
 	const int num = 3;
@@ -203,102 +203,102 @@ Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath, c
 	for( int i = 0; i < num; i++)
 	{
 		switch( checkResourcePath(str[i]))
-		{
+	{
 		case ResouceType::NoExt:
-			if( Flag[ResouceType::NoExt] == false)
+		if( Flag[ResouceType::NoExt] == false)
+		{
+			filePath = getResourcePath( ResouceType::NoExt);
+			#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+			#ifdef DEBUG
+			filePath = filePath + str[i] + ".c3t";
+			#else
+			filePath = filePath + str[i] + ".c3b";
+			#endif
+			#else
+			#ifdef _DEBUG
+			filePath = filePath + str[i] + ".c3t";
+			#else
+			filePath = filePath + str[i] + ".c3b";
+			#endif
+			#endif
+			if (sprite && sprite->initWithFile(filePath))
 			{
-				filePath = getResourcePath( ResouceType::NoExt);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-  #ifdef DEBUG
-				filePath = filePath + str[i] + ".c3t";
-  #else
-				filePath = filePath + str[i] + ".c3b";
-  #endif
-#else
-  #ifdef _DEBUG
-				filePath = filePath + str[i] + ".c3t";
-  #else
-				filePath = filePath + str[i] + ".c3b";
-  #endif
-#endif
-				if (sprite && sprite->initWithFile(filePath))
-				{
-					sprite->_contentSize = sprite->getBoundingBox().size;
-					sprite->autorelease();
-				}
-				Flag[ResouceType::NoExt] = true;
+				sprite->_contentSize = sprite->getBoundingBox().size;
+				sprite->autorelease();
 			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Model:
-			if( Flag[ResouceType::Model] == false)
-			{
-				filePath = getResourcePath( ResouceType::Model);
-				filePath = filePath + str[i];
-				if (sprite && sprite->initWithFile(filePath))
-				{
-					sprite->_contentSize = sprite->getBoundingBox().size;
-					sprite->autorelease();
-				}
-				Flag[ResouceType::Model] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Anime:
-			if( Flag[ResouceType::Anime] == false)
-			{
-				filePath = getResourcePath( ResouceType::Anime) + filePath;
-				sprite -> load3DModelAnimeData( filePath);
-				Flag[ResouceType::Anime] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Texture:
-			if( Flag[ResouceType::Texture] == false)
-			{
-				filePath = getResourcePath( ResouceType::Texture) + filePath;
-				sprite -> load3DModelTextureData( filePath);
-				sprite -> setTextureList();
-				Flag[ResouceType::Texture] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		case ResouceType::Picture:
-			if( Flag[ResouceType::Picture] == false)
-			{
-				filePath = getResourcePath( ResouceType::Picture);
-				filePath = filePath + str[i]; 
-				sprite->setTexture(filePath);
-				Flag[ResouceType::Picture] = true;
-			}
-			else
-			{
-				return nullptr;
-			}
-			break;
-
-		default:
-			CC_SAFE_DELETE(sprite);
+			Flag[ResouceType::NoExt] = true;
+		}
+		else
+		{
 			return nullptr;
 		}
+		break;
+
+		case ResouceType::Model:
+		if( Flag[ResouceType::Model] == false)
+		{
+			filePath = getResourcePath( ResouceType::Model);
+			filePath = filePath + str[i];
+			if (sprite && sprite->initWithFile(filePath))
+			{
+				sprite->_contentSize = sprite->getBoundingBox().size;
+				sprite->autorelease();
+			}
+			Flag[ResouceType::Model] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		case ResouceType::Anime:
+		if( Flag[ResouceType::Anime] == false)
+		{
+			filePath = getResourcePath( ResouceType::Anime) + filePath;
+			sprite -> load3DModelAnimeData( filePath);
+			Flag[ResouceType::Anime] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		case ResouceType::Texture:
+		if( Flag[ResouceType::Texture] == false)
+		{
+			filePath = getResourcePath( ResouceType::Texture) + filePath;
+			sprite -> load3DModelTextureData( filePath);
+			sprite -> setTextureList();
+			Flag[ResouceType::Texture] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		case ResouceType::Picture:
+		if( Flag[ResouceType::Picture] == false)
+		{
+			filePath = getResourcePath( ResouceType::Picture);
+			filePath = filePath + str[i];
+			sprite->setTexture(filePath);
+			Flag[ResouceType::Picture] = true;
+		}
+		else
+		{
+			return nullptr;
+		}
+		break;
+
+		default:
+		CC_SAFE_DELETE(sprite);
+		return nullptr;
 	}
-	return sprite;
+}
+return sprite;
 }
 
 ResouceType Sprite3D::checkResourcePath( const string& filePath)
@@ -316,62 +316,62 @@ ResouceType Sprite3D::checkResourcePath( const string& filePath)
 string Sprite3D::getResourcePath( ResouceType type)
 {
 	switch( type)
-	{
+{
 	case ResouceType::NoExt:
 	case ResouceType::Model:
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		return "";
-#else
-		return "Graph/Models/";
-#endif
-		break;
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+	#else
+	return "Graph/Models/";
+	#endif
+	break;
 
 	case ResouceType::Anime:
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		return "";
-#else
-		return "Parameter/Animation/";
-#endif
-		break;
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+	#else
+	return "Parameter/Animation/";
+	#endif
+	break;
 
 	case ResouceType::Texture:
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		return "";
-#else
-		return "Parameter/Texture/";
-#endif
-		break;
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+	#else
+	return "Parameter/Texture/";
+	#endif
+	break;
 
 	case ResouceType::Picture:
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		return "";
-#else
-		return "Graph/Textures/";
-#endif
-		break;
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	return "";
+	#else
+	return "Graph/Textures/";
+	#endif
+	break;
 
 	default:
-		break;
-	}
+	break;
+}
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹ƒf[ƒ^—pƒAƒjƒ[ƒVƒ‡ƒ“İ’èƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
- *
- *	@author	minaka
- *	@param	fileName ƒ‚ƒfƒ‹ƒf[ƒ^–¼
- *	@return	³íI—¹:0 ƒGƒ‰[”­¶:-1
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ç”¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
+*
+*	@author	minaka
+*	@param	fileName ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿å
+*	@return	æ­£å¸¸çµ‚äº†:0 ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿ:-1
+*	@date	1/3	Ver 1.0
+*/
 int Sprite3D::load3DModelAnimeData( const string& fileName)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	string filePath = fileName;
-#else
+	#else
 	string filePath = "Parameter/Animation/" + fileName;
-#endif
+	#endif
 	ifstream file( filePath, ios::in);
-	if( file.fail()) 
+	if( file.fail())
 	{
 		return -1;
 	}
@@ -394,13 +394,13 @@ int Sprite3D::load3DModelAnimeData( const string& fileName)
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
- *
- *	@author	minaka
- *	@param	animeName ƒAƒjƒ[ƒVƒ‡ƒ“–¼
- *	@return	³íI—¹:0 ƒGƒ‰[”­¶:-1
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
+*
+*	@author	minaka
+*	@param	animeName ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å
+*	@return	æ­£å¸¸çµ‚äº†:0 ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿ:-1
+*	@date	1/3	Ver 1.0
+*/
 int Sprite3D::startAnimation( const string& animeName)
 {
 	for( int i = 0; i < modelAnimeList.size(); i++)
@@ -408,7 +408,7 @@ int Sprite3D::startAnimation( const string& animeName)
 		if( animeName == modelAnimeList[i] -> animeName)
 		{
 			this -> animate = cocos2d::Animate3D::create( this -> animation, 0.016 * (modelAnimeList[i] -> startFrame * 2),
-				0.016 * (modelAnimeList[i] -> endFrame * 2));
+			0.016 * (modelAnimeList[i] -> endFrame * 2));
 			runAction( this -> animate);
 			return 0;
 		}
@@ -417,13 +417,13 @@ int Sprite3D::startAnimation( const string& animeName)
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶iƒ‹[ƒvj
- *
- *	@author	minaka
- *	@param	animeName ƒAƒjƒ[ƒVƒ‡ƒ“–¼
- *	@return	³íI—¹:0 ƒGƒ‰[”­¶:-1
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿï¼ˆãƒ«ãƒ¼ãƒ—ï¼‰
+*
+*	@author	minaka
+*	@param	animeName ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å
+*	@return	æ­£å¸¸çµ‚äº†:0 ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿ:-1
+*	@date	1/3	Ver 1.0
+*/
 int Sprite3D::startAnimationLoop( const string& animeName)
 {
 	for( int i = 0; i < modelAnimeList.size(); i++)
@@ -431,7 +431,7 @@ int Sprite3D::startAnimationLoop( const string& animeName)
 		if( animeName == modelAnimeList[i] -> animeName)
 		{
 			this -> animate = cocos2d::Animate3D::create( this -> animation, 0.016 * (modelAnimeList[i] -> startFrame * 2),
-				0.016 * (modelAnimeList[i] -> endFrame * 2));
+			0.016 * (modelAnimeList[i] -> endFrame * 2));
 			runAction( cocos2d::RepeatForever::create( this -> animate));
 			return 0;
 		}
@@ -440,13 +440,13 @@ int Sprite3D::startAnimationLoop( const string& animeName)
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“’â~
- *
- *	@author	minaka
- *	@param	animeName ƒAƒjƒ[ƒVƒ‡ƒ“–¼
- *	@return	³íI—¹:0
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åœæ­¢
+*
+*	@author	minaka
+*	@param	animeName ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å
+*	@return	æ­£å¸¸çµ‚äº†:0
+*	@date	1/3	Ver 1.0
+*/
 int Sprite3D::stopAnimation( const string& animeName)
 {
 	stopAction( this -> animate);
@@ -454,12 +454,12 @@ int Sprite3D::stopAnimation( const string& animeName)
 }
 
 /**
- *	‘S‚Ä‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğ’â~
- *
- *	@author	minaka
- *	@return	³íI—¹:0
- *	@date	1/3	Ver 1.0
- */
+*	å…¨ã¦ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åœæ­¢
+*
+*	@author	minaka
+*	@return	æ­£å¸¸çµ‚äº†:0
+*	@date	1/3	Ver 1.0
+*/
 int Sprite3D::stopALLAnimation( void)
 {
 	stopAllActions();
@@ -467,13 +467,13 @@ int Sprite3D::stopALLAnimation( void)
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Ä¶‘¬“x‚ğİ’è
- *
- *	@author	minaka
- *	@param	speed ƒAƒjƒ[ƒVƒ‡ƒ“‘¬“x
- *	@return	³íI—¹:0
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿé€Ÿåº¦ã‚’è¨­å®š
+*
+*	@author	minaka
+*	@param	speed ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é€Ÿåº¦
+*	@return	æ­£å¸¸çµ‚äº†:0
+*	@date	1/3	Ver 1.0
+*/
 int Sprite3D::setAnimationSpeed( float speed)
 {
 	animate -> setSpeed( speed);
@@ -481,52 +481,52 @@ int Sprite3D::setAnimationSpeed( float speed)
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ó‘Ôƒ`ƒFƒbƒN
- *
- *	@author	minaka
- *	@return	ƒAƒjƒ[ƒVƒ‡ƒ“’†‚Å‚Í‚È‚¢:0@ƒAƒjƒ[ƒVƒ‡ƒ“’†:1 
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
+*
+*	@author	minaka
+*	@return	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ä¸­ã§ã¯ãªã„:0ã€€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ä¸­:1
+*	@date	1/3	Ver 1.0
+*/
 int Sprite3D::checkAnimationState( void)
 {
-	if ( numberOfRunningActions() == 0 ) 
+	if ( numberOfRunningActions() == 0 )
 	{
 		return 0;
-	} 
-	else 
+	}
+	else
 	{
 		return 1;
 	}
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“î•ñ‰ğ•ú
- *
- *	@author	minaka
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±è§£æ”¾
+*
+*	@author	minaka
+*	@date	1/3	Ver 1.0
+*/
 void Sprite3D::releaseAnimation( void)
 {
 	vector<ModelAnimeData*>().swap(modelAnimeList);
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹ƒf[ƒ^—pƒeƒNƒXƒ`ƒƒİ’èƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
- *
- *	@author	minaka
- *	@param	fileName ƒ‚ƒfƒ‹ƒf[ƒ^–¼
- *	@return	³íI—¹:0 ƒGƒ‰[”­¶:-1
- *	@date	1/5	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ç”¨ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
+*
+*	@author	minaka
+*	@param	fileName ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿å
+*	@return	æ­£å¸¸çµ‚äº†:0 ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿ:-1
+*	@date	1/5	Ver 1.0
+*/
 int Sprite3D::load3DModelTextureData( const string& fileName)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	string filePath = fileName;
-#else
+	#else
 	string filePath = "Parameter/Texture/" + fileName;
-#endif
+	#endif
 	ifstream file( filePath, ios::in);
-	if( file.fail()) 
+	if( file.fail())
 	{
 		return -1;
 	}
@@ -547,11 +547,11 @@ int Sprite3D::load3DModelTextureData( const string& fileName)
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹ƒf[ƒ^‚ÉƒeƒNƒXƒ`ƒƒ‚ğİ’è
- *
- *	@author	minaka
- *	@date	1/5	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è¨­å®š
+*
+*	@author	minaka
+*	@date	1/5	Ver 1.0
+*/
 void Sprite3D::setTextureList( void)
 {
 	for( int i = 0; i < modelTextureList.size(); i++)
@@ -563,11 +563,11 @@ void Sprite3D::setTextureList( void)
 }
 
 /**
- *	3Dƒ‚ƒfƒ‹‚ÌƒeƒNƒXƒ`ƒƒî•ñ‰ğ•ú
- *
- *	@author	minaka
- *	@date	1/3	Ver 1.0
- */
+*	3Dãƒ¢ãƒ‡ãƒ«ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£æƒ…å ±è§£æ”¾
+*
+*	@author	minaka
+*	@date	1/3	Ver 1.0
+*/
 void Sprite3D::releaseTexture( void)
 {
 	vector<ModelTextureData*>().swap(modelTextureList);
