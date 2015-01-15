@@ -4,6 +4,16 @@
 
 #include "cocos2d.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+#include "Sprite3D.h"
+
+#else
+
+#include "C++/Base/Sprite3D.h"
+
+#endif
+
 namespace TapGun
 {
 
