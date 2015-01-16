@@ -1,15 +1,14 @@
 #include "GameModelsLayer.h"
 
-#define PI 3.1415926
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
+#include"GameStatus.h"
 
 
 #else
 
-
-
+//#include "C++/Base/GameStatus.h"
 
 #endif
 
@@ -32,13 +31,17 @@ static GameModelsLayer *multiSceneLayerInstance;
 //	}
 //}
 
-Scene* GameModelsLayer::CreateScene()
-{
-	Scene *scene = Scene::create();
-	GameModelsLayer *layer = GameModelsLayer::create();
-	scene->addChild(layer);
-	return scene;
-}
+
+/*
+初期化にはinit関数を使用し、こちらは使用しません
+*/
+//Scene* GameModelsLayer::CreateScene()
+//{
+//	Scene *scene = Scene::create();
+//	GameModelsLayer *layer = GameModelsLayer::create();
+//	scene->addChild(layer);
+//	return scene;
+//}
 
 
 /**
@@ -110,7 +113,7 @@ int GameModelsLayer::InitLayer(void)
 */
 void GameModelsLayer::InitAllModels()
 {
-	for(int i = 0; i < MAX_MODEL; i++)
+	for(int i = 0; i < MAX_UNIT; i++)
 	{
 		unit[i].Init();//メンバ変数初期化
 	}
@@ -217,7 +220,9 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		unit[num].sprite3d->setScale(1.0f);
 		unit[num].sprite3d->setPosition3D(Vec3(4.0f, 0.0f, -18.5f));
 
-		unit[num].aabbBody = unit[num].sprite3d->getAABB();//
+		//当たり判定の定義（仮）
+		unit[num].collision_vec = Vec3(1.2, 3.0, 1.2);
+		unit[num].SetCollision();
 
 
 		//アニメーション読み込み
@@ -249,6 +254,11 @@ int GameModelsLayer::InitEnemy(int stage_num)
 
 		unit[num].sprite3d->setScale(1.0f);
 		unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -23.5f));
+
+		//当たり判定の定義（仮）
+		unit[num].collision_vec = Vec3(1.2, 3.0, 1.2);
+		unit[num].SetCollision();
+
 
 		//アニメーション読み込み
 		{
@@ -325,18 +335,65 @@ void GameModelsLayer::UpdateModels()
 }
 
 
-
-void GameModelsLayer::UpdatePlayer()
+void GameModelsLayer::UpdateLayer(int* pstate,Vec2 touch_pos, Camera* camera)
 {
-	//
+	UpdatePlayer(pstate, touch_pos,camera);//プレイヤーの更新
+	UpdateEnemy();//エネミーの更新
+	UpdateBullets();//敵弾の更新
+	//CheckHit();//当たり判定のチェック
+}
 
+void GameModelsLayer::UpdatePlayer(int* pstate, Vec2 touch_pos, Camera* camera)
+{
+	//タッチ座標をもとに攻撃や回避の処理を行う
+
+	//プレイヤーが攻撃可能な場合、攻撃範囲の座標をタッチしたら攻撃を行う
+
+	//攻撃処理の仮実装
+	//タッチ座標（スクリーン座標）からワールド座標を求め、レイを飛ばす
+
+	auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
+
+	Vec3 tmp_world_pos_a = Vec3(0, 0, 0);
+	Vec3 tmp_world_pos_b = Vec3(0, 0, 0);
+
+	Vec3 tmp_touch_pos = Vec3(touch_pos.x, touch_pos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
+	camera->unproject(s, &tmp_touch_pos, &tmp_world_pos_a);
+	tmp_touch_pos.z = 1.0f;//1.0f == 視錘台の遠面（far plane）
+	camera->unproject(s, &tmp_touch_pos, &tmp_world_pos_b);
+
+
+	Ray touch_ray(tmp_world_pos_a, tmp_world_pos_b);//仮レイ
+
+	//レイと敵の当たり判定処理
+	//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う
+
+	if(*pstate == 1)
+	{
+		for(int i = 0; i < MAX_UNIT; i++)
+		{
+			if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
+			{
+				if(touch_ray.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
+				{
+					//
+					Vec3 rot = Vec3(0, 0, 0);
+					rot = unit[i].sprite3d->getRotation3D();
+					rot.y += 20.0f;
+//					unit[i].sprite3d->setRotationY(rot.y);
+					unit[i].sprite3d->setRotation3D(rot);
+				}
+			}
+		}
+		*pstate = 0;
+	}
 }
 
 
 
 void GameModelsLayer::UpdateEnemy()
 {
-	for(int i = 0; i < MAX_MODEL; i++)
+	for(int i = 0; i < MAX_UNIT; i++)
 	{
 		if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
 		{
@@ -412,7 +469,7 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 void GameModelsLayer::UpdateBullets()
 {
 	//全ての敵弾ユニットを更新
-	for(int i = 0; i < MAX_MODEL; i++)
+	for(int i = 0; i < MAX_UNIT; i++)
 	{
 		if(FALSE != unit[i].valid && UKIND_EBULLET == unit[i].kind)
 		{
@@ -442,7 +499,7 @@ int GameModelsLayer::GetPlayerNum()
 
 int GameModelsLayer::SearchFreeUnit()
 {
-	for(int i = 0; i < MAX_MODEL; i++)
+	for(int i = 0; i < MAX_UNIT; i++)
 	{
 		if(FALSE == unit[i].valid)
 		{

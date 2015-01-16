@@ -1,11 +1,22 @@
 #include "GameUILayer.h"
 
+
 USING_NS_CC;
 using namespace TapGun;
 
 GameUILayer *gLayer_ui;
 Scene *scene_ui;
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+//#include"GameStatus.h"
+
+
+#else
+
+//#include "C++/Base/GameStatus.h"
+
+#endif
 /*
 ƒCƒ“ƒNƒŠƒƒ“ƒg
 */

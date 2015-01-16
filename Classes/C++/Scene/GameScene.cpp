@@ -1,15 +1,18 @@
 #include "GameScene.h"
+
 //各レイヤーを管理するソースコードをインクルードしておく
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "GameModelsLayer.h"
 #include "GameUILayer.h"
+//#include"GameStatus.h"
 
 #else
 
 #include "C++/Scene/GameModelsLayer.h"
 #include "C++/Scene/GameUILayer.h"
+//#include "C++/Base/GameStatus.h"
 
 #endif
 
@@ -29,13 +32,11 @@ Camera *camera3;//3D用カメラ
 Camera *camera2;//2D用カメラ
 
 
-GameModelsLayer *gGameLayer;
-GameUILayer *gUILayer;
-
-
+GameModelsLayer* gGameLayer;
+GameUILayer* gUILayer;
+ 
 static GameScene *multiSceneLayerInstance;
-#define A
-
+ 
 /*
 インクリメント
 */
@@ -49,7 +50,15 @@ static GameScene *multiSceneLayerInstance;
 //}
 
 
-//ゲーム管理シーンの作成
+
+/**
+*	ゲーム管理シーンクリエイト
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	シーンのポインタ
+*	@date	1/8 Ver 1.0
+*/
 Scene* GameScene::CreateScene()
 {
 	Scene *scene = Scene::create();//GameSceneのシーンを作成
@@ -59,12 +68,6 @@ Scene* GameScene::CreateScene()
 
 	return scene;
 };
-
-
-//GameScene* GameScene::sharedLayer()
-//{
-//	return multiSceneLayerInstance;
-//}
 
 
 //ゲームレイヤーの初期化関数
@@ -82,8 +85,6 @@ Scene* GameScene::CreateScene()
 //}
 
 
-
-//初期化系
 
 
 /**
@@ -112,8 +113,14 @@ bool GameScene::init()
 	//gUILayer = GameUILayer::create();
 	//this->addChild(gUILayer);
 
+//	GameStatus* gameStat = GameStatus::getObject();
+
+	//タッチ座標を初期化
+	touch_pos.x = 0.0f;
+	touch_pos.y = 0.0f;
 
 	game_state = GSTATE_INIT;
+	player_state = 0;//
 
 	//現在はタッチイベントのリスナーをここに用意しています
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -217,18 +224,18 @@ void GameScene::moveTime(float delta)
 	switch (game_state)
 	{
 
-	case GSTATE_INIT:
+	case GSTATE_INIT://子レイヤー内の変数初期化を行う
 
-		//レイヤーの初期化を行う
 
-		if (NULL != gGameLayer)//現在は初期化チェック確認する
+		if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
 		{
 			playerNum = gGameLayer->InitLayer();//
 		}
-		if (NULL != gUILayer)//現在は初期化チェック確認する
+		if (NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
 		{
 			gUILayer->InitLayer();//
 		}
+
 		InitCamera();
 
 		game_state = GSTATE_PLAY;
@@ -238,9 +245,7 @@ void GameScene::moveTime(float delta)
 	case GSTATE_PLAY:
 		if (NULL != gGameLayer)//現在は初期化チェック確認する
 		{
-			gGameLayer->UpdatePlayer();//プレイヤーの更新
-			gGameLayer->UpdateEnemy();//エネミーの更新
-			gGameLayer->UpdateBullets();//敵弾の更新
+			gGameLayer->UpdateLayer(&player_state,touch_pos, camera3);//レイヤーの更新(現在はタッチ座標とカメラ構造体を引数として渡しています)
 		}
 		if (NULL != gUILayer)//現在は初期化チェック確認する
 		{
@@ -303,10 +308,13 @@ int GameScene::UpdateCamera()
 
 
 
+
+
+
 bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
-
-
+	touch_pos = pTouch->getLocation();
+	player_state = 1;
 	return true;
 }
 
@@ -333,31 +341,30 @@ void GameScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 		//Vec3 tmpVec = camera3->getPosition3D();
 		//tmpVec.y += 0.2f;
 		//camera3->setPosition3D(tmpVec);
-		ry -= 1.0f;
-		if(NULL != gGameLayer)
-		{
-			camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		}
-		if(NULL != gUILayer)
-		{
-			camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		}
-
+		//ry -= 1.0f;
+		//if(NULL != gGameLayer)
+		//{
+		//	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
+		//}
+		//if(NULL != gUILayer)
+		//{
+		//	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
+		//}
 	}
 	else if(touchPoint.x < s.width / 3 && (touchPoint.y >= s.height / 3 && touchPoint.y < s.height * 2 / 3))
 	{
 		//Vec3 tmpVec = camera3->getPosition3D();
 		//tmpVec.y -= 0.2f;
 		//camera3->setPosition3D(tmpVec);
-		ry += 1.0f;
-		if(NULL != gGameLayer)
-		{
-			camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		}
-		if(NULL != gUILayer)
-		{
-			camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		}
+		//ry += 1.0f;
+		//if(NULL != gGameLayer)
+		//{
+		//	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
+		//}
+		//if(NULL != gUILayer)
+		//{
+		//	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
+		//}
 	}
 	else if(touchPoint.y < s.height / 3 && (touchPoint.x >= s.width / 3 && touchPoint.x < s.width * 2 / 3))
 	{

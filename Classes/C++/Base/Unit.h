@@ -3,9 +3,9 @@
 
 #include "cocos2d.h"
 
-#define MAX_MODEL 100
+#define MAX_UNIT 100
 
-using namespace cocos2d;
+//using namespace cocos2d;
 
 namespace TapGun
 {
@@ -41,23 +41,23 @@ namespace TapGun
 		int kind;//Unit種別（_UNIT_KIND_）
 
 		//==変数==
-		Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
+		cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
 		float speed;//移動速度（移動量）
-		Vec3 speed_vec;//移動ベクトル（speedをもとに計算する）
-		Vec3 target_pos;//移動時の目標座標（現在は自キャラや弾の移動に用いていますが、無駄と判断すれば今後削除します）
+		cocos2d::Vec3 speed_vec;//移動ベクトル（speedをもとに計算する）
+		cocos2d::Vec3 target_pos;//移動時の目標座標（現在は自キャラや弾の移動に用いていますが、無駄と判断すれば今後削除します）
 		int frame;//Unit固有フレーム
-		Vec3 collision_vec;//OBBの辺の長さ（現在は１つのみ定義）
+		cocos2d::Vec3 collision_vec;//OBBの辺の長さ（現在は１つのみ定義）
 
 		//==当たり判定関連クラス(仮)==
-		AABB aabbHead;//
-		AABB aabbBody;//
-		OBB obbHead;
+		cocos2d::AABB aabbHead;//
+		cocos2d::AABB aabbBody;//
+		cocos2d::OBB obbHead;
 
 		//==モデル・アニメーション関連クラス==
-		Sprite3D* sprite3d;//
-		Node* wrapper;//モデルの親ノード（モデル基準座標として使用する。通常は(0,0,0)座標）
-		Animation3D* animation;
-		Animate3D* animate;
+		cocos2d::Sprite3D* sprite3d;//
+		cocos2d::Node* wrapper;//モデルの親ノード（モデル基準座標として使用する。通常は(0,0,0)座標）
+		cocos2d::Animation3D* animation;
+		cocos2d::Animate3D* animate;
 
 		//メンバ関数
 		void Init(void);//数値の初期化（今後はコンストラクタに置き換える？）
@@ -66,7 +66,7 @@ namespace TapGun
 		void SetCollision(void);//当たり判定を初期化
 
 		void UpdatePos(void);//速度をもとに座標移動と当たり判定移動
-		void UpdatePos(Vec3 pos);//引数の座標に移動
+		void UpdatePos(cocos2d::Vec3 pos);//引数の座標に移動
 
 
 		//Character();
