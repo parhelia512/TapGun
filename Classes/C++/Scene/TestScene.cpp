@@ -11,6 +11,7 @@
 
 #else
 
+#include "C++/Base/Sprite3D.h"
 #include "C++/System/Errorfunc.h"
 #include "C++/System/Sound.h"
 
@@ -21,7 +22,7 @@ using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
-Sprite3D* sprite3D;
+TapGun::Sprite3D* sprite3D;
 
 Scene* Test::createScene()
 {
@@ -44,20 +45,21 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = Sprite3D::create( "uesita");//, "BBOX.texture");
-	auto mesh = sprite3D -> getMeshArrayByName( "Box001");
-	mesh[0] -> setTexture( "tex_ue.png");
-	mesh[1] -> setTexture( "tex_sita.png");
+	sprite3D = TapGun::Sprite3D::create( "tenq");//, "BBOX.texture");
+	auto mesh = sprite3D -> getMesh();
+	mesh -> setTexture( "backGrund.png");
+	//mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 //	auto animate = Animate3D::create( animation);
 //	sprite3D -> runAction( RepeatForever::create( animate));
 //	sprite3D -> startAnimationLoop("Test");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
-	sprite3D -> setScale( 120.0f);
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
+//	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
+	sprite3D -> setScale( 2.0f);
 	this -> addChild( sprite3D);
-
+	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
+	addChild (light);
 	return true;
 }
 
