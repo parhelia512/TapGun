@@ -47,12 +47,12 @@ namespace TapGun
 		int playerNum;
 
 
-		void UpdateLayer(int* pstate, cocos2d::Vec2 touch_pos, cocos2d::Camera* camera);//レイヤー更新
+		void UpdateLayer();//レイヤー更新
 
 		CREATE_FUNC(GameModelsLayer);
 
 	private:
-		void UpdatePlayer(int* pstate, cocos2d::Vec2 touch_pos, cocos2d::Camera* camera);//
+		void UpdatePlayer();//
 
 		void UpdateEnemy();
 		void UpdateBullets();

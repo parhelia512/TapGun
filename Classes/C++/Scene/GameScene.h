@@ -12,15 +12,6 @@ namespace TapGun
 		GameLayerTag,
 		UILayerTag
 	} GameSceneTag;
-
-
-	enum _GAME_STATE_
-	{
-		GSTATE_INIT,
-		GSTATE_PAUSE,
-		GSTATE_PLAY,
-		GSTATE_NUM
-	};
 	
 	class GameScene : public cocos2d::Layer
 	{
@@ -29,16 +20,10 @@ namespace TapGun
 		//メンバ変数
 
 		//==フラグ系==
-		int game_state;//ゲームの現在ステート
 
 
 		//==変数系==
-		cocos2d::Vec2 touch_pos;//仮タッチ座標（現在はシングルタッチのみ）
 		int playerNum;//Unit配列のプレイヤー番号（0で固定してもよい？）
-
-		//将来的には管理クラスのメンバ変数に含めます
-		int stage_num;//現在ステージ番号（初期化等に用いる）
-		int player_state;//
 
 		//==メンバ関数==
 		static cocos2d::Scene* CreateScene();

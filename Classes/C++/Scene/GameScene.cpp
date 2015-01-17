@@ -6,19 +6,18 @@
 
 #include "GameModelsLayer.h"
 #include "GameUILayer.h"
-//#include"GameStatus.h"
+#include"GameMaster.h"
 
 #else
 
 #include "C++/Scene/GameModelsLayer.h"
 #include "C++/Scene/GameUILayer.h"
-//#include "C++/Base/GameStatus.h"
+#include "C++/Base/GameMaster.h"
 
 #endif
 
 USING_NS_CC;
 using namespace TapGun;
-
 
 /*
 GameScene
@@ -28,9 +27,10 @@ GameScene
 */
 
 
-Camera *camera3;//3D用カメラ
+//Camera *camera3;//3D用カメラ
 Camera *camera2;//2D用カメラ
 
+GameMaster* GameParamObj2;//とりあえず名前を変えるか名前空間で区別する
 
 GameModelsLayer* gGameLayer;
 GameUILayer* gUILayer;
@@ -85,8 +85,6 @@ Scene* GameScene::CreateScene()
 //}
 
 
-
-
 /**
 *	ゲームシーン初期化
 *
@@ -115,12 +113,10 @@ bool GameScene::init()
 
 //	GameStatus* gameStat = GameStatus::getObject();
 
-	//タッチ座標を初期化
-	touch_pos.x = 0.0f;
-	touch_pos.y = 0.0f;
+	GameParamObj2 = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成
+	GameParamObj2->InitScreenSize();//スクリーンサイズのセット
+	GameParamObj2->InitParam();//ゲームパラメータの初期化
 
-	game_state = GSTATE_INIT;
-	player_state = 0;//
 
 	//現在はタッチイベントのリスナーをここに用意しています
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -133,7 +129,6 @@ bool GameScene::init()
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
-
 
 	this->scheduleUpdate();
 	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
@@ -183,10 +178,11 @@ int GameScene::InitCamera()
 		// set parameters for camera
 		//camera3->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
 	}
-	camera3 = Camera::create();
-	camera3 = Camera::createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
+//	camera3 = Camera::create();
+//	camera3 = Camera::createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
 
-	//3D用カメラの実装
+	GameParamObj2->InitCamera3D();
+ 	//3D用カメラの実装
 	if(NULL != gGameLayer)
 	{
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
@@ -196,12 +192,12 @@ int GameScene::InitCamera()
 		cameraPos.y += 1.5f;
 		cameraPos.z += 3.1f;
 
-		camera3->setPosition3D(cameraPos);
-		camera3->lookAt(Vec3(0, 0, cameraPos.z - 120.0f), Vec3(0, 1, 0));
-		camera3->setRotation3D(Vec3(0.0f, -5.0f, 0.0f));
-		addChild(camera3);//add camera to the scene
-	}
+		GameParamObj2->SetCamera3DPos(cameraPos);
+		GameParamObj2->SetCamera3DRot(Vec3(0.0f, -5.0f, 0.0f));
 
+		//camera3->lookAt(Vec3(0, 0, cameraPos.z - 120.0f), Vec3(0, 1, 0));
+		addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
+	}
 	return TRUE;
 }
 
@@ -221,11 +217,10 @@ int GameScene::InitCamera()
 void GameScene::moveTime(float delta)
 {
 
-	switch (game_state)
+	switch (GameParamObj2->GetGameState())
 	{
 
 	case GSTATE_INIT://子レイヤー内の変数初期化を行う
-
 
 		if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
 		{
@@ -237,15 +232,13 @@ void GameScene::moveTime(float delta)
 		}
 
 		InitCamera();
-
-		game_state = GSTATE_PLAY;
-
+		GameParamObj2->SetGameState(GSTATE_PLAY);
 		break;
 
 	case GSTATE_PLAY:
 		if (NULL != gGameLayer)//現在は初期化チェック確認する
 		{
-			gGameLayer->UpdateLayer(&player_state,touch_pos, camera3);//レイヤーの更新(現在はタッチ座標とカメラ構造体を引数として渡しています)
+			gGameLayer->UpdateLayer();//レイヤーの更新(現在はタッチ座標とカメラ構造体を引数として渡しています)
 		}
 		if (NULL != gUILayer)//現在は初期化チェック確認する
 		{
@@ -269,7 +262,7 @@ void GameScene::moveTime(float delta)
 */
 void GameScene::update(float delta)
 {
-	
+
 }
 
 
@@ -284,7 +277,6 @@ void GameScene::update(float delta)
 */
 int GameScene::UpdateCamera()
 {
-
 	//現在は3Dモデルに追従させて2Dカメラを更新しています
 	auto s = Director::getInstance()->getWinSize();
 	if(NULL != gUILayer)
@@ -299,22 +291,18 @@ int GameScene::UpdateCamera()
 
 	if(NULL != gGameLayer)
 	{
-		Vec3 CamRot = camera3->getRotation3D();
-		Vec3 CamPos = camera3->getPosition3D();
-	}
 
+	}
 	return TRUE;
 }
 
 
 
-
-
-
 bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
-	touch_pos = pTouch->getLocation();
-	player_state = 1;
+	GameParamObj2->SetTouchPos(pTouch->getLocation());//タッチ座標を取得してセット
+
+	GameParamObj2->SetPlayerState(PSTATE_SHOT);//プレイヤーの状態を「射撃」状態にする
 	return true;
 }
 
