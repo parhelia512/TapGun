@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 
-
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "Unit.h"
@@ -18,15 +17,13 @@
 namespace TapGun
 {
 
-
-
 	class GameModelsLayer : public cocos2d::Layer
 	{
 	public:
 
 
 		virtual bool init();
-		static cocos2d::Scene* CreateScene();
+		//static cocos2d::Scene* CreateScene();
 
 		int InitLayer(void);
 
@@ -45,19 +42,20 @@ namespace TapGun
 		//モデル表示用の構造体と関数を一時的にまとめています
 		void InitAllModels();//
 		int SearchFreeUnit();//
-		Unit unit[MAX_MODEL];//
+		Unit unit[MAX_UNIT];//
 
 		int playerNum;
 
 
-		void UpdatePlayer();
-
-		void UpdateEnemy();
-		void UpdateBullets();
+		void UpdateLayer(int* pstate, cocos2d::Vec2 touch_pos, cocos2d::Camera* camera);//レイヤー更新
 
 		CREATE_FUNC(GameModelsLayer);
 
 	private:
+		void UpdatePlayer(int* pstate, cocos2d::Vec2 touch_pos, cocos2d::Camera* camera);//
+
+		void UpdateEnemy();
+		void UpdateBullets();
 
 		void ShootBullet(int enemy_num);
 

@@ -6,8 +6,7 @@
 //}
 
 using namespace TapGun;
-
-
+USING_NS_CC;
 
 
 /**
@@ -52,7 +51,7 @@ int Unit::Init(int num, int utype)
 	//初期化内容は随時更新します
 
 	//num番のUnit構造体が使用されているか初期化されていない、またはUnit種別が不正、または配列外の場合はエラー
-	if(FALSE != valid || 0 > utype || UKIND_NUM <= utype || 0 > num || MAX_MODEL <= num)
+	if(FALSE != valid || 0 > utype || UKIND_NUM <= utype || 0 > num || MAX_UNIT <= num)
 	{
 		return FALSE;
 	}
