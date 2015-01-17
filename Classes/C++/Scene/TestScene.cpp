@@ -8,6 +8,7 @@
 
 #include "Errorfunc.h"
 #include "Sound.h"
+#include "Sprite3D.h"
 
 #else
 
@@ -22,8 +23,11 @@ using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
+<<<<<<< HEAD
 TapGun::Sprite3D* sprite3D;
 
+=======
+>>>>>>> 1d61bef2fa7bd9bd2e46ac652fcfe5d4564b9a1a
 Scene* Test::createScene()
 {
 	SystemValue::windowSize = Director::getInstance() -> getVisibleSize();
@@ -45,10 +49,18 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
+<<<<<<< HEAD
 	sprite3D = TapGun::Sprite3D::create( "tenq");//, "BBOX.texture");
 	auto mesh = sprite3D -> getMesh();
 	mesh -> setTexture( "backGrund.png");
 	//mesh[1] -> setTexture( "tex_sita.png");
+=======
+	auto sprite3D = TapGun::Sprite3D::create("");
+//	sprite3D = Sprite3D::create( "uesita");//, "BBOX.texture");
+//	auto mesh = sprite3D -> getMeshArrayByName( "Box001");
+//	mesh[0] -> setTexture( "tex_ue.png");
+//	mesh[1] -> setTexture( "tex_sita.png");
+>>>>>>> 1d61bef2fa7bd9bd2e46ac652fcfe5d4564b9a1a
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 //	auto animate = Animate3D::create( animation);

@@ -21,13 +21,13 @@ using namespace std;
 using namespace TapGun;
 
 /**
- *	ƒXƒNƒŠƒvƒgŠÇ—ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒXŽæ“¾
- *
- *	@author	minaka 
- *	@param	fileName ƒtƒ@ƒCƒ‹–¼
- *	@return	³íI—¹:0 ƒGƒ‰[”­¶:-1
- *	@date	1/7 Ver 1.0
- */
+*	ã‚¹ã‚¯ãƒªãƒ—ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å–å¾—
+*
+*	@author	minaka
+*	@param	fileName ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@return	æ­£å¸¸çµ‚äº†:0 ã‚¨ãƒ©ãƒ¼ç™ºç”Ÿ:-1
+*	@date	1/7 Ver 1.0
+*/
 Script* Script::getInstance( void)
 {
 	static Script* P;
@@ -36,28 +36,28 @@ Script* Script::getInstance( void)
 }
 
 /**
- *	ƒXƒNƒŠƒvƒgƒtƒ@ƒCƒ‹‚Ì“Ç‚Ýž‚Ý‚ÆÝ’è
- *
- *	@author	minaka 
- *	@param	fileName ƒtƒ@ƒCƒ‹–¼
- *	@param	layer •`‰æÝ’è‚·‚éƒŒƒCƒ„[
- *	@return	ƒGƒ‰[ƒƒbƒZ[ƒW
- *	@date	1/8 Ver 1.0
- */
+*	ã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã¨è¨­å®š
+*
+*	@author	minaka
+*	@param	fileName ãƒ•ã‚¡ã‚¤ãƒ«å
+*	@param	layer æç”»è¨­å®šã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãƒ¼
+*	@return	ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+*	@date	1/8 Ver 1.0
+*/
 string Script::loadScriptFile( const string& fileName, Layer* layer)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	string filePath = fileName + ".script";
-#else
+	#else
 	string filePath = "Script/" + fileName + ".script";
-#endif
+	#endif
 	ifstream file( filePath, ios::in);
-	if( file.fail()) 
+	if( file.fail())
 	{
-		string error = "ƒXƒNƒŠƒvƒgƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ ƒtƒ@ƒCƒ‹:" + fileName; 
+		string error = "ã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“ ãƒ•ã‚¡ã‚¤ãƒ«:" + fileName;
 		return error;
 	}
-	
+
 	string str;
 	lineCounter = 0;
 	while( getline( file, str))
@@ -73,79 +73,79 @@ string Script::loadScriptFile( const string& fileName, Layer* layer)
 			functionNameCreate( s);
 		}
 		else if( tmp == "Anime" || tmp == "anime")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameAnime( s);
-		}
-		else if( tmp == "Print" || tmp == "print")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNamePrint( s, layer);
-		}
-		else if( tmp == "Clear" || tmp == "clear")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameClear( s);
-		}
-		else if( tmp == "Delete" || tmp == "delete")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameDelete( s);
-		}
-		else if( tmp == "Play" || tmp == "play")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNamePlay( s);
-		}
-		else if( tmp == "Stop" || tmp == "stop")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameStop( s);
-		}
-		else if( tmp == "Pause" || tmp == "pause")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNamePause( s);
-		}
-		else if( tmp == "Resume" || tmp == "resume")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameResume( s);
-		}
-		else if( tmp == "StopAll" || tmp == "stopAll")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameStopAll( s);
-		}
-		else if( tmp == "PauseAll" || tmp == "pauseAll")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNamePauseAll( s);
-		}
-		else if( tmp == "ResumeAll" || tmp == "resumeAll")
-		{
-			string s = str;
-			s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
-			functionNameResumeAll( s);
-		}
-		else
-		{
-			string error = tmp + "‚±‚Ì–½—ß‚Í–¢ŽÀ‘•‚Å‚· ";
-			string s = lineCounter + "s–Ú ƒtƒ@ƒCƒ‹:" + fileName;;
-			error = error + s;
-			return error;
-		}
+	{
+		string s = str;
+		s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+		functionNameAnime( s);
 	}
+	else if( tmp == "Print" || tmp == "print")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNamePrint( s, layer);
+}
+else if( tmp == "Clear" || tmp == "clear")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNameClear( s);
+}
+else if( tmp == "Delete" || tmp == "delete")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNameDelete( s);
+}
+else if( tmp == "Play" || tmp == "play")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNamePlay( s);
+}
+else if( tmp == "Stop" || tmp == "stop")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNameStop( s);
+}
+else if( tmp == "Pause" || tmp == "pause")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNamePause( s);
+}
+else if( tmp == "Resume" || tmp == "resume")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNameResume( s);
+}
+else if( tmp == "StopAll" || tmp == "stopAll")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNameStopAll( s);
+}
+else if( tmp == "PauseAll" || tmp == "pauseAll")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNamePauseAll( s);
+}
+else if( tmp == "ResumeAll" || tmp == "resumeAll")
+{
+	string s = str;
+	s.erase( 0, s.size() - ( s.size() - ( tmp.size() + 1)));
+	functionNameResumeAll( s);
+}
+else
+{
+	string error = tmp + "ã“ã®å‘½ä»¤ã¯æœªå®Ÿè£…ã§ã™ ";
+	string s = lineCounter + "è¡Œç›® ãƒ•ã‚¡ã‚¤ãƒ«:" + fileName;;
+	error = error + s;
+	return error;
+}
+}
 }
 
 string Script::functionNameCreate( const string& scriptText)
@@ -166,40 +166,40 @@ string Script::functionNameCreate( const string& scriptText)
 		flag = FileNameFlag::Picture;
 	}
 	else if( fileName == ".obj" || fileName == ".c3t" || fileName == ".c3b")
-	{
-		flag = FileNameFlag::Model;
-	}
-	else if( fileName == ".mp3" || fileName == ".wav")
-	{
-		flag = FileNameFlag::Sound;
-	}
-	else
-	{
-		string error = "ƒXƒNƒŠƒvƒg‚ÅŽw’è‚³‚ê‚½ƒtƒ@ƒCƒ‹‚Í“Ç‚Ýž‚ß‚Ü‚¹‚ñ " + lineCounter;
-		error = error + "s–Ú ƒtƒ@ƒCƒ‹:" + fileName;
-		return error;
-	}
+{
+	flag = FileNameFlag::Model;
+}
+else if( fileName == ".mp3" || fileName == ".wav")
+{
+	flag = FileNameFlag::Sound;
+}
+else
+{
+	string error = "ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§æŒ‡å®šã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã¯èª­ã¿è¾¼ã‚ã¾ã›ã‚“ " + lineCounter;
+	error = error + "è¡Œç›® ãƒ•ã‚¡ã‚¤ãƒ«:" + fileName;
+	return error;
+}
 
-	istringstream stream( str);
-	
-	if( flag == FileNameFlag::Sound)
+istringstream stream( str);
+
+if( flag == FileNameFlag::Sound)
+{
+	auto data = new InputSoundData;
+	auto sound = Sound::getInstance();
+	for( int i = 0; str.size() > 0; i++)
 	{
-		auto data = new InputSoundData;
-		auto sound = Sound::getInstance();
-		for( int i = 0; str.size() > 0; i++)
-		{
-			getline( stream, command, ',');
-			str.erase( 0, str.size() - ( str.size() - ( command.size() + 1)));
-			if( *str.data() == ',') break; // ','‚ª2ŒÂŒq‚ª‚Á‚Ä‚¢‚½ê‡Aˆ—I—¹
-			
-			if( i == 0) 
+		getline( stream, command, ',');
+		str.erase( 0, str.size() - ( str.size() - ( command.size() + 1)));
+		if( *str.data() == ',') break; // ','ãŒ2å€‹ç¹‹ãŒã£ã¦ã„ãŸå ´åˆã€å‡¦ç†çµ‚äº†
+
+			if( i == 0)
 			{
 				data -> dataName = command;
 			}
 			else
 			{
 				// Tag or Pos
-				if( *command.data() == '#' || *command.data() == '”')
+				if( *command.data() == '#' )//|| *command.data() == 'ï¼ƒ')
 				{
 					command.erase( 0, 1);
 					data -> tag = command;
@@ -220,76 +220,76 @@ string Script::functionNameCreate( const string& scriptText)
 		{
 			getline( stream, command, ',');
 			str.erase( 0, str.size() - ( str.size() - ( command.size() + 1)));
-			if( *str.data() == ',') break; // ','‚ª2ŒÂŒq‚ª‚Á‚Ä‚¢‚½ê‡Aˆ—I—¹
-			
-			if( i == 0) 
-			{
-				data -> dataName = command;
-			}
-			else
-			{
-				if( *command.data() == '#' || *command.data() == '”')
+			if( *str.data() == ',') break; // ','ãŒ2å€‹ç¹‹ãŒã£ã¦ã„ãŸå ´åˆã€å‡¦ç†çµ‚äº†
+
+				if( i == 0)
 				{
-					command.erase( 0, 1);
-					data -> tag = command;
+					data -> dataName = command;
 				}
-				else if( command.find( "posX", 0) != string::npos || command.find( "PosX", 0) != string::npos)
+				else
+				{
+					if( *command.data() == '#')// || *command.data() == 'ï¼ƒ')
+					{
+						command.erase( 0, 1);
+						data -> tag = command;
+					}
+					else if( command.find( "posX", 0) != string::npos || command.find( "PosX", 0) != string::npos)
 				{
 					command.erase( 0, 5);
 					data -> position.x = atof( command.c_str());
 				}
 				else if( command.find( "posY", 0) != string::npos || command.find( "PosY", 0) != string::npos)
-				{
-					command.erase( 0, 5);
-					data -> position.y = atof( command.c_str());
-				}
-				else if( command.find( "posZ", 0) != string::npos || command.find( "PosZ", 0) != string::npos)
-				{
-					command.erase( 0, 5);
-					data -> position.z = atof( command.c_str());
-				}
-				else if( command.find( "layer", 0) != string::npos || command.find( "Layer", 0) != string::npos)
-				{
-					command.erase( 0, 6);
-					data -> layerNumber = atof( command.c_str());
-				}
-				else
-				{
-					break;
-				}
+			{
+				command.erase( 0, 5);
+				data -> position.y = atof( command.c_str());
 			}
-		}
-
-		switch( flag)
+			else if( command.find( "posZ", 0) != string::npos || command.find( "PosZ", 0) != string::npos)
 		{
-		case FileNameFlag::Text:
-		{
-			auto sprite = LabelTTF::create( data -> dataName, "Arial", 20);
-			sprite -> setPosition( Vec2( data -> position.x, data -> position.y));
-//			layer -> addChild( sprite, data -> layerNumber);
-			break;
+			command.erase( 0, 5);
+			data -> position.z = atof( command.c_str());
 		}
-		case FileNameFlag::Picture:
-		{
-			auto sprite = Sprite::create( data -> dataName);
-			sprite -> setPosition( Vec2( data -> position.x, data -> position.y));
-//			layer -> addChild( sprite, data -> layerNumber);
-			break;
-		}
-		case FileNameFlag::Model:
-		{
-			auto sprite = Sprite3D::create( data -> dataName);
-
-			sprite -> setPosition3D( data -> position);
-//			layer -> addChild( sprite, data -> layerNumber);
-			break;
-		}
-		default:
-			auto sprite = nullptr;
-			break;
-		};
-		spriteList.push_back( data);
+		else if( command.find( "layer", 0) != string::npos || command.find( "Layer", 0) != string::npos)
+	{
+		command.erase( 0, 6);
+		data -> layerNumber = atof( command.c_str());
 	}
+	else
+	{
+		break;
+	}
+}
+}
+
+switch( flag)
+{
+	case FileNameFlag::Text:
+{
+	auto sprite = LabelTTF::create( data -> dataName, "Arial", 20);
+	sprite -> setPosition( Vec2( data -> position.x, data -> position.y));
+	//			layer -> addChild( sprite, data -> layerNumber);
+	break;
+}
+case FileNameFlag::Picture:
+{
+	auto sprite = Sprite::create( data -> dataName);
+	sprite -> setPosition( Vec2( data -> position.x, data -> position.y));
+	//			layer -> addChild( sprite, data -> layerNumber);
+	break;
+}
+case FileNameFlag::Model:
+{
+	auto sprite = Sprite3D::create( data -> dataName);
+
+	sprite -> setPosition3D( data -> position);
+	//			layer -> addChild( sprite, data -> layerNumber);
+	break;
+}
+default:
+auto sprite = nullptr;
+break;
+};
+spriteList.push_back( data);
+}
 }
 
 string Script::functionNameAnime( const string& scriptText)
@@ -346,4 +346,3 @@ string Script::functionNameResumeAll( const string& scriptText)
 {
 	return 0;
 }
-

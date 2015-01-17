@@ -11,7 +11,7 @@ class Test : public cocos2d::Layer
 {
 public:
 	static double frame;
-	
+
 	std::string fileName;
 	cocos2d::Size visibleSize;
 	cocos2d::Sprite3D* sprite3d[2];
@@ -21,7 +21,7 @@ public:
 
 	virtual bool init();
 	void update( float delta);
-	void moveTime( float delta);	
+	void moveTime( float delta);
 	void menuCloseCallback(cocos2d::Ref* pSender);
 	void setCocos( void);
 
