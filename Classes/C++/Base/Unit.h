@@ -43,10 +43,10 @@ namespace TapGun
 		//==変数==
 		cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
 		float speed;//移動速度（移動量）
-		cocos2d::Vec3 speed_vec;//移動ベクトル（speedをもとに計算する）
-		cocos2d::Vec3 target_pos;//移動時の目標座標（現在は自キャラや弾の移動に用いていますが、無駄と判断すれば今後削除します）
+		cocos2d::Vec3 speedVec;//移動ベクトル（speedをもとに計算する）
+		cocos2d::Vec3 targetPos;//移動時の目標座標（現在は自キャラや弾の移動に用いていますが、無駄と判断すれば今後削除します）
 		int frame;//Unit固有フレーム
-		cocos2d::Vec3 collision_vec;//OBBの辺の長さ（現在は１つのみ定義）
+		cocos2d::Vec3 collisionPos;//OBBの辺の長さ（現在は１つのみ定義）
 
 		//==当たり判定関連クラス(仮)==
 		cocos2d::AABB aabbHead;//

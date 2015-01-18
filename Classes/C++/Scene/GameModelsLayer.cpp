@@ -165,7 +165,7 @@ int GameModelsLayer::InitPlayer(int stage_num)
 
 
 	//当たり判定の定義（仮）
-	unit[num].collision_vec = Vec3(1.2, 3.0, 1.2);
+	unit[num].collisionPos = Vec3(1.2, 3.0, 1.2);
 	unit[num].SetCollision();
 
 	//アニメーション読み込み
@@ -226,16 +226,17 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		unit[num].sprite3d->setPosition3D(Vec3(4.0f, 0.0f, -18.5f));
 
 		//当たり判定の定義（仮）
-		unit[num].collision_vec = Vec3(0.5, 0.5, 0.5);
+		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
 		unit[num].SetCollision();
+
 
 
 		//アニメーション読み込み
 		{
-			auto animation = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
-			auto animate = Animate3D::create(animation);
-			animate->setSpeed(1);
-			unit[num].sprite3d->runAction(RepeatForever::create(animate));
+			//auto animation = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
+			//auto animate = Animate3D::create(animation);
+			//animate->setSpeed(1);
+			//unit[num].sprite3d->runAction(RepeatForever::create(animate));
 		}
 
 
@@ -266,19 +267,19 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		addChild(unit[num].wrapper);
 
 		unit[num].sprite3d->setScale(1.0f);
-		unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -23.5f));
+		unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -60.5f));
 
 		//当たり判定の定義（仮）
-		unit[num].collision_vec = Vec3(0.5, 0.5, 0.5);
+		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
 		unit[num].SetCollision();
 
 
 		//アニメーション読み込み
 		{
-			auto animation2 = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
-			auto animate2 = Animate3D::create(animation2);
-			animate2->setSpeed(1);
-			unit[num].sprite3d->runAction(RepeatForever::create(animate2));
+			//auto animation2 = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
+			//auto animate2 = Animate3D::create(animation2);
+			//animate2->setSpeed(1);
+			//unit[num].sprite3d->runAction(RepeatForever::create(animate2));
 		}
 
 		break;
@@ -365,20 +366,23 @@ void GameModelsLayer::UpdatePlayer()
 
 	auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
 
-	Vec3 tmp_world_pos_a = Vec3(0, 0, 0);
-	Vec3 tmp_world_pos_b = Vec3(0, 0, 0);
-
-
-	//
-	Vec2 tPos = GameParamObj->GetTouchPos();
+	Vec3 rayStart = Vec3(0, 0, 0);
+	Vec3 rayEnd = Vec3(0, 0, 0);
+	Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
 
 	Vec3 tmp_touch_pos = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
-	Camera* cam3d = GameParamObj->GetCamera3D();
-	cam3d->unproject(s, &tmp_touch_pos, &tmp_world_pos_a);
-	tmp_touch_pos.z = 1.0f;//1.0f == 視錘台の遠面（far plane）
-	cam3d->unproject(s, &tmp_touch_pos, &tmp_world_pos_b);
 
-	Ray touch_ray(tmp_world_pos_a, tmp_world_pos_b);//仮レイ
+	Camera* cam3d = GameParamObj->GetCamera3D();
+	cam3d->unproject(s, &tmp_touch_pos, &rayStart);//near planeの3次元座標を取得
+	//rayStart = cam3d->getPosition3D();
+
+
+	tmp_touch_pos.z = 1.0f;//1.0f == 視錘台の遠面（far plane）
+	cam3d->unproject(s, &tmp_touch_pos, &rayEnd);//far planeの3次元座標を取得
+
+	Ray touch_ray(rayStart, rayEnd);//仮レイを設定
+
+	//
 
 	//レイと敵の当たり判定処理
 	//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う
@@ -457,7 +461,7 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 		//unit[num].aabbBody.set(Vec3(-0.3, -0.3, -0.3), Vec3(0.3, 0.3, 0.3));
 		//unit[num].obbHead = OBB(unit[num].aabbBody);//
 		////unit[num].obbHead.set();
-		unit[num].collision_vec = Vec3(0.2, 0.2, 0.2);//当たり判定矩形の大きさを設定
+		unit[num].collisionPos = Vec3(0.2, 0.2, 0.2);//当たり判定矩形の大きさを設定
 		unit[num].SetCollision();//当たり判定をセット
 
 		//弾を撃ったエネミーの座標と、プレイヤーの座標を元に、弾の移動方向を求める
@@ -465,11 +469,11 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 		Vec3 player_pos = unit[playerNum].sprite3d->getPosition3D();
 
 		//unit[num].speed_vec = Vec3(enemy_pos.x, 0, 0);
-		unit[num].speed_vec = player_pos - enemy_pos;//この方法が正しければ使用する
+		unit[num].speedVec = player_pos - enemy_pos;//この方法が正しければ使用する
 
 		//ベクトルの正規化を行う
-		float vx = unit[num].speed_vec.x;
-		float vz = unit[num].speed_vec.z;
+		float vx = unit[num].speedVec.x;
+		float vz = unit[num].speedVec.z;
 
 		float dist = sqrtf(vx * vx + vz * vz);//二次元的な距離
 		vx = vx / dist;
@@ -477,9 +481,9 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 
 		//正規化が終わったら、速度をかけて方向ベクトルの計算終了
 		unit[num].speed = 0.8f;
-		unit[num].speed_vec.x = vx * unit[num].speed;
-		unit[num].speed_vec.z = vz * unit[num].speed;
-		unit[num].speed_vec.y = 0;//yは今のところ0で扱う
+		unit[num].speedVec.x = vx * unit[num].speed;
+		unit[num].speedVec.z = vz * unit[num].speed;
+		unit[num].speedVec.y = 0;//yは今のところ0で扱う
 
 		unit[num].sprite3d->setPosition3D(enemy_pos);
 		unit[num].sprite3d->setPositionY(1.2f);
@@ -552,33 +556,3 @@ void GameModelsLayer::update(float delta)
 {
 
 }
-
-
-/*
-bool GameModelsLayer::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
-{
-	return true;
-}
-
-
-void GameModelsLayer::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
-{
-
-}
-
-
-
-void GameModelsLayer::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
-{
-
-}
-
-
-//void GameModelsLayer::onTouchCancelled = CC_CALLBACK_2(GameModelsLayer::onTouchCancelled, this);
-//{
-//
-//	//画面をタッチした時の処理
-//
-//}
-
-*/

@@ -1,20 +1,23 @@
 
+#include "cocos2d.h"
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include"GameMaster.h"
 
 #else
 
-#include "C++/System/GameMaster.h"
+#include"C++/Base/GameMaster.h"
  
 #endif
+
 
 USING_NS_CC;
 using namespace TapGun;
 
-
-Camera* GameMaster::camera3D = Camera::create();
-Camera* GameMaster::camera2D = Camera::create();
+//実態をNULLで初期化
+Camera* GameMaster::camera3D = NULL;
+Camera* GameMaster::camera2D = NULL;
 
 /**
 *	ゲームパラメータクラスの生成
@@ -30,21 +33,24 @@ GameMaster* GameMaster::GetInstance(void)
 	if(!P)
 	{
 		P = new GameMaster;
+
 	}
 	return P;
 }
 
 
 /**
-*	2Dカメラのインスタンス
+*	スクリーンサイズの取得
 *
 *	@author	sasebon
 *	@param	なし
-*	@return	2D用カメラ
+*	@return	なし
 *	@date	1/16 Ver 1.0
 */
 void GameMaster::InitScreenSize(void)
 {
+	//引数なしの場合は自動取得
+	//引数を指定することで、スクリーンサイズを任意の値に設定できるようにする？
 	screenSize = Director::getInstance()->getWinSize();//スクリーンサイズを取得
 }
 
@@ -59,6 +65,10 @@ void GameMaster::InitScreenSize(void)
 */
 Camera* GameMaster::Get2DCamInstance(void)
 {
+	if(!camera2D)
+	{
+		GameMaster::camera2D = Camera::create();
+	}
 	return camera2D;
 }
 
@@ -74,6 +84,11 @@ Camera* GameMaster::Get2DCamInstance(void)
 */
 Camera* GameMaster::Get3DCamInstance(void)
 {
+	if(!camera3D)
+	{
+		GameMaster::camera3D = Camera::create();
+	}
+
 	return camera3D;
 }
 
@@ -122,7 +137,7 @@ void GameMaster::InitParam(int wave)
 *	@return	なし
 *	@date	1/16 Ver 1.0
 */
-void GameMaster::SetCamera2D(cocos2d::Vec3 pos)
+void GameMaster::SetCamera2DPos(cocos2d::Vec3 pos)
 {
 	camera2D->setPosition3D(pos);
 }
@@ -201,6 +216,27 @@ void GameMaster::InitCamera3D()
 
 	//
 	camera3D = Camera::createPerspective(20, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
+	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
+}
+
+
+/**
+*	2D用カメラの初期化
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/16 Ver 1.0
+*/
+void GameMaster::InitCamera2D()
+{
+	//今後、ゲームやプレイヤーの状態などで様々なカメラセットが出来るようにする？
+	//camera3D->createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
+
+	//
+	camera2D = Camera::createOrthographic(screenSize.width, screenSize.height, 0, 100);//引数は仮
+	camera2D->setCameraFlag(CameraFlag::DEFAULT);//
 }
 
 

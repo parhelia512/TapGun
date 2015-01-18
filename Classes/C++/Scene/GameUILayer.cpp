@@ -9,25 +9,14 @@ Scene *scene_ui;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
-//#include"GameStatus.h"
-
+#include "GameMaster.h"
 
 #else
 
-//#include "C++/Base/GameStatus.h"
+#include "C++/Base/GameMaster.h"
 
 #endif
-/*
-インクリメント
-*/
-//GameUILayer::UILayer()
-//{
-//	for(int i = 0; i < MAX_MODEL; i++)
-//	{
-//		Unit[MAX_MODEL].valid = 0;
-//
-//	}
-//}
+
 
 
 /*
@@ -97,17 +86,7 @@ int GameUILayer::SerchFreeUI()
 
 void GameUILayer::SetUI()
 {
-	std::string fileName1 = "UI/ui_lifebar.png";
-
-	//int num = SerchFreeUI();
-	//if(-1 != num)
-	//{
-	//	valid[num] = 1;
-	//	UISprite[num] = Sprite::create(fileName1);
-	//	UISprite[num]->setPosition3D(Vec3(3, 2.1, -10.5));
-	//	UISprite[num]->setScale(0.01f);
-	//	addChild(UISprite[num]);
-	//}
+	std::string fileName1 = "Graph/Pictures/ty.png";
 
 	int num = SerchFreeUI();
 
@@ -115,13 +94,13 @@ void GameUILayer::SetUI()
 	if (-1 != num)
 	{
 		valid[num] = 1;
-		UIBillBoard[num] = BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-		UIBillBoard[num]->setPosition3D(Vec3(-1.5, 0.3, -5.5));
-		UIBillBoard[num]->setScale(0.001f);
+		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+		UIBillBoard[num]->setPosition(30.0f, 30.0f);
+		UIBillBoard[num]->setScale(0.5f);
 		UINode[num] = Node::create();//モデルの親ノード
 		UINode[num]->addChild(UIBillBoard[num]);
-
 		addChild(UINode[num]);
+		UIBillBoard[num]->setCameraMask(CAMFLAG_3D);
 	}
 }
 

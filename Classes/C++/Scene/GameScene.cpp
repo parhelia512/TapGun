@@ -27,8 +27,6 @@ GameScene
 */
 
 
-//Camera *camera3;//3D用カメラ
-Camera *camera2;//2D用カメラ
 
 GameMaster* GameParamObj2;//とりあえず名前を変えるか名前空間で区別する
 
@@ -100,18 +98,18 @@ bool GameScene::init()
 	{
 		return false;
 	}
-	//multiSceneLayerInstance = this;
 
 	//ゲームレイヤーを作成
 	gGameLayer = GameModelsLayer::create();
+	//gGameLayer->setCameraMask(2);
 	this->addChild(gGameLayer);
 
 
-	//UIレイヤーを作成（現在はコメントアウト）
-	//gUILayer = GameUILayer::create();
-	//this->addChild(gUILayer);
+	//UIレイヤーを作成
+	gUILayer = GameUILayer::create();
+	//gUILayer->setCameraMask(3);
+	this->addChild(gUILayer);
 
-//	GameStatus* gameStat = GameStatus::getObject();
 
 	GameParamObj2 = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成
 	GameParamObj2->InitScreenSize();//スクリーンサイズのセット
@@ -153,50 +151,36 @@ int GameScene::InitCamera()
 
 
 	//2D用カメラの実装
-	//camera2 = Camera::create();
-	camera2 = Camera::createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
-	//camera2 = Camera::createOrthographic(20, (GLfloat)s.width / s.height, 1, 1000);//本来はこちらです
-	// set parameters for camera
-	//camera3->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
-
-	//プレイヤーの座標取得はとりあえずこのような形で記述しています
-
 	if(NULL != gUILayer)
 	{
-		Vec3 cameraPos2 = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
-
-		cameraPos2.x += 0.5f;
-		cameraPos2.y += 1.5f;
-		cameraPos2.z += 3.1f;
-
-		camera2->setPosition3D(cameraPos2);
-		camera2->lookAt(Vec3(0, 0, cameraPos2.z - 120.0f), Vec3(0, 1, 0));
-
-		addChild(camera2);//add camera to the scene
-
-
-		// set parameters for camera
-		//camera3->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+		GameParamObj2->InitCamera2D();//カメラを初期化
+		gUILayer->setCameraMask(CAMFLAG_DEFALUT);
+		int a = gUILayer->getCameraMask();
+		addChild(GameParamObj2->Get2DCamInstance());
 	}
-//	camera3 = Camera::create();
-//	camera3 = Camera::createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
 
-	GameParamObj2->InitCamera3D();
- 	//3D用カメラの実装
+	//3D用カメラの実装
 	if(NULL != gGameLayer)
 	{
+		GameParamObj2->InitCamera3D();//カメラを初期化
+		gGameLayer->setCameraMask(CAMFLAG_3D);
+		int b = gGameLayer->getCameraMask();
+
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
 
-		cameraPos.x += 0.5f;
-		cameraPos.y += 1.5f;
-		cameraPos.z += 3.1f;
+
+		cameraPos.x += 0.5f;// += 0.5f;
+		cameraPos.y += 1.5f;// += 1.5f;
+		cameraPos.z += 2.1f;// += 3.1f;
 
 		GameParamObj2->SetCamera3DPos(cameraPos);
-		GameParamObj2->SetCamera3DRot(Vec3(0.0f, -5.0f, 0.0f));
+		GameParamObj2->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
+		//camera2->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
 
 		//camera3->lookAt(Vec3(0, 0, cameraPos.z - 120.0f), Vec3(0, 1, 0));
 		addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
+
 	}
 	return TRUE;
 }
@@ -277,21 +261,18 @@ void GameScene::update(float delta)
 */
 int GameScene::UpdateCamera()
 {
-	//現在は3Dモデルに追従させて2Dカメラを更新しています
-	auto s = Director::getInstance()->getWinSize();
 	if(NULL != gUILayer)
 	{
-		Vec3 CamRot = camera2->getRotation3D();
-		Vec3 CamPos = camera2->getPosition3D();
 
-		gUILayer->UpdateUI(CamPos.x, CamPos.y, CamPos.z, CamRot.x, CamRot.y, CamRot.z);
-		gUILayer->setPosition3D(CamPos);
-		gUILayer->setRotation3D(CamRot);
 	}
 
 	if(NULL != gGameLayer)
 	{
-
+		static float rot;
+		Camera* cm2 = GameParamObj2->GetCamera3D();
+		Camera* cm = GameParamObj2->Get3DCamInstance();
+		rot = -0.01f;
+		//gGameLayer->setRotation3D(Vec3(0.0f, rot, 0.0f));
 	}
 	return TRUE;
 }
@@ -312,7 +293,6 @@ void GameScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 
 	Director *pDirector;
 	Point touchPoint;
-	Node *pNode;
 	Rect spRect;
 
 	static float rx;

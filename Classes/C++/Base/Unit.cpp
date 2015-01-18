@@ -1,10 +1,4 @@
 #include"Unit.h"
-
-//Character::Character()
-//{
-//	valid = false;
-//}
-
 using namespace TapGun;
 USING_NS_CC;
 
@@ -28,9 +22,9 @@ void Unit::Init( void)
 	//変数
 	pos = Vec3(0, 0, 0);//モデル座標
 	speed = 0.0f;//移動速度
-	speed_vec = Vec3(0, 0, 0);//移動ベクトル
-	target_pos = Vec3(0, 0, 0);//移動目標
-	collision_vec = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
+	speedVec = Vec3(0, 0, 0);//移動ベクトル
+	targetPos = Vec3(0, 0, 0);//移動目標
+	collisionPos = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
 
 	frame = 0;//管理フレーム
 
@@ -63,8 +57,8 @@ int Unit::Init(int num, int utype)
 	//変数
 	pos = Vec3(0, 0, 0);
 	speed = 0.0f;
-	speed_vec = Vec3(0, 0, 0);
-	target_pos = Vec3(0, 0, 0);
+	speedVec = Vec3(0, 0, 0);
+	targetPos = Vec3(0, 0, 0);
 
 	frame = 0;//管理フレーム
 
@@ -73,12 +67,6 @@ int Unit::Init(int num, int utype)
 	switch(utype)
 	{
 	case UKIND_ENEMY://エネミー
-
-		//		sprite3d
-	{
-						 int a = 0;
-						 a = 0;
-	}
 
 		break;
 	case UKIND_EBULLET://敵弾
@@ -113,8 +101,8 @@ void Unit::SetCollision(void)
 	//当たり判定の移動
 	Vec3 collision_center = sprite3d->getPosition3D();
 
-	Vec3 collision_min = collision_center - collision_vec * 0.5f;
-	Vec3 collision_max = collision_center + collision_vec * 0.5f;
+	Vec3 collision_min = collision_center - collisionPos * 0.5f;
+	Vec3 collision_max = collision_center + collisionPos * 0.5f;
 
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
@@ -134,13 +122,12 @@ void Unit::SetCollision(void)
 void Unit::UpdatePos(void)
 {
 	pos = sprite3d->getPosition3D();
-	pos += speed_vec;
+	pos += speedVec;
 	sprite3d->setPosition3D(pos);
 
 	//当たり判定の移動
-	Vec3 collision_min = pos - collision_vec / 2;
-	Vec3 collision_max = pos + collision_vec / 2;
-
+	Vec3 collision_min = pos - collisionPos / 2;
+	Vec3 collision_max = pos + collisionPos / 2;
 
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//

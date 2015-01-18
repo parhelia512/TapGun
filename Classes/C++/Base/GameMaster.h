@@ -5,6 +5,11 @@
 
 namespace TapGun
 {
+	enum _CAMERA_FLAG_
+	{
+		CAMFLAG_DEFALUT = 1,
+		CAMFLAG_3D = 2,
+	};
 
 	enum _GAME_STATE_
 	{
@@ -55,25 +60,45 @@ namespace TapGun
 
 		void InitScreenSize(void);
 
+
 		void InitParam(void);
 		void InitParam(int wave);
 
-		//setParam(現在はvoid型で宣言しています)
-		void SetCamera2D(cocos2d::Vec3 pos);
+		void InitCamera2D(void);
+		void InitCamera3D(void);
 
+
+		////////////////////////////////////////
+		//setParam(現在はvoid型で宣言しています)
+
+		//2Dカメラ用
+		void SetCamera2DPos(cocos2d::Vec3 pos);//2Dカメラの位置を変更することはあまりないので必要ない？
+
+		//3Dカメラ用
 		void SetCamera3DPos(cocos2d::Vec3 pos);
 		void SetCamera3DRot(cocos2d::Vec3 rot);
 		void AddCamera3DPos(cocos2d::Vec3 pos);
 		void AddCamera3DRot(cocos2d::Vec3 rot);
 
-		void InitCamera3D( void);
+
 		void SetGameState(int state);
 		void SetPlayerState(int state);
 		void SetTouchPos(cocos2d::Vec2 tPos);
 
+
+
+		////////////////////////////////////////
 		//getParam
+
+		//2Dカメラ用
 		cocos2d::Camera* GetCamera2D(void);//2D用カメラのクラスを返す
+
+
+		//3Dカメラ用
 		cocos2d::Camera* GetCamera3D(void);
+
+
+
 		cocos2d::Vec2 GetTouchPos(void);
 		int GetPlayerState(void);
 		int GetGameState(void);
