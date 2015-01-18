@@ -22,12 +22,12 @@ namespace TapGun
 		std::string path;
 	};
 	
-	class Sprite3D : public cocos2d::Sprite3D
+	class _Sprite3D : public cocos2d::Sprite3D
 	{
 	public:
-		static Sprite3D* create( const std::string& firstPath);
-		static Sprite3D* create( const std::string& firstPath, const std::string& secondPath);
-		static Sprite3D* create( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath);
+		static _Sprite3D* create( const std::string& firstPath);
+		static _Sprite3D* create( const std::string& firstPath, const std::string& secondPath);
+		static _Sprite3D* create( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath);
 
 		int startAnimation( const std::string& animeName);
 		int startAnimationLoop( const std::string& animeName);
@@ -47,8 +47,7 @@ namespace TapGun
 		int setShaderFile( const std::string& vshFile, const std::string& fshFile);
 
 		CC_CONSTRUCTOR_ACCESS:
-		Sprite3D() {}
-		virtual ~Sprite3D();
+		_Sprite3D() {}
 
 	protected:
 
@@ -61,7 +60,7 @@ namespace TapGun
 		void setTextureList(void);
 		int load3DModelAnimeData( const std::string& fileName);
 		int load3DModelTextureData( const std::string& fileName);
-		static Sprite3D* createObject( const char* firstPath, const char* secondPath, const char* thirdPath);
+		static _Sprite3D* createObject( const char* firstPath, const char* secondPath, const char* thirdPath);
 		static std::string getResourcePath( ResouceType type);
 		static ResouceType checkResourcePath( const std::string& filePath);
 	};

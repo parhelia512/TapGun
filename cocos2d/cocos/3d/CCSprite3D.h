@@ -125,7 +125,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
     
     Sprite3D();
-    virtual ~Sprite3D();
+    ~Sprite3D();
     bool initWithFile(const std::string &path);
     
     bool initFrom(const NodeDatas& nodedatas, const MeshDatas& meshdatas, const MaterialDatas& materialdatas);

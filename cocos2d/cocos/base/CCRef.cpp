@@ -130,7 +130,7 @@ void Ref::release()
 #if CC_REF_LEAK_DETECTION
         untrackRef(this);
 #endif
-        delete this;
+		delete this;
     }
 }
 
