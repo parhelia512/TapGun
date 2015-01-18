@@ -12,6 +12,7 @@
 
 #endif
 
+USING_NS_CC;
 using namespace std;
 
 namespace TapGun
@@ -24,7 +25,7 @@ namespace TapGun
 	*	@return	作成したスプライトへのポインタ
 	*	@date	1/3	Ver 1.0
 	*/
-	Sprite3D* Sprite3D::create( const string& firstPath)
+	_Sprite3D* _Sprite3D::create( const string& firstPath)
 	{
 		return createObject( firstPath.c_str(), nullptr, nullptr);
 	}
@@ -38,7 +39,7 @@ namespace TapGun
 	*	@return	作成したスプライトへのポインタ
 	*	@date	1/3	Ver 1.0
 	*/
-	Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath)
+	_Sprite3D* _Sprite3D::create( const string& firstPath, const string& secondPath)
 	{
 		return createObject( firstPath.c_str(), secondPath.c_str(), nullptr);
 	}
@@ -53,17 +54,17 @@ namespace TapGun
 	*	@return	作成したスプライトへのポインタ
 	*	@date	1/5	Ver 1.0
 	*/
-	Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath, const string& thirdPath)
+	_Sprite3D* _Sprite3D::create( const string& firstPath, const string& secondPath, const string& thirdPath)
 	{
 		return createObject( firstPath.c_str(), secondPath.c_str(), thirdPath.c_str());
 	}
 
-	Sprite3D* Sprite3D::createObject( const char* firstPath, const char* secondPath, const char* thirdPath)
+	_Sprite3D* _Sprite3D::createObject( const char* firstPath, const char* secondPath, const char* thirdPath)
 	{
 		string filePath;
 		bool Flag[ResouceType::Num] = { false };
 		map< int, string> str;
-		auto sprite = new (nothrow) Sprite3D();
+		auto sprite = new (nothrow) _Sprite3D();
 
 		if( &firstPath == nullptr) return nullptr;
 		else str[0] = firstPath;
@@ -80,19 +81,19 @@ namespace TapGun
 				if( Flag[ResouceType::NoExt] == false)
 				{
 					filePath = getResourcePath( ResouceType::NoExt);
-					#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-					#ifdef DEBUG
+				#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+				  #ifdef DEBUG
 					filePath = filePath + str.at(i) + ".c3t";
-					#else
+				  #else
 					filePath = filePath + str.at(i) + ".c3b";
-					#endif
-					#else
-					#ifdef _DEBUG
+				  #endif
+				#else
+				#ifdef _DEBUG
 					filePath = filePath + str.at(i) + ".c3t";
-					#else
+				  #else
 					filePath = filePath + str.at(i) + ".c3b";
-					#endif
-					#endif
+				  #endif
+				#endif
 					if (sprite && sprite->initWithFile(filePath))
 					{
 						sprite->_contentSize = sprite->getBoundingBox().size;
@@ -127,7 +128,8 @@ namespace TapGun
 			case ResouceType::Anime:
 				if( Flag[ResouceType::Anime] == false)
 				{
-					filePath = getResourcePath( ResouceType::Anime) + filePath;
+					filePath = getResourcePath( ResouceType::Anime);
+					filePath = filePath + str.at(i);
 					sprite -> load3DModelAnimeData( filePath);
 					Flag[ResouceType::Anime] = true;
 				}
@@ -140,7 +142,8 @@ namespace TapGun
 			case ResouceType::Texture:
 				if( Flag[ResouceType::Texture] == false)
 				{
-					filePath = getResourcePath( ResouceType::Texture) + filePath;
+					filePath = getResourcePath( ResouceType::Texture);
+					filePath = filePath + str.at(i);
 					sprite -> load3DModelTextureData( filePath);
 					sprite -> setTextureList();
 					Flag[ResouceType::Texture] = true;
@@ -170,7 +173,7 @@ namespace TapGun
 				return nullptr;
 			}
 		}
-		if( Flag[ResouceType::NoExt] == false)
+		if( Flag[ResouceType::NoExt] == false && Flag[ResouceType::Model] == false)
 		{
 			CC_SAFE_DELETE(sprite);
 			return nullptr;
@@ -178,7 +181,7 @@ namespace TapGun
 		return sprite;
 	}
 
-	ResouceType Sprite3D::checkResourcePath( const string& filePath)
+	ResouceType _Sprite3D::checkResourcePath( const string& filePath)
 	{
 		string str = filePath;
 		int point = str.rfind( '.', str.size());
@@ -190,7 +193,7 @@ namespace TapGun
 		else return ResouceType::Picture;
 	}
 
-	string Sprite3D::getResourcePath( ResouceType type)
+	string _Sprite3D::getResourcePath( ResouceType type)
 	{
 		switch( type)
 		{
@@ -240,14 +243,9 @@ namespace TapGun
 	*	@return	正常終了:0 エラー発生:-1
 	*	@date	1/3	Ver 1.0
 	*/
-	int Sprite3D::load3DModelAnimeData( const string& fileName)
+	int _Sprite3D::load3DModelAnimeData( const string& fileName)
 	{
-	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		string filePath = fileName;
-	#else
-		string filePath = "Parameter/Animation/" + fileName;
-	#endif
-		ifstream file( filePath, ios::in);
+		ifstream file( fileName, ios::in);
 		if( file.fail())
 		{
 			return -1;
@@ -260,9 +258,13 @@ namespace TapGun
 			string tmp;
 			istringstream stream(str);
 			getline( stream, tmp, ',');
-			name = tmp;
-			getline( stream, tmp);
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 			path = tmp;
+	#else
+			path = "Graph/Models/" + tmp;
+	#endif
+			getline( stream, tmp);
+			name = tmp;
 			modelAnimeList[name] = path;
 		}
 		return 0;
@@ -276,7 +278,7 @@ namespace TapGun
 	*	@return	正常終了:0 エラー発生:-1
 	*	@date	1/3	Ver 1.0
 	*/
-	int Sprite3D::startAnimation( const string& animeName)
+	int _Sprite3D::startAnimation( const string& animeName)
 	{
 		animation = cocos2d::Animation3D::create( modelAnimeList[animeName]);
 		if( animation == nullptr) return -1;
@@ -294,7 +296,7 @@ namespace TapGun
 	*	@return	正常終了:0 エラー発生:-1
 	*	@date	1/3	Ver 1.0
 	*/
-	int Sprite3D::startAnimationLoop( const string& animeName)
+	int _Sprite3D::startAnimationLoop( const string& animeName)
 	{
 		animation = cocos2d::Animation3D::create( modelAnimeList[animeName]);
 		if( animation == nullptr) return -1;
@@ -312,7 +314,7 @@ namespace TapGun
 	*	@return	正常終了:0
 	*	@date	1/3	Ver 1.0
 	*/
-	int Sprite3D::stopAnimation( const string& animeName)
+	int _Sprite3D::stopAnimation( const string& animeName)
 	{
 		stopAction( this -> animate);
 		return 0;
@@ -325,7 +327,7 @@ namespace TapGun
 	*	@return	正常終了:0
 	*	@date	1/3	Ver 1.0
 	*/
-	int Sprite3D::stopALLAnimation( void)
+	int _Sprite3D::stopALLAnimation( void)
 	{
 		stopAllActions();
 		return 0;
@@ -339,7 +341,7 @@ namespace TapGun
 	*	@return	正常終了:0
 	*	@date	1/3	Ver 1.0
 	*/
-	int Sprite3D::setAnimationSpeed( float speed)
+	int _Sprite3D::setAnimationSpeed( float speed)
 	{
 		animate -> setSpeed( speed);
 		return 0;
@@ -352,7 +354,7 @@ namespace TapGun
 	*	@return	アニメーション中ではない:0　アニメーション中:1
 	*	@date	1/3	Ver 1.0
 	*/
-	int Sprite3D::checkAnimationState( void)
+	int _Sprite3D::checkAnimationState( void)
 	{
 		if( numberOfRunningActions() == 0 )
 		{
@@ -370,7 +372,7 @@ namespace TapGun
 	*	@author	minaka
 	*	@date	1/3	Ver 1.0
 	*/
-	void Sprite3D::releaseAnimation( void)
+	void _Sprite3D::releaseAnimation( void)
 	{
 		map< const string, string>().swap( modelAnimeList);
 	}
@@ -383,14 +385,9 @@ namespace TapGun
 	*	@return	正常終了:0 エラー発生:-1
 	*	@date	1/5	Ver 1.0
 	*/
-	int Sprite3D::load3DModelTextureData( const string& fileName)
+	int _Sprite3D::load3DModelTextureData( const string& fileName)
 	{
-	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		string filePath = fileName;
-	#else
-		string filePath = "Parameter/Texture/" + fileName;
-	#endif
-		ifstream file( filePath, ios::in);
+		ifstream file( fileName, ios::in);
 		if( file.fail())
 		{
 			return -1;
@@ -402,9 +399,9 @@ namespace TapGun
 			string tmp;
 			istringstream stream(str);
 			getline( stream, tmp, ',');
-			data -> name = tmp;
-			getline( stream, tmp);
 			data -> path = tmp;
+			getline( stream, tmp);
+			data -> name = tmp;
 			modelTextureList.push_back(*data);
 		}
 		return 0;
@@ -416,7 +413,7 @@ namespace TapGun
 	*	@author	minaka
 	*	@date	1/5	Ver 1.0
 	*/
-	void Sprite3D::setTextureList( void)
+	void _Sprite3D::setTextureList( void)
 	{
 		for( auto &data : modelTextureList)
 		{
@@ -432,12 +429,12 @@ namespace TapGun
 	*	@author	minaka
 	*	@date	1/3	Ver 1.0
 	*/
-	void Sprite3D::releaseTexture( void)
+	void _Sprite3D::releaseTexture( void)
 	{
 		vector<textureData>().swap( modelTextureList);
 	}
 
-	int Sprite3D::setShaderFile( const string& fileName)
+	int _Sprite3D::setShaderFile( const string& fileName)
 	{
 		auto shader = new cocos2d::GLProgram();
 		string filePath[2] = { "Shader/" + fileName + ".vsh", "Shader/" + fileName + ".fsh"};
@@ -451,7 +448,7 @@ namespace TapGun
 		return 0;
 	}
 
-	int Sprite3D::setShaderFile( const string& vshFile, const string& fshFile)
+	int _Sprite3D::setShaderFile( const string& vshFile, const string& fshFile)
 	{
 		auto shader = new cocos2d::GLProgram();
 		string filePath[2] = { "Shader/" + vshFile + ".vsh", "Shader/" + fshFile + ".fsh"};
@@ -463,14 +460,5 @@ namespace TapGun
 		shader -> updateUniforms();
 		this -> setShaderProgram( shader);
 		return 0;
-	}
-
-	Sprite3D::~Sprite3D()
-	{
-		_meshes.clear();
-		_meshVertexDatas.clear();
-		CC_SAFE_RELEASE_NULL(_skeleton);
-		removeAllAttachNode();
-		releaseAnimation();
 	}
 }
