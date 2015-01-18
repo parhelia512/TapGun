@@ -26,9 +26,9 @@ namespace TapGun
 	 *	@return	作成したスプライトへのポインタ
 	 *	@date	1/3	Ver 1.0
 	 */
-	Sprite3D* Sprite3D::create( char* firstPath)
+	Sprite3D* Sprite3D::create( const string& firstPath)
 	{
-		return createObject( firstPath, nullptr, nullptr);
+		return createObject( firstPath.c_str(), nullptr, nullptr);
 	}
 
 	/**
@@ -40,9 +40,9 @@ namespace TapGun
 	 *	@return	作成したスプライトへのポインタ
 	 *	@date	1/3	Ver 1.0
 	 */
-	Sprite3D* Sprite3D::create( char* firstPath, char* secondPath)
+	Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath)
 	{
-		return createObject( firstPath, secondPath, nullptr);
+		return createObject( firstPath.c_str(), secondPath.c_str(), nullptr);
 	}
 
 	/**
@@ -55,25 +55,28 @@ namespace TapGun
 	 *	@return	作成したスプライトへのポインタ
 	 *	@date	1/5	Ver 1.0
 	 */
-	Sprite3D* Sprite3D::create( char* firstPath, char* secondPath, char* thirdPath)
+	Sprite3D* Sprite3D::create( const string& firstPath, const string& secondPath, const string& thirdPath)
 	{
-		return createObject( firstPath, secondPath, thirdPath);
+		return createObject( firstPath.c_str(), secondPath.c_str(), thirdPath.c_str());
 	}
 
-	Sprite3D* Sprite3D::createObject( char* firstPath, char* secondPath, char* thirdPath)
+	Sprite3D* Sprite3D::createObject( const char* firstPath, const char* secondPath, const char* thirdPath)
 	{
-		bool Flag[ResouceType::Num] = { false };
-		char* str[] { firstPath, secondPath, thirdPath };
 		string filePath;
+		bool Flag[ResouceType::Num] = { false };
+		map< int, string> str;
 		auto sprite = new (nothrow) Sprite3D();
 		
-		if( firstPath == nullptr) return nullptr;
+		if( &firstPath == nullptr) return nullptr;
+		else str[0] = firstPath;
+		if( secondPath != nullptr) str[1] = secondPath;
+		if( thirdPath != nullptr) str[2] = thirdPath;
 
-		for( auto num : str)
+		for( int i = 0; i < str.size(); i++)
 		{
-			if( num == nullptr) break;
+			if( &str.at(i) == nullptr) break;
 
-			switch( checkResourcePath(num))
+			switch( checkResourcePath(str.at(i)))
 			{
 			case ResouceType::NoExt:
 				if( Flag[ResouceType::NoExt] == false)
@@ -81,15 +84,15 @@ namespace TapGun
 					filePath = getResourcePath( ResouceType::NoExt);
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	  #ifdef DEBUG
-					filePath = filePath + num + ".c3t";
+					filePath = filePath + str.at(i) + ".c3t";
 	  #else
-					filePath = filePath + num + ".c3b";
+					filePath = filePath + str.at(i) + ".c3b";
 	  #endif
 	#else
 	  #ifdef _DEBUG
-					filePath = filePath + num + ".c3t";
+					filePath = filePath + str.at(i) + ".c3t";
 	  #else
-					filePath = filePath + num + ".c3b";
+					filePath = filePath + str.at(i) + ".c3b";
 	  #endif
 	#endif
 					if (sprite && sprite->initWithFile(filePath))
@@ -109,7 +112,7 @@ namespace TapGun
 				if( Flag[ResouceType::Model] == false)
 				{
 					filePath = getResourcePath( ResouceType::Model);
-					filePath = filePath + num;
+					filePath = filePath + str.at(i);
 					if (sprite && sprite->initWithFile(filePath))
 					{
 						sprite->_contentSize = sprite->getBoundingBox().size;
@@ -154,7 +157,7 @@ namespace TapGun
 				if( Flag[ResouceType::Picture] == false)
 				{
 					filePath = getResourcePath( ResouceType::Picture);
-					filePath = filePath + num; 
+					filePath = filePath + str.at(i); 
 					sprite->setTexture(filePath);
 					Flag[ResouceType::Picture] = true;
 				}

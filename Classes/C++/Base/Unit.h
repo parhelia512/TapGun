@@ -10,68 +10,68 @@
 namespace TapGun
 {
 
-//���̒�`�͍���قȂ�w�b�_�t�@�C���Ɉڂ��ւ��܂�
-#define FALSE -1
-#define TRUE 1
+	//この定義は今後異なるヘッダファイルに移し替えます
+	#define FALSE -1
+	#define TRUE 1
 
 
 	enum _UNIT_KIND_
-	{
-		UKIND_NONE,//���g�p
-		UKIND_PLAYER1,//�v���C���[1
-		UKIND_PLAYER2,//�v���C���[2
-		UKIND_ENEMY,//�G�l�~�[
-		UKIND_EBULLET,//�G�e
-		UKIND_MAP,//�}�b�v���f�������݂�Unit�Ɋ܂߂Ă��܂�
-		UKIND_NUM
-	};
+{
+	UKIND_NONE,//未使用
+	UKIND_PLAYER1,//プレイヤー1
+	UKIND_PLAYER2,//プレイヤー2
+	UKIND_ENEMY,//エネミー
+	UKIND_EBULLET,//敵弾
+	UKIND_MAP,//マップモデルも現在はUnitに含めています
+	UKIND_NUM
+};
 
 
 
-	//Unit�N���X
-	//�v���C���[�E�G�l�~�[�E�e�E�}�b�v�f�[�^�ɗp���܂�
-	class Unit
-	{
-	public:
+//Unitクラス
+//プレイヤー・エネミー・弾・マップデータに用います
+class Unit
+{
+public:
 
-		//�����o�ϐ�
+	//メンバ変数
 
-		//==�t���O�n==
-		int valid;//Unit�g�p�t���O�iTRUE/FALSE�j
-		int kind;//Unit��ʁi_UNIT_KIND_�j
+	//==フラグ系==
+	int valid;//Unit使用フラグ（TRUE/FALSE）
+	int kind;//Unit種別（_UNIT_KIND_）
 
-		//==�ϐ�==
-		cocos2d::Vec3 pos;//���f�����W�E�E�E�폜�\��isprite3d�̍��W���g�p�j
-		float speed;//�ړ����x�i�ړ��ʁj
-		cocos2d::Vec3 speed_vec;//�ړ��x�N�g���ispeed�����ƂɌv�Z����j
-		cocos2d::Vec3 target_pos;//�ړ����̖ڕW���W�i���݂͎��L������e�̈ړ��ɗp���Ă��܂����A���ʂƔ��f����΍���폜���܂��j
-		int frame;//Unit�ŗL�t���[��
-		cocos2d::Vec3 collision_vec;//OBB�̕ӂ̒����i���݂͂P�̂ݒ�`�j
+	//==変数==
+	cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
+	float speed;//移動速度（移動量）
+	cocos2d::Vec3 speed_vec;//移動ベクトル（speedをもとに計算する）
+	cocos2d::Vec3 target_pos;//移動時の目標座標（現在は自キャラや弾の移動に用いていますが、無駄と判断すれば今後削除します）
+	int frame;//Unit固有フレーム
+	cocos2d::Vec3 collision_vec;//OBBの辺の長さ（現在は１つのみ定義）
 
-		//==�����蔻��֘A�N���X(��)==
-		cocos2d::AABB aabbHead;//
-		cocos2d::AABB aabbBody;//
-		cocos2d::OBB obbHead;
+	//==当たり判定関連クラス(仮)==
+	cocos2d::AABB aabbHead;//
+	cocos2d::AABB aabbBody;//
+	cocos2d::OBB obbHead;
 
-		//==���f���E�A�j���[�V�����֘A�N���X==
-		cocos2d::Sprite3D* sprite3d;//
-		cocos2d::Node* wrapper;//���f���̐e�m�[�h�i���f������W�Ƃ��Ďg�p����B�ʏ��(0,0,0)���W�j
-		cocos2d::Animation3D* animation;
-		cocos2d::Animate3D* animate;
+	//==モデル・アニメーション関連クラス==
+	cocos2d::Sprite3D* sprite3d;//
+	cocos2d::Node* wrapper;//モデルの親ノード（モデル基準座標として使用する。通常は(0,0,0)座標）
+	cocos2d::Animation3D* animation;
+	cocos2d::Animate3D* animate;
 
-		//�����o�֐�
-		void Init(void);//���l�̏������i����̓R���X�g���N�^�ɒu��������H�j
-		int Init(int num, int utype);//���l�̏�����
+	//メンバ関数
+	void Init(void);//数値の初期化（今後はコンストラクタに置き換える？）
+	int Init(int num, int utype);//数値の初期化
 
-		void SetCollision(void);//�����蔻���������
+	void SetCollision(void);//当たり判定を初期化
 
-		void UpdatePos(void);//���x�����Ƃɍ��W�ړ��Ɠ����蔻��ړ�
-		void UpdatePos(cocos2d::Vec3 pos);//�����̍��W�Ɉړ�
+	void UpdatePos(void);//速度をもとに座標移動と当たり判定移動
+	void UpdatePos(cocos2d::Vec3 pos);//引数の座標に移動
 
 
-		//Character();
-		//~Character();
-	private:
-	};
+	//Character();
+	//~Character();
+private:
+};
 }
 #endif //__UNIT_H__

@@ -49,7 +49,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
 	director -> setAnimationInterval( 1.0 / 60);
 
-	auto scene = TapGun::Test::createScene();
+	auto scene = Test::createScene();
 	director -> runWithScene( scene);
 	
 	return true;

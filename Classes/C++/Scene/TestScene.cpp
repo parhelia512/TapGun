@@ -1,5 +1,7 @@
 
 #include <sstream>
+#include <filesystem>
+#include <iostream>
 #include "TestScene.h"
 #include "SimpleAudioEngine.h"
 #include "Define.h"
@@ -12,6 +14,7 @@
 #else
 
 #include "C++/Base/Sprite3D.h"
+#include "C++/System/Directory.h"
 #include "C++/System/Errorfunc.h"
 #include "C++/System/Sound.h"
 

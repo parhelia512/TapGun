@@ -1,4 +1,4 @@
-#ifndef __GAMEMASTER_H__
+ï»¿#ifndef __GAMEMASTER_H__
 #define __GAMEMASTER_H__
 
 #include "cocos2d.h"
@@ -38,13 +38,13 @@ namespace TapGun
 	class GameMaster
 	{
 	public:
-		//Šeí•Ï”‚Í“K‹XgetŠÖ”AsetŠÖ”‚Å‚Ìˆ—‚ÉˆÚ‚µ‘Ö‚¦‚Ä‚¢‚«‚Ü‚·
+		//å„ç¨®å¤‰æ•°ã¯é©å®œgeté–¢æ•°ã€seté–¢æ•°ã§ã®å‡¦ç†ã«ç§»ã—æ›¿ãˆã¦ã„ãã¾ã™
 
 
-		//•Ï”
+		//å¤‰æ•°
 
 
-		//ŠÖ”
+		//é–¢æ•°
 		GameMaster(const GameMaster &P) = delete;
 		GameMaster& operator= (const GameMaster &P) = delete;
 		static GameMaster* GetInstance(void);
@@ -58,7 +58,7 @@ namespace TapGun
 		void InitParam(void);
 		void InitParam(int wave);
 
-		//setParam(Œ»İ‚ÍvoidŒ^‚ÅéŒ¾‚µ‚Ä‚¢‚Ü‚·)
+		//setParam(ç¾åœ¨ã¯voidå‹ã§å®£è¨€ã—ã¦ã„ã¾ã™)
 		void SetCamera2D(cocos2d::Vec3 pos);
 
 		void SetCamera3DPos(cocos2d::Vec3 pos);
@@ -72,7 +72,7 @@ namespace TapGun
 		void SetTouchPos(cocos2d::Vec2 tPos);
 
 		//getParam
-		cocos2d::Camera* GetCamera2D(void);//2D—pƒJƒƒ‰‚ÌƒNƒ‰ƒX‚ğ•Ô‚·
+		cocos2d::Camera* GetCamera2D(void);//2Dç”¨ã‚«ãƒ¡ãƒ©ã®ã‚¯ãƒ©ã‚¹ã‚’è¿”ã™
 		cocos2d::Camera* GetCamera3D(void);
 		cocos2d::Vec2 GetTouchPos(void);
 		int GetPlayerState(void);
@@ -80,10 +80,10 @@ namespace TapGun
 
 	private:
 		cocos2d::Size screenSize;
-		int wave;//Œ»İƒEƒF[ƒu
-		int playerState;//ƒvƒŒƒCƒ„[‚Ìó‘Ô
-		int gameState;//ƒQ[ƒ€‚Ìó‘Ô
-		cocos2d::Vec2 touchPos;//ƒ^ƒbƒ`À•WiŒ»İ‚ÍƒVƒ“ƒOƒ‹ƒ^ƒbƒ`‚É‘Î‰j
+		int wave;//ç¾åœ¨ã‚¦ã‚§ãƒ¼ãƒ–
+		int playerState;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹
+		int gameState;//ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
+		cocos2d::Vec2 touchPos;//ã‚¿ãƒƒãƒåº§æ¨™ï¼ˆç¾åœ¨ã¯ã‚·ãƒ³ã‚°ãƒ«ã‚¿ãƒƒãƒã«å¯¾å¿œï¼‰
 		static cocos2d::Camera* camera2D;
 		static cocos2d::Camera* camera3D;
 

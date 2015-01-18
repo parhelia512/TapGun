@@ -45,9 +45,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
-      <Filter>Source\C++\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp">
       <Filter>Source\C++\System</Filter>
     </ClCompile>
@@ -78,10 +75,16 @@
     <ClCompile Include="..\Classes\C++\Base\Unit.cpp">
       <Filter>Source\C++\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp">
+    <ClCompile Include="..\Classes\C++\Base\GameMaster.cpp">
       <Filter>Source\C++\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\GameMaster.cpp">
+    <ClCompile Include="..\Classes\C++\System\Directory.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp">
       <Filter>Source\C++\Base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -91,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
-      <Filter>Source\C++\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\System\Errorfunc.h">
       <Filter>Source\C++\System</Filter>
@@ -131,10 +131,16 @@
     <ClInclude Include="..\Classes\C++\Base\Unit.h">
       <Filter>Source\C++\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Sprite3D.h">
+    <ClInclude Include="..\Classes\C++\Base\GameMaster.h">
       <Filter>Source\C++\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\GameMaster.h">
+    <ClInclude Include="..\Classes\C++\System\Directory.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Base\Sprite3D.h">
       <Filter>Source\C++\Base</Filter>
     </ClInclude>
   </ItemGroup>

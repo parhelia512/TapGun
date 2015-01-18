@@ -1,4 +1,4 @@
-#include"Unit.h"
+ï»¿#include"Unit.h"
 
 //Character::Character()
 //{
@@ -10,69 +10,69 @@ USING_NS_CC;
 
 
 /**
-*	UnitƒNƒ‰ƒX‚Ìƒƒ“ƒo•Ï”‚ğ‰Šú‰»
+*	Unitã‚¯ãƒ©ã‚¹ã®ãƒ¡ãƒ³ãƒå¤‰æ•°ã‚’åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 void Unit::Init( void)
 {
-	//‰Šú‰»“à—e‚ÍXV‚µ‚Ü‚·
+	//åˆæœŸåŒ–å†…å®¹ã¯éšæ™‚æ›´æ–°ã—ã¾ã™
 
-	//ŠÇ—ƒtƒ‰ƒO
+	//ç®¡ç†ãƒ•ãƒ©ã‚°
 	valid = FALSE;
-	kind = UKIND_NONE;//Unití•Ê‚ğNONE‚É
+	kind = UKIND_NONE;//Unitç¨®åˆ¥ã‚’NONEã«
 
-	//•Ï”
-	pos = Vec3(0, 0, 0);//ƒ‚ƒfƒ‹À•W
-	speed = 0.0f;//ˆÚ“®‘¬“x
-	speed_vec = Vec3(0, 0, 0);//ˆÚ“®ƒxƒNƒgƒ‹
-	target_pos = Vec3(0, 0, 0);//ˆÚ“®–Ú•W
-	collision_vec = Vec3(0, 0, 0);//“–‚½‚è”»’èiOBBj‚ÌŠe•Ó
+	//å¤‰æ•°
+	pos = Vec3(0, 0, 0);//ãƒ¢ãƒ‡ãƒ«åº§æ¨™
+	speed = 0.0f;//ç§»å‹•é€Ÿåº¦
+	speed_vec = Vec3(0, 0, 0);//ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«
+	target_pos = Vec3(0, 0, 0);//ç§»å‹•ç›®æ¨™
+	collision_vec = Vec3(0, 0, 0);//å½“ãŸã‚Šåˆ¤å®šï¼ˆOBBï¼‰ã®å„è¾º
 
-	frame = 0;//ŠÇ—ƒtƒŒ[ƒ€
+	frame = 0;//ç®¡ç†ãƒ•ãƒ¬ãƒ¼ãƒ 
 
 }
 
 
 
 /**
-*	UnitƒNƒ‰ƒX‚Ìƒƒ“ƒo•Ï”‚ğ‰Šú‰»
+*	Unitã‚¯ãƒ©ã‚¹ã®ãƒ¡ãƒ³ãƒå¤‰æ•°ã‚’åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	Unit”z—ñ‚Ì”Ô†,Unití•Ê
-*	@return	³íI—¹:1 ‰Šú‰»ƒGƒ‰[:-1
+*	@param	Unité…åˆ—ã®ç•ªå·,Unitç¨®åˆ¥
+*	@return	æ­£å¸¸çµ‚äº†:1 åˆæœŸåŒ–ã‚¨ãƒ©ãƒ¼:-1
 *	@date	1/8 Ver 1.0
 */
 int Unit::Init(int num, int utype)
 {
-	//‰Šú‰»“à—e‚ÍXV‚µ‚Ü‚·
+	//åˆæœŸåŒ–å†…å®¹ã¯éšæ™‚æ›´æ–°ã—ã¾ã™
 
-	//num”Ô‚ÌUnit\‘¢‘Ì‚ªg—p‚³‚ê‚Ä‚¢‚é‚©‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢A‚Ü‚½‚ÍUnití•Ê‚ª•s³A‚Ü‚½‚Í”z—ñŠO‚Ìê‡‚ÍƒGƒ‰[
+	//numç•ªã®Unitæ§‹é€ ä½“ãŒä½¿ç”¨ã•ã‚Œã¦ã„ã‚‹ã‹åˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã„ã€ã¾ãŸã¯Unitç¨®åˆ¥ãŒä¸æ­£ã€ã¾ãŸã¯é…åˆ—å¤–ã®å ´åˆã¯ã‚¨ãƒ©ãƒ¼
 	if(FALSE != valid || 0 > utype || UKIND_NUM <= utype || 0 > num || MAX_UNIT <= num)
 	{
 		return FALSE;
 	}
 
-	//ƒtƒ‰ƒO‚Ì‰Šú‰»
+	//ãƒ•ãƒ©ã‚°ã®åˆæœŸåŒ–
 	valid = TRUE;
 	kind = utype;
 
-	//•Ï”
+	//å¤‰æ•°
 	pos = Vec3(0, 0, 0);
 	speed = 0.0f;
 	speed_vec = Vec3(0, 0, 0);
 	target_pos = Vec3(0, 0, 0);
 
-	frame = 0;//ŠÇ—ƒtƒŒ[ƒ€
+	frame = 0;//ç®¡ç†ãƒ•ãƒ¬ãƒ¼ãƒ 
 
-	//ƒ‚ƒfƒ‹‚Ìí•Ê‚É‚æ‚Á‚Ä“–‚½‚è”»’è‚Ìİ’è‚ğs‚¤
-	//“G‚â’e‚Ìí—Şi•›í•Êj‚É‚æ‚Á‚Ä‚³‚ç‚ÉğŒ•ª‚¯‚·‚é
+	//ãƒ¢ãƒ‡ãƒ«ã®ç¨®åˆ¥ã«ã‚ˆã£ã¦å½“ãŸã‚Šåˆ¤å®šã®è¨­å®šã‚’è¡Œã†
+	//æ•µã‚„å¼¾ã®ç¨®é¡ï¼ˆå‰¯ç¨®åˆ¥ï¼‰ã«ã‚ˆã£ã¦ã•ã‚‰ã«æ¡ä»¶åˆ†ã‘ã™ã‚‹
 	switch(utype)
 	{
-	case UKIND_ENEMY://ƒGƒlƒ~[
+	case UKIND_ENEMY://ã‚¨ãƒãƒŸãƒ¼
 
 		//		sprite3d
 	{
@@ -81,7 +81,7 @@ int Unit::Init(int num, int utype)
 	}
 
 		break;
-	case UKIND_EBULLET://“G’e
+	case UKIND_EBULLET://æ•µå¼¾
 
 
 		break;
@@ -91,26 +91,26 @@ int Unit::Init(int num, int utype)
 	}
 
 
-	//•K—v‚È‚ç‚Îƒ‚ƒfƒ‹‚âƒAƒjƒ[ƒVƒ‡ƒ“ŠÖ˜A‚Ìƒf[ƒ^‚ğ‰Šú‰»‚·‚é
+	//å¿…è¦ãªã‚‰ã°ãƒ¢ãƒ‡ãƒ«ã‚„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é–¢é€£ã®ãƒ‡ãƒ¼ã‚¿ã‚’åˆæœŸåŒ–ã™ã‚‹
 }
 
 
 
 
 /**
-*	“–‚½‚è”»’è‚Ì‰Šú‰»
+*	å½“ãŸã‚Šåˆ¤å®šã®åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 void Unit::SetCollision(void)
 {
-	//“–‚½‚è”»’è‚Ì’è‹`i‰¼j
+	//å½“ãŸã‚Šåˆ¤å®šã®å®šç¾©ï¼ˆä»®ï¼‰
 	aabbBody = sprite3d->getAABB();
 
-	//“–‚½‚è”»’è‚ÌˆÚ“®
+	//å½“ãŸã‚Šåˆ¤å®šã®ç§»å‹•
 	Vec3 collision_center = sprite3d->getPosition3D();
 
 	Vec3 collision_min = collision_center - collision_vec * 0.5f;
@@ -124,11 +124,11 @@ void Unit::SetCollision(void)
 
 
 /**
-*	‘¬“x‚ğ‚à‚Æ‚É‚µ‚½UnitˆÚ“®
+*	é€Ÿåº¦ã‚’ã‚‚ã¨ã«ã—ãŸUnitç§»å‹•
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 void Unit::UpdatePos(void)
@@ -137,7 +137,7 @@ void Unit::UpdatePos(void)
 	pos += speed_vec;
 	sprite3d->setPosition3D(pos);
 
-	//“–‚½‚è”»’è‚ÌˆÚ“®
+	//å½“ãŸã‚Šåˆ¤å®šã®ç§»å‹•
 	Vec3 collision_min = pos - collision_vec / 2;
 	Vec3 collision_max = pos + collision_vec / 2;
 
@@ -149,11 +149,11 @@ void Unit::UpdatePos(void)
 
 
 /**
-*	ˆø”À•W‚Ö‚ÌUnitˆÚ“®
+*	å¼•æ•°åº§æ¨™ã¸ã®Unitç§»å‹•
 *
 *	@author	sasebon
-*	@param	À•W
-*	@return	‚È‚µ
+*	@param	åº§æ¨™
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 void Unit::UpdatePos(Vec3 pos_vec)
