@@ -1,37 +1,20 @@
 #include "GameUILayer.h"
 
-
-USING_NS_CC;
-using namespace TapGun;
-
-GameUILayer *gLayer_ui;
-Scene *scene_ui;
-
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "GameMaster.h"
+#include "C++/Base/UI.h"
 
 #else
 
 #include "C++/Base/GameMaster.h"
+#include "C++/Base/UI.h"
 
 #endif
 
 
-
-/*
- 使用していないので、今後削除予定
-*/
-Scene* GameUILayer::CreateScene()
-{
-	//Scene *scene = Scene::create();
-	//UILayer *layer = GameUILayer::create();
-	scene_ui = Scene::create();
-	gLayer_ui = GameUILayer::create();
-	scene_ui->addChild(gLayer_ui);
-	return scene_ui;
-}
-
+USING_NS_CC;
+using namespace TapGun;
 
 /**
 *	ゲーム本編のUIレイヤーを初期化
@@ -50,12 +33,12 @@ bool GameUILayer::init()
 
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 
-
 	this->scheduleUpdate();
 	this->schedule(schedule_selector(GameUILayer::moveTime), 0.016f);
 
 	return true;
 }
+
 
 /**
 *	ゲーム本編のUIレイヤーの各種数値初期化
@@ -72,17 +55,27 @@ void GameUILayer::InitLayer(void)
 }
 
 
+/**
+*	ゲーム本編のUIレイヤーの各種数値初期化
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	初期化成功／不可のbool値
+*	@date	1/8 Ver 1.0
+*/
 int GameUILayer::SerchFreeUI()
 {
 	for(int i = 0; i < MAX_UI; i++)
 	{
-		if(-1 == valid[i])
+		if(FALSE == UISprite[i]->valid)
 		{
 			return i;
 		}
 	}
-	return -1;
+	return -1;//全てのUISpriteが使用されていたら-1を返す
 }
+
+
 
 void GameUILayer::SetUI()
 {
@@ -93,14 +86,17 @@ void GameUILayer::SetUI()
 	//ライフバーの初期化
 	if (-1 != num)
 	{
-		valid[num] = 1;
-		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-		UIBillBoard[num]->setPosition(30.0f, 30.0f);
-		UIBillBoard[num]->setScale(0.5f);
-		UINode[num] = Node::create();//モデルの親ノード
-		UINode[num]->addChild(UIBillBoard[num]);
-		addChild(UINode[num]);
-		UIBillBoard[num]->setCameraMask(CAMFLAG_3D);
+		//UISprite[num] = new UI;
+		//UISprite[num];
+
+		//valid[num] = 1;
+		//UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+		//UIBillBoard[num]->setPosition(30.0f, 30.0f);
+		//UIBillBoard[num]->setScale(0.5f);
+		//UINode[num] = Node::create();//モデルの親ノード
+		//UINode[num]->addChild(UIBillBoard[num]);
+		//addChild(UINode[num]);
+		//UIBillBoard[num]->setCameraMask(CAMFLAG_3D);
 	}
 }
 
@@ -109,12 +105,12 @@ void GameUILayer::InitAllUI()
 {
 	for(int i = 0; i < MAX_UI; i++)
 	{
-		valid[i] = -1;
+		UISprite[i]->valid = false;
 	}
 }
 
 
-void GameUILayer::UpdateUI(float camX, float camY, float camZ,float rotX,float rotY,float rotZ)
+void GameUILayer::UpdateUI(float camX, float camY, float camZ, float rotX, float rotY, float rotZ)
 {
 	Vec3 camPos;
 	camPos.x = camX;
@@ -129,10 +125,10 @@ void GameUILayer::UpdateUI(float camX, float camY, float camZ,float rotX,float r
 
 	for(int i = 0; i < MAX_UI; i++)
 	{
-		if(-1 != valid[i])
+		if(FALSE != UISprite[i]->valid)
 		{
-			UINode[i]->setPosition3D(camPos);
-			UINode[i]->setRotation3D(camRot);
+			//UINode[i]->setPosition3D(camPos);
+			//UINode[i]->setRotation3D(camRot);
 		}
 	}
 }

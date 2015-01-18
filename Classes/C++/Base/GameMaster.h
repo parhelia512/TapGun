@@ -7,8 +7,10 @@ namespace TapGun
 {
 	enum _CAMERA_FLAG_
 	{
-		CAMFLAG_DEFALUT = 1,
-		CAMFLAG_3D = 2,
+		//CAMFLAG_DEFAULT = CameraFlag::DEFAULT,//
+		//CAMFLAG_3D = CameraFlag::USER1
+		CAMFLAG_DEFAULT = 1,//
+		CAMFLAG_3D = 2
 	};
 
 	enum _GAME_STATE_

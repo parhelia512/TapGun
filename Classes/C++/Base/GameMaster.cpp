@@ -216,7 +216,7 @@ void GameMaster::InitCamera3D()
 
 	//
 	camera3D = Camera::createPerspective(20, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
-	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
+	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));//lookAtは原点に置き、setPositionで視点を動かします。
 	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
 }
 
@@ -235,7 +235,7 @@ void GameMaster::InitCamera2D()
 	//camera3D->createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
 
 	//
-	camera2D = Camera::createOrthographic(screenSize.width, screenSize.height, 0, 100);//引数は仮
+	camera2D = Camera::createOrthographic(screenSize.width, screenSize.height, 0, 100);//
 	camera2D->setCameraFlag(CameraFlag::DEFAULT);//
 }
 

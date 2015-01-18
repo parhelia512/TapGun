@@ -4,6 +4,17 @@
 
 #include "cocos2d.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+#include "UI.h"
+
+#else
+
+#include "C++/Base/UI.h"
+
+#endif
+
+
 #define MAX_UI 20
 
 namespace TapGun
@@ -14,7 +25,7 @@ namespace TapGun
 	public:
 		//ÉÅÉìÉoä÷êî
 		virtual bool init();
-		static cocos2d::Scene* CreateScene();
+
 		void update(float delta);
 		void moveTime(float delta);
 
@@ -26,11 +37,10 @@ namespace TapGun
 		void UpdateUI(float px, float py, float pz, float rx, float ry, float rz);
 		void UpdateUI();
 
-		cocos2d::Sprite* UISprite[MAX_UI];
-		cocos2d::BillBoard* UIBillBoard[MAX_UI];
-		cocos2d::Node* UINode[MAX_UI];
-		int valid[MAX_UI];
+		//cocos2d::Sprite* UISprite[MAX_UI];
+		//cocos2d::BillBoard* UIBillBoard[MAX_UI];
 
+		TapGun::UI* UISprite[MAX_UI];
 
 		cocos2d::EventListenerTouchOneByOne *listener;
 		bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);

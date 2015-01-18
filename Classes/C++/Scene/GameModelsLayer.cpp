@@ -15,40 +15,12 @@
 
 #endif
 
-#define COCOS_TMP
-
+#define COCOS_TMP//cocos2dのSprite3dを使用する際に定義する
 
 USING_NS_CC;
 using namespace TapGun;
 
-static GameModelsLayer *multiSceneLayerInstance;
-
 GameMaster* GameParamObj;
-
-/*
-インクリメント
-*/
-//GameModelsLayer::GameLayer()
-//{
-//	for(int i = 0; i < MAX_MODEL; i++)
-//	{
-//		unit[MAX_MODEL].valid = 0;
-//
-//	}
-//}
-
-
-/*
-初期化にはinit関数を使用し、こちらは使用しません
-*/
-//Scene* GameModelsLayer::CreateScene()
-//{
-//	Scene *scene = Scene::create();
-//	GameModelsLayer *layer = GameModelsLayer::create();
-//	scene->addChild(layer);
-//	return scene;
-//}
-
 
 /**
 *	ゲーム本編のモデルレイヤーの初期化
@@ -60,19 +32,13 @@ GameMaster* GameParamObj;
 */
 bool GameModelsLayer::init()
 {
-
 	if(!Layer::init())
 	{
 		return false;
 	}
-	multiSceneLayerInstance = this;
-
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 
-
 	GameParamObj = GameMaster::GetInstance();//ゲームパラメータクラスの初期化
-
-
 	return true;
 }
 
@@ -352,7 +318,7 @@ void GameModelsLayer::UpdateLayer()
 	UpdatePlayer();//プレイヤーの更新
 	UpdateEnemy();//エネミーの更新
 	UpdateBullets();//敵弾の更新
-	//CheckHit();//当たり判定のチェック
+	CheckHit();//当たり判定のチェック
 }
 
 void GameModelsLayer::UpdatePlayer()
@@ -360,52 +326,6 @@ void GameModelsLayer::UpdatePlayer()
 	//タッチ座標をもとに攻撃や回避の処理を行う
 
 	//プレイヤーが攻撃可能な場合、攻撃範囲の座標をタッチしたら攻撃を行う
-
-	//攻撃処理の仮実装
-	//タッチ座標（スクリーン座標）からワールド座標を求め、レイを飛ばす
-
-	auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
-
-	Vec3 rayStart = Vec3(0, 0, 0);
-	Vec3 rayEnd = Vec3(0, 0, 0);
-	Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
-
-	Vec3 tmp_touch_pos = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
-
-	Camera* cam3d = GameParamObj->GetCamera3D();
-	cam3d->unproject(s, &tmp_touch_pos, &rayStart);//near planeの3次元座標を取得
-	//rayStart = cam3d->getPosition3D();
-
-
-	tmp_touch_pos.z = 1.0f;//1.0f == 視錘台の遠面（far plane）
-	cam3d->unproject(s, &tmp_touch_pos, &rayEnd);//far planeの3次元座標を取得
-
-	Ray touch_ray(rayStart, rayEnd);//仮レイを設定
-
-	//
-
-	//レイと敵の当たり判定処理
-	//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う
-	const int pstate = GameParamObj->GetPlayerState();
-	if(pstate == PSTATE_SHOT)
-	{
-		for(int i = 0; i < MAX_UNIT; i++)
-		{
-			if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
-			{
-				if(touch_ray.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
-				{
-					//
-					Vec3 rot = Vec3(0, 0, 0);
-					rot = unit[i].sprite3d->getRotation3D();
-					rot.y += 20.0f;
-//					unit[i].sprite3d->setRotationY(rot.y);
-					unit[i].sprite3d->setRotation3D(rot);
-				}
-			}
-		}
-		GameParamObj->SetPlayerState(PSTATE_IDLE);
-	}
 }
 
 
@@ -487,7 +407,6 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 
 		unit[num].sprite3d->setPosition3D(enemy_pos);
 		unit[num].sprite3d->setPositionY(1.2f);
-
 	}
 }
 
@@ -520,11 +439,77 @@ void GameModelsLayer::UpdateBullets()
 
 
 
+/**
+*	当たり判定の処理
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/19 Ver 1.0
+*/
+void  GameModelsLayer::CheckHit(void)
+{
+	//========================================================
+	//プレイヤー攻撃処理の仮実装
+	//タッチ座標（スクリーン座標）からワールド座標を求め、レイを飛ばす
+
+
+
+
+
+
+	/*@*/
+	//レイと敵の当たり判定処理
+	const int pstate = GameParamObj->GetPlayerState();
+	if(pstate == PSTATE_SHOT)
+	{
+		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
+
+
+		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
+		Vec3 rayStart = Vec3(0, 0, 0);
+		Vec3 rayEnd = Vec3(0, 0, 0);
+		Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
+
+		Vec3 tmp_touch_pos = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
+
+		Camera* cam3d = GameParamObj->GetCamera3D();
+		cam3d->unproject(s, &tmp_touch_pos, &rayStart);//near planeの3次元座標を取得
+		//rayStart = cam3d->getPosition3D();
+
+
+		tmp_touch_pos.z = 1.0f;//1.0f == 視錘台の遠面（far plane）
+		cam3d->unproject(s, &tmp_touch_pos, &rayEnd);//far planeの3次元座標を取得
+
+		Ray touch_ray(rayStart, rayEnd);//仮レイを設定
+
+		for(int i = 0; i < MAX_UNIT; i++)
+		{
+			if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
+			{
+				if(touch_ray.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
+				{
+					Vec3 rot = Vec3(0, 0, 0);
+					rot = unit[i].sprite3d->getRotation3D();
+					rot.y += 20.0f;
+					unit[i].sprite3d->setRotation3D(rot);
+				}
+			}
+		}
+		GameParamObj->SetPlayerState(PSTATE_IDLE);
+	}
+
+
+
+	//========================================================
+	//敵の攻撃処理（弾とプレイヤーの当たり判定）
+}
+
+
 int GameModelsLayer::GetPlayerNum()
 {
 	return playerNum;
 }
-
 
 int GameModelsLayer::SearchFreeUnit()
 {
@@ -538,6 +523,15 @@ int GameModelsLayer::SearchFreeUnit()
 
 	return -1;
 }
+
+
+
+
+
+
+
+
+
 
 
 
