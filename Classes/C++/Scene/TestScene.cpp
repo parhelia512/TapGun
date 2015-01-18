@@ -44,13 +44,14 @@ bool Test::init()
 		return false;
 	}
 	setCocos();
+
 	auto bg = LayerColor::create( Color4B::WHITE, SystemValue::windowSize.width, SystemValue::windowSize.height);
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
 	sprite3D = cocos2d::Sprite3D::create( "tenq.c3t");//, "BBOX.texture");
 	auto mesh = sprite3D -> getMesh();
-	sprite3D -> setTexture( "backGrund.png");
+	sprite3D -> setTexture( "Graph/Textures/backGrund.png");
 	//mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
@@ -59,7 +60,7 @@ bool Test::init()
 //	sprite3D -> startAnimationLoop("Test");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
 //	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
-	sprite3D -> setScale( 5.0f);
+	sprite3D -> setScale( 7.0f);
 	this -> addChild( sprite3D);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
 //	addChild (light);

@@ -1,7 +1,5 @@
 
 #include <fstream>
-//#include <string>
-//#include <iostream>
 #include "cocos2d.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -398,17 +396,16 @@ namespace TapGun
 			return -1;
 		}
 		string str;
+		textureData *data = new textureData;
 		while( getline( file, str))
 		{
-			string name;
-			string path;
 			string tmp;
 			istringstream stream(str);
 			getline( stream, tmp, ',');
-			name = tmp;
+			data -> name = tmp;
 			getline( stream, tmp);
-			path = tmp;
-			modelTextureList[name] = path;
+			data -> path = tmp;
+			modelTextureList.push_back(*data);
 		}
 		return 0;
 	}
@@ -423,14 +420,8 @@ namespace TapGun
 	{
 		for( auto &data : modelTextureList)
 		{
-			auto mesh = getMeshByName( data
-			mesh -> setTexture( filePath);
-		}
-
-		for( int i = 0; i < modelTextureList.size(); i++)
-		{
-			string filePath = "Graph/Textures/" + modelTextureList[i] -> textureName;
-			auto mesh = this -> getMeshByName( modelTextureList[i] -> meshName);
+			string filePath = "Graph/Textures/" + data.path;
+			auto mesh = getMeshByName( data.name);
 			mesh -> setTexture( filePath);
 		}
 	}
@@ -443,7 +434,7 @@ namespace TapGun
 	*/
 	void Sprite3D::releaseTexture( void)
 	{
-		vector<ModelTextureData*>().swap(modelTextureList);
+		vector<textureData>().swap( modelTextureList);
 	}
 
 	int Sprite3D::setShaderFile( const string& fileName)
