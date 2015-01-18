@@ -1,17 +1,20 @@
 
 #include <sstream>
+#include <iostream>
 #include "TestScene.h"
 #include "SimpleAudioEngine.h"
 #include "Define.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
+#include "Sprite3D.h"
 #include "Errorfunc.h"
 #include "Sound.h"
 
 #else
 
 #include "C++/Base/Sprite3D.h"
+#include "C++/System/Directory.h"
 #include "C++/System/Errorfunc.h"
 #include "C++/System/Sound.h"
 
@@ -22,7 +25,7 @@ using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
-TapGun::Sprite3D* sprite3D;
+cocos2d::Sprite3D* sprite3D;
 
 Scene* Test::createScene()
 {
@@ -41,13 +44,14 @@ bool Test::init()
 		return false;
 	}
 	setCocos();
+
 	auto bg = LayerColor::create( Color4B::WHITE, SystemValue::windowSize.width, SystemValue::windowSize.height);
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = TapGun::Sprite3D::create( "tenq");//, "BBOX.texture");
+	sprite3D = cocos2d::Sprite3D::create( "tenq.c3t");//, "BBOX.texture");
 	auto mesh = sprite3D -> getMesh();
-	mesh -> setTexture( "backGrund.png");
+	sprite3D -> setTexture( "Graph/Textures/backGrund.png");
 	//mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
@@ -56,10 +60,10 @@ bool Test::init()
 //	sprite3D -> startAnimationLoop("Test");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
 //	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
-	sprite3D -> setScale( 2.0f);
+	sprite3D -> setScale( 7.0f);
 	this -> addChild( sprite3D);
-	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
-	addChild (light);
+//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
+//	addChild (light);
 	return true;
 }
 
@@ -75,6 +79,7 @@ void Test::update( float delta)
 
 void Test::menuCloseCallback(Ref* pSender)
 {
+	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 	return;
