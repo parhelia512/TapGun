@@ -16,19 +16,12 @@ namespace TapGun
 		Num,
 	};
 
-	struct ModelAnimeData
+	struct textureData
 	{
-		std::string animeName;
-		float startFrame;
-		float endFrame;
+		std::string name;
+		std::string path;
 	};
-
-	struct ModelTextureData
-	{
-		std::string meshName;
-		std::string textureName;
-	};
-
+	
 	class Sprite3D : public cocos2d::Sprite3D
 	{
 	public:
@@ -53,7 +46,7 @@ namespace TapGun
 		int setShaderFile( const std::string& fileName);
 		int setShaderFile( const std::string& vshFile, const std::string& fshFile);
 
-	CC_CONSTRUCTOR_ACCESS:
+		CC_CONSTRUCTOR_ACCESS:
 		Sprite3D() {}
 		virtual ~Sprite3D();
 
@@ -62,8 +55,8 @@ namespace TapGun
 	private:
 		cocos2d::Animation3D*           animation;
 		cocos2d::Animate3D*             animate;
-		std::vector<ModelAnimeData*>	modelAnimeList;
-		std::vector<ModelTextureData*>	modelTextureList;
+		std::map< const std::string, std::string>	modelAnimeList;
+		std::vector< textureData>	modelTextureList;
 
 		void setTextureList(void);
 		int load3DModelAnimeData( const std::string& fileName);
