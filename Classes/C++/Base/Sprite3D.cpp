@@ -245,7 +245,10 @@ namespace TapGun
 	*/
 	int _Sprite3D::load3DModelAnimeData( const string& fileName)
 	{
-		ifstream file( fileName, ios::in);
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+		std::string dir = FileUtils::getInstance() -> fullPathForFilename(fileName);
+	#endif
+		ifstream file( dir, ios::in);
 		if( file.fail())
 		{
 			return -1;
@@ -259,7 +262,8 @@ namespace TapGun
 			istringstream stream(str);
 			getline( stream, tmp, ',');
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-			path = tmp;
+			/*ファイル名のみを抽出！*/ /*@*/
+			path = "mot_enemy_jump.c3b";
 	#else
 			path = "Graph/Models/" + tmp;
 	#endif
@@ -298,7 +302,8 @@ namespace TapGun
 	*/
 	int _Sprite3D::startAnimationLoop( const string& animeName)
 	{
-		animation = cocos2d::Animation3D::create( modelAnimeList[animeName]);
+		string str = modelAnimeList[animeName];
+		animation = cocos2d::Animation3D::create( str);
 		if( animation == nullptr) return -1;
 		animate = cocos2d::Animate3D::create( animation);
 		if( animate == nullptr) return -1;

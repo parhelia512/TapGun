@@ -49,7 +49,7 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = _Sprite3D::create( "enemy/enemy_shot.c3b", "Enemy.anime", "enemy/tex_boy.png");//, "BBOX.texture");
+	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "tex_boy.png");//, "BBOX.texture");
 	sprite3D -> startAnimationLoop( "frool");
 	//mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
