@@ -20,12 +20,15 @@
 
 #endif
 
+#define CAMERA3D//3D座標で作業したいときに使用して下さい
+
 USING_NS_CC;
 using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
 cocos2d::Sprite3D* sprite3D;
+cocos2d::Camera* Camera3D;
 
 Scene* Test::createScene()
 {
@@ -49,9 +52,11 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = cocos2d::Sprite3D::create( "tenq.c3t");//, "BBOX.texture");
-	auto mesh = sprite3D -> getMesh();
-	sprite3D -> setTexture( "Graph/Textures/backGrund.png");
+	//sprite3D = TapGun::Sprite3D::create("BBOX", "BBOX.texture");
+	sprite3D = cocos2d::Sprite3D::create("Graph/Models/BBOX.c3t","Graph/Textures/backGrund.png");
+	auto mesh = sprite3D->getMeshByIndex(0);
+//mesh -> setTexture( "Graph/Textures/backGrund.png");
+//	sprite3D -> setTexture( "Graph/Textures/backGrund.png");
 	//mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
@@ -64,6 +69,23 @@ bool Test::init()
 	this -> addChild( sprite3D);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
 //	addChild (light);
+
+
+#ifdef CAMERA3D//3D座標で作業したいときに使用して下さい
+	auto screenSize = Director::getInstance()->getWinSize();//スクリーンサイズを取得
+
+	//カメラ定義
+	Camera3D = Camera::createPerspective(20, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 20.0f));//座標は適宜調整
+	addChild(Camera3D);
+
+	//sprite3Dの座標を3Dに対応
+	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -20.0f));//座標は適宜調整
+	sprite3D->setScale(0.1f);
+	sprite3D->setRotation3D(Vec3(0.0f, 60.0f, 0.0f));
+#endif
+
 	return true;
 }
 
@@ -72,7 +94,7 @@ void Test::update( float delta)
 //	this -> scheduleUpdate();
 }
 
-	void Test::moveTime( float delta)
+void Test::moveTime( float delta)
 {
 //	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 }

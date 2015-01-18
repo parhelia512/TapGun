@@ -87,6 +87,9 @@
     <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp">
       <Filter>Source\C++\Base</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\C++\Base\UI.cpp">
+      <Filter>Source\C++\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -141,6 +144,9 @@
       <Filter>Source\C++\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Base\Sprite3D.h">
+      <Filter>Source\C++\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Base\UI.h">
       <Filter>Source\C++\Base</Filter>
     </ClInclude>
   </ItemGroup>

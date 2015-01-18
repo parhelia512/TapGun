@@ -35,18 +35,6 @@ GameUILayer* gUILayer;
  
 static GameScene *multiSceneLayerInstance;
  
-/*
-インクリメント
-*/
-//GameScene::GameScene()
-//{
-//	for(int i = 0; i < MAX_MODEL; i++)
-//	{
-//		Unit[MAX_MODEL].valid = 0;
-//
-//	}
-//}
-
 
 
 /**
@@ -101,14 +89,12 @@ bool GameScene::init()
 
 	//ゲームレイヤーを作成
 	gGameLayer = GameModelsLayer::create();
-	//gGameLayer->setCameraMask(2);
 	this->addChild(gGameLayer);
 
 
 	//UIレイヤーを作成
-	gUILayer = GameUILayer::create();
-	//gUILayer->setCameraMask(3);
-	this->addChild(gUILayer);
+	//gUILayer = GameUILayer::create();
+	//this->addChild(gUILayer);
 
 
 	GameParamObj2 = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成
@@ -154,7 +140,7 @@ int GameScene::InitCamera()
 	if(NULL != gUILayer)
 	{
 		GameParamObj2->InitCamera2D();//カメラを初期化
-		gUILayer->setCameraMask(CAMFLAG_DEFALUT);
+		gUILayer->setCameraMask(CAMFLAG_DEFAULT);
 		int a = gUILayer->getCameraMask();
 		addChild(GameParamObj2->Get2DCamInstance());
 	}
