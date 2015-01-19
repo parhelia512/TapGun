@@ -17,6 +17,9 @@
 USING_NS_CC;
 using namespace TapGun;
 
+GameMaster* GameMasterL;//変数名は今後考慮する
+
+
 /**
 *	ゲーム本編のUIレイヤーを初期化
 *
@@ -32,11 +35,7 @@ bool GameUILayer::init()
 		return false;
 	}
 
-	auto dispatcher = Director::getInstance()->getEventDispatcher();
-
-	this->scheduleUpdate();
-	this->schedule(schedule_selector(GameUILayer::moveTime), 0.016f);
-
+	GameMasterL = GameMaster::GetInstance();//ゲームパラメータクラスの初期化
 	return true;
 }
 
@@ -78,54 +77,82 @@ int GameUILayer::SerchFreeUI()
 
 
 
+/**
+*	UIの配置
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
 void GameUILayer::SetUI()
 {
-	std::string fileName1 = "Graph/Pictures/lifebar.png";
+	std::string fileName1 = "Graph/Pictures/reticle.png";
+
 	int num = SerchFreeUI();
+	//レティクル
+	fileName1 = "Graph/Pictures/reticle.png";
+	auto s = Director::getInstance()->getWinSize();//スクリーンサイズを取得
+	UIBillBoard[UIKIND_RETICLE] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_RETICLE]->setPosition(s.width / 2, s.height / 2);
+	UIBillBoard[UIKIND_RETICLE]->setScale(0.25f);
+	addChild(UIBillBoard[UIKIND_RETICLE]);
+
+	Ui[UIKIND_RETICLE].Init(num, UIKIND_RETICLE);
+	valid[UIKIND_RETICLE] = TRUE;
+
+	//矢印の初期化
+	fileName1 = "Graph/Pictures/arrow.png";
+	UIBillBoard[UIKIND_ARROW] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_ARROW]->setPosition(50.0f, 50.0f);
+	UIBillBoard[UIKIND_ARROW]->setScale(0.5f);
+	addChild(UIBillBoard[UIKIND_ARROW]);
+
+	Ui[UIKIND_ARROW].Init(UIKIND_ARROW, UIKIND_ARROW);
+	valid[UIKIND_ARROW] = TRUE;
 
 	//ライフバーの初期化
-	if(-1 != num)
-	{
-		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-		UIBillBoard[num]->setPosition(230.0f, 750.0f);
-		UIBillBoard[num]->setScale(0.8f);
-		addChild(UIBillBoard[num]);
+	fileName1 = "Graph/Pictures/lifebar.png";
+	UIBillBoard[UIKIND_LIFEBAR] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_LIFEBAR]->setPosition(220.0f, 750.0f);
+	UIBillBoard[UIKIND_LIFEBAR]->setScale(0.8f);
+	addChild(UIBillBoard[UIKIND_LIFEBAR]);
 
-		Ui[num].Init(num,UIKIND_LIFEBAR);
-		valid[num] = TRUE;
-	}
+	Ui[UIKIND_LIFEBAR].Init(UIKIND_LIFEBAR, UIKIND_LIFEBAR);
+	valid[UIKIND_LIFEBAR] = TRUE;
 
-	fileName1 = "Graph/Pictures/arrow.png";
-	num = SerchFreeUI();
-	//矢印の初期化
-	if(-1 != num)
-	{
-		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-		UIBillBoard[num]->setPosition(50.0f, 50.0f);
-		UIBillBoard[num]->setScale(0.5f);
-		addChild(UIBillBoard[num]);
+	//弾数Ａ（アイコン）
+	fileName1 = "Graph/Pictures/bullet_a.png";
+	UIBillBoard[UKIND_BULLET_A] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UKIND_BULLET_A]->setPosition(160.0f, 670.0f);
+	UIBillBoard[UKIND_BULLET_A]->setScale(0.8f);
+	addChild(UIBillBoard[UKIND_BULLET_A]);
 
-		Ui[num].Init(num, UIKIND_ARROW);
-		valid[num] = TRUE;
-	}
+	Ui[UKIND_BULLET_A].Init(UKIND_BULLET_A, UKIND_BULLET_A);
+	valid[UKIND_BULLET_A] = TRUE;
 
+	//弾数Ｂ（数字）
+	fileName1 = "Graph/Pictures/bullet_b.png";
+	UIBillBoard[UKIND_BULLET_B] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UKIND_BULLET_B]->setPosition(370.0f, 670.0f);
+	UIBillBoard[UKIND_BULLET_B]->setScale(0.8f);
+	addChild(UIBillBoard[UKIND_BULLET_B]);
 
-	fileName1 = "Graph/Pictures/reticle.png";
-	num = SerchFreeUI();
-	//レティクル
-	if(-1 != num)
-	{
-		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-		UIBillBoard[num]->setPosition(850.0f, 400.0f);
-		UIBillBoard[num]->setScale(0.25f);
-		addChild(UIBillBoard[num]);
-
-		Ui[num].Init(num, UIKIND_RETICLE);
-		valid[num] = TRUE;
-	}
+	Ui[UKIND_BULLET_B].Init(UKIND_BULLET_B, UKIND_BULLET_B);
+	valid[UKIND_BULLET_B] = TRUE;
 }
 
 
+
+
+/**
+*	UI系の数値初期化
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
 void GameUILayer::InitAllUI()
 {
 	for(int i = 0; i < MAX_UI; i++)
@@ -135,43 +162,66 @@ void GameUILayer::InitAllUI()
 }
 
 
-void GameUILayer::UpdateUI(float camX, float camY, float camZ, float rotX, float rotY, float rotZ)
+
+/**
+*	UIの更新
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/20 Ver 1.0
+*/
+void GameUILayer::UpdateLayer( void)
 {
-	Vec3 camPos;
-	camPos.x = camX;
-	camPos.y = camY;
-	camPos.z = camZ;
-
-	Vec3 camRot;
-	camRot.x = rotX;
-	camRot.y = rotY;
-	camRot.z = rotZ;
-
-
-	for(int i = 0; i < MAX_UI; i++)
-	{
-		if(FALSE != Ui[i].valid)
-		{
-			//UINode[i]->setPosition3D(camPos);
-			//UINode[i]->setRotation3D(camRot);
-		}
-	}
+	GameUILayer::MoveReticle();
 }
 
 
 
-
+/**
+*	レティクルの移動
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
 void GameUILayer::MoveReticle(void)
 {
-	for(int i = 0; i < MAX_UI; i++)
+	if(TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要にならば消す
 	{
-		if(FALSE != Ui[i].valid)
+		Vec2 tPos;
+		int a = 0;
+		//プレイヤーの状態を取得して場合分け
+		switch(GameMasterL->GetPlayerState())
 		{
-			//UINode[i]->setPosition3D(camPos);
-			//UINode[i]->setRotation3D(camRot);
+		case PSTATE_SHOT://攻撃中はレティクルを移動させる
+
+			tPos = GameMasterL->GetTouchPos();//
+//			tPos = GameMasterL->GetTouchPosInView();//
+			UIBillBoard[UIKIND_RETICLE]->setVisible(true);/*b*/
+			UIBillBoard[UIKIND_RETICLE]->setPosition(tPos);
+			break;
+
+		case PSTATE_IDLE://アイドル状態
+		case PSTATE_HIDING://隠れる最中
+		case PSTATE_HIDE://隠れている
+		case PSTATE_APPEAR://隠れた状態から出る
+		case PSTATE_DAMAGED://ダメージを受けた
+			break;
+		case PSTATE_RUN://走っている（Wait時）
+		case PSTATE_DEAD://死亡
+
+			//ウェイト時と死亡時はGSTATE_PLAYではないので、他のステート時は一括でUIの非表示を管理した方がよい
+			//現在はここにも記述しておく
+			UIBillBoard[UIKIND_RETICLE]->setVisible(false);/*-*/
+			break;
 		}
 	}
 }
+
+
+
 
 /*
 現在は親シーンのupdateで更新系の関数を呼び出しているので、レイヤー固有のmoveTime関数は使用していません
@@ -190,36 +240,3 @@ void GameUILayer::update(float delta)
 
 }
 
-
-
-
-bool GameUILayer::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
-{
-
-
-	return true;
-}
-
-
-void GameUILayer::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
-{
-	Director *pDirector;
-	Point touchPoint;
-	Node *pNode;
-	Rect spRect;
-
-}
-
-
-void GameUILayer::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
-{
-
-}
-
-
-//void GameUILayer::onTouchCancelled = CC_CALLBACK_2(GameUILayer::onTouchCancelled, this);
-//{
-//
-//	//画面をタッチした時の処理
-//
-//}

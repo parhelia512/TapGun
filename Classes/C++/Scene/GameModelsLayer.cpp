@@ -22,7 +22,7 @@
 USING_NS_CC;
 using namespace TapGun;
 
-GameMaster* GameParamObj;
+GameMaster* GameMasterM;//変数名は今後考慮する
 
 /**
 *	ゲーム本編のモデルレイヤーの初期化
@@ -40,9 +40,10 @@ bool GameModelsLayer::init()
 	}
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 
-	GameParamObj = GameMaster::GetInstance();//ゲームパラメータクラスの初期化
+	GameMasterM = GameMaster::GetInstance();//ゲームパラメータクラスの初期化
 	return true;
 }
+
 
 
 /**
@@ -64,6 +65,7 @@ int GameModelsLayer::InitLayer(void)
 
 	return playerNum;
 }
+
 
 /**
 *	全モデル初期化
@@ -100,17 +102,17 @@ int GameModelsLayer::InitPlayer(int stage_num)
 	}
 	unit[num].Init();//メンバ変数の初期化をしておく
 
-	#ifdef	COCOS_TMP
+#ifdef	COCOS_TMP
 	std::string fileName1 = "Graph/Models/mot_player_hide shot.c3t";
 	std::string fileName2 = "Graph/Textures/box_tex.png";
 
-	unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-	#else
+	unit[num].sprite3d = Sprite3D::create(fileName1, fileName2);
+#else
 	std::string fileName1 = "mot_player_hide shot";
 	std::string fileName2 = "box_tex.png";
 
 	unit[num].sprite3d = TapGun::Sprite3D::create(fileName1, fileName2);
-	#endif
+#endif
 	unit[num].Init(num, UKIND_PLAYER1);
 	playerNum = num;
 	unit[num].wrapper = Node::create();//モデルの親ノード
@@ -118,33 +120,33 @@ int GameModelsLayer::InitPlayer(int stage_num)
 	addChild(unit[num].wrapper);//親ノードをレイヤーに紐付け
 
 	switch(stage_num)
-{
+	{
 	case 0:
 
-	unit[num].sprite3d->setScale(1.0f);
-	unit[num].sprite3d->setRotation3D(Vec3(0.0f, 180.0f, 0.0f));//プレイヤーは反対を向く
-	unit[num].sprite3d->setPosition3D(Vec3(2.0f, 0.0f, -8.5f));
+		unit[num].sprite3d->setScale(1.0f);
+		unit[num].sprite3d->setRotation3D(Vec3(0.0f, 180.0f, 0.0f));//プレイヤーは反対を向く
+		unit[num].sprite3d->setPosition3D(Vec3(2.0f, 0.0f, -8.5f));
 
-	break;
+		break;
 
 	default:
-	return FALSE;
-	break;
-}
+		return FALSE;
+		break;
+	}
 
 
-//当たり判定の定義（仮）
-unit[num].collisionPos = Vec3(1.2, 3.0, 1.2);
-unit[num].SetCollision();
+	//当たり判定の定義（仮）
+	unit[num].collisionPos = Vec3(1.2, 3.0, 1.2);
+	unit[num].SetCollision();
 
-//アニメーション読み込み
-//auto animation = Animation3D::create(fileName1);
-//auto animate = Animate3D::create(animation);
-//animate->setSpeed(1);
+	//アニメーション読み込み
+	//auto animation = Animation3D::create(fileName1);
+	//auto animate = Animate3D::create(animation);
+	//animate->setSpeed(1);
 
-//unit[num].sprite3d->runAction(RepeatForever::create(animate));
+	//unit[num].sprite3d->runAction(RepeatForever::create(animate));
 
-return num;
+	return num;
 }
 
 
@@ -165,102 +167,97 @@ int GameModelsLayer::InitEnemy(int stage_num)
 	int num = -1;
 
 	switch(stage_num)
-{
-	case 0:
-	//テストエネミーの読み込み：１
-	num = SearchFreeUnit();
-	if(-1 == num)
 	{
-		return false;
-	}
-
-	#ifdef	COCOS_TMP
-	std::string fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
-	std::string fileName2 = "Graph/Textures/tex_boy.png";
-
-	unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-	#else
-	std::string fileName1 = "mot_enemy_dei1";
-	std::string fileName2 = "tex_boy.png";
-
-	unit[num].sprite3d = TapGun::Sprite3D::create(fileName1, fileName2);
-	#endif
-	unit[num].Init(num, UKIND_ENEMY);
-
-	unit[num].wrapper = Node::create();//モデルの親ノード
-	unit[num].wrapper->addChild(unit[num].sprite3d);
-	addChild(unit[num].wrapper);
-
-	unit[num].sprite3d->setScale(1.0f);
-	unit[num].sprite3d->setPosition3D(Vec3(4.0f, 0.0f, -18.5f));
-//	unit[num].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, -3.0f));
-
-	//当たり判定の定義（仮）
-	unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
-	unit[num].SetCollision();
-
-
-
-	//アニメーション読み込み
-{
-	//auto animation = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
-	//auto animate = Animate3D::create(animation);
-	//animate->setSpeed(1);
-	//unit[num].sprite3d->runAction(RepeatForever::create(animate));
-}
-
-
-//テストエネミーの読み込み：２
-
-num = SearchFreeUnit();
-if(-1 == num)
-{
-	return false;
-}
-unit[num].Init();//メンバ変数の初期化をしておく
+	case 0:
+		//テストエネミーの読み込み：１
+		num = SearchFreeUnit();
+		if(-1 == num)
+		{
+			return false;
+		}
 
 #ifdef	COCOS_TMP
-fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
-fileName2 = "Graph/Textures/tex_boy.png";
+		std::string fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
+		std::string fileName2 = "Graph/Textures/tex_boy.png";
 
-unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
+		unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
 #else
-fileName1 = "mot_enemy_dei1";
-fileName2 = "tex_boy.png";
+		std::string fileName1 = "mot_enemy_dei1";
+		std::string fileName2 = "tex_boy.png";
 
-unit[num].sprite3d = ::Sprite3D::create(fileName1, fileName2);
+		unit[num].sprite3d = TapGun::Sprite3D::create(fileName1, fileName2);
 #endif
-unit[num].Init(num, UKIND_ENEMY);
+		unit[num].Init(num, UKIND_ENEMY);
 
-unit[num].wrapper = Node::create();//モデルの親ノード
-unit[num].wrapper->addChild(unit[num].sprite3d);
-addChild(unit[num].wrapper);
+		unit[num].wrapper = Node::create();//モデルの親ノード
+		unit[num].wrapper->addChild(unit[num].sprite3d);
+		addChild(unit[num].wrapper);
 
-unit[num].sprite3d->setScale(1.0f);
-unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -60.5f));
-//unit[num].sprite3d->setPosition3D(Vec3(-5.0f, 0.0f, -20.0f));
+		unit[num].sprite3d->setScale(1.0f);
+		unit[num].sprite3d->setPosition3D(Vec3(4.0f, 0.0f, -18.5f));
+		//	unit[num].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, -3.0f));
 
-//当たり判定の定義（仮）
-unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
-unit[num].SetCollision();
+		//当たり判定の定義（仮）
+		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
+		unit[num].SetCollision();
+
+		//アニメーション読み込み
+		{
+			//auto animation = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
+			//auto animate = Animate3D::create(animation);
+			//animate->setSpeed(1);
+			//unit[num].sprite3d->runAction(RepeatForever::create(animate));
+		}
+
+		//テストエネミーの読み込み：２
+
+		num = SearchFreeUnit();
+		if(-1 == num)
+		{
+			return false;
+		}
+		unit[num].Init();//メンバ変数の初期化をしておく
+
+#ifdef	COCOS_TMP
+		fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
+		fileName2 = "Graph/Textures/tex_boy.png";
+
+		unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
+#else
+		fileName1 = "mot_enemy_dei1";
+		fileName2 = "tex_boy.png";
+
+		unit[num].sprite3d = ::Sprite3D::create(fileName1, fileName2);
+#endif
+		unit[num].Init(num, UKIND_ENEMY);
+
+		unit[num].wrapper = Node::create();//モデルの親ノード
+		unit[num].wrapper->addChild(unit[num].sprite3d);
+		addChild(unit[num].wrapper);
+
+		unit[num].sprite3d->setScale(1.0f);
+		unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -60.5f));
+		//unit[num].sprite3d->setPosition3D(Vec3(-5.0f, 0.0f, -20.0f));
+
+		//当たり判定の定義（仮）
+		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
+		unit[num].SetCollision();
 
 
-//アニメーション読み込み
-{
-	//auto animation2 = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
-	//auto animate2 = Animate3D::create(animation2);
-	//animate2->setSpeed(1);
-	//unit[num].sprite3d->runAction(RepeatForever::create(animate2));
-}
+		//アニメーション読み込み
+		{
+			//auto animation2 = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
+			//auto animate2 = Animate3D::create(animation2);
+			//animate2->setSpeed(1);
+			//unit[num].sprite3d->runAction(RepeatForever::create(animate2));
+		}
 
-break;
-defalut:
-break;
-}
+		break;
+	defalut:
+		break;
+	}
 
-
-
-return TRUE;
+	return TRUE;
 }
 
 
@@ -337,26 +334,44 @@ void GameModelsLayer::UpdatePlayer()
 	//タッチ座標をもとに攻撃や回避の処理を行う
 
 	//プレイヤーの状態を取得して場合分け
-	switch(GameParamObj->GetPlayerState())
+	switch(GameMasterM->GetPlayerState())
 	{
 
 	case PSTATE_IDLE://アイドル状態
 
-		if(TSTATE_ON == GameParamObj->GetTouchState())//タッチされたら
+		if(TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
 		{
-			//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
-			GameParamObj->SetPlayerState(PSTATE_SHOT);
-		}
+			{
+				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
+				Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
 
+				if(tPos.x > s.width * 0.4f)//攻撃可能範囲をタッチしていれば
+				{
+					//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
+					GameMasterM->SetPlayerState(PSTATE_SHOT);
+				}
+				else//それ以外は今のところ回避
+				{
+					GameMasterM->SetPlayerState(PSTATE_HIDING);//回避に移行
+
+					//アニメーション読み込み
+
+					//auto animation = Animation3D::create(fileName1);
+					//auto animate = Animate3D::create(animation);
+					//animate->setSpeed(1);
+					//unit[num].sprite3d->runAction(animate);
+				}
+			}
+		}
 		break;
 	case PSTATE_SHOT:
 
-		//if(TSTATE_ON == GameParamObj->GetTouchState())//タッチされたら
+		//if(TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
 		//{
 		//	//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
-		//	GameParamObj->SetPlayerState(PSTATE_SHOT);
+		//	GameMasterM->SetPlayerState(PSTATE_SHOT);
 		//}
-		GameParamObj->SetPlayerState(PSTATE_IDLE);
+		GameMasterM->SetPlayerState(PSTATE_IDLE);
 
 		break;
 	case PSTATE_HIDING:
@@ -403,17 +418,17 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 	int num = SearchFreeUnit();
 	if(FALSE != num)
 	{
-		#ifdef	COCOS_TMP
+#ifdef	COCOS_TMP
 		std::string fileName1 = "Graph/Models/tama.c3t";
 		std::string fileName2 = "Graph/Textures/tama.png";
 
 		unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-		#else
+#else
 		std::string fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
 		std::string fileName2 = "Graph/Textures/tex_boy.png";
 
 		unit[num].sprite3d = TapGun::Sprite3D::create("tama", "tama.png");
-		#endif
+#endif
 		unit[num].Init(num, UKIND_EBULLET);
 
 		unit[num].wrapper = Node::create();//モデルの親ノード
@@ -473,8 +488,6 @@ void GameModelsLayer::UpdateBullets()
 
 			//unit[i].sprite3d->getBoundingBox();
 
-
-
 			//プレイヤーとの当たり判定を処理
 			if(unit[playerNum].obbHead.intersects(unit[i].obbHead))
 			{
@@ -504,14 +517,13 @@ void  GameModelsLayer::CheckHit(void)
 #ifdef RAY_TEST
 
 	//レイと敵の当たり判定処理
-	const int pstate = GameParamObj->GetPlayerState();
+	const int pstate = GameMasterM->GetPlayerState();
 	if (pstate == PSTATE_SHOT)
 	{
 		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
 		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
 		//Vec2 gliv = pTouch->getLocationInView();
-		Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
-		
+		Vec2 tPos = GameMasterM->GetTouchPosInView();//タッチ座標を取得
 
 		Vec3 rayStart = Vec3(0, 0, 0);//レイの始点
 		Vec3 rayEnd = Vec3(0, 0, 0);//レイの終点
@@ -519,7 +531,7 @@ void  GameModelsLayer::CheckHit(void)
 		Vec3 tmpPosNear = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
 		Vec3 tmpPosFar = Vec3(tPos.x, tPos.y, 1.0f);//1.0f == 視錘台の遠面（far plane）
 
-		Camera* cam3d = GameParamObj->GetCamera3D();
+		Camera* cam3d = GameMasterM->GetCamera3D();
 		cam3d->unproject(s, &tmpPosNear, &rayStart);//near planeの3次元座標を取得
 		cam3d->unproject(s, &tmpPosFar, &rayEnd);
 
@@ -541,19 +553,17 @@ void  GameModelsLayer::CheckHit(void)
 				}
 			}
 		}
-		GameParamObj->SetPlayerState(PSTATE_IDLE);
 	}
-
 
 #else
 
 	//レイと敵の当たり判定処理
-	const int pstate = GameParamObj->GetPlayerState();
+	const int pstate = GameMasterM->GetPlayerState();
 	if (pstate == PSTATE_SHOT)
 	{
 		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
 		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
-		Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
+		Vec2 tPos = GameMasterM->GetTouchPos();//タッチ座標を取得
 
 		Vec3 rayStart = Vec3(0, 0, 0);//レイの始点
 		Vec3 rayEnd = Vec3(0, 0, 0);//レイの終点
@@ -561,7 +571,7 @@ void  GameModelsLayer::CheckHit(void)
 		Vec3 tmpPosNear = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
 		Vec3 tmpPosFar = Vec3(tPos.x, tPos.y, -1.0f);//1.0f == 視錘台の遠面（far plane）
 
-		Camera* cam3d = GameParamObj->GetCamera3D();
+		Camera* cam3d = GameMasterM->GetCamera3D();
 		cam3d->unproject(s, &tmpPosNear, &rayStart);//near planeの3次元座標を取得
 		cam3d->unproject(s, &tmpPosFar, &rayStart);
 
@@ -582,7 +592,7 @@ void  GameModelsLayer::CheckHit(void)
 				}
 			}
 		}
-		GameParamObj->SetPlayerState(PSTATE_IDLE);
+		GameMasterM->SetPlayerState(PSTATE_IDLE);
 	}
 
 #endif

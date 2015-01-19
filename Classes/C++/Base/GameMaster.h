@@ -112,10 +112,12 @@ namespace TapGun
 		void SetPlayerState(int state);
 
 		//タッチ関連
-		void UpdateTouchManager( void);//タッチ管理クラスを更新
+		void UpdateTouchManager(void);//タッチ管理クラスを更新
 		void SetTouchPos(cocos2d::Touch* tch);//タッチ座標を取得
 		int SetTouchFlag(int state);//タッチフラグを取得
+		cocos2d::Vec2 GetTouchPosInView(void);//タッチ座標を返す
 		cocos2d::Vec2 GetTouchPos(void);//タッチ座標を返す
+
 		int GetTouchFlag(void);//タッチフラグを返す
 		int GetTouchState(void);//タッチ状態を返す
 

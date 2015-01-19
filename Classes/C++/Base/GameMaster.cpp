@@ -427,6 +427,18 @@ int GameMaster::GetGameState(void)
 
 
 
+/**
+*	タッチ座標の取得
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	タッチ座標の二次元ベクトル
+*	@date	1/16 Ver 1.0
+*/
+Vec2 GameMaster::GetTouchPosInView()
+{
+	return touch->getLocationInView();
+}
 
 
 /**
@@ -437,11 +449,10 @@ int GameMaster::GetGameState(void)
 *	@return	タッチ座標の二次元ベクトル
 *	@date	1/16 Ver 1.0
 */
-Vec2 GameMaster::GetTouchPos(void)
+Vec2 GameMaster::GetTouchPos()
 {
-	return touch->getLocationInView();
+	return touch->getLocation();
 }
-
 
 
 
@@ -457,7 +468,6 @@ int GameMaster::GetTouchFlag(void)
 {
 	return touchFlag;
 }
-
 
 
 

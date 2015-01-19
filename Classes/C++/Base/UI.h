@@ -20,6 +20,8 @@ namespace TapGun
 		UIKIND_LIFE,//HPの弾部分
 		UIKIND_RETICLE,//レティクル
 		UIKIND_ARROW,//回避アイコン
+		UKIND_BULLET_A,//残弾（アイコン）
+		UKIND_BULLET_B,//残弾（数字）
 		UIKIND_NUM//
 	};
 
