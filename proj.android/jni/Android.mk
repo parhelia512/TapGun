@@ -15,6 +15,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/C++/Base/GameMaster.cpp \
 				   ../../Classes/C++/Base/Sprite3D.cpp \
 				   ../../Classes/C++/Base/Unit.cpp \
+				   ../../Classes/C++/Base/UI.cpp \
 				   ../../Classes/C++/Scene/Character.cpp \
 				   ../../Classes/C++/Scene/GameModelsLayer.cpp \
 				   ../../Classes/C++/Scene/GameScene.cpp \

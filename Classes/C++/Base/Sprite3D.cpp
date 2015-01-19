@@ -1,6 +1,8 @@
 
+#include <stdio.h>
 #include <fstream>
 #include "cocos2d.h"
+#include "Define.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -9,6 +11,7 @@
 #else
 
 #include "C++/Base/Sprite3D.h"
+#include "C++/Scene/TestScene.h"
 
 #endif
 
@@ -245,6 +248,10 @@ namespace TapGun
 	*/
 	int _Sprite3D::load3DModelAnimeData( const string& fileName)
 	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		
+	#else
+
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		std::string dir = FileUtils::getInstance() -> fullPathForFilename( fileName);
 		ifstream file( dir, ios::in);
@@ -275,6 +282,7 @@ namespace TapGun
 			modelAnimeList[name] = path;
 		}
 		return 0;
+	#endif
 	}
 
 	/**
