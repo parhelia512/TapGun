@@ -9,6 +9,11 @@
 
 namespace TapGun
 {
+
+//この定義は今後異なるヘッダファイルに移し替えます
+#define FALSE -1
+#define TRUE 1
+
 	enum _CAMERA_FLAG_
 	{
 		//CAMFLAG_DEFAULT = CameraFlag::DEFAULT,//

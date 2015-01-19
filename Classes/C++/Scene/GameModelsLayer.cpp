@@ -198,7 +198,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		//	unit[num].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, -3.0f));
 
 		//当たり判定の定義（仮）
-		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
+		unit[num].collisionPos = Vec3(0.8, 0.8, 0.8);
 		unit[num].SetCollision();
 
 		//アニメーション読み込み
@@ -240,7 +240,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		//unit[num].sprite3d->setPosition3D(Vec3(-5.0f, 0.0f, -20.0f));
 
 		//当たり判定の定義（仮）
-		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
+		unit[num].collisionPos = Vec3(0.8, 0.8, 0.8);
 		unit[num].SetCollision();
 
 
@@ -332,6 +332,8 @@ void GameModelsLayer::UpdateLayer()
 void GameModelsLayer::UpdatePlayer()
 {
 	//タッチ座標をもとに攻撃や回避の処理を行う
+	//この関数内では、タッチ状態とタッチフラグの更新は行わないこと。
+	static Vec2 tmpPos;
 
 	//プレイヤーの状態を取得して場合分け
 	switch(GameMasterM->GetPlayerState())
@@ -344,7 +346,7 @@ void GameModelsLayer::UpdatePlayer()
 			{
 				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
 				Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
-
+				tmpPos = GameMasterM->GetTouchPos();
 				if(tPos.x > s.width * 0.4f)//攻撃可能範囲をタッチしていれば
 				{
 					//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
@@ -366,18 +368,43 @@ void GameModelsLayer::UpdatePlayer()
 		break;
 	case PSTATE_SHOT:
 
-		//if(TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
-		//{
-		//	//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
-		//	GameMasterM->SetPlayerState(PSTATE_SHOT);
-		//}
-		GameMasterM->SetPlayerState(PSTATE_IDLE);
+		if(TSTATE_ON == GameMasterM->GetTouchState())
+		{
+			{
+				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
+				Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
+
+				//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
+				GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
+			}
+		}
+		else if(TSTATE_MOVE == GameMasterM->GetTouchState())
+		{
+			{
+				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
+				Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
+
+				//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
+				GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
+			}
+		}
+		else if(TSTATE_RELEASE == GameMasterM->GetTouchState())//タッチを離したら
+		{
+			//フラグ更新の順番により、現在はこのif文に入らない
+			GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
+		}
+		else
+		{
+			GameMasterM->SetPlayerState(PSTATE_IDLE);
+		}
 
 		break;
-	case PSTATE_HIDING:
-		break;//隠れ中
-	case PSTATE_HIDE:
-		break;//隠れている
+	case PSTATE_HIDING://隠れ中
+		GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
+		break;
+	case PSTATE_HIDE://隠れている
+		GameMasterM->SetPlayerState(PSTATE_IDLE);//とりあえずアイドル状態に移行
+		break;
 	case PSTATE_APPEAR:
 		break;//隠れた状態から出る
 	case PSTATE_DAMAGED:
@@ -443,7 +470,7 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 		//unit[num].aabbBody.set(Vec3(-0.3, -0.3, -0.3), Vec3(0.3, 0.3, 0.3));
 		//unit[num].obbHead = OBB(unit[num].aabbBody);//
 		////unit[num].obbHead.set();
-		unit[num].collisionPos = Vec3(0.2, 0.2, 0.2);//当たり判定矩形の大きさを設定
+		unit[num].collisionPos = Vec3(0.3, 0.4, 0.3);//当たり判定矩形の大きさを設定
 		unit[num].SetCollision();//当たり判定をセット
 
 		//弾を撃ったエネミーの座標と、プレイヤーの座標を元に、弾の移動方向を求める
