@@ -27,6 +27,7 @@ using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
+cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
 
 Scene* Test::createScene()
@@ -46,15 +47,28 @@ bool Test::init()
 		return false;
 	}
 	setCocos();
-
+	lay = this;
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3D = _Sprite3D::create( "enemy", "Enemy.anime");
 #else
-	auto sprite3D = _Sprite3D::create( "enemy/enemy", "Enemy.anime", "Enemy.texture");
+	auto sprite3D = Sprite3D::create( "stage.c3t");//, "bock_gurand2.png");
 #endif
-//	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "Enemy.texture");
-	sprite3D -> startAnimationLoop( "shot");
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		FILE *fp;
+		auto file = FileUtils::getInstance();
+		string filePath = file -> fullPathForFilename( "Parameter/Animation/Enemy.anime");
+		fp = fopen( filePath.c_str(), "r");
+		if( fp == NULL)
+		{
+			auto label = LabelTTF::create( "Hello World", "Arial", 24);
+			label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
+			SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
+			this -> addChild( label, 1);
+		}
+#endif
+//	auto mesh = sprite3D -> getMeshCount();
+	//sprite3D -> startAnimationLoop( "shot");
 	//mesh[1] -> setTexture( "tex_sita.png");
 	//	sprite3D -> setShaderFile( "toon");
 	//	auto animation = Animation3D::create( "Graph/Models/test.c3t");
@@ -63,8 +77,9 @@ bool Test::init()
 	//	sprite3D -> startAnimationLoop("Test");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
 	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
-	sprite3D -> setScale( 300.0f);
+	sprite3D -> setScale( 10.0f);
 	this -> addChild( sprite3D);
+
 	//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
 	//	addChild (light);
 
@@ -121,5 +136,5 @@ void Test::setCocos( void)
 	auto label = LabelTTF::create( "Hello World", "Arial", 24);
 	label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
 	SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
-	this -> addChild( label, 1);
+//	this -> addChild( label, 1);
 }

@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <fstream>
+#include "platform/android/CCFileUtils-android.h"
 #include "cocos2d.h"
 #include "Define.h"
 
@@ -249,15 +250,43 @@ namespace TapGun
 	int _Sprite3D::load3DModelAnimeData( const string& fileName)
 	{
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		
+		FILE *fp;
+		auto file = FileUtils::getInstance();
+		string filePath = file -> fullPathForFilename( fileName);
+		fp = fopen( filePath.c_str(), "r");
+		if( fp == NULL)
+		{
+			auto label = LabelTTF::create( "LoadError !", "Arial", 24);
+			label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
+								SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
+			Test::lay -> addChild( label, 1);
+			return -1;
+		}
+		char name[256];
+		char path[256];
+		while( fscanf( fp, "%[^,],%s\n",  path, name) != EOF)
+		{
+			animeData* anime;
+			anime = (animeData*)malloc( sizeof( animeData));
+			anime -> name = name;
+			anime -> path = path;
+			anime -> next = modelAnimeListStart;
+			
+			auto label = LabelTTF::create( "Load OK!", "Arial", 24);
+			label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
+								SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height * 2));
+			Test::lay -> addChild( label, 1);
+			modelAnimeListStart = anime;
+		}
+		return 0;
 	#else
 
-	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	  #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		std::string dir = FileUtils::getInstance() -> fullPathForFilename( fileName);
 		ifstream file( dir, ios::in);
-	#else
+	  #else
 		ifstream file( fileName, ios::in);
-	#endif
+	  #endif
 		if( file.fail())
 		{
 			return -1;
@@ -270,13 +299,13 @@ namespace TapGun
 			string tmp;
 			istringstream stream(str);
 			getline( stream, tmp, ',');
-	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	  #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 			auto point = tmp.rfind( '/', tmp.size()) + 1;
 			tmp.erase( 0, tmp.size() - ( tmp.size() - point));
 			path = tmp;
-	#else
+	  #else
 			path = "Graph/Models/" + tmp;
-	#endif
+	  #endif
 			getline( stream, tmp);
 			name = tmp;
 			modelAnimeList[name] = path;
@@ -295,12 +324,31 @@ namespace TapGun
 	*/
 	int _Sprite3D::startAnimation( const string& animeName)
 	{
-		animation = cocos2d::Animation3D::create( modelAnimeList[animeName]);
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		animeData* P;
+		for( P = modelAnimeListStart; P -> next != NULL; P = P -> next)
+		{
+			if( animeName.compare(  P -> name))
+			{
+				animation = cocos2d::Animation3D::create( P -> path);
+				if( animation == nullptr) return -1;
+				animate = cocos2d::Animate3D::create( animation);
+				if( animate == nullptr) return -1;
+				runAction( animate);
+				return 0;
+			}
+		}
+		return -1;
+	#else
+		string str = modelAnimeList[animeName];
+		if( str == "") return -1;
+		animation = cocos2d::Animation3D::create( str);
 		if( animation == nullptr) return -1;
 		animate = cocos2d::Animate3D::create( animation);
 		if( animate == nullptr) return -1;
 		runAction( animate);
 		return 0;
+	#endif
 	}
 
 	/**
@@ -313,6 +361,22 @@ namespace TapGun
 	*/
 	int _Sprite3D::startAnimationLoop( const string& animeName)
 	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		animeData* P;
+		for( P = modelAnimeListStart; P -> next != NULL; P = P -> next)
+		{
+			if( animeName.compare(  P -> name))
+			{
+				animation = cocos2d::Animation3D::create( P -> path);
+				if( animation == nullptr) return -1;
+				animate = cocos2d::Animate3D::create( animation);
+				if( animate == nullptr) return -1;
+				runAction( cocos2d::RepeatForever::create( animate));
+				return 0;
+			}
+		}
+		return -1;
+	#else
 		string str = modelAnimeList[animeName];
 		if( str == "") return -1;
 		animation = cocos2d::Animation3D::create( str);
@@ -321,6 +385,7 @@ namespace TapGun
 		if( animate == nullptr) return -1;
 		runAction( cocos2d::RepeatForever::create( animate));
 		return 0;
+	#endif
 	}
 
 	/**
@@ -333,7 +398,7 @@ namespace TapGun
 	*/
 	int _Sprite3D::stopAnimation( const string& animeName)
 	{
-		stopAction( this -> animate);
+		stopAction( animate);
 		return 0;
 	}
 
@@ -391,7 +456,19 @@ namespace TapGun
 	*/
 	void _Sprite3D::releaseAnimation( void)
 	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		animeData* P;
+		if( modelAnimeListStart == NULL) return;
+		while( modelAnimeListStart -> next != NULL)
+		{
+			P = modelAnimeListStart -> next;
+			modelAnimeListStart -> next = P -> next;
+			free( P);
+			P = NULL;
+		}
+	#else
 		map< const string, string>().swap( modelAnimeList);
+	#endif
 	}
 
 	/**
@@ -404,6 +481,27 @@ namespace TapGun
 	*/
 	int _Sprite3D::load3DModelTextureData( const string& fileName)
 	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		FILE *fp;
+		fp = fopen( fileName.c_str(), "r");
+		if( fp == NULL)
+		{
+			return -1;
+		}
+		char name[256];
+		char path[256];
+		while( fscanf( fp, "%[^,],%s\n",  path, name) != EOF)
+		{
+			textureData* texture;
+			texture = (textureData*)malloc( sizeof( textureData));
+			texture -> name = name;
+			texture -> path = path;
+			texture -> next = modelTextureListStart;
+			modelTextureListStart = texture;
+		}
+		return 0;
+	#else
+
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		std::string dir = FileUtils::getInstance() -> fullPathForFilename( fileName);
 		ifstream file( dir, ios::in);
@@ -433,6 +531,7 @@ namespace TapGun
 			modelTextureList.push_back(*data);
 		}
 		return 0;
+	#endif
 	}
 
 	/**
@@ -443,11 +542,20 @@ namespace TapGun
 	*/
 	void _Sprite3D::setTextureList( void)
 	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		textureData* P;
+		for( P = modelTextureListStart; P -> next != NULL; P = P -> next)
+		{
+			auto mesh = getMeshByName( P -> name);
+			mesh -> setTexture( P -> path);
+		}
+	#else
 		for( auto &data : modelTextureList)
 		{
 			auto mesh = getMeshByName( data.name);
 			mesh -> setTexture( data.path);
 		}
+	#endif
 	}
 
 	/**
@@ -458,7 +566,19 @@ namespace TapGun
 	*/
 	void _Sprite3D::releaseTexture( void)
 	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		textureData* P;
+		if( modelTextureListStart == NULL) return;
+		while( modelTextureListStart -> next != NULL)
+		{
+			P = modelTextureListStart -> next;
+			modelTextureListStart -> next = P -> next;
+			free( P);
+			P = NULL;
+		}
+	#else
 		vector<textureData>().swap( modelTextureList);
+	#endif
 	}
 
 	int _Sprite3D::setShaderFile( const string& fileName)
