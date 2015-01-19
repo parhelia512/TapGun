@@ -24,13 +24,13 @@ AppDelegate::AppDelegate()
 {
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 }
 
 void AppDelegate::initGLContextAttrs()
 {
-	GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 16, 8 };//[“xƒoƒbƒtƒ@‚ð16bit‚ÉÝ’è
+	GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 16, 8 };//æ·±åº¦ãƒãƒƒãƒ•ã‚¡ã‚’16bitã«è¨­å®š
 	GLView::setGLContextAttrs(glContextAttrs);
 }
 
@@ -44,15 +44,15 @@ bool AppDelegate::applicationDidFinishLaunching()
 		glview = GLViewImpl::create( "TapGun");
 		director -> setOpenGLView( glview);
 	}
-	
+
 	director -> setDisplayStats( true) ;
 	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
 	director -> setAnimationInterval( 1.0 / 60);
 
 	auto scene = Test::createScene();
-//	auto scene = GameScene::CreateScene();
+	//	auto scene = GameScene::CreateScene();
 	director -> runWithScene( scene);
-	
+
 	return true;
 }
 

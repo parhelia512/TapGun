@@ -1,3 +1,4 @@
+
 #include "GameModelsLayer.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -15,7 +16,7 @@
 
 #endif
 
-#define COCOS_TMP//cocos2d‚ÌSprite3d‚ğg—p‚·‚éÛ‚É’è‹`‚·‚é
+#define COCOS_TMP//cocos2dã®Sprite3dã‚’ä½¿ç”¨ã™ã‚‹éš›ã«å®šç¾©ã™ã‚‹
 
 USING_NS_CC;
 using namespace TapGun;
@@ -23,11 +24,11 @@ using namespace TapGun;
 GameMaster* GameParamObj;
 
 /**
-*	ƒQ[ƒ€–{•Ò‚Ìƒ‚ƒfƒ‹ƒŒƒCƒ„[‚Ì‰Šú‰»
+*	ã‚²ãƒ¼ãƒ æœ¬ç·¨ã®ãƒ¢ãƒ‡ãƒ«ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‰Šú‰»¬Œ÷^•s‰Â‚Ìbool’l
+*	@param	ãªã—
+*	@return	åˆæœŸåŒ–æˆåŠŸï¼ä¸å¯ã®boolå€¤
 *	@date	1/8 Ver 1.0
 */
 bool GameModelsLayer::init()
@@ -38,17 +39,17 @@ bool GameModelsLayer::init()
 	}
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 
-	GameParamObj = GameMaster::GetInstance();//ƒQ[ƒ€ƒpƒ‰ƒ[ƒ^ƒNƒ‰ƒX‚Ì‰Šú‰»
+	GameParamObj = GameMaster::GetInstance();//ã‚²ãƒ¼ãƒ ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
 	return true;
 }
 
 
 /**
-*	ƒQ[ƒ€–{•Ò‚ÌUIƒŒƒCƒ„[‚ÌŠeí”’l‰Šú‰»
+*	ã‚²ãƒ¼ãƒ æœ¬ç·¨ã®UIãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å„ç¨®æ•°å€¤åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‰Šú‰»¬Œ÷^•s‰Â‚Ìbool’l
+*	@param	ãªã—
+*	@return	åˆæœŸåŒ–æˆåŠŸï¼ä¸å¯ã®boolå€¤
 *	@date	1/8 Ver 1.0
 */
 int GameModelsLayer::InitLayer(void)
@@ -56,37 +57,37 @@ int GameModelsLayer::InitLayer(void)
 	InitAllModels();
 
 	playerNum = -1;
-	playerNum = InitPlayer(0);//‚Æ‚è‚ ‚¦‚¸ˆø”0
-	//InitMap(0);//³‹K‚Ìƒ}ƒbƒvƒf[ƒ^‚ª~‚è‚Ä‚­‚é‚Ü‚Å‚¢‚Á‚½‚ñ•Û—¯‚µ‚Ü‚·
+	playerNum = InitPlayer(0);//ã¨ã‚Šã‚ãˆãšå¼•æ•°0
+	//InitMap(0);//æ­£è¦ã®ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãŒé™ã‚Šã¦ãã‚‹ã¾ã§ã„ã£ãŸã‚“ä¿ç•™ã—ã¾ã™
 	InitEnemy(0);
 
 	return playerNum;
 }
 
 /**
-*	‘Sƒ‚ƒfƒ‹‰Šú‰»
+*	å…¨ãƒ¢ãƒ‡ãƒ«åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 void GameModelsLayer::InitAllModels()
 {
 	for(int i = 0; i < MAX_UNIT; i++)
 	{
-		unit[i].Init();//ƒƒ“ƒo•Ï”‰Šú‰»
+		unit[i].Init();//ãƒ¡ãƒ³ãƒå¤‰æ•°åˆæœŸåŒ–
 	}
 }
 
 
 
 /**
-*	ƒvƒŒƒCƒ„[‰Šú‰»
+*	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	ƒXƒe[ƒW”Ô†
-*	@return	³í:Unit”z—ñ‚ÌƒvƒŒƒCƒ„[”Ô† ‰Šú‰»¸”s:-1
+*	@param	ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
+*	@return	æ­£å¸¸:Unité…åˆ—ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå· åˆæœŸåŒ–å¤±æ•—:-1
 *	@date	1/8 Ver 1.0
 */
 int GameModelsLayer::InitPlayer(int stage_num)
@@ -96,175 +97,175 @@ int GameModelsLayer::InitPlayer(int stage_num)
 	{
 		return FALSE;
 	}
-	unit[num].Init();//ƒƒ“ƒo•Ï”‚Ì‰Šú‰»‚ğ‚µ‚Ä‚¨‚­
+	unit[num].Init();//ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–ã‚’ã—ã¦ãŠã
 
-#ifdef	COCOS_TMP
+	#ifdef	COCOS_TMP
 	std::string fileName1 = "Graph/Models/mot_player_hide shot.c3t";
 	std::string fileName2 = "Graph/Textures/box_tex.png";
 
 	unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-#else
+	#else
 	std::string fileName1 = "mot_player_hide shot";
 	std::string fileName2 = "box_tex.png";
 
 	unit[num].sprite3d = TapGun::Sprite3D::create(fileName1, fileName2);
-#endif
+	#endif
 	unit[num].Init(num, UKIND_PLAYER1);
 	playerNum = num;
-	unit[num].wrapper = Node::create();//ƒ‚ƒfƒ‹‚Ìeƒm[ƒh
-	unit[num].wrapper->addChild(unit[num].sprite3d);//eƒm[ƒh‚ÉƒXƒvƒ‰ƒCƒg‚ğ•R•t‚¯
-	addChild(unit[num].wrapper);//eƒm[ƒh‚ğƒŒƒCƒ„[‚É•R•t‚¯
+	unit[num].wrapper = Node::create();//ãƒ¢ãƒ‡ãƒ«ã®è¦ªãƒãƒ¼ãƒ‰
+	unit[num].wrapper->addChild(unit[num].sprite3d);//è¦ªãƒãƒ¼ãƒ‰ã«ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ç´ä»˜ã‘
+	addChild(unit[num].wrapper);//è¦ªãƒãƒ¼ãƒ‰ã‚’ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ç´ä»˜ã‘
 
 	switch(stage_num)
-	{
+{
 	case 0:
 
-		unit[num].sprite3d->setScale(1.0f);
-		unit[num].sprite3d->setRotation3D(Vec3(0.0f, 180.0f, 0.0f));//ƒvƒŒƒCƒ„[‚Í”½‘Î‚ğŒü‚­
-		unit[num].sprite3d->setPosition3D(Vec3(2.0f, 0.0f, -8.5f));
+	unit[num].sprite3d->setScale(1.0f);
+	unit[num].sprite3d->setRotation3D(Vec3(0.0f, 180.0f, 0.0f));//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¯åå¯¾ã‚’å‘ã
+	unit[num].sprite3d->setPosition3D(Vec3(2.0f, 0.0f, -8.5f));
 
-		break;
+	break;
 	defalult:
-		return FALSE;
-		break;
-	}
+	return FALSE;
+	break;
+}
 
 
-	//“–‚½‚è”»’è‚Ì’è‹`i‰¼j
-	unit[num].collisionPos = Vec3(1.2, 3.0, 1.2);
-	unit[num].SetCollision();
+//å½“ãŸã‚Šåˆ¤å®šã®å®šç¾©ï¼ˆä»®ï¼‰
+unit[num].collisionPos = Vec3(1.2, 3.0, 1.2);
+unit[num].SetCollision();
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ““Ç‚İ‚İ
-	//auto animation = Animation3D::create(fileName1);
-	//auto animate = Animate3D::create(animation);
-	//animate->setSpeed(1);
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³èª­ã¿è¾¼ã¿
+//auto animation = Animation3D::create(fileName1);
+//auto animate = Animate3D::create(animation);
+//animate->setSpeed(1);
 
-	//unit[num].sprite3d->runAction(RepeatForever::create(animate));
+//unit[num].sprite3d->runAction(RepeatForever::create(animate));
 
-	return num;
+return num;
 }
 
 
 
 
 /**
-*	ƒGƒlƒ~[‰Šú‰»
+*	ã‚¨ãƒãƒŸãƒ¼åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	ƒXƒe[ƒW”Ô†
-*	@return	³í:1 ‰Šú‰»¸”s:-1
+*	@param	ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
+*	@return	æ­£å¸¸:1 åˆæœŸåŒ–å¤±æ•—:-1
 *	@date	1/8 Ver 1.0
 */
 int GameModelsLayer::InitEnemy(int stage_num)
 {
-	//¦ƒXƒe[ƒWƒXƒNƒŠƒvƒg‚Ì“à—e‚ğ“Ç‚İ‚ñ‚Å‰Šú‰»‚ğs‚¢‚Ü‚·
+	//â€»ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®å†…å®¹ã‚’èª­ã¿è¾¼ã‚“ã§åˆæœŸåŒ–ã‚’è¡Œã„ã¾ã™
 
 	int num = -1;
 
 	switch(stage_num)
-	{
+{
 	case 0:
-		//ƒeƒXƒgƒGƒlƒ~[‚Ì“Ç‚İ‚İF‚P
-		num = SearchFreeUnit();
-		if(-1 == num)
-		{
-			return false;
-		}
-
-#ifdef	COCOS_TMP
-		std::string fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
-		std::string fileName2 = "Graph/Textures/tex_boy.png";
-
-		unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-#else
-		std::string fileName1 = "mot_enemy_dei1";
-		std::string fileName2 = "tex_boy.png";
-
-		unit[num].sprite3d = TapGun::Sprite3D::create(fileName1, fileName2);
-#endif
-		unit[num].Init(num, UKIND_ENEMY);
-
-		unit[num].wrapper = Node::create();//ƒ‚ƒfƒ‹‚Ìeƒm[ƒh
-		unit[num].wrapper->addChild(unit[num].sprite3d);
-		addChild(unit[num].wrapper);
-
-		unit[num].sprite3d->setScale(1.0f);
-		unit[num].sprite3d->setPosition3D(Vec3(4.0f, 0.0f, -18.5f));
-
-		//“–‚½‚è”»’è‚Ì’è‹`i‰¼j
-		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
-		unit[num].SetCollision();
-
-
-
-		//ƒAƒjƒ[ƒVƒ‡ƒ““Ç‚İ‚İ
-		{
-			//auto animation = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
-			//auto animate = Animate3D::create(animation);
-			//animate->setSpeed(1);
-			//unit[num].sprite3d->runAction(RepeatForever::create(animate));
-		}
-
-
-		//ƒeƒXƒgƒGƒlƒ~[‚Ì“Ç‚İ‚İF‚Q
-
-		num = SearchFreeUnit();
-		if(-1 == num)
-		{
-			return false;
-		}
-		unit[num].Init();//ƒƒ“ƒo•Ï”‚Ì‰Šú‰»‚ğ‚µ‚Ä‚¨‚­
-
-#ifdef	COCOS_TMP
-		fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
-		fileName2 = "Graph/Textures/tex_boy.png";
-
-		unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-#else
-		fileName1 = "mot_enemy_dei1";
-		fileName2 = "tex_boy.png";
-
-		unit[num].sprite3d = ::Sprite3D::create(fileName1, fileName2);
-#endif
-		unit[num].Init(num, UKIND_ENEMY);
-
-		unit[num].wrapper = Node::create();//ƒ‚ƒfƒ‹‚Ìeƒm[ƒh
-		unit[num].wrapper->addChild(unit[num].sprite3d);
-		addChild(unit[num].wrapper);
-
-		unit[num].sprite3d->setScale(1.0f);
-		unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -60.5f));
-
-		//“–‚½‚è”»’è‚Ì’è‹`i‰¼j
-		unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
-		unit[num].SetCollision();
-
-
-		//ƒAƒjƒ[ƒVƒ‡ƒ““Ç‚İ‚İ
-		{
-			//auto animation2 = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
-			//auto animate2 = Animate3D::create(animation2);
-			//animate2->setSpeed(1);
-			//unit[num].sprite3d->runAction(RepeatForever::create(animate2));
-		}
-
-		break;
-	defalut:
-		break;
+	//ãƒ†ã‚¹ãƒˆã‚¨ãƒãƒŸãƒ¼ã®èª­ã¿è¾¼ã¿ï¼šï¼‘
+	num = SearchFreeUnit();
+	if(-1 == num)
+	{
+		return false;
 	}
 
+	#ifdef	COCOS_TMP
+	std::string fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
+	std::string fileName2 = "Graph/Textures/tex_boy.png";
+
+	unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
+	#else
+	std::string fileName1 = "mot_enemy_dei1";
+	std::string fileName2 = "tex_boy.png";
+
+	unit[num].sprite3d = TapGun::Sprite3D::create(fileName1, fileName2);
+	#endif
+	unit[num].Init(num, UKIND_ENEMY);
+
+	unit[num].wrapper = Node::create();//ãƒ¢ãƒ‡ãƒ«ã®è¦ªãƒãƒ¼ãƒ‰
+	unit[num].wrapper->addChild(unit[num].sprite3d);
+	addChild(unit[num].wrapper);
+
+	unit[num].sprite3d->setScale(1.0f);
+	unit[num].sprite3d->setPosition3D(Vec3(4.0f, 0.0f, -18.5f));
+
+	//å½“ãŸã‚Šåˆ¤å®šã®å®šç¾©ï¼ˆä»®ï¼‰
+	unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
+	unit[num].SetCollision();
 
 
-	return TRUE;
+
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³èª­ã¿è¾¼ã¿
+{
+	//auto animation = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
+	//auto animate = Animate3D::create(animation);
+	//animate->setSpeed(1);
+	//unit[num].sprite3d->runAction(RepeatForever::create(animate));
+}
+
+
+//ãƒ†ã‚¹ãƒˆã‚¨ãƒãƒŸãƒ¼ã®èª­ã¿è¾¼ã¿ï¼šï¼’
+
+num = SearchFreeUnit();
+if(-1 == num)
+{
+	return false;
+}
+unit[num].Init();//ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–ã‚’ã—ã¦ãŠã
+
+#ifdef	COCOS_TMP
+fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
+fileName2 = "Graph/Textures/tex_boy.png";
+
+unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
+#else
+fileName1 = "mot_enemy_dei1";
+fileName2 = "tex_boy.png";
+
+unit[num].sprite3d = ::Sprite3D::create(fileName1, fileName2);
+#endif
+unit[num].Init(num, UKIND_ENEMY);
+
+unit[num].wrapper = Node::create();//ãƒ¢ãƒ‡ãƒ«ã®è¦ªãƒãƒ¼ãƒ‰
+unit[num].wrapper->addChild(unit[num].sprite3d);
+addChild(unit[num].wrapper);
+
+unit[num].sprite3d->setScale(1.0f);
+unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -60.5f));
+
+//å½“ãŸã‚Šåˆ¤å®šã®å®šç¾©ï¼ˆä»®ï¼‰
+unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
+unit[num].SetCollision();
+
+
+//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³èª­ã¿è¾¼ã¿
+{
+	//auto animation2 = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
+	//auto animate2 = Animate3D::create(animation2);
+	//animate2->setSpeed(1);
+	//unit[num].sprite3d->runAction(RepeatForever::create(animate2));
+}
+
+break;
+defalut:
+break;
+}
+
+
+
+return TRUE;
 }
 
 
 /**
-*	ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg‚Ì‰Šú‰»
+*	ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	ƒXƒe[ƒW”Ô†
-*	@return	³í:1 ‰Šú‰»¸”s:-1
+*	@param	ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
+*	@return	æ­£å¸¸:1 åˆæœŸåŒ–å¤±æ•—:-1
 *	@date	1/8 Ver 1.0
 */
 int GameModelsLayer::InitMap(int stage_num)
@@ -275,22 +276,22 @@ int GameModelsLayer::InitMap(int stage_num)
 	{
 		return false;
 	}
-	unit[num].Init();//ƒƒ“ƒo•Ï”‚Ì‰Šú‰»‚ğ‚µ‚Ä‚¨‚­
+	unit[num].Init();//ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–ã‚’ã—ã¦ãŠã
 
-#ifdef	COCOS_TMP
+	#ifdef	COCOS_TMP
 	std::string fileName1 = "Graph/Models/test_tenq.c3t";
 	std::string fileName2 = "Graph/Textures/backGrund.png";
 
 	unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-#else
+	#else
 	std::string fileName1 = "test_tenq";
 	std::string fileName2 = "backGrund.png";
 
 	unit[num].sprite3d = ::Sprite3D::create(fileName1, fileName2);
-#endif
+	#endif
 	unit[num].Init(num, UKIND_MAP);
 
-	unit[num].wrapper = Node::create();//ƒ‚ƒfƒ‹‚Ìeƒm[ƒh
+	unit[num].wrapper = Node::create();//ãƒ¢ãƒ‡ãƒ«ã®è¦ªãƒãƒ¼ãƒ‰
 	unit[num].wrapper->addChild(unit[num].sprite3d);
 	addChild(unit[num].wrapper);
 	//addChild(unit[num].sprite3d)map
@@ -315,17 +316,17 @@ void GameModelsLayer::UpdateModels()
 
 void GameModelsLayer::UpdateLayer()
 {
-	UpdatePlayer();//ƒvƒŒƒCƒ„[‚ÌXV
-	UpdateEnemy();//ƒGƒlƒ~[‚ÌXV
-	UpdateBullets();//“G’e‚ÌXV
-	CheckHit();//“–‚½‚è”»’è‚Ìƒ`ƒFƒbƒN
+	UpdatePlayer();//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ›´æ–°
+	UpdateEnemy();//ã‚¨ãƒãƒŸãƒ¼ã®æ›´æ–°
+	UpdateBullets();//æ•µå¼¾ã®æ›´æ–°
+	CheckHit();//å½“ãŸã‚Šåˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
 }
 
 void GameModelsLayer::UpdatePlayer()
 {
-	//ƒ^ƒbƒ`À•W‚ğ‚à‚Æ‚ÉUŒ‚‚â‰ñ”ğ‚Ìˆ—‚ğs‚¤
+	//ã‚¿ãƒƒãƒåº§æ¨™ã‚’ã‚‚ã¨ã«æ”»æ’ƒã‚„å›é¿ã®å‡¦ç†ã‚’è¡Œã†
 
-	//ƒvƒŒƒCƒ„[‚ªUŒ‚‰Â”\‚Èê‡AUŒ‚”ÍˆÍ‚ÌÀ•W‚ğƒ^ƒbƒ`‚µ‚½‚çUŒ‚‚ğs‚¤
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ”»æ’ƒå¯èƒ½ãªå ´åˆã€æ”»æ’ƒç¯„å›²ã®åº§æ¨™ã‚’ã‚¿ãƒƒãƒã—ãŸã‚‰æ”»æ’ƒã‚’è¡Œã†
 }
 
 
@@ -339,7 +340,7 @@ void GameModelsLayer::UpdateEnemy()
 			unit[i].frame += 1;
 			if(120 <= unit[i].frame)
 			{
-				ShootBullet(i);//i”Ô‚ÌƒGƒlƒ~[‚ª’e‚ğ”­Ë‚·‚é
+				ShootBullet(i);//iç•ªã®ã‚¨ãƒãƒŸãƒ¼ãŒå¼¾ã‚’ç™ºå°„ã™ã‚‹
 				unit[i].frame = 0;
 			}
 		}
@@ -356,54 +357,54 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 	int num = SearchFreeUnit();
 	if(FALSE != num)
 	{
-#ifdef	COCOS_TMP
+		#ifdef	COCOS_TMP
 		std::string fileName1 = "Graph/Models/tama.c3t";
 		std::string fileName2 = "Graph/Textures/tama.png";
 
 		unit[num].sprite3d = cocos2d::Sprite3D::create(fileName1, fileName2);
-#else
+		#else
 		std::string fileName1 = "Graph/Models/mot_enemy_dei1.c3t";
 		std::string fileName2 = "Graph/Textures/tex_boy.png";
 
 		unit[num].sprite3d = TapGun::Sprite3D::create("tama", "tama.png");
-#endif
+		#endif
 		unit[num].Init(num, UKIND_EBULLET);
 
-		unit[num].wrapper = Node::create();//ƒ‚ƒfƒ‹‚Ìeƒm[ƒh
+		unit[num].wrapper = Node::create();//ãƒ¢ãƒ‡ãƒ«ã®è¦ªãƒãƒ¼ãƒ‰
 		unit[num].wrapper->addChild(unit[num].sprite3d);
 		addChild(unit[num].wrapper);
 
 
 		unit[num].sprite3d->setScale(0.02f);
 
-		////“–‚½‚è”»’è‚Ì’è‹`i‰¼j
+		////å½“ãŸã‚Šåˆ¤å®šã®å®šç¾©ï¼ˆä»®ï¼‰
 		//unit[num].aabbBody = unit[num].sprite3d->getAABB();
 		//unit[num].aabbBody.set(Vec3(-0.3, -0.3, -0.3), Vec3(0.3, 0.3, 0.3));
 		//unit[num].obbHead = OBB(unit[num].aabbBody);//
 		////unit[num].obbHead.set();
-		unit[num].collisionPos = Vec3(0.2, 0.2, 0.2);//“–‚½‚è”»’è‹éŒ`‚Ì‘å‚«‚³‚ğİ’è
-		unit[num].SetCollision();//“–‚½‚è”»’è‚ğƒZƒbƒg
+		unit[num].collisionPos = Vec3(0.2, 0.2, 0.2);//å½“ãŸã‚Šåˆ¤å®šçŸ©å½¢ã®å¤§ãã•ã‚’è¨­å®š
+		unit[num].SetCollision();//å½“ãŸã‚Šåˆ¤å®šã‚’ã‚»ãƒƒãƒˆ
 
-		//’e‚ğŒ‚‚Á‚½ƒGƒlƒ~[‚ÌÀ•W‚ÆAƒvƒŒƒCƒ„[‚ÌÀ•W‚ğŒ³‚ÉA’e‚ÌˆÚ“®•ûŒü‚ğ‹‚ß‚é
+		//å¼¾ã‚’æ’ƒã£ãŸã‚¨ãƒãƒŸãƒ¼ã®åº§æ¨™ã¨ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’å…ƒã«ã€å¼¾ã®ç§»å‹•æ–¹å‘ã‚’æ±‚ã‚ã‚‹
 		Vec3 enemy_pos = unit[enemy_num].sprite3d->getPosition3D();
 		Vec3 player_pos = unit[playerNum].sprite3d->getPosition3D();
 
 		//unit[num].speed_vec = Vec3(enemy_pos.x, 0, 0);
-		unit[num].speedVec = player_pos - enemy_pos;//‚±‚Ì•û–@‚ª³‚µ‚¯‚ê‚Îg—p‚·‚é
+		unit[num].speedVec = player_pos - enemy_pos;//ã“ã®æ–¹æ³•ãŒæ­£ã—ã‘ã‚Œã°ä½¿ç”¨ã™ã‚‹
 
-		//ƒxƒNƒgƒ‹‚Ì³‹K‰»‚ğs‚¤
+		//ãƒ™ã‚¯ãƒˆãƒ«ã®æ­£è¦åŒ–ã‚’è¡Œã†
 		float vx = unit[num].speedVec.x;
 		float vz = unit[num].speedVec.z;
 
-		float dist = sqrtf(vx * vx + vz * vz);//“ñŸŒ³“I‚È‹——£
+		float dist = sqrtf(vx * vx + vz * vz);//äºŒæ¬¡å…ƒçš„ãªè·é›¢
 		vx = vx / dist;
 		vz = vz / dist;
 
-		//³‹K‰»‚ªI‚í‚Á‚½‚çA‘¬“x‚ğ‚©‚¯‚Ä•ûŒüƒxƒNƒgƒ‹‚ÌŒvZI—¹
+		//æ­£è¦åŒ–ãŒçµ‚ã‚ã£ãŸã‚‰ã€é€Ÿåº¦ã‚’ã‹ã‘ã¦æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®è¨ˆç®—çµ‚äº†
 		unit[num].speed = 0.8f;
 		unit[num].speedVec.x = vx * unit[num].speed;
 		unit[num].speedVec.z = vz * unit[num].speed;
-		unit[num].speedVec.y = 0;//y‚Í¡‚Ì‚Æ‚±‚ë0‚Åˆµ‚¤
+		unit[num].speedVec.y = 0;//yã¯ä»Šã®ã¨ã“ã‚0ã§æ‰±ã†
 
 		unit[num].sprite3d->setPosition3D(enemy_pos);
 		unit[num].sprite3d->setPositionY(1.2f);
@@ -416,19 +417,19 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 */
 void GameModelsLayer::UpdateBullets()
 {
-	//‘S‚Ä‚Ì“G’eƒ†ƒjƒbƒg‚ğXV
+	//å…¨ã¦ã®æ•µå¼¾ãƒ¦ãƒ‹ãƒƒãƒˆã‚’æ›´æ–°
 	for(int i = 0; i < MAX_UNIT; i++)
 	{
 		if(FALSE != unit[i].valid && UKIND_EBULLET == unit[i].kind)
 		{
-			unit[i].UpdatePos();//À•W‚Æˆê‚É“–‚½‚è”»’è‚ğˆÚ“®
-			unit[playerNum].UpdatePos();//“–‚½‚è”»’èXV
+			unit[i].UpdatePos();//åº§æ¨™ã¨ä¸€ç·’ã«å½“ãŸã‚Šåˆ¤å®šã‚’ç§»å‹•
+			unit[playerNum].UpdatePos();//å½“ãŸã‚Šåˆ¤å®šæ›´æ–°
 
 			//unit[i].sprite3d->getBoundingBox();
 
 
 
-			//ƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è‚ğˆ—
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’å‡¦ç†
 			if(unit[playerNum].obbHead.intersects(unit[i].obbHead))
 			{
 				unit[i].sprite3d->setVisible(false);
@@ -440,52 +441,52 @@ void GameModelsLayer::UpdateBullets()
 
 
 /**
-*	“–‚½‚è”»’è‚Ìˆ—
+*	å½“ãŸã‚Šåˆ¤å®šã®å‡¦ç†
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/19 Ver 1.0
 */
 void  GameModelsLayer::CheckHit(void)
 {
 	//========================================================
-	//ƒvƒŒƒCƒ„[UŒ‚ˆ—‚Ì‰¼À‘•
-	//ƒ^ƒbƒ`À•WiƒXƒNƒŠ[ƒ“À•Wj‚©‚çƒ[ƒ‹ƒhÀ•W‚ğ‹‚ßAƒŒƒC‚ğ”ò‚Î‚·
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ”»æ’ƒå‡¦ç†ã®ä»®å®Ÿè£…
+	//ã‚¿ãƒƒãƒåº§æ¨™ï¼ˆã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ï¼‰ã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’æ±‚ã‚ã€ãƒ¬ã‚¤ã‚’é£›ã°ã™
 
 
 
 	/*@*/
-	//ƒŒƒC‚Æ“G‚Ì“–‚½‚è”»’èˆ—
+	//ãƒ¬ã‚¤ã¨æ•µã®å½“ãŸã‚Šåˆ¤å®šå‡¦ç†
 	const int pstate = GameParamObj->GetPlayerState();
 	if(pstate == PSTATE_SHOT)
 	{
-		//’ˆÓF“G‚ªd‚È‚Á‚Ä‘¶İ‚·‚éê‡‚É”õ‚¦A‚yƒ\[ƒg‚È‚Ç‚Ì•À‚Ñ‘Ö‚¦‚ğs‚¤•K—v‚ª‚ ‚è‚»‚¤‚Å‚·
+		//æ³¨æ„ï¼šæ•µãŒé‡ãªã£ã¦å­˜åœ¨ã™ã‚‹å ´åˆã«å‚™ãˆã€ï¼ºã‚½ãƒ¼ãƒˆãªã©ã®ä¸¦ã³æ›¿ãˆã‚’è¡Œã†å¿…è¦ãŒã‚ã‚Šãã†ã§ã™
 
 
-		auto s = Director::getInstance()->getWinSize();//ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğæ“¾
+		auto s = Director::getInstance()->getWinSize();//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å–å¾—
 		Vec3 rayStart = Vec3(0, 0, 0);
 		Vec3 rayEnd = Vec3(0, 0, 0);
-		Vec2 tPos = GameParamObj->GetTouchPos();//ƒ^ƒbƒ`À•W‚ğæ“¾
+		Vec2 tPos = GameParamObj->GetTouchPos();//ã‚¿ãƒƒãƒåº§æ¨™ã‚’å–å¾—
 
-		Vec3 tmp_touch_pos = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == ‹‘ä‚Ì‹ß–Êinear planej
+		Vec3 tmp_touch_pos = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == è¦–éŒ˜å°ã®è¿‘é¢ï¼ˆnear planeï¼‰
 
 		Camera* cam3d = GameParamObj->GetCamera3D();
-		cam3d->unproject(s, &tmp_touch_pos, &rayStart);//near plane‚Ì3ŸŒ³À•W‚ğæ“¾
+		cam3d->unproject(s, &tmp_touch_pos, &rayStart);//near planeã®3æ¬¡å…ƒåº§æ¨™ã‚’å–å¾—
 		rayStart = cam3d->getPosition3D();
 
 
-		tmp_touch_pos.z = 1.0f;//1.0f == ‹‘ä‚Ì‰“–Êifar planej
-		cam3d->unproject(s, &tmp_touch_pos, &rayEnd);//far plane‚Ì3ŸŒ³À•W‚ğæ“¾
+		tmp_touch_pos.z = 1.0f;//1.0f == è¦–éŒ˜å°ã®é é¢ï¼ˆfar planeï¼‰
+		cam3d->unproject(s, &tmp_touch_pos, &rayEnd);//far planeã®3æ¬¡å…ƒåº§æ¨™ã‚’å–å¾—
 
-		Ray touch_ray(rayStart, rayEnd);//‰¼ƒŒƒC‚ğİ’è
+		Ray touch_ray(rayStart, rayEnd);//ä»®ãƒ¬ã‚¤ã‚’è¨­å®š
 
 
 		for(int i = 0; i < MAX_UNIT; i++)
 		{
 			if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
 			{
-				if(touch_ray.intersects(unit[i].obbHead))//ƒ^ƒbƒ`À•W‚Ì–@ü‚Æ“G‚Ì“–‚½‚è”»’è‚ªÚG‚µ‚½‚©‚ğƒ`ƒFƒbƒN
+				if(touch_ray.intersects(unit[i].obbHead))//ã‚¿ãƒƒãƒåº§æ¨™ã®æ³•ç·šã¨æ•µã®å½“ãŸã‚Šåˆ¤å®šãŒæ¥è§¦ã—ãŸã‹ã‚’ãƒã‚§ãƒƒã‚¯
 				{
 					Vec3 rot = Vec3(0, 0, 0);
 					rot = unit[i].sprite3d->getRotation3D();
@@ -500,7 +501,7 @@ void  GameModelsLayer::CheckHit(void)
 
 
 	//========================================================
-	//“G‚ÌUŒ‚ˆ—i’e‚ÆƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’èj
+	//æ•µã®æ”»æ’ƒå‡¦ç†ï¼ˆå¼¾ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®šï¼‰
 }
 
 
@@ -535,7 +536,7 @@ int GameModelsLayer::SearchFreeUnit()
 
 
 /*
-w’èƒtƒŒ[ƒ€‚²‚Æ‚ÉŒÄ‚Ño‚³‚ê‚é
+æŒ‡å®šãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«å‘¼ã³å‡ºã•ã‚Œã‚‹
 */
 void GameModelsLayer::moveTime(float delta)
 {

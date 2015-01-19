@@ -1,3 +1,4 @@
+
 #ifndef __GAME_MODELSLAYER_H__
 #define __GAME_MODELSLAYER_H__
 
@@ -13,56 +14,54 @@
 
 #endif
 
-
 namespace TapGun
 {
-
 	class GameModelsLayer : public cocos2d::Layer
 	{
 	public:
 
-		//ƒƒ“ƒo•Ï”
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°
 		int playerNum;
 
 
-		virtual bool init();//ƒŒƒCƒ„[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+		virtual bool init();//ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 
-		//‰Šú‰»Œn
-		int InitLayer(void);//ƒŒƒCƒ„[‚Ì•Ï”‰Šú‰»
-		void InitAllModels();//ƒ‚ƒfƒ‹‘S‘Ì‚Ì‰Šú‰»
+		//åˆæœŸåŒ–ç³»
+		int InitLayer(void);//ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¤‰æ•°åˆæœŸåŒ–
+		void InitAllModels();//ãƒ¢ãƒ‡ãƒ«å…¨ä½“ã®åˆæœŸåŒ–
 
-		int InitPlayer(int stage_num);//ƒvƒŒƒCƒ„[‚Ì‰Šú‰»
-		int InitEnemy(int stage_num);//ƒGƒlƒ~[‰Šú‰»
-		int InitMap(int stage_num);//ƒ}ƒbƒv‚Ì‰Šú‰»
+		int InitPlayer(int stage_num);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸåŒ–
+		int InitEnemy(int stage_num);//ã‚¨ãƒãƒŸãƒ¼åˆæœŸåŒ–
+		int InitMap(int stage_num);//ãƒãƒƒãƒ—ã®åˆæœŸåŒ–
 
 
-		void UpdateLayer();//ƒŒƒCƒ„[XV
+		void UpdateLayer();//ãƒ¬ã‚¤ãƒ¤ãƒ¼æ›´æ–°
 
 		//
 		int GetPlayerNum();
 
-		void UpdateModels();//eƒV[ƒ“‚©‚çŒÄ‚Ño‚³‚ê‚é
+		void UpdateModels();//è¦ªã‚·ãƒ¼ãƒ³ã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã‚‹
 
-		//ƒ‚ƒfƒ‹•\¦—p‚Ì\‘¢‘Ì‚ÆŠÖ”‚ğˆê“I‚É‚Ü‚Æ‚ß‚Ä‚¢‚Ü‚·
+		//ãƒ¢ãƒ‡ãƒ«è¡¨ç¤ºç”¨ã®æ§‹é€ ä½“ã¨é–¢æ•°ã‚’ä¸€æ™‚çš„ã«ã¾ã¨ã‚ã¦ã„ã¾ã™
 		int SearchFreeUnit();//
 		Unit unit[MAX_UNIT];//
 
 
 		//
-		void update(float delta);//Œ»İg—p‚µ‚È‚¢
-		void moveTime(float delta);//Œ»İg—p‚µ‚È‚¢
+		void update(float delta);//ç¾åœ¨ä½¿ç”¨ã—ãªã„
+		void moveTime(float delta);//ç¾åœ¨ä½¿ç”¨ã—ãªã„
 
 		CREATE_FUNC(GameModelsLayer);
 
 	private:
 
-		//XVŒn
+		//æ›´æ–°ç³»
 		void UpdatePlayer();//
 		void UpdateEnemy();
 		void UpdateBullets();
 
 		void ShootBullet(int enemy_num);//
-		void CheckHit( void);//“–‚½‚è”»’èˆ—
+		void CheckHit( void);//å½“ãŸã‚Šåˆ¤å®šå‡¦ç†
 
 	};
 }

@@ -1,8 +1,8 @@
+
 #ifndef __GAME_SCENE_H__
 #define __GAME_SCENE_H__
 
 #include "cocos2d.h"
-
 
 namespace TapGun
 {
@@ -12,37 +12,37 @@ namespace TapGun
 		GameLayerTag,
 		UILayerTag
 	} GameSceneTag;
-	
+
 	class GameScene : public cocos2d::Layer
 	{
 	public:
 
-		//ƒƒ“ƒo•Ï”
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°
 
-		//==ƒtƒ‰ƒOŒn==
+		//==ãƒ•ãƒ©ã‚°ç³»==
 
 
-		//==•Ï”Œn==
-		int playerNum;//Unit”z—ñ‚ÌƒvƒŒƒCƒ„[”Ô†i0‚ÅŒÅ’è‚µ‚Ä‚à‚æ‚¢Hj
+		//==å¤‰æ•°ç³»==
+		int playerNum;//Unité…åˆ—ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ï¼ˆ0ã§å›ºå®šã—ã¦ã‚‚ã‚ˆã„ï¼Ÿï¼‰
 
-		//==ƒƒ“ƒoŠÖ”==
+		//==ãƒ¡ãƒ³ãƒé–¢æ•°==
 		static cocos2d::Scene* CreateScene();
-		virtual bool init();//ƒV[ƒ“ƒNƒŠƒGƒCƒg‚Ì‰Šú‰»ŠÖ”i©“®“I‚ÉŒÄ‚Ño‚³‚ê‚éj
+		virtual bool init();//ã‚·ãƒ¼ãƒ³ã‚¯ãƒªã‚¨ã‚¤ãƒˆæ™‚ã®åˆæœŸåŒ–é–¢æ•°ï¼ˆè‡ªå‹•çš„ã«å‘¼ã³å‡ºã•ã‚Œã‚‹ï¼‰
 
-		void update(float delta);//XVŠÖ”iŒ»İ‚Íg—p‚µ‚Ä‚¢‚È‚¢j
-		void moveTime(float delta);//w’èƒtƒŒ[ƒ€‚²‚Æ‚ÌXVŠÖ”i‚±‚¿‚ç‚ğg—p‚·‚éj
+		void update(float delta);//æ›´æ–°é–¢æ•°ï¼ˆç¾åœ¨ã¯ä½¿ç”¨ã—ã¦ã„ãªã„ï¼‰
+		void moveTime(float delta);//æŒ‡å®šãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æ›´æ–°é–¢æ•°ï¼ˆã“ã¡ã‚‰ã‚’ä½¿ç”¨ã™ã‚‹ï¼‰
 
-		int InitCamera(void);//ƒJƒƒ‰À•WXVŠÖ”iqƒŒƒCƒ„[‰Šú‰»Œã‚Ég—p‚·‚éj
-		int UpdateCamera(void);//ƒJƒƒ‰À•W‚ÌXViqƒŒƒCƒ„[ƒNƒŠƒGƒCƒgŒã‚Ég—p‚·‚éj
+		int InitCamera(void);//ã‚«ãƒ¡ãƒ©åº§æ¨™æ›´æ–°é–¢æ•°ï¼ˆå­ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆæœŸåŒ–å¾Œã«ä½¿ç”¨ã™ã‚‹ï¼‰
+		int UpdateCamera(void);//ã‚«ãƒ¡ãƒ©åº§æ¨™ã®æ›´æ–°ï¼ˆå­ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¯ãƒªã‚¨ã‚¤ãƒˆå¾Œã«ä½¿ç”¨ã™ã‚‹ï¼‰
 
 
-		//ŠeíƒŒƒCƒ„[‚Ì‰Šú‰»‚É—p‚¢‚é
-		//GameLayer* gameLayer();//ƒQ[ƒ€ƒŒƒCƒ„[ƒNƒ‰ƒX‚ğg—p‚·‚é
-		//UILayer * uiLayer();//‚t‚hƒŒƒCƒ„[‚ğg—p‚·‚é
+		//å„ç¨®ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸåŒ–ã«ç”¨ã„ã‚‹
+		//GameLayer* gameLayer();//ã‚²ãƒ¼ãƒ ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¯ãƒ©ã‚¹ã‚’ä½¿ç”¨ã™ã‚‹
+		//UILayer * uiLayer();//ï¼µï¼©ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹
 
 		//static GameScene* sharedLayer();
 
-		//ƒ^ƒbƒ`ƒCƒxƒ“ƒg‚ÌƒŠƒXƒi[
+		//ã‚¿ãƒƒãƒã‚¤ãƒ™ãƒ³ãƒˆã®ãƒªã‚¹ãƒŠãƒ¼
 		cocos2d::EventListenerTouchOneByOne *listener;
 		bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
 		void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
@@ -57,7 +57,6 @@ namespace TapGun
 
 		CREATE_FUNC(GameScene);
 	};
-
 }
 
 #endif // __GAME_SCENE_H__

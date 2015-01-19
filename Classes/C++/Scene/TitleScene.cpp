@@ -1,12 +1,13 @@
+
 #include "TitleScene.h"
-#include "GameScene.h"//‘JˆÚæ‚ÌƒV[ƒ“‚ðƒCƒ“ƒNƒ‹[ƒh
+#include "GameScene.h"//é·ç§»å…ˆã®ã‚·ãƒ¼ãƒ³ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 
 USING_NS_CC;
 using namespace TapGun;
 
 /*
-ƒ^ƒCƒgƒ‹ƒV[ƒ“
-ƒ^ƒbƒ`‚·‚é‚ÆƒQ[ƒ€ƒV[ƒ“‚É‘JˆÚ‚·‚é‚æ‚¤‚É‚µ‚Ä‚¢‚Ü‚·‚ªAŒ»Ý‚ÍŽg—p‚µ‚Ä‚¢‚Ü‚¹‚ñ
+ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³
+ã‚¿ãƒƒãƒã™ã‚‹ã¨ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã«é·ç§»ã™ã‚‹ã‚ˆã†ã«ã—ã¦ã„ã¾ã™ãŒã€ç¾åœ¨ã¯ä½¿ç”¨ã—ã¦ã„ã¾ã›ã‚“
 */
 
 
@@ -14,7 +15,7 @@ Scene* TitleScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
-    
+
     // 'layer' is an autorelease object
     auto layer = TitleScene::create();
 
@@ -34,7 +35,7 @@ bool TitleScene::init()
     {
         return false;
     }
-    
+
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -43,13 +44,13 @@ bool TitleScene::init()
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-	auto closeItem = MenuItemImage::create(
-		"CloseNormal.png",
-		"CloseSelected.png",
-		CC_CALLBACK_1(TitleScene::ReplaceGameScene, this));
-    
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+    auto closeItem = MenuItemImage::create(
+    "CloseNormal.png",
+    "CloseSelected.png",
+    CC_CALLBACK_1(TitleScene::ReplaceGameScene, this));
+
+    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+    origin.y + closeItem->getContentSize().height/2));
 
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
@@ -61,12 +62,12 @@ bool TitleScene::init()
 
     // add a label shows "TitleScene World"
     // create and initialize a label
-    
+
     auto label = Label::createWithTTF("TitleScene World", "fonts/Marker Felt.ttf", 24);
-    
+
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
+    origin.y + visibleSize.height - label->getContentSize().height));
 
     // add the label as a child to this layer
     this->addChild(label, 1);
@@ -79,25 +80,25 @@ bool TitleScene::init()
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
-    
+
     return true;
 }
 
 void TitleScene::ReplaceGameScene(Ref* pSender)
 {
-	CCDirector::sharedDirector()->replaceScene(CCTransitionZoomFlipX::create(2.0f, GameScene::CreateScene()));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionZoomFlipX::create(2.0f, GameScene::CreateScene()));
 }
 
 void TitleScene::menuCloseCallback(Ref* pSender)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
     return;
-#endif
+    #endif
 
     Director::getInstance()->end();
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
-#endif
+    #endif
 }

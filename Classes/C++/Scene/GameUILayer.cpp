@@ -1,3 +1,4 @@
+
 #include "GameUILayer.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -17,11 +18,11 @@ USING_NS_CC;
 using namespace TapGun;
 
 /**
-*	ƒQ[ƒ€–{•Ò‚ÌUIƒŒƒCƒ„[‚ğ‰Šú‰»
+*	ã‚²ãƒ¼ãƒ æœ¬ç·¨ã®UIãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‰Šú‰»¬Œ÷^•s‰Â‚Ìbool’l
+*	@param	ãªã—
+*	@return	åˆæœŸåŒ–æˆåŠŸï¼ä¸å¯ã®boolå€¤
 *	@date	1/8 Ver 1.0
 */
 bool GameUILayer::init()
@@ -41,11 +42,11 @@ bool GameUILayer::init()
 
 
 /**
-*	ƒQ[ƒ€–{•Ò‚ÌUIƒŒƒCƒ„[‚ÌŠeí”’l‰Šú‰»
+*	ã‚²ãƒ¼ãƒ æœ¬ç·¨ã®UIãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å„ç¨®æ•°å€¤åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‰Šú‰»¬Œ÷^•s‰Â‚Ìbool’l
+*	@param	ãªã—
+*	@return	åˆæœŸåŒ–æˆåŠŸï¼ä¸å¯ã®boolå€¤
 *	@date	1/8 Ver 1.0
 */
 void GameUILayer::InitLayer(void)
@@ -56,11 +57,11 @@ void GameUILayer::InitLayer(void)
 
 
 /**
-*	ƒQ[ƒ€–{•Ò‚ÌUIƒŒƒCƒ„[‚ÌŠeí”’l‰Šú‰»
+*	ã‚²ãƒ¼ãƒ æœ¬ç·¨ã®UIãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å„ç¨®æ•°å€¤åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‰Šú‰»¬Œ÷^•s‰Â‚Ìbool’l
+*	@param	ãªã—
+*	@return	åˆæœŸåŒ–æˆåŠŸï¼ä¸å¯ã®boolå€¤
 *	@date	1/8 Ver 1.0
 */
 int GameUILayer::SerchFreeUI()
@@ -72,7 +73,7 @@ int GameUILayer::SerchFreeUI()
 			return i;
 		}
 	}
-	return -1;//‘S‚Ä‚ÌUISprite‚ªg—p‚³‚ê‚Ä‚¢‚½‚ç-1‚ğ•Ô‚·
+	return -1;//å…¨ã¦ã®UISpriteãŒä½¿ç”¨ã•ã‚Œã¦ã„ãŸã‚‰-1ã‚’è¿”ã™
 }
 
 
@@ -82,21 +83,21 @@ void GameUILayer::SetUI()
 	std::string fileName1 = "Graph/Pictures/lifebar.png";
 	int num = SerchFreeUI();
 
-	//ƒ‰ƒCƒtƒo[‚Ì‰Šú‰»
+	//ãƒ©ã‚¤ãƒ•ãƒãƒ¼ã®åˆæœŸåŒ–
 	if(-1 != num)
 	{
 		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 		UIBillBoard[num]->setPosition(230.0f, 750.0f);
 		UIBillBoard[num]->setScale(0.8f);
 		addChild(UIBillBoard[num]);
-		
+
 		Ui[num].Init(num,UIKIND_LIFEBAR);
 		valid[num] = TRUE;
 	}
 
 	fileName1 = "Graph/Pictures/arrow.png";
 	num = SerchFreeUI();
-	//–îˆó‚Ì‰Šú‰»
+	//çŸ¢å°ã®åˆæœŸåŒ–
 	if(-1 != num)
 	{
 		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
@@ -111,7 +112,7 @@ void GameUILayer::SetUI()
 
 	fileName1 = "Graph/Pictures/reticle.png";
 	num = SerchFreeUI();
-	//ƒŒƒeƒBƒNƒ‹
+	//ãƒ¬ãƒ†ã‚£ã‚¯ãƒ«
 	if(-1 != num)
 	{
 		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
@@ -173,7 +174,7 @@ void GameUILayer::MoveReticle(void)
 }
 
 /*
- Œ»İ‚ÍeƒV[ƒ“‚Ìupdate‚ÅXVŒn‚ÌŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‚¢‚é‚Ì‚ÅAƒŒƒCƒ„[ŒÅ—L‚ÌmoveTimeŠÖ”‚Íg—p‚µ‚Ä‚¢‚Ü‚¹‚ñ
+ç¾åœ¨ã¯è¦ªã‚·ãƒ¼ãƒ³ã®updateã§æ›´æ–°ç³»ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã¦ã„ã‚‹ã®ã§ã€ãƒ¬ã‚¤ãƒ¤ãƒ¼å›ºæœ‰ã®moveTimeé–¢æ•°ã¯ä½¿ç”¨ã—ã¦ã„ã¾ã›ã‚“
 */
 void GameUILayer::moveTime(float delta)
 {
@@ -182,7 +183,7 @@ void GameUILayer::moveTime(float delta)
 
 
 /*
-Œ»İ‚ÍeƒV[ƒ“‚Ìupdate‚ÅXVŒn‚ÌŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‚¢‚é‚Ì‚ÅAƒŒƒCƒ„[ŒÅ—L‚ÌUpdateŠÖ”‚Íg—p‚µ‚Ä‚¢‚Ü‚¹‚ñ
+ç¾åœ¨ã¯è¦ªã‚·ãƒ¼ãƒ³ã®updateã§æ›´æ–°ç³»ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã¦ã„ã‚‹ã®ã§ã€ãƒ¬ã‚¤ãƒ¤ãƒ¼å›ºæœ‰ã®Updateé–¢æ•°ã¯ä½¿ç”¨ã—ã¦ã„ã¾ã›ã‚“
 */
 void GameUILayer::update(float delta)
 {
@@ -219,6 +220,6 @@ void GameUILayer::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 //void GameUILayer::onTouchCancelled = CC_CALLBACK_2(GameUILayer::onTouchCancelled, this);
 //{
 //
-//	//‰æ–Ê‚ğƒ^ƒbƒ`‚µ‚½‚Ìˆ—
+//	//ç”»é¢ã‚’ã‚¿ãƒƒãƒã—ãŸæ™‚ã®å‡¦ç†
 //
 //}

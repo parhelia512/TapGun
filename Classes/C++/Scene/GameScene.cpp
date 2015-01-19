@@ -1,6 +1,7 @@
+
 #include "GameScene.h"
 
-//ŠeƒŒƒCƒ„[‚ðŠÇ—‚·‚éƒ\[ƒXƒR[ƒh‚ðƒCƒ“ƒNƒ‹[ƒh‚µ‚Ä‚¨‚­
+//å„ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç®¡ç†ã™ã‚‹ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã—ã¦ãŠã
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -21,42 +22,42 @@ using namespace TapGun;
 
 /*
 GameScene
-i«—ˆ“I‚ÉGameScene‚È‚Ç‚É–¼‘O‚ð•ÏX‚·‚éj
-ƒQ[ƒ€–{•Ò‚ÌXVˆ—‚ðs‚¤
-‚±‚±‚Åˆ—‚³‚ê‚½“à—e‚ðŒ³‚ÉAƒ‚ƒfƒ‹ƒf[ƒ^‚ðˆµ‚¤ƒŒƒCƒ„[‚Æ‚t‚h‚ðˆµ‚¤ƒŒƒCƒ„[‚Å•`‰æ‚ðs‚¤
+ï¼ˆå°†æ¥çš„ã«GameSceneãªã©ã«åå‰ã‚’å¤‰æ›´ã™ã‚‹ï¼‰
+ã‚²ãƒ¼ãƒ æœ¬ç·¨ã®æ›´æ–°å‡¦ç†ã‚’è¡Œã†
+ã“ã“ã§å‡¦ç†ã•ã‚ŒãŸå†…å®¹ã‚’å…ƒã«ã€ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’æ‰±ã†ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ï¼µï¼©ã‚’æ‰±ã†ãƒ¬ã‚¤ãƒ¤ãƒ¼ã§æç”»ã‚’è¡Œã†
 */
 
 
 
-GameMaster* GameParamObj2;//‚Æ‚è‚ ‚¦‚¸–¼‘O‚ð•Ï‚¦‚é‚©–¼‘O‹óŠÔ‚Å‹æ•Ê‚·‚é
+GameMaster* GameParamObj2;//ã¨ã‚Šã‚ãˆãšåå‰ã‚’å¤‰ãˆã‚‹ã‹åå‰ç©ºé–“ã§åŒºåˆ¥ã™ã‚‹
 
 GameModelsLayer* gGameLayer;
 GameUILayer* gUILayer;
- 
+
 static GameScene *multiSceneLayerInstance;
- 
+
 
 
 /**
-*	ƒQ[ƒ€ŠÇ—ƒV[ƒ“ƒNƒŠƒGƒCƒg
+*	ã‚²ãƒ¼ãƒ ç®¡ç†ã‚·ãƒ¼ãƒ³ã‚¯ãƒªã‚¨ã‚¤ãƒˆ
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	ƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^
+*	@param	ãªã—
+*	@return	ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿
 *	@date	1/8 Ver 1.0
 */
 Scene* GameScene::CreateScene()
 {
-	Scene *scene = Scene::create();//GameScene‚ÌƒV[ƒ“‚ðì¬
-	GameScene *layer = GameScene::create();//ã‹LƒV[ƒ“‚É
+    Scene *scene = Scene::create();//GameSceneã®ã‚·ãƒ¼ãƒ³ã‚’ä½œæˆ
+    GameScene *layer = GameScene::create();//ä¸Šè¨˜ã‚·ãƒ¼ãƒ³ã«
 
-	scene->addChild(layer);
+    scene->addChild(layer);
 
-	return scene;
+    return scene;
 };
 
 
-//ƒQ[ƒ€ƒŒƒCƒ„[‚Ì‰Šú‰»ŠÖ”
+//ã‚²ãƒ¼ãƒ ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸåŒ–é–¢æ•°
 //GameLayer* GameScene::gameLayer()
 //{
 //	cocos2d::Node* layer = this->getChildByTag(GameLayerTag);
@@ -72,158 +73,158 @@ Scene* GameScene::CreateScene()
 
 
 /**
-*	ƒQ[ƒ€ƒV[ƒ“‰Šú‰»
+*	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	³í:1 ‰Šú‰»Ž¸”s:-1
+*	@param	ãªã—
+*	@return	æ­£å¸¸:1 åˆæœŸåŒ–å¤±æ•—:-1
 *	@date	1/8 Ver 1.0
 */
 bool GameScene::init()
 {
-	//ƒŒƒCƒ„[‰Šú‰»
-	if(!Layer::init())
-	{
-		return false;
-	}
+    //ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆæœŸåŒ–
+    if(!Layer::init())
+    {
+        return false;
+    }
 
-	//ƒQ[ƒ€ƒŒƒCƒ„[‚ðì¬
-	gGameLayer = GameModelsLayer::create();
-	this->addChild(gGameLayer);
-
-
-	//UIƒŒƒCƒ„[‚ðì¬
-	gUILayer = GameUILayer::create();
-	this->addChild(gUILayer);
+    //ã‚²ãƒ¼ãƒ ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä½œæˆ
+    gGameLayer = GameModelsLayer::create();
+    this->addChild(gGameLayer);
 
 
-	GameParamObj2 = GameMaster::GetInstance();//ƒQ[ƒ€ƒpƒ‰ƒ[ƒ^ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX¶¬
-	GameParamObj2->InitScreenSize();//ƒXƒNƒŠ[ƒ“ƒTƒCƒY‚ÌƒZƒbƒg
-	GameParamObj2->InitParam();//ƒQ[ƒ€ƒpƒ‰ƒ[ƒ^‚Ì‰Šú‰»
+    //UIãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä½œæˆ
+    gUILayer = GameUILayer::create();
+    this->addChild(gUILayer);
 
 
-	//Œ»Ý‚Íƒ^ƒbƒ`ƒCƒxƒ“ƒg‚ÌƒŠƒXƒi[‚ð‚±‚±‚É—pˆÓ‚µ‚Ä‚¢‚Ü‚·
-	auto dispatcher = Director::getInstance()->getEventDispatcher();
+    GameParamObj2 = GameMaster::GetInstance();//ã‚²ãƒ¼ãƒ ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
+    GameParamObj2->InitScreenSize();//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚µã‚¤ã‚ºã®ã‚»ãƒƒãƒˆ
+    GameParamObj2->InitParam();//ã‚²ãƒ¼ãƒ ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
 
-	listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-	listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 
-	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    //ç¾åœ¨ã¯ã‚¿ãƒƒãƒã‚¤ãƒ™ãƒ³ãƒˆã®ãƒªã‚¹ãƒŠãƒ¼ã‚’ã“ã“ã«ç”¨æ„ã—ã¦ã„ã¾ã™
+    auto dispatcher = Director::getInstance()->getEventDispatcher();
 
-	//setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 
-	this->scheduleUpdate();
-	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1•b60F‚ÅƒQ[ƒ€XV
+    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	return true;
+    //setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+
+    this->scheduleUpdate();
+    this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1ç§’60Fã§ã‚²ãƒ¼ãƒ æ›´æ–°
+
+    return true;
 }
 
 
 
 /**
-*	ƒQ[ƒ€ƒV[ƒ“‚ÌƒJƒƒ‰‰Šú‰»
+*	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®ã‚«ãƒ¡ãƒ©åˆæœŸåŒ–
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	³í:1
+*	@param	ãªã—
+*	@return	æ­£å¸¸:1
 *	@date	1/8 Ver 1.0
 */
 int GameScene::InitCamera()
 {
 
-	auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getWinSize();
 
 
-	//2D—pƒJƒƒ‰‚ÌŽÀ‘•
-	if(NULL != gUILayer)
-	{
-		GameParamObj2->InitCamera2D();//ƒJƒƒ‰‚ð‰Šú‰»
-		gUILayer->setCameraMask(CAMFLAG_DEFAULT);
-		int a = gUILayer->getCameraMask();
-		addChild(GameParamObj2->Get2DCamInstance());
-	}
+    //2Dç”¨ã‚«ãƒ¡ãƒ©ã®å®Ÿè£…
+    if(NULL != gUILayer)
+    {
+        GameParamObj2->InitCamera2D();//ã‚«ãƒ¡ãƒ©ã‚’åˆæœŸåŒ–
+        gUILayer->setCameraMask(CAMFLAG_DEFAULT);
+        int a = gUILayer->getCameraMask();
+        addChild(GameParamObj2->Get2DCamInstance());
+    }
 
-	//3D—pƒJƒƒ‰‚ÌŽÀ‘•
-	if(NULL != gGameLayer)
-	{
-		GameParamObj2->InitCamera3D();//ƒJƒƒ‰‚ð‰Šú‰»
-		gGameLayer->setCameraMask(CAMFLAG_3D);
-		int b = gGameLayer->getCameraMask();
+    //3Dç”¨ã‚«ãƒ¡ãƒ©ã®å®Ÿè£…
+    if(NULL != gGameLayer)
+    {
+        GameParamObj2->InitCamera3D();//ã‚«ãƒ¡ãƒ©ã‚’åˆæœŸåŒ–
+        gGameLayer->setCameraMask(CAMFLAG_3D);
+        int b = gGameLayer->getCameraMask();
 
-		//ƒvƒŒƒCƒ„[‚ÌÀ•WŽæ“¾‚Í‚Æ‚è‚ ‚¦‚¸‚±‚Ì‚æ‚¤‚ÈŒ`‚Å‹Lq‚µ‚Ä‚¢‚Ü‚·
-		Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™å–å¾—ã¯ã¨ã‚Šã‚ãˆãšã“ã®ã‚ˆã†ãªå½¢ã§è¨˜è¿°ã—ã¦ã„ã¾ã™
+        Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
 
-		cameraPos.x += 0.8;// += 0.5f;
-		cameraPos.y += 1.5f;// += 1.5f;
-		cameraPos.z += 4.0f;// += 3.1f;
+        cameraPos.x += 0.8;// += 0.5f;
+        cameraPos.y += 1.5f;// += 1.5f;
+        cameraPos.z += 4.0f;// += 3.1f;
 
-		GameParamObj2->SetCamera3DPos(cameraPos);
-		GameParamObj2->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
-		addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
+        GameParamObj2->SetCamera3DPos(cameraPos);
+        GameParamObj2->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
+        addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
 
-	}
-	return TRUE;
+    }
+    return TRUE;
 }
 
 
 
-//XVŒn
+//æ›´æ–°ç³»
 
 
 /**
-*	Žw’èƒtƒŒ[ƒ€‚²‚Æ‚ÌƒQ[ƒ€ƒV[ƒ“XV
+*	æŒ‡å®šãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³æ›´æ–°
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 void GameScene::moveTime(float delta)
 {
 
-	switch (GameParamObj2->GetGameState())
-	{
+    switch (GameParamObj2->GetGameState())
+{
 
-	case GSTATE_INIT://ŽqƒŒƒCƒ„[“à‚Ì•Ï”‰Šú‰»‚ðs‚¤
+    case GSTATE_INIT://å­ãƒ¬ã‚¤ãƒ¤ãƒ¼å†…ã®å¤‰æ•°åˆæœŸåŒ–ã‚’è¡Œã†
 
-		if (NULL != gGameLayer)//Œ»Ý‚ÍŽqƒŒƒCƒ„[‚ðƒNƒŠƒGƒCƒg‚µ‚½‚©‚ðŠm”F‚·‚é
-		{
-			playerNum = gGameLayer->InitLayer();//
-		}
-		if (NULL != gUILayer)//Œ»Ý‚ÍŽqƒŒƒCƒ„[‚ðƒNƒŠƒGƒCƒg‚µ‚½‚©‚ðŠm”F‚·‚é
-		{
-			gUILayer->InitLayer();//
-		}
+    if (NULL != gGameLayer)//ç¾åœ¨ã¯å­ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚¯ãƒªã‚¨ã‚¤ãƒˆã—ãŸã‹ã‚’ç¢ºèªã™ã‚‹
+    {
+        playerNum = gGameLayer->InitLayer();//
+    }
+    if (NULL != gUILayer)//ç¾åœ¨ã¯å­ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚¯ãƒªã‚¨ã‚¤ãƒˆã—ãŸã‹ã‚’ç¢ºèªã™ã‚‹
+    {
+        gUILayer->InitLayer();//
+    }
 
-		InitCamera();
-		GameParamObj2->SetGameState(GSTATE_PLAY);
-		break;
+    InitCamera();
+    GameParamObj2->SetGameState(GSTATE_PLAY);
+    break;
 
-	case GSTATE_PLAY:
-		if (NULL != gGameLayer)//Œ»Ý‚Í‰Šú‰»ƒ`ƒFƒbƒNŠm”F‚·‚é
-		{
-			gGameLayer->UpdateLayer();//ƒŒƒCƒ„[‚ÌXV(Œ»Ý‚Íƒ^ƒbƒ`À•W‚ÆƒJƒƒ‰\‘¢‘Ì‚ðˆø”‚Æ‚µ‚Ä“n‚µ‚Ä‚¢‚Ü‚·)
-		}
-		if (NULL != gUILayer)//Œ»Ý‚Í‰Šú‰»ƒ`ƒFƒbƒNŠm”F‚·‚é
-		{
+    case GSTATE_PLAY:
+    if (NULL != gGameLayer)//ç¾åœ¨ã¯åˆæœŸåŒ–ãƒã‚§ãƒƒã‚¯ç¢ºèªã™ã‚‹
+    {
+        gGameLayer->UpdateLayer();//ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ›´æ–°(ç¾åœ¨ã¯ã‚¿ãƒƒãƒåº§æ¨™ã¨ã‚«ãƒ¡ãƒ©æ§‹é€ ä½“ã‚’å¼•æ•°ã¨ã—ã¦æ¸¡ã—ã¦ã„ã¾ã™)
+    }
+    if (NULL != gUILayer)//ç¾åœ¨ã¯åˆæœŸåŒ–ãƒã‚§ãƒƒã‚¯ç¢ºèªã™ã‚‹
+    {
 
-		}
-		UpdateCamera();//ƒ‚ƒfƒ‹‚ÌˆÚ“®‚ð‚à‚Æ‚ÉƒJƒƒ‰ˆÚ“®
+    }
+    UpdateCamera();//ãƒ¢ãƒ‡ãƒ«ã®ç§»å‹•ã‚’ã‚‚ã¨ã«ã‚«ãƒ¡ãƒ©ç§»å‹•
 
-		break;
+    break;
 
-	}
+}
 }
 
 
 /**
-*	ƒQ[ƒ€ƒV[ƒ“XViŒ»ÝŽg—p‚µ‚Ä‚¢‚Ü‚¹‚ñj
+*	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³æ›´æ–°ï¼ˆç¾åœ¨ä½¿ç”¨ã—ã¦ã„ã¾ã›ã‚“ï¼‰
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 void GameScene::update(float delta)
@@ -234,106 +235,105 @@ void GameScene::update(float delta)
 
 
 /**
-*	ƒQ[ƒ€ƒV[ƒ“‚ÌƒJƒƒ‰XV
+*	ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®ã‚«ãƒ¡ãƒ©æ›´æ–°
 *
 *	@author	sasebon
-*	@param	‚È‚µ
-*	@return	‚È‚µ
+*	@param	ãªã—
+*	@return	ãªã—
 *	@date	1/8 Ver 1.0
 */
 int GameScene::UpdateCamera()
 {
-	if(NULL != gUILayer)
-	{
+    if(NULL != gUILayer)
+    {
 
-	}
+    }
 
-	if(NULL != gGameLayer)
-	{
-		static float rot;
-		Camera* cm2 = GameParamObj2->GetCamera3D();
-		Camera* cm = GameParamObj2->Get3DCamInstance();
-		rot = -0.01f;
-		//gGameLayer->setRotation3D(Vec3(0.0f, rot, 0.0f));
-	}
-	return TRUE;
+    if(NULL != gGameLayer)
+    {
+        static float rot;
+        Camera* cm2 = GameParamObj2->GetCamera3D();
+        Camera* cm = GameParamObj2->Get3DCamInstance();
+        rot = -0.01f;
+        //gGameLayer->setRotation3D(Vec3(0.0f, rot, 0.0f));
+    }
+    return TRUE;
 }
 
 
 
 bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
-	GameParamObj2->SetTouchPos(pTouch->getLocation());//ƒ^ƒbƒ`À•W‚ðŽæ“¾‚µ‚ÄƒZƒbƒg
+    GameParamObj2->SetTouchPos(pTouch->getLocation());//ã‚¿ãƒƒãƒåº§æ¨™ã‚’å–å¾—ã—ã¦ã‚»ãƒƒãƒˆ
 
-	GameParamObj2->SetPlayerState(PSTATE_SHOT);//ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ðuŽËŒ‚vó‘Ô‚É‚·‚é
-	return true;
+    GameParamObj2->SetPlayerState(PSTATE_SHOT);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’ã€Œå°„æ’ƒã€çŠ¶æ…‹ã«ã™ã‚‹
+    return true;
 }
 
 
 void GameScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
 
-	Director *pDirector;
-	Point touchPoint;
-	Rect spRect;
+    Director *pDirector;
+    Point touchPoint;
+    Rect spRect;
 
-	static float rx;
-	static float ry;
-	static float rz;
+    static float rx;
+    static float ry;
+    static float rz;
 
-	auto s = Director::getInstance()->getWinSize();//‰æ–ÊƒTƒCƒYŽæ“¾
-	//ƒ^ƒbƒ`À•W‚ðŽæ“¾‚·‚é
-	pDirector = Director::getInstance();
-	touchPoint = pDirector->convertToGL(pTouch->getLocationInView());
+    auto s = Director::getInstance()->getWinSize();//ç”»é¢ã‚µã‚¤ã‚ºå–å¾—
+    //ã‚¿ãƒƒãƒåº§æ¨™ã‚’å–å¾—ã™ã‚‹
+    pDirector = Director::getInstance();
+    touchPoint = pDirector->convertToGL(pTouch->getLocationInView());
 
-	if(touchPoint.x >= s.width * 2 / 3 && (touchPoint.y >= s.height / 3 && touchPoint.y < s.height * 2 / 3))
-	{
-		//Vec3 tmpVec = camera3->getPosition3D();
-		//tmpVec.y += 0.2f;
-		//camera3->setPosition3D(tmpVec);
-		//ry -= 1.0f;
-		//if(NULL != gGameLayer)
-		//{
-		//	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		//}
-		//if(NULL != gUILayer)
-		//{
-		//	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		//}
-	}
-	else if(touchPoint.x < s.width / 3 && (touchPoint.y >= s.height / 3 && touchPoint.y < s.height * 2 / 3))
-	{
-		//Vec3 tmpVec = camera3->getPosition3D();
-		//tmpVec.y -= 0.2f;
-		//camera3->setPosition3D(tmpVec);
-		//ry += 1.0f;
-		//if(NULL != gGameLayer)
-		//{
-		//	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		//}
-		//if(NULL != gUILayer)
-		//{
-		//	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
-		//}
-	}
-	else if(touchPoint.y < s.height / 3 && (touchPoint.x >= s.width / 3 && touchPoint.x < s.width * 2 / 3))
-	{
-		//Vec3 tmpVec = camera3->getPosition3D();
-		//tmpVec.z += 0.2f;
-		//camera3->setPosition3D(tmpVec);
-	}
-	else if(touchPoint.y >= s.height * 2 / 3 && (touchPoint.x >= s.width / 3 && touchPoint.x < s.width * 2 / 3))
-	{
-		//Vec3 tmpVec = camera3->getPosition3D();
-		//tmpVec.z -= 0.2f;
-		//camera3->setPosition3D(tmpVec);
-	}
+    if(touchPoint.x >= s.width * 2 / 3 && (touchPoint.y >= s.height / 3 && touchPoint.y < s.height * 2 / 3))
+    {
+        //Vec3 tmpVec = camera3->getPosition3D();
+        //tmpVec.y += 0.2f;
+        //camera3->setPosition3D(tmpVec);
+        //ry -= 1.0f;
+        //if(NULL != gGameLayer)
+        //{
+        //	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
+        //}
+        //if(NULL != gUILayer)
+        //{
+        //	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
+        //}
+    }
+    else if(touchPoint.x < s.width / 3 && (touchPoint.y >= s.height / 3 && touchPoint.y < s.height * 2 / 3))
+{
+    //Vec3 tmpVec = camera3->getPosition3D();
+    //tmpVec.y -= 0.2f;
+    //camera3->setPosition3D(tmpVec);
+    //ry += 1.0f;
+    //if(NULL != gGameLayer)
+    //{
+    //	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
+    //}
+    //if(NULL != gUILayer)
+    //{
+    //	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
+    //}
+}
+else if(touchPoint.y < s.height / 3 && (touchPoint.x >= s.width / 3 && touchPoint.x < s.width * 2 / 3))
+{
+    //Vec3 tmpVec = camera3->getPosition3D();
+    //tmpVec.z += 0.2f;
+    //camera3->setPosition3D(tmpVec);
+}
+else if(touchPoint.y >= s.height * 2 / 3 && (touchPoint.x >= s.width / 3 && touchPoint.x < s.width * 2 / 3))
+{
+    //Vec3 tmpVec = camera3->getPosition3D();
+    //tmpVec.z -= 0.2f;
+    //camera3->setPosition3D(tmpVec);
+}
 }
 
 
 
 void GameScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
-	
-}
 
+}
