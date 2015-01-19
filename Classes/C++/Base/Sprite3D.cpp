@@ -246,9 +246,11 @@ namespace TapGun
 	int _Sprite3D::load3DModelAnimeData( const string& fileName)
 	{
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		std::string dir = FileUtils::getInstance() -> fullPathForFilename(fileName);
-	#endif
+		std::string dir = FileUtils::getInstance() -> fullPathForFilename( fileName);
 		ifstream file( dir, ios::in);
+	#else
+		ifstream file( fileName, ios::in);
+	#endif
 		if( file.fail())
 		{
 			return -1;
@@ -262,8 +264,9 @@ namespace TapGun
 			istringstream stream(str);
 			getline( stream, tmp, ',');
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-			/*ファイル名のみを抽出！*/ /*@*/
-			path = "mot_enemy_jump.c3b";
+			auto point = tmp.rfind( '/', tmp.size()) + 1;
+			tmp.erase( 0, tmp.size() - ( tmp.size() - point));
+			path = tmp;
 	#else
 			path = "Graph/Models/" + tmp;
 	#endif
@@ -392,7 +395,12 @@ namespace TapGun
 	*/
 	int _Sprite3D::load3DModelTextureData( const string& fileName)
 	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+		std::string dir = FileUtils::getInstance() -> fullPathForFilename( fileName);
+		ifstream file( dir, ios::in);
+	#else
 		ifstream file( fileName, ios::in);
+	#endif
 		if( file.fail())
 		{
 			return -1;
@@ -404,7 +412,13 @@ namespace TapGun
 			string tmp;
 			istringstream stream(str);
 			getline( stream, tmp, ',');
+		#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+			auto point = tmp.rfind( '/', tmp.size()) + 1;
+			tmp.erase( 0, tmp.size() - ( tmp.size() - point));
 			data -> path = tmp;
+		#else
+			data -> path = "Graph/Textures/" + tmp;
+		#endif
 			getline( stream, tmp);
 			data -> name = tmp;
 			modelTextureList.push_back(*data);
@@ -412,7 +426,7 @@ namespace TapGun
 		return 0;
 	}
 
-	/** /@/
+	/**
 	*	3Dモデルデータにテクスチャを設定
 	*
 	*	@author	minaka
@@ -422,9 +436,8 @@ namespace TapGun
 	{
 		for( auto &data : modelTextureList)
 		{
-			string filePath = "Graph/Textures/" + data.path;
 			auto mesh = getMeshByName( data.name);
-			mesh -> setTexture( filePath);
+			mesh -> setTexture( data.path);
 		}
 	}
 
