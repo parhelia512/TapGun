@@ -94,7 +94,7 @@ namespace TapGun
 					filePath = filePath + str.at(i) + ".c3b";
 				  #endif
 				#endif
-					if (sprite && sprite->initWithFile(filePath))
+					if (sprite && sprite->initWithFile( filePath))
 					{
 						sprite->_contentSize = sprite->getBoundingBox().size;
 						sprite->autorelease();
@@ -306,6 +306,7 @@ namespace TapGun
 	int _Sprite3D::startAnimationLoop( const string& animeName)
 	{
 		string str = modelAnimeList[animeName];
+		if( str == "") return -1;
 		animation = cocos2d::Animation3D::create( str);
 		if( animation == nullptr) return -1;
 		animate = cocos2d::Animate3D::create( animation);

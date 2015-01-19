@@ -47,6 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	director -> setDisplayStats( true) ;
 	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
+	glview -> setFrameSize( 1280, 800);
 	director -> setAnimationInterval( 1.0 / 60);
 
 	auto scene = Test::createScene();

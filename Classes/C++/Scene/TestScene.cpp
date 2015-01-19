@@ -20,14 +20,13 @@
 
 #endif
 
-//#define CAMERA3D//3D座標で作業したいときに使用して下さい
+//#define CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
 
 USING_NS_CC;
 using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
-_Sprite3D* sprite3D;
 cocos2d::Camera* Camera3D;
 
 Scene* Test::createScene()
@@ -48,37 +47,35 @@ bool Test::init()
 	}
 	setCocos();
 
-	auto bg = LayerColor::create( Color4B::WHITE, SystemValue::windowSize.width, SystemValue::windowSize.height);
-	//	this -> addChild( bg, 0);
-	auto sound = Sound::getInstance();
+	auto sprite3D = _Sprite3D::create( "enemy", "Enemy.anime");//, "Enemy.texture");
 
-	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "Enemy.texture");
-	sprite3D -> startAnimation( "frool");
+//	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "Enemy.texture");
+	sprite3D -> startAnimationLoop( "shot");
 	//mesh[1] -> setTexture( "tex_sita.png");
 	//	sprite3D -> setShaderFile( "toon");
 	//	auto animation = Animation3D::create( "Graph/Models/test.c3t");
 	//	auto animate = Animate3D::create( animation);
 	//	sprite3D -> runAction( RepeatForever::create( animate));
 	//	sprite3D -> startAnimationLoop("Test");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
-	//	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
-	sprite3D -> setScale( 100.0f);
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
+	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
+	sprite3D -> setScale( 300.0f);
 	this -> addChild( sprite3D);
 	//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
 	//	addChild (light);
 
 
-	#ifdef CAMERA3D//3D座標で作業したいときに使用して下さい
-	auto screenSize = Director::getInstance()->getWinSize();//スクリーンサイズを取得
+	#ifdef CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
+	auto screenSize = Director::getInstance()->getWinSize();//„Çπ„ÇØ„É™„Éº„É≥„Çµ„Ç§„Ç∫„ÇíÂèñÂæó
 
-	//カメラ定義
+	//„Ç´„É°„É©ÂÆöÁæ©
 	Camera3D = Camera::createPerspective(20, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
 	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
-	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 20.0f));//座標は適宜調整
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 20.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
 	addChild(Camera3D);
 
-	//sprite3Dの座標を3Dに対応
-	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -20.0f));//座標は適宜調整
+	//sprite3D„ÅÆÂ∫ßÊ®ô„Çí3D„Å´ÂØæÂøú
+	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -20.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
 	sprite3D->setScale(0.1f);
 	sprite3D->setRotation3D(Vec3(0.0f, 60.0f, 0.0f));
 	#endif
@@ -88,12 +85,6 @@ bool Test::init()
 
 void Test::update( float delta)
 {
-	static int i = 0;
-	if( i == 10)
-	{
-		sprite3D -> stopALLAnimation();
-	}
-	i++;
 }
 
 void Test::moveTime( float delta)
