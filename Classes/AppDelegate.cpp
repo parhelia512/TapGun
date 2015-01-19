@@ -49,8 +49,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
 	director -> setAnimationInterval( 1.0 / 60);
 
-//	auto scene = Test::createScene();
-	auto scene = GameScene::CreateScene();
+	auto scene = Test::createScene();
+//	auto scene = GameScene::CreateScene();
 	director -> runWithScene( scene);
 	
 	return true;

@@ -263,7 +263,7 @@
 		8206B2A71A68863400432DE8 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		8206B2A81A68863400432DE8 /* GameUILayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameUILayer.cpp; sourceTree = "<group>"; };
 		8206B2A91A68863400432DE8 /* GameUILayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUILayer.h; sourceTree = "<group>"; };
-		8206B2AA1A68863400432DE8 /* TestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestScene.cpp; sourceTree = "<group>"; };
+		8206B2AA1A68863400432DE8 /* TestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TestScene.cpp; sourceTree = "<group>"; };
 		8206B2AB1A68863400432DE8 /* TestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestScene.h; sourceTree = "<group>"; };
 		8206B2AC1A68863400432DE8 /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScene.cpp; sourceTree = "<group>"; };
 		8206B2AD1A68863400432DE8 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScene.h; sourceTree = "<group>"; };
