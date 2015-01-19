@@ -335,23 +335,43 @@ void GameModelsLayer::UpdateLayer()
 void GameModelsLayer::UpdatePlayer()
 {
 	//タッチ座標をもとに攻撃や回避の処理を行う
-	if (PSTATE_SHOT == GameParamObj->GetPlayerState())//攻撃中
+
+	//プレイヤーの状態を取得して場合分け
+	switch(GameParamObj->GetPlayerState())
 	{
 
-	}
-	else if (PSTATE_HIDE == GameParamObj->GetPlayerState())//隠れている
-	{
+	case PSTATE_IDLE://アイドル状態
 
-	}
-	else if (PSTATE_APPEAR == GameParamObj->GetPlayerState())//飛び出す
-	{
+		if(TSTATE_ON == GameParamObj->GetTouchState())//タッチされたら
+		{
+			//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
+			GameParamObj->SetPlayerState(PSTATE_SHOT);
+		}
 
-	}
-	else if (PSTATE_HIDING == GameParamObj->GetPlayerState())//隠れ中
-	{
+		break;
+	case PSTATE_SHOT:
 
-	}
+		//if(TSTATE_ON == GameParamObj->GetTouchState())//タッチされたら
+		//{
+		//	//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
+		//	GameParamObj->SetPlayerState(PSTATE_SHOT);
+		//}
+		GameParamObj->SetPlayerState(PSTATE_IDLE);
 
+		break;
+	case PSTATE_HIDING:
+		break;//隠れ中
+	case PSTATE_HIDE:
+		break;//隠れている
+	case PSTATE_APPEAR:
+		break;//隠れた状態から出る
+	case PSTATE_DAMAGED:
+		break;
+	case PSTATE_RUN:
+		break;
+	case PSTATE_DEAD:
+		break;
+	}
 	//プレイヤーが攻撃可能な場合、攻撃範囲の座標をタッチしたら攻撃を行う
 }
 
@@ -489,8 +509,10 @@ void  GameModelsLayer::CheckHit(void)
 	{
 		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
 		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
+		//Vec2 gliv = pTouch->getLocationInView();
 		Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
 		
+
 		Vec3 rayStart = Vec3(0, 0, 0);//レイの始点
 		Vec3 rayEnd = Vec3(0, 0, 0);//レイの終点
 

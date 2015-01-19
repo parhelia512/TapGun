@@ -19,6 +19,7 @@ using namespace TapGun;
 Camera* GameMaster::camera3D = NULL;
 Camera* GameMaster::camera2D = NULL;
 
+
 /**
 *	ゲームパラメータクラスの生成
 *
@@ -109,8 +110,10 @@ void GameMaster::InitParam()
 {
 	playerState = PSTATE_IDLE;
 	gameState = GSTATE_INIT;
-	touchPos = Vec2(0.0f, 0.0f);
 	wave = 0;
+
+	touchState = TSTATE_OFF;
+	touchFlag = TFLAG_OFF;
 }
 
 
@@ -266,6 +269,8 @@ void GameMaster::SetGameState(int state)
 	gameState = state;
 }
 
+
+
 /**
 *	タッチ座標のセット
 *
@@ -274,11 +279,92 @@ void GameMaster::SetGameState(int state)
 *	@return	タッチ座標の二次元ベクトル
 *	@date	1/16 Ver 1.0
 */
-void GameMaster::SetTouchPos(Vec2 tPos)
+void GameMaster::SetTouchPos(Touch* tch)
 {
-	touchPos = tPos;
+	touch = tch;
 }
 
+
+
+
+/**
+*	タッチマネージャーの更新
+*
+*	@author	sasebon
+*	@param	タッチ状態
+*	@return	なし
+*	@date	1/16 Ver 1.0
+*/
+void GameMaster::UpdateTouchManager( void)
+{
+	switch(touchState)
+	{
+	case TSTATE_OFF://タッチしていない状態で
+
+		if(TFLAG_ON == touchFlag)//タッチフラグが立った
+		{
+			touchState = TSTATE_ON;//タッチした状態にする
+		}
+		break;
+	case TSTATE_ON://タッチした状態で
+
+		if(TFLAG_MOVE == touchFlag)//移動した
+		{
+			touchState = TSTATE_MOVE;//移動した状態にする
+		}
+		else if(TFLAG_RELEASE == touchFlag)//離した
+		{
+			touchState = TSTATE_RELEASE;//離した状態にする
+			touchFlag = TFLAG_OFF;//タッチフラグもOFFにする
+		}
+		else//それ以外の場合
+		{
+			touchState = TSTATE_ON;//タッチした状態のまま
+		}
+
+		break;
+	case TSTATE_MOVE://移動中
+
+		if(TFLAG_MOVE == touchFlag)//移動した
+		{
+			touchState = TSTATE_MOVE;//移動した状態のまま
+		}
+		else if(TFLAG_RELEASE == touchFlag)//離した
+		{
+			touchState = TSTATE_RELEASE;//離した状態にする
+			touchFlag = TFLAG_OFF;//タッチフラグもOFFにする
+		}
+		else//それ以外の場合
+		{
+			touchState = TSTATE_ON;//タッチした状態にする
+		}
+		break;
+	case TSTATE_RELEASE:
+		touchState = TSTATE_OFF;
+		touchFlag = TFLAG_OFF;//タッチフラグもOFFにする
+		break;
+	}
+}
+
+
+/**
+*	タッチフラグのセット
+*
+*	@author	sasebon
+*	@param	指定のタッチフラグ
+*	@return	1:引数が正常 -1:無効な引数
+*	@date	1/16 Ver 1.0
+*/
+int GameMaster::SetTouchFlag(int flag)
+{
+	if(TFLAG_NUM <= flag || 0 > flag)
+	{
+		touchFlag = 0;//
+		return FALSE;
+	}
+	touchFlag = flag;
+	return TRUE;
+}
 
 //====get=====================================
 
@@ -339,6 +425,10 @@ int GameMaster::GetGameState(void)
 }
 
 
+
+
+
+
 /**
 *	タッチ座標の取得
 *
@@ -349,5 +439,37 @@ int GameMaster::GetGameState(void)
 */
 Vec2 GameMaster::GetTouchPos(void)
 {
-	return touchPos;
+	return touch->getLocationInView();
+}
+
+
+
+
+/**
+*	タッチ状態の取得
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	タッチ座標の二次元ベクトル
+*	@date	1/16 Ver 1.0
+*/
+int GameMaster::GetTouchFlag(void)
+{
+	return touchFlag;
+}
+
+
+
+
+/**
+*	タッチ状態の取得
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	タッチ座標の二次元ベクトル
+*	@date	1/16 Ver 1.0
+*/
+int GameMaster::GetTouchState(void)
+{
+	return touchState;
 }

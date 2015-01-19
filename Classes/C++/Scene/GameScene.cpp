@@ -160,14 +160,16 @@ int GameScene::InitCamera()
         cameraPos.z += 4.0f;// += 3.1f;
 		
 
-		cameraPos.x = 0.0f;// += 0.5f;
-		cameraPos.y = 0.0f;// += 1.5f;
-		cameraPos.z = 0.0f;// += 3.1f;
+		//cameraPos.x = 0.0f;// += 0.5f;
+		//cameraPos.y = 0.0f;// += 1.5f;
+		//cameraPos.z = 0.0f;// += 3.1f;
 //		GameParamObj2->SetCameraLookAt();
 
         GameParamObj2->SetCamera3DPos(cameraPos);
         GameParamObj2->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
-        gGameLayer->addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
+       // gGameLayer->addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
+		addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
+
     }
     return TRUE;
 }
@@ -187,39 +189,54 @@ int GameScene::InitCamera()
 */
 void GameScene::moveTime(float delta)
 {
+	GameParamObj2->UpdateTouchManager();//タッチ情報を更新
 
-    switch (GameParamObj2->GetGameState())
-{
 
-    case GSTATE_INIT://子レイヤー内の変数初期化を行う
+	switch(GameParamObj2->GetGameState())
+	{
 
-    if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
-    {
-        playerNum = gGameLayer->InitLayer();//
-    }
-    if (NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
-    {
-        gUILayer->InitLayer();//
-    }
+	case GSTATE_INIT:
+		if(NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
+		{
+			playerNum = gGameLayer->InitLayer();//
+		}
+		if(NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
+		{
+			gUILayer->InitLayer();//
+		}
 
-    InitCamera();
-    GameParamObj2->SetGameState(GSTATE_PLAY);
-    break;
+		InitCamera();
+		GameParamObj2->SetGameState(GSTATE_PLAY);
+		break;
 
-    case GSTATE_PLAY:
-    if (NULL != gGameLayer)//現在は初期化チェック確認する
-    {
-        gGameLayer->UpdateLayer();//レイヤーの更新(現在はタッチ座標とカメラ構造体を引数として渡しています)
-    }
-    if (NULL != gUILayer)//現在は初期化チェック確認する
-    {
+	case GSTATE_WAIT:
 
-    }
-    UpdateCamera();//モデルの移動をもとにカメラ移動
+		break;
+	case GSTATE_PLAY:
 
-    break;
+		if(NULL != gGameLayer)//現在は初期化チェック確認する
+		{
+			gGameLayer->UpdateLayer();//レイヤーの更新(現在はタッチ座標とカメラ構造体を引数として渡しています)
+		}
+		if(NULL != gUILayer)//現在は初期化チェック確認する
+		{
 
-}
+		}
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+
+		break;
+
+	case GSTATE_PAUSE:
+		//ポーズ中は専用のレイヤーを描画する？
+		//モデルの更新処理を制限する
+		break;
+	case GSTATE_CONTINUE:
+
+		break;
+	case GSTATE_GAMEOVER:
+
+		break;
+	}
 }
 
 
@@ -266,76 +283,36 @@ int GameScene::UpdateCamera()
 
 bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
-    GameParamObj2->SetTouchPos(pTouch->getLocation());//タッチ座標を取得してセット
-
-    GameParamObj2->SetPlayerState(PSTATE_SHOT);//プレイヤーの状態を「射撃」状態にする
+	GameParamObj2->SetTouchPos(pTouch);//タッチ座標を取得してセット
+	GameParamObj2->SetTouchFlag(TFLAG_ON);
     return true;
 }
 
 
 void GameScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
+	GameParamObj2->SetTouchPos(pTouch);//タッチ座標を取得してセット
+	GameParamObj2->SetTouchFlag(TFLAG_MOVE);
 
-    Director *pDirector;
-    Point touchPoint;
-    Rect spRect;
+	Director *pDirector;
+	Point touchPoint;
+	Rect spRect;
 
-    static float rx;
-    static float ry;
-    static float rz;
+	static float rx;
+	static float ry;
+	static float rz;
 
-    auto s = Director::getInstance()->getWinSize();//画面サイズ取得
-    //タッチ座標を取得する
-    pDirector = Director::getInstance();
-    touchPoint = pDirector->convertToGL(pTouch->getLocationInView());
+	auto s = Director::getInstance()->getWinSize();//画面サイズ取得
+	//タッチ座標を取得する
+	pDirector = Director::getInstance();
+	touchPoint = pDirector->convertToGL(pTouch->getLocationInView());
 
-    if(touchPoint.x >= s.width * 2 / 3 && (touchPoint.y >= s.height / 3 && touchPoint.y < s.height * 2 / 3))
-    {
-        //Vec3 tmpVec = camera3->getPosition3D();
-        //tmpVec.y += 0.2f;
-        //camera3->setPosition3D(tmpVec);
-        //ry -= 1.0f;
-        //if(NULL != gGameLayer)
-        //{
-        //	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
-        //}
-        //if(NULL != gUILayer)
-        //{
-        //	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
-        //}
-    }
-    else if(touchPoint.x < s.width / 3 && (touchPoint.y >= s.height / 3 && touchPoint.y < s.height * 2 / 3))
-{
-    //Vec3 tmpVec = camera3->getPosition3D();
-    //tmpVec.y -= 0.2f;
-    //camera3->setPosition3D(tmpVec);
-    //ry += 1.0f;
-    //if(NULL != gGameLayer)
-    //{
-    //	camera3->setRotation3D(Vec3(0.0f, ry, 0.0f));
-    //}
-    //if(NULL != gUILayer)
-    //{
-    //	camera2->setRotation3D(Vec3(0.0f, ry, 0.0f));
-    //}
-}
-else if(touchPoint.y < s.height / 3 && (touchPoint.x >= s.width / 3 && touchPoint.x < s.width * 2 / 3))
-{
-    //Vec3 tmpVec = camera3->getPosition3D();
-    //tmpVec.z += 0.2f;
-    //camera3->setPosition3D(tmpVec);
-}
-else if(touchPoint.y >= s.height * 2 / 3 && (touchPoint.x >= s.width / 3 && touchPoint.x < s.width * 2 / 3))
-{
-    //Vec3 tmpVec = camera3->getPosition3D();
-    //tmpVec.z -= 0.2f;
-    //camera3->setPosition3D(tmpVec);
-}
 }
 
 
 
 void GameScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
-
+	GameParamObj2->SetTouchPos(pTouch);//タッチ座標を取得してセット
+	GameParamObj2->SetTouchFlag(TFLAG_RELEASE);
 }
