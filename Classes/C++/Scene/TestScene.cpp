@@ -20,7 +20,7 @@
 
 #endif
 
-#define CAMERA3D//3DÀ•W‚Åì‹Æ‚µ‚½‚¢‚Æ‚«‚ÉŽg—p‚µ‚Ä‰º‚³‚¢
+//#define CAMERA3D//3Dåº§æ¨™ã§ä½œæ¥­ã—ãŸã„ã¨ãã«ä½¿ç”¨ã—ã¦ä¸‹ã•ã„
 
 USING_NS_CC;
 using namespace std;
@@ -49,77 +49,82 @@ bool Test::init()
 	setCocos();
 
 	auto bg = LayerColor::create( Color4B::WHITE, SystemValue::windowSize.width, SystemValue::windowSize.height);
-//	this -> addChild( bg, 0);
+	//	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "tex_boy.png");//, "BBOX.texture");
-	sprite3D -> startAnimationLoop( "frool");
+	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "Enemy.texture");
+	sprite3D -> startAnimation( "frool");
 	//mesh[1] -> setTexture( "tex_sita.png");
-//	sprite3D -> setShaderFile( "toon");
-//	auto animation = Animation3D::create( "Graph/Models/test.c3t");
-//	auto animate = Animate3D::create( animation);
-//	sprite3D -> runAction( RepeatForever::create( animate));
-//	sprite3D -> startAnimationLoop("Test");
+	//	sprite3D -> setShaderFile( "toon");
+	//	auto animation = Animation3D::create( "Graph/Models/test.c3t");
+	//	auto animate = Animate3D::create( animation);
+	//	sprite3D -> runAction( RepeatForever::create( animate));
+	//	sprite3D -> startAnimationLoop("Test");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
-//	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
+	//	sprite3D -> setRotation3D( Vec3( 270.0f, 90.0f, 0.0f));
 	sprite3D -> setScale( 100.0f);
 	this -> addChild( sprite3D);
-//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
-//	addChild (light);
+	//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
+	//	addChild (light);
 
 
-#ifdef CAMERA3D//3DÀ•W‚Åì‹Æ‚µ‚½‚¢‚Æ‚«‚ÉŽg—p‚µ‚Ä‰º‚³‚¢
-	auto screenSize = Director::getInstance()->getWinSize();//ƒXƒNƒŠ[ƒ“ƒTƒCƒY‚ðŽæ“¾
+	#ifdef CAMERA3D//3Dåº§æ¨™ã§ä½œæ¥­ã—ãŸã„ã¨ãã«ä½¿ç”¨ã—ã¦ä¸‹ã•ã„
+	auto screenSize = Director::getInstance()->getWinSize();//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚µã‚¤ã‚ºã‚’å–å¾—
 
-	//ƒJƒƒ‰’è‹`
+	//ã‚«ãƒ¡ãƒ©å®šç¾©
 	Camera3D = Camera::createPerspective(20, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
 	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
-	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 20.0f));//À•W‚Í“K‹X’²®
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 20.0f));//åº§æ¨™ã¯é©å®œèª¿æ•´
 	addChild(Camera3D);
 
-	//sprite3D‚ÌÀ•W‚ð3D‚É‘Î‰ž
-	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -20.0f));//À•W‚Í“K‹X’²®
+	//sprite3Dã®åº§æ¨™ã‚’3Dã«å¯¾å¿œ
+	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -20.0f));//åº§æ¨™ã¯é©å®œèª¿æ•´
 	sprite3D->setScale(0.1f);
 	sprite3D->setRotation3D(Vec3(0.0f, 60.0f, 0.0f));
-#endif
-
+	#endif
+	//this -> scheduleUpdate();
 	return true;
 }
 
 void Test::update( float delta)
 {
-//	this -> scheduleUpdate();
+	static int i = 0;
+	if( i == 10)
+	{
+		sprite3D -> stopALLAnimation();
+	}
+	i++;
 }
 
 void Test::moveTime( float delta)
 {
-//	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
+	//	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 }
 
 void Test::menuCloseCallback(Ref* pSender)
 {
-	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 	return;
-#endif
+	#endif
 	Director::getInstance() -> end();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
-#endif
+	#endif
 }
 
 void Test::setCocos( void)
 {
 	auto closeItem = MenuItemImage::create( "CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1( Test::menuCloseCallback, this));
 	closeItem -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width - closeItem->getContentSize().width/2 ,
-								SystemValue::origin.y + closeItem->getContentSize().height/2));
+	SystemValue::origin.y + closeItem->getContentSize().height/2));
 	auto menu = Menu::create( closeItem, NULL);
 	menu -> setPosition( Vec2::ZERO);
 	this -> addChild( menu, 1);
 
 	auto label = LabelTTF::create( "Hello World", "Arial", 24);
 	label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
-							SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
+	SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
 	this -> addChild( label, 1);
 }

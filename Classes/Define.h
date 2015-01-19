@@ -6,19 +6,16 @@
 
 namespace TapGun
 {
-
-class SystemValue
-{
-public:
-	enum LayerNumber
+	class SystemValue
 	{
-		ERROR_MESSAGE = 10,
+	public:
+		enum LayerNumber
+		{
+			ERROR_MESSAGE = 10,
+		};
+		static cocos2d::Size windowSize;
+		static cocos2d::Vec2 origin;
 	};
-	static cocos2d::Size windowSize;
-	static cocos2d::Vec2 origin;
-};
-
 }
 
 #endif // __DEFINE_H__
-

@@ -1,3 +1,4 @@
+
 #include"Character.h"
 
 //Character::Character()
@@ -8,7 +9,7 @@
 
 void TapGun::Character::Init()
 {
-	//Œ»İ‚Í•K—v‚È‚à‚Ì‚Ì‚İ‰Šú‰»‚µ‚Ä‚¢‚Ü‚·
+	//ç¾åœ¨ã¯å¿…è¦ãªã‚‚ã®ã®ã¿åˆæœŸåŒ–ã—ã¦ã„ã¾ã™
 	kind = CKIND_NONE;
 	speed = 0.0f;
 	valid = -1;

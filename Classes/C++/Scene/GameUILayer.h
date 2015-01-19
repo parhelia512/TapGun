@@ -1,6 +1,6 @@
+
 #ifndef __GAME_UILAYER_H__
 #define __GAME_UILAYER_H__
-
 
 #include "cocos2d.h"
 
@@ -18,11 +18,10 @@
 
 namespace TapGun
 {
-
 	class GameUILayer : public cocos2d::Layer
 	{
 	public:
-		//ƒƒ“ƒoŠÖ”
+		//ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Öï¿½
 		virtual bool init();
 
 		void update(float delta);

@@ -84,6 +84,7 @@
 		8229CBB81A6B7921004AE667 /* Sprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8229CBB31A6B7921004AE667 /* Sprite3D.cpp */; };
 		8229CBB91A6B7921004AE667 /* Unit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8229CBB51A6B7921004AE667 /* Unit.cpp */; };
 		8229CBBC1A6B7936004AE667 /* Directory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8229CBBA1A6B7936004AE667 /* Directory.cpp */; };
+		82470E581A6C8EAB00D07B2D /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82470E561A6C8EAB00D07B2D /* UI.cpp */; };
 		827FD2751A6C1E32007D9DAE /* Marker Felt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 827FD20E1A6C1E32007D9DAE /* Marker Felt.ttf */; };
 		827FD2761A6C1E32007D9DAE /* BBOX.c3b in Resources */ = {isa = PBXBuildFile; fileRef = 827FD2111A6C1E32007D9DAE /* BBOX.c3b */; };
 		827FD2771A6C1E32007D9DAE /* BBOX.c3t in Resources */ = {isa = PBXBuildFile; fileRef = 827FD2121A6C1E32007D9DAE /* BBOX.c3t */; };
@@ -263,7 +264,7 @@
 		8206B2A71A68863400432DE8 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		8206B2A81A68863400432DE8 /* GameUILayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameUILayer.cpp; sourceTree = "<group>"; };
 		8206B2A91A68863400432DE8 /* GameUILayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameUILayer.h; sourceTree = "<group>"; };
-		8206B2AA1A68863400432DE8 /* TestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestScene.cpp; sourceTree = "<group>"; };
+		8206B2AA1A68863400432DE8 /* TestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TestScene.cpp; sourceTree = "<group>"; };
 		8206B2AB1A68863400432DE8 /* TestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestScene.h; sourceTree = "<group>"; };
 		8206B2AC1A68863400432DE8 /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScene.cpp; sourceTree = "<group>"; };
 		8206B2AD1A68863400432DE8 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScene.h; sourceTree = "<group>"; };
@@ -308,6 +309,8 @@
 		8229CBB61A6B7921004AE667 /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		8229CBBA1A6B7936004AE667 /* Directory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Directory.cpp; sourceTree = "<group>"; };
 		8229CBBB1A6B7936004AE667 /* Directory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Directory.h; sourceTree = "<group>"; };
+		82470E561A6C8EAB00D07B2D /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
+		82470E571A6C8EAB00D07B2D /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
 		827FD20E1A6C1E32007D9DAE /* Marker Felt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Marker Felt.ttf"; sourceTree = "<group>"; };
 		827FD2111A6C1E32007D9DAE /* BBOX.c3b */ = {isa = PBXFileReference; lastKnownFileType = file; path = BBOX.c3b; sourceTree = "<group>"; };
 		827FD2121A6C1E32007D9DAE /* BBOX.c3t */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BBOX.c3t; sourceTree = "<group>"; };
@@ -694,6 +697,8 @@
 		8229CBB01A6B7921004AE667 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				82470E561A6C8EAB00D07B2D /* UI.cpp */,
+				82470E571A6C8EAB00D07B2D /* UI.h */,
 				8229CBB11A6B7921004AE667 /* GameMaster.cpp */,
 				8229CBB21A6B7921004AE667 /* GameMaster.h */,
 				8229CBB31A6B7921004AE667 /* Sprite3D.cpp */,
@@ -1186,6 +1191,7 @@
 				8206B2E51A68863400432DE8 /* Wrapper.cpp in Sources */,
 				8229CBBC1A6B7936004AE667 /* Directory.cpp in Sources */,
 				8206B2E41A68863400432DE8 /* Sound.cpp in Sources */,
+				82470E581A6C8EAB00D07B2D /* UI.cpp in Sources */,
 				8206B2DD1A68863400432DE8 /* GameUILayer.cpp in Sources */,
 				8229CBB71A6B7921004AE667 /* GameMaster.cpp in Sources */,
 				8206B2E31A68863400432DE8 /* Shader.cpp in Sources */,

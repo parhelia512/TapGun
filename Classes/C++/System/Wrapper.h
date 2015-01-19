@@ -16,32 +16,30 @@
 
 namespace TapGun
 {
-
-class Wrapper
-{
-public:
-	enum Flag
+	class Wrapper
 	{
-		True = 1,
-		False = 0,
+	public:
+		enum Flag
+		{
+			True = 1,
+			False = 0,
+		};
+
+		Wrapper( const Wrapper &P) = delete;
+		Wrapper& operator= ( const Wrapper &P) = delete;
+		static Wrapper* getInstance( void);
+
+		static cocos2d::Scene* newCreateScene( cocos2d::Layer* ( *Scene)( void));
+
+		static cocos2d::Scene* getNowSceneObject( void);
+		static cocos2d::Layer* getNowSceneLayer( void);
+
+	private:
+		Wrapper() {}
+
+		cocos2d::Scene* nowSceneObject;
+		cocos2d::Layer* nowSceneLayer;
 	};
-
-	Wrapper( const Wrapper &P) = delete;
-	Wrapper& operator= ( const Wrapper &P) = delete;
-	static Wrapper* getInstance( void);
-
-	static cocos2d::Scene* newCreateScene( cocos2d::Layer* ( *Scene)( void));
-
-	static cocos2d::Scene* getNowSceneObject( void);
-	static cocos2d::Layer* getNowSceneLayer( void);
-
-private:
-	Wrapper() {}
-
-	cocos2d::Scene* nowSceneObject;
-	cocos2d::Layer* nowSceneLayer;
-};
-
 }
 
 #endif // __WRAPPER_H__

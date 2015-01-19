@@ -6,21 +6,16 @@
 
 namespace TapGun
 {
+	class Shader
+	{
+	public:
+		Shader( const Shader &P) = delete;
+		Shader& operator= ( const Shader &P) = delete;
+		static Shader* getInstance( void);
 
-class Shader 
-{
-public:
-	Shader( const Shader &P) = delete;
-	Shader& operator= ( const Shader &P) = delete;
-	static Shader* getInstance( void);
-
-
-
-private:
-	Shader() {}
-
-};
-
+	private:
+		Shader() {}
+	};
 }
 
 #endif // __SHADER_H__

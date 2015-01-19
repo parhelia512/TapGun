@@ -1,3 +1,4 @@
+
 #ifndef __CHARACTER_H__
 #define __CHARACTER_H__
 
@@ -7,16 +8,14 @@ using namespace cocos2d;
 
 namespace TapGun
 {
-
 	enum _CHAR_KIND_
 	{
 		CKIND_NONE,
 		CKIND_PLAYER,
 		CKIND_ENEMY,
-		CKIND_EBULLET,//“G’e
+		CKIND_EBULLET,//æ•µå¼¾
 		CKIND_MAP
 	};
-
 
 	class Character
 	{
@@ -26,20 +25,21 @@ namespace TapGun
 		int kind;
 		int frame;//
 
-		Sprite3D* sprite3d;//ƒ‚ƒfƒ‹‚Ìƒ[ƒJƒ‹À•W
-		Node* wrapper;//ƒ‚ƒfƒ‹‚Ìeƒm[ƒhiƒ‚ƒfƒ‹Šî€À•W‚Æ‚µ‚Äg—p‚·‚éB’Êí‚Í(0,0,0)À•Wj
+		Sprite3D* sprite3d;//ãƒ¢ãƒ‡ãƒ«ã®ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™
+		Node* wrapper;//ãƒ¢ãƒ‡ãƒ«ã®è¦ªãƒãƒ¼ãƒ‰ï¼ˆãƒ¢ãƒ‡ãƒ«åŸºæº–åº§æ¨™ã¨ã—ã¦ä½¿ç”¨ã™ã‚‹ã€‚é€šå¸¸ã¯(0,0,0)åº§æ¨™ï¼‰
 		Animation3D* animation;
 		Animate3D* animate;
-		Vec3 pos;//ƒ‚ƒfƒ‹À•W
-		Vec3 target_pos;//ƒ‚ƒfƒ‹‚ªˆÚ“®‚·‚é‚Æ‚«‚Ì–Ú•WÀ•Wi©ƒLƒƒƒ‰‚â’e‚ÌˆÚ“®‚É—p‚¢‚éj
-		Vec3 speed_vec;//ˆÚ“®‘¬“x
+		Vec3 pos;//ãƒ¢ãƒ‡ãƒ«åº§æ¨™
+		Vec3 target_pos;//ãƒ¢ãƒ‡ãƒ«ãŒç§»å‹•ã™ã‚‹ã¨ãã®ç›®æ¨™åº§æ¨™ï¼ˆè‡ªã‚­ãƒ£ãƒ©ã‚„å¼¾ã®ç§»å‹•ã«ç”¨ã„ã‚‹ï¼‰
+		Vec3 speed_vec;//ç§»å‹•é€Ÿåº¦
 		float speed;//
 
-		void Init(void);//”’l‚Ì‰Šú‰»i¡Œã‚ÍƒRƒ“ƒXƒgƒ‰ƒNƒ^‚É’u‚«Š·‚¦‚éHj
+		void Init(void);//æ•°å€¤ã®åˆæœŸåŒ–ï¼ˆä»Šå¾Œã¯ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«ç½®ãæ›ãˆã‚‹ï¼Ÿï¼‰
 
 		//Character();
 		//~Character();
 	private:
 	};
 }
+
 #endif //__CHARACTER_H__

@@ -7,32 +7,30 @@ namespace TapGun
 {
 
 
-#include "cocos2d.h"
+	#include "cocos2d.h"
 
 	class TitleScene : public cocos2d::Layer
-	{
-	public:
-		// there's no 'id' in cpp, so we recommend returning the class instance pointer
-		static cocos2d::Scene* createScene();
+{
+public:
+	// there's no 'id' in cpp, so we recommend returning the class instance pointer
+	static cocos2d::Scene* createScene();
 
-		// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-
-
-		//ÉÅÉìÉoïœêî
-		int game_state;
+	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 
 
-		//ÉÅÉìÉoä÷êî
-		virtual bool init();
+	int game_state;
 
-		// a selector callback
-		void menuCloseCallback(cocos2d::Ref* pSender);
+	
+	virtual bool init();
 
-		void ReplaceGameScene(cocos2d::Ref* pSender);
+	// a selector callback
+	void menuCloseCallback(cocos2d::Ref* pSender);
 
-		// implement the "static create()" method manually
-		CREATE_FUNC(TitleScene);
-	};
+	void ReplaceGameScene(cocos2d::Ref* pSender);
+
+	// implement the "static create()" method manually
+	CREATE_FUNC(TitleScene);
+};
 }
 
 #endif // __TITLE_SCENE_H__
