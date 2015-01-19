@@ -47,8 +47,12 @@ bool Test::init()
 	}
 	setCocos();
 
-	auto sprite3D = _Sprite3D::create( "enemy", "Enemy.anime");//, "Enemy.texture");
-
+	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	auto sprite3D = _Sprite3D::create( "enemy", "Enemy.anime");
+#else
+	auto sprite3D = _Sprite3D::create( "enemy/enemy", "Enemy.anime", "Enemy.texture");
+#endif
 //	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "Enemy.texture");
 	sprite3D -> startAnimationLoop( "shot");
 	//mesh[1] -> setTexture( "tex_sita.png");

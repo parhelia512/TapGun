@@ -174,7 +174,7 @@ void Mesh::setVisible(bool visible)
 
 void Mesh::setTexture(const std::string& texPath)
 {
-	string str = "Graph/Textures/" + texPath;
+	string str = texPath;
     auto tex = Director::getInstance()->getTextureCache()->addImage(str);
     setTexture(tex);
 }
