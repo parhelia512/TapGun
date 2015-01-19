@@ -24,6 +24,8 @@ namespace TapGun
 		void menuCloseCallback(cocos2d::Ref* pSender);
 		void setCocos( void);
 
+		static cocos2d::Layer* lay;
+
 		CREATE_FUNC(Test);
 	};
 }
