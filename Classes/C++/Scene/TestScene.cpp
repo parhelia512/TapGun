@@ -20,7 +20,7 @@
 
 #endif
 
-//#define CAMERA3D//3D座標で作業したいときに使用して下さい
+#define CAMERA3D//3D座標で作業したいときに使用して下さい
 
 USING_NS_CC;
 using namespace std;
@@ -52,8 +52,8 @@ bool Test::init()
 //	this -> addChild( bg, 0);
 	auto sound = Sound::getInstance();
 
-	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "Enemy.texture");
-	sprite3D -> startAnimation( "frool");
+	sprite3D = _Sprite3D::create( "enemy_shot.c3b", "Enemy.anime", "tex_boy.png");//, "BBOX.texture");
+	sprite3D -> startAnimationLoop( "frool");
 	//mesh[1] -> setTexture( "tex_sita.png");
 //	sprite3D -> setShaderFile( "toon");
 //	auto animation = Animation3D::create( "Graph/Models/test.c3t");
@@ -82,18 +82,13 @@ bool Test::init()
 	sprite3D->setScale(0.1f);
 	sprite3D->setRotation3D(Vec3(0.0f, 60.0f, 0.0f));
 #endif
-	//this -> scheduleUpdate();
+
 	return true;
 }
 
 void Test::update( float delta)
 {
-	static int i = 0;
-	if( i == 10)
-	{
-		sprite3D -> stopALLAnimation();
-	}
-	i++;
+//	this -> scheduleUpdate();
 }
 
 void Test::moveTime( float delta)
