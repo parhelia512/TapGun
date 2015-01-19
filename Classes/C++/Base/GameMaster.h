@@ -25,6 +25,9 @@ namespace TapGun
 	{
 		PSTATE_IDLE,
 		PSTATE_SHOT,
+		PSTATE_HIDING,//隠れ中
+		PSTATE_HIDE,//隠れている
+		PSTATE_APPEAR,//隠れた状態から出る
 		PSTATE_DAMAGED,
 		PSTATE_RUN,
 		PSTATE_DEAD,

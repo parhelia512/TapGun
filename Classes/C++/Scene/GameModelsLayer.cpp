@@ -17,6 +17,7 @@
 #endif
 
 #define COCOS_TMP//cocos2dのSprite3dを使用する際に定義する
+#define RAY_TEST//
 
 USING_NS_CC;
 using namespace TapGun;
@@ -58,7 +59,7 @@ int GameModelsLayer::InitLayer(void)
 
 	playerNum = -1;
 	playerNum = InitPlayer(0);//とりあえず引数0
-	//InitMap(0);//正規のマップデータが降りてくるまでいったん保留します
+//	InitMap(0);//正規のマップデータが降りてくるまでいったん保留します
 	InitEnemy(0);
 
 	return playerNum;
@@ -125,7 +126,8 @@ int GameModelsLayer::InitPlayer(int stage_num)
 	unit[num].sprite3d->setPosition3D(Vec3(2.0f, 0.0f, -8.5f));
 
 	break;
-	defalult:
+
+	default:
 	return FALSE;
 	break;
 }
@@ -191,6 +193,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 
 	unit[num].sprite3d->setScale(1.0f);
 	unit[num].sprite3d->setPosition3D(Vec3(4.0f, 0.0f, -18.5f));
+//	unit[num].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, -3.0f));
 
 	//当たり判定の定義（仮）
 	unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
@@ -235,6 +238,7 @@ addChild(unit[num].wrapper);
 
 unit[num].sprite3d->setScale(1.0f);
 unit[num].sprite3d->setPosition3D(Vec3(3.0f, 0.0f, -60.5f));
+//unit[num].sprite3d->setPosition3D(Vec3(-5.0f, 0.0f, -20.0f));
 
 //当たり判定の定義（仮）
 unit[num].collisionPos = Vec3(0.5, 0.5, 0.5);
@@ -277,7 +281,7 @@ int GameModelsLayer::InitMap(int stage_num)
 		return false;
 	}
 	unit[num].Init();//メンバ変数の初期化をしておく
-
+	/*
 	#ifdef	COCOS_TMP
 	std::string fileName1 = "Graph/Models/test_tenq.c3t";
 	std::string fileName2 = "Graph/Textures/backGrund.png";
@@ -289,6 +293,12 @@ int GameModelsLayer::InitMap(int stage_num)
 
 	unit[num].sprite3d = ::Sprite3D::create(fileName1, fileName2);
 	#endif
+	*/
+
+	std::string fileName1 = "map";
+	std::string fileName2 = "stage_tex.png";
+	unit[num].sprite3d = Sprite3D::create("Graph/Models/map.c3b");//, "Graph/Textures/stage_tex.png");
+
 	unit[num].Init(num, UKIND_MAP);
 
 	unit[num].wrapper = Node::create();//モデルの親ノード
@@ -325,6 +335,22 @@ void GameModelsLayer::UpdateLayer()
 void GameModelsLayer::UpdatePlayer()
 {
 	//タッチ座標をもとに攻撃や回避の処理を行う
+	if (PSTATE_SHOT == GameParamObj->GetPlayerState())//攻撃中
+	{
+
+	}
+	else if (PSTATE_HIDE == GameParamObj->GetPlayerState())//隠れている
+	{
+
+	}
+	else if (PSTATE_APPEAR == GameParamObj->GetPlayerState())//飛び出す
+	{
+
+	}
+	else if (PSTATE_HIDING == GameParamObj->GetPlayerState())//隠れ中
+	{
+
+	}
 
 	//プレイヤーが攻撃可能な場合、攻撃範囲の座標をタッチしたら攻撃を行う
 }
@@ -455,38 +481,36 @@ void  GameModelsLayer::CheckHit(void)
 	//タッチ座標（スクリーン座標）からワールド座標を求め、レイを飛ばす
 
 
+#ifdef RAY_TEST
 
-	/*@*/
 	//レイと敵の当たり判定処理
 	const int pstate = GameParamObj->GetPlayerState();
-	if(pstate == PSTATE_SHOT)
+	if (pstate == PSTATE_SHOT)
 	{
 		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
-
-
 		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
-		Vec3 rayStart = Vec3(0, 0, 0);
-		Vec3 rayEnd = Vec3(0, 0, 0);
 		Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
+		
+		Vec3 rayStart = Vec3(0, 0, 0);//レイの始点
+		Vec3 rayEnd = Vec3(0, 0, 0);//レイの終点
 
-		Vec3 tmp_touch_pos = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
+		Vec3 tmpPosNear = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
+		Vec3 tmpPosFar = Vec3(tPos.x, tPos.y, 1.0f);//1.0f == 視錘台の遠面（far plane）
 
 		Camera* cam3d = GameParamObj->GetCamera3D();
-		cam3d->unproject(s, &tmp_touch_pos, &rayStart);//near planeの3次元座標を取得
+		cam3d->unproject(s, &tmpPosNear, &rayStart);//near planeの3次元座標を取得
+		cam3d->unproject(s, &tmpPosFar, &rayEnd);
+
 		rayStart = cam3d->getPosition3D();
 
+		Ray touchRay(rayStart, rayEnd);//仮レイを設定
 
-		tmp_touch_pos.z = 1.0f;//1.0f == 視錘台の遠面（far plane）
-		cam3d->unproject(s, &tmp_touch_pos, &rayEnd);//far planeの3次元座標を取得
-
-		Ray touch_ray(rayStart, rayEnd);//仮レイを設定
-
-
-		for(int i = 0; i < MAX_UNIT; i++)
+		//レイの当たり判定
+		for (int i = 0; i < MAX_UNIT; i++)
 		{
-			if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
+			if (-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
 			{
-				if(touch_ray.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
+				if (touchRay.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
 				{
 					Vec3 rot = Vec3(0, 0, 0);
 					rot = unit[i].sprite3d->getRotation3D();
@@ -497,6 +521,51 @@ void  GameModelsLayer::CheckHit(void)
 		}
 		GameParamObj->SetPlayerState(PSTATE_IDLE);
 	}
+
+
+#else
+
+	//レイと敵の当たり判定処理
+	const int pstate = GameParamObj->GetPlayerState();
+	if (pstate == PSTATE_SHOT)
+	{
+		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
+		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
+		Vec2 tPos = GameParamObj->GetTouchPos();//タッチ座標を取得
+
+		Vec3 rayStart = Vec3(0, 0, 0);//レイの始点
+		Vec3 rayEnd = Vec3(0, 0, 0);//レイの終点
+
+		Vec3 tmpPosNear = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
+		Vec3 tmpPosFar = Vec3(tPos.x, tPos.y, -1.0f);//1.0f == 視錘台の遠面（far plane）
+
+		Camera* cam3d = GameParamObj->GetCamera3D();
+		cam3d->unproject(s, &tmpPosNear, &rayStart);//near planeの3次元座標を取得
+		cam3d->unproject(s, &tmpPosFar, &rayStart);
+
+		rayStart = cam3d->getPosition3D();
+
+		Ray touchRay(rayStart, rayEnd);//仮レイを設定
+
+		for (int i = 0; i < MAX_UNIT; i++)
+		{
+			if (-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
+			{
+				if (touchRay.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
+				{
+					Vec3 rot = Vec3(0, 0, 0);
+					rot = unit[i].sprite3d->getRotation3D();
+					rot.y += 20.0f;
+					unit[i].sprite3d->setRotation3D(rot);
+				}
+			}
+		}
+		GameParamObj->SetPlayerState(PSTATE_IDLE);
+	}
+
+#endif
+
+
 
 
 
@@ -522,16 +591,6 @@ int GameModelsLayer::SearchFreeUnit()
 
 	return -1;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

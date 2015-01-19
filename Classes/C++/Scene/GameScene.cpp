@@ -151,7 +151,6 @@ int GameScene::InitCamera()
     {
         GameParamObj2->InitCamera3D();//カメラを初期化
         gGameLayer->setCameraMask(CAMFLAG_3D);
-        int b = gGameLayer->getCameraMask();
 
         //プレイヤーの座標取得はとりあえずこのような形で記述しています
         Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
@@ -159,11 +158,16 @@ int GameScene::InitCamera()
         cameraPos.x += 0.8;// += 0.5f;
         cameraPos.y += 1.5f;// += 1.5f;
         cameraPos.z += 4.0f;// += 3.1f;
+		
+
+		cameraPos.x = 0.0f;// += 0.5f;
+		cameraPos.y = 0.0f;// += 1.5f;
+		cameraPos.z = 0.0f;// += 3.1f;
+//		GameParamObj2->SetCameraLookAt();
 
         GameParamObj2->SetCamera3DPos(cameraPos);
         GameParamObj2->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
-        addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
-
+        gGameLayer->addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
     }
     return TRUE;
 }
@@ -252,8 +256,6 @@ int GameScene::UpdateCamera()
     if(NULL != gGameLayer)
     {
         static float rot;
-        Camera* cm2 = GameParamObj2->GetCamera3D();
-        Camera* cm = GameParamObj2->Get3DCamInstance();
         rot = -0.01f;
         //gGameLayer->setRotation3D(Vec3(0.0f, rot, 0.0f));
     }
