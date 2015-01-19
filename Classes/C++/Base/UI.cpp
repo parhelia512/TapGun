@@ -1,6 +1,4 @@
 ﻿#include"UI.h"
-#include <fstream>
-
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -23,21 +21,21 @@ USING_NS_CC;
 *	@return	なし
 *	@date	1/8 Ver 1.0
 */
-UI::UI(void)
-{
-	//初期化内容は随時更新します
-
-	//管理フラグ
-	valid = FALSE;
-	kind = UIKIND_NONE;//UI種別をNONEに
-
-	//変数
-	speed = 0.0f;//移動速度
-	speedVec = Vec2(0.0f, 0.0f);//移動ベクトル
-	targetPos = Vec2(0.0f, 0.0f);//移動目標
-
-	frame = 0;//管理フレーム
-}
+//UI::UI(void)
+//{
+//	初期化内容は随時更新します
+//
+//	管理フラグ
+//	valid = FALSE;
+//	kind = UIKIND_NONE;//UI種別をNONEに
+//
+//	変数
+//	speed = 0.0f;//移動速度
+//	speedVec = Vec2(0.0f, 0.0f);//移動ベクトル
+//	targetPos = Vec2(0.0f, 0.0f);//移動目標
+//
+//	frame = 0;//管理フレーム
+//}
 
 
 /**
@@ -116,11 +114,11 @@ int UI::Init(int num, int utype)
 
 
 
-UI* UI::Create( void)
-{
-	auto sprite = new UI();
-	return sprite;
-}
+//UI* UI::Create( void)
+//{
+//	auto sprite = new UI();
+//	return sprite;
+//}
 
 
 

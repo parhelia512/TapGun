@@ -455,9 +455,6 @@ void  GameModelsLayer::CheckHit(void)
 
 
 
-
-
-
 	/*@*/
 	//レイと敵の当たり判定処理
 	const int pstate = GameParamObj->GetPlayerState();
@@ -475,13 +472,14 @@ void  GameModelsLayer::CheckHit(void)
 
 		Camera* cam3d = GameParamObj->GetCamera3D();
 		cam3d->unproject(s, &tmp_touch_pos, &rayStart);//near planeの3次元座標を取得
-		//rayStart = cam3d->getPosition3D();
+		rayStart = cam3d->getPosition3D();
 
 
 		tmp_touch_pos.z = 1.0f;//1.0f == 視錘台の遠面（far plane）
 		cam3d->unproject(s, &tmp_touch_pos, &rayEnd);//far planeの3次元座標を取得
 
 		Ray touch_ray(rayStart, rayEnd);//仮レイを設定
+
 
 		for(int i = 0; i < MAX_UNIT; i++)
 		{

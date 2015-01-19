@@ -3,12 +3,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "GameMaster.h"
-#include "C++/Base/UI.h"
+//#include "C++/Base/UI.h"
 
 #else
 
 #include "C++/Base/GameMaster.h"
-#include "C++/Base/UI.h"
+//#include "C++/Base/UI.h"
 
 #endif
 
@@ -67,7 +67,7 @@ int GameUILayer::SerchFreeUI()
 {
 	for(int i = 0; i < MAX_UI; i++)
 	{
-		if(FALSE == UISprite[i]->valid)
+		if(FALSE == Ui[i].valid)
 		{
 			return i;
 		}
@@ -79,24 +79,48 @@ int GameUILayer::SerchFreeUI()
 
 void GameUILayer::SetUI()
 {
-	std::string fileName1 = "Graph/Pictures/ty.png";
-
+	std::string fileName1 = "Graph/Pictures/lifebar.png";
 	int num = SerchFreeUI();
 
 	//ライフバーの初期化
-	if (-1 != num)
+	if(-1 != num)
 	{
-		//UISprite[num] = new UI;
-		//UISprite[num];
+		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+		UIBillBoard[num]->setPosition(230.0f, 750.0f);
+		UIBillBoard[num]->setScale(0.8f);
+		addChild(UIBillBoard[num]);
+		
+		Ui[num].Init(num,UIKIND_LIFEBAR);
+		valid[num] = TRUE;
+	}
 
-		//valid[num] = 1;
-		//UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-		//UIBillBoard[num]->setPosition(30.0f, 30.0f);
-		//UIBillBoard[num]->setScale(0.5f);
-		//UINode[num] = Node::create();//モデルの親ノード
-		//UINode[num]->addChild(UIBillBoard[num]);
-		//addChild(UINode[num]);
-		//UIBillBoard[num]->setCameraMask(CAMFLAG_3D);
+	fileName1 = "Graph/Pictures/arrow.png";
+	num = SerchFreeUI();
+	//矢印の初期化
+	if(-1 != num)
+	{
+		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+		UIBillBoard[num]->setPosition(50.0f, 50.0f);
+		UIBillBoard[num]->setScale(0.5f);
+		addChild(UIBillBoard[num]);
+
+		Ui[num].Init(num, UIKIND_ARROW);
+		valid[num] = TRUE;
+	}
+
+
+	fileName1 = "Graph/Pictures/reticle.png";
+	num = SerchFreeUI();
+	//レティクル
+	if(-1 != num)
+	{
+		UIBillBoard[num] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+		UIBillBoard[num]->setPosition(850.0f, 400.0f);
+		UIBillBoard[num]->setScale(0.25f);
+		addChild(UIBillBoard[num]);
+
+		Ui[num].Init(num, UIKIND_RETICLE);
+		valid[num] = TRUE;
 	}
 }
 
@@ -105,7 +129,7 @@ void GameUILayer::InitAllUI()
 {
 	for(int i = 0; i < MAX_UI; i++)
 	{
-		UISprite[i]->valid = false;
+		Ui[i].Init();
 	}
 }
 
@@ -125,7 +149,7 @@ void GameUILayer::UpdateUI(float camX, float camY, float camZ, float rotX, float
 
 	for(int i = 0; i < MAX_UI; i++)
 	{
-		if(FALSE != UISprite[i]->valid)
+		if(FALSE != Ui[i].valid)
 		{
 			//UINode[i]->setPosition3D(camPos);
 			//UINode[i]->setRotation3D(camRot);
@@ -136,7 +160,17 @@ void GameUILayer::UpdateUI(float camX, float camY, float camZ, float rotX, float
 
 
 
-
+void GameUILayer::MoveReticle(void)
+{
+	for(int i = 0; i < MAX_UI; i++)
+	{
+		if(FALSE != Ui[i].valid)
+		{
+			//UINode[i]->setPosition3D(camPos);
+			//UINode[i]->setRotation3D(camRot);
+		}
+	}
+}
 
 /*
  現在は親シーンのupdateで更新系の関数を呼び出しているので、レイヤー固有のmoveTime関数は使用していません

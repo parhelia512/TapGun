@@ -93,8 +93,8 @@ bool GameScene::init()
 
 
 	//UIレイヤーを作成
-	//gUILayer = GameUILayer::create();
-	//this->addChild(gUILayer);
+	gUILayer = GameUILayer::create();
+	this->addChild(gUILayer);
 
 
 	GameParamObj2 = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成
@@ -155,16 +155,12 @@ int GameScene::InitCamera()
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
 
-
-		cameraPos.x += 0.5f;// += 0.5f;
+		cameraPos.x += 0.8;// += 0.5f;
 		cameraPos.y += 1.5f;// += 1.5f;
-		cameraPos.z += 2.1f;// += 3.1f;
+		cameraPos.z += 4.0f;// += 3.1f;
 
 		GameParamObj2->SetCamera3DPos(cameraPos);
 		GameParamObj2->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
-		//camera2->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
-
-		//camera3->lookAt(Vec3(0, 0, cameraPos.z - 120.0f), Vec3(0, 1, 0));
 		addChild(GameParamObj2->Get3DCamInstance());//add camera to the scene
 
 	}

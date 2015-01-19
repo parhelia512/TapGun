@@ -5,8 +5,6 @@
 
 #define MAX_UI 20
 
-//using namespace cocos2d;
-
 namespace TapGun
 {
 
@@ -31,7 +29,7 @@ namespace TapGun
 	{
 	public:
 
-		UI();
+		//UI();
 		//~UI();
 
 		//メンバ変数
@@ -54,7 +52,7 @@ namespace TapGun
 		void Init(void);//数値の初期化（今後はコンストラクタに置き換える？）
 		int Init(int num, int utype);//数値の初期化
 
-		UI* Create( void);
+		//UI* Create( void);
 
 		void SetCollision(void);//当たり判定を初期化
 

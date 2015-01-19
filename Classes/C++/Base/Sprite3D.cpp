@@ -248,7 +248,7 @@ namespace TapGun
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		std::string dir = FileUtils::getInstance() -> fullPathForFilename(fileName);
 	#endif
-		ifstream file( dir, ios::in);
+		ifstream file( fileName, ios::in);
 		if( file.fail())
 		{
 			return -1;
