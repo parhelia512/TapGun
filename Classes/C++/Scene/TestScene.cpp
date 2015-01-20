@@ -30,6 +30,37 @@ using namespace CocosDenshion;
 cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+
+#include "platform/android/jni/JniHelper.h"
+
+void getExternalStorageDirectory()
+{
+	string str;
+	JniMethodInfo methodInfo;
+
+	// Javaのメソッドを探す
+	JniHelper::getStaticMethodInfo( methodInfo, "Project/TapGun/Sasebon/minaka/FileUtil",  "getExternalStorageDirectory", "()Ljava/lang/String;" );
+
+	// メソッド呼び出し。今回はStatic関数かつ、String型が戻り値なので CallStaticObjectMethod を使う
+	jstring jpath = (jstring)methodInfo.env -> CallStaticObjectMethod( methodInfo.classID, methodInfo.methodID);
+
+	// お約束の文字列変換
+	const char* npath = methodInfo.env->GetStringUTFChars(jpath, NULL);
+	str = npath;
+
+	auto label = Label::createWithTTF( str, "fonts/Marker Felt.ttf", 24);
+	label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
+	SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
+	Test::lay -> addChild( label, 1);
+	// 解放
+//	methodInfo.env->ReleaseStringUTFChars(jpath, npath);
+//	methodInfo.env->DeleteLocalRef(methodInfo.classID);
+//	return str;
+}
+
+#endif
+
 Scene* Test::createScene()
 {
 	SystemValue::windowSize = Director::getInstance() -> getVisibleSize();
@@ -48,46 +79,38 @@ bool Test::init()
 	}
 	setCocos();
 	lay = this;
-	
+	getExternalStorageDirectory();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3D = _Sprite3D::create( "enemy", "Enemy.anime");
 #else
 	//auto sprite3D = Sprite3D::create( "stage.c3t");//, "bock_gurand2.png");
-	auto sprite3D = _Sprite3D::create("enemy/enemy", "Enemy.anime");
+//	auto sprite3D = _Sprite3D::create("enemy/enemy", "Enemy.anime", "Enemy.texture");
 
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	FILE *fp;
 	auto file = FileUtils::getInstance();
-	
-	AAssetManager* mgr = FileUtilsAndroid::assetmanager;
-	AAssetDir* assetDir = AAssetManager_openDir( mgr, "Graph");
-	const char* filePath = AAssetDir_getNextFileName( assetDir);
+//	getExternalStorageDirectory();
 //	const char* filePath = "";
 //	string filePath = getFilesDir();
 //	string filePath = "Tap-Gun/Resources/Parameter/Animation/Enemy.anime";
 //	file -> fullPathForFilename( filePath.c_str());
 //	fp = fopen( filePath.c_str(), "r");
 //	if( fp == NULL)
-	if( strlen(filePath))
-	{
-		auto label = LabelTTF::create( "Hello World", "Arial", 24);
-		label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
-		SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
-		this -> addChild( label, 1);
-	}
+	
+	
 #endif
 
-	sprite3D -> startAnimationReverse( "dei1");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
-	sprite3D -> setScale( 250.0f);
-	this -> addChild( sprite3D);
+	//sprite3D -> startAnimationReverse( "dei1");
+	//sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
+	//sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
+	//sprite3D -> setScale( 250.0f);
+	//this -> addChild( sprite3D);
 
-	auto light = AmbientLight::create (Color3B::RED);
+//	auto light = AmbientLight::create (Color3B::RED);
 //	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
-	addChild (light);
+//	addChild (light);
 
 //	auto light = SpotLight::create(Vec3(-1.0f, -1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f),Color3B::RED, 0.0, 0.5, 10000.0f) ;
 

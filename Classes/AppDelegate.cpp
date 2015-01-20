@@ -14,6 +14,8 @@
 
 #endif
 
+#define TEST_SCENE
+
 USING_NS_CC;
 using namespace TapGun;
 
@@ -51,9 +53,11 @@ bool AppDelegate::applicationDidFinishLaunching()
 	glview -> setFrameSize( 1280, 800);
 #endif
 	director -> setAnimationInterval( 1.0 / 60);
-
+#ifdef TEST_SCENE
 	auto scene = Test::createScene();
-//	auto scene = GameScene::CreateScene();
+#else
+	auto scene = GameScene::CreateScene();
+#endif
 	director -> runWithScene( scene);
 
 	return true;
