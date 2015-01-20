@@ -25,6 +25,13 @@ using namespace TapGun;
 
 GameMaster* GameMasterM;//変数名は今後考慮する
 
+
+/*-*/
+//Animate3D* animateShot;
+//Animation3D* animationShot;
+//Animate3D* animateHiding;
+//Animation3D* animationHiding;
+
 /**
 *	ゲーム本編のモデルレイヤーの初期化
 *
@@ -147,6 +154,17 @@ int GameModelsLayer::InitPlayer(int stage_num)
 
 	//unit[num].sprite3d->runAction(RepeatForever::create(animate));
 
+
+
+
+
+	//一時的
+	//アニメーションのロード
+
+
+
+
+
 	return num;
 }
 
@@ -199,7 +217,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		//	unit[num].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, -3.0f));
 
 		//当たり判定の定義（仮）
-		unit[num].collisionPos = Vec3(0.8, 0.8, 0.8);
+		unit[num].collisionPos = Vec3(0.8, 1.4, 0.8);
 		unit[num].SetCollision();
 
 		/*-*/
@@ -246,7 +264,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		//unit[num].sprite3d->setPosition3D(Vec3(-5.0f, 0.0f, -20.0f));
 
 		//当たり判定の定義（仮）
-		unit[num].collisionPos = Vec3(0.8, 0.8, 0.8);
+		unit[num].collisionPos = Vec3(0.8, 1.4, 0.8);
 		unit[num].SetCollision();
 
 		/*-*/
@@ -372,6 +390,14 @@ void GameModelsLayer::UpdatePlayer(void)
 				{
 					//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
 					GameMasterM->SetPlayerState(PSTATE_SHOT);
+
+					//アニメーションを再生
+					std::string fileName1 = "Graph/Models/mot_player_shot.c3t";
+					auto animationShot = Animation3D::create(fileName1);
+					auto animateShot = Animate3D::create(animationShot, 0, 10);
+					animateShot->setSpeed(1);
+
+					unit[playerNum].sprite3d->runAction(RepeatForever::create(animateShot));
 				}
 				else//それ以外は今のところ回避
 				{
@@ -380,11 +406,11 @@ void GameModelsLayer::UpdatePlayer(void)
 
 					//アニメーション読み込み
 					std::string fileName1 = "Graph/Models/mot_player_hide shot left.c3t";
-					auto animation = Animation3D::create(fileName1);
-					auto animate = Animate3D::create(animation, 0, 10);
-					animate->setSpeed(1);
-					animate->reverse();
-					unit[playerNum].sprite3d->runAction(animate);
+					auto animationHiding = Animation3D::create(fileName1);
+					auto animateHiding = Animate3D::create(animationHiding, 0, 10);
+					animateHiding->setSpeed(1);
+
+					unit[playerNum].sprite3d->runAction(animateHiding);
 				}
 			}
 		}
@@ -400,6 +426,8 @@ void GameModelsLayer::UpdatePlayer(void)
 
 				//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
 				GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
+
+				//アニメーションは継続して再生
 			}
 		}
 		else if (TSTATE_MOVE == GameMasterM->GetTouchState())
@@ -410,16 +438,37 @@ void GameModelsLayer::UpdatePlayer(void)
 
 				//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
 				GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
+
+				//アニメーションは継続して再生
+
 			}
 		}
 		else if (TSTATE_RELEASE == GameMasterM->GetTouchState())//タッチを離したら
 		{
-			//フラグ更新の順番により、現在はこのif文に入らない
 			GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
+			unit[playerNum].InitFrame();//フレームをリフレッシュ
+			unit[playerNum].sprite3d->stopAllActions();
+
+			//アニメーションを再生
+			std::string fileName1 = "Graph/Models/mot_player_shot.c3t";
+			auto animationShot = Animation3D::create(fileName1);
+			auto animateShot = Animate3D::create(animationShot, 0, 10);
+			animateShot->setSpeed(1);
+			unit[playerNum].sprite3d->runAction(animateShot);
+
 		}
 		else
 		{
 			GameMasterM->SetPlayerState(PSTATE_IDLE);
+			unit[playerNum].InitFrame();//フレームをリフレッシュ
+			unit[playerNum].sprite3d->stopAllActions();
+
+			//アニメーションを再生
+			std::string fileName1 = "Graph/Models/mot_player_shot.c3t";
+			auto animationShot = Animation3D::create(fileName1);
+			auto animateShot = Animate3D::create(animationShot, 0, 10);
+			animateShot->setSpeed(1);
+			unit[playerNum].sprite3d->runAction(animateShot);
 		}
 
 		break;
@@ -429,6 +478,7 @@ void GameModelsLayer::UpdatePlayer(void)
 		{
 			GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
 			unit[playerNum].InitFrame();//フレームをリフレッシュ
+
 		}
 
 		break;
@@ -445,18 +495,21 @@ void GameModelsLayer::UpdatePlayer(void)
 					//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
 					GameMasterM->SetPlayerState(PSTATE_SHOT);
 					unit[playerNum].InitFrame();//フレームをリフレッシュ
-				}
-				else//それ以外は今のところ飛び出し動作
-				{
-					GameMasterM->SetPlayerState(PSTATE_HIDING);//回避に移行
-					unit[playerNum].InitFrame();//フレームをリフレッシュ
 
 					//アニメーション読み込み
+					std::string fileName1 = "Graph/Models/mot_player_hide shot left.c3t";
+					auto animationAppearShot = Animation3D::create(fileName1);
+					auto animateAppearShot = Animate3D::create(animationAppearShot, 0, 5);
 
-					//auto animation = Animation3D::create(fileName1);
-					//auto animate = Animate3D::create(animation);
-					//animate->setSpeed(1);
-					//unit[num].sprite3d->runAction(animate);
+					animateAppearShot->setSpeed(1);
+
+					unit[playerNum].sprite3d->runAction(animateAppearShot);
+
+				}
+				else//それ以外は今のところなし
+				{
+					//GameMasterM->SetPlayerState(PSTATE_APPEAR);//回避に移行
+					//unit[playerNum].InitFrame();//フレームをリフレッシュ
 				}
 			}
 		}
@@ -479,9 +532,14 @@ void GameModelsLayer::UpdatePlayer(void)
 		//キャラクター固有フレームが一定以上になったら状態遷移
 		if (10 <= unit[playerNum].GetFrame())
 		{
-
-			GameMasterM->SetPlayerState(PSTATE_IDLE);//とりあえずアイドル状態に移行
+			GameMasterM->SetPlayerState(PSTATE_SHOT);//とりあえずアイドル状態に移行
 			unit[playerNum].InitFrame();//フレームをリフレッシュ
+
+			//アニメーションを再生
+			std::string fileName1 = "Graph/Models/mot_player_shot.c3t";
+			auto animationShot = Animation3D::create(fileName1);
+			auto animateShot = Animate3D::create(animationShot, 0, 10);
+			animateShot->setSpeed(1);
 		}
 		break;//隠れた状態から出る
 	case PSTATE_DAMAGED:

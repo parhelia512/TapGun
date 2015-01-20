@@ -157,7 +157,7 @@ int GameScene::InitCamera()
 
 		cameraPos.x += 0.8;// += 0.5f;
 		cameraPos.y += 1.5f;// += 1.5f;
-		cameraPos.z += 4.0f;// += 3.1f;
+		cameraPos.z += 2.8f;// += 3.1f;
 
 
 		//cameraPos.x = 0.0f;// += 0.5f;
@@ -166,7 +166,7 @@ int GameScene::InitCamera()
 		//		GameMasterS->SetCameraLookAt();
 
 		GameMasterS->SetCamera3DPos(cameraPos);
-		GameMasterS->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
+		GameMasterS->SetCamera3DRot(Vec3(0.0f, 5.0f, 0.0f));
 		// gGameLayer->addChild(GameMasterS->Get3DCamInstance());//add camera to the scene
 		addChild(GameMasterS->Get3DCamInstance());//add camera to the scene
 
