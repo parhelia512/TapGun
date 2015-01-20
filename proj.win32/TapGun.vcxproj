@@ -147,7 +147,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp" />
     <ClCompile Include="..\Classes\C++\Scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\C++\Scene\GameUILayer.cpp" />
-    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp" />
+    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Classes\C++\Scene\TitleScene.cpp" />
     <ClCompile Include="..\Classes\C++\System\Directory.cpp" />
     <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp" />
@@ -168,7 +170,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h" />
     <ClInclude Include="..\Classes\C++\Scene\GameScene.h" />
     <ClInclude Include="..\Classes\C++\Scene\GameUILayer.h" />
-    <ClInclude Include="..\Classes\C++\Scene\TestScene.h" />
+    <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Classes\C++\Scene\TitleScene.h" />
     <ClInclude Include="..\Classes\C++\System\Directory.h" />
     <ClInclude Include="..\Classes\C++\System\Errorfunc.h" />

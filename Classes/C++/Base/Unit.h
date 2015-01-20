@@ -63,8 +63,7 @@ namespace TapGun
 		cocos2d::OBB obbHead;
 
 		//==モデル・アニメーション関連クラス==
-		cocos2d::Sprite3D* sprite3d;//
-		TapGun::_Sprite3D* sprite3d_;
+		TapGun::_Sprite3D* sprite3d;
 		cocos2d::Node* wrapper;//モデルの親ノード（モデル基準座標として使用する。通常は(0,0,0)座標）
 		cocos2d::Animation3D* animation;
 		cocos2d::Animate3D* animate;

@@ -52,7 +52,9 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3D = _Sprite3D::create( "enemy", "Enemy.anime");
 #else
-	auto sprite3D = Sprite3D::create( "stage.c3t");//, "bock_gurand2.png");
+	//auto sprite3D = Sprite3D::create( "stage.c3t");//, "bock_gurand2.png");
+	auto sprite3D = _Sprite3D::create("enemy/enemy", "Enemy.anime");
+
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	FILE *fp;
