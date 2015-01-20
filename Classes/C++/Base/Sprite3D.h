@@ -46,7 +46,8 @@ namespace TapGun
 
 		int startAnimation( const std::string& animeName);
 		int startAnimationLoop( const std::string& animeName);
-
+		int startAnimationReverse( const std::string& animeName);
+		
 		int stopAnimation( const std::string& animeName);
 		int stopALLAnimation( void);
 

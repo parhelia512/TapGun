@@ -278,6 +278,7 @@ namespace TapGun
 			Test::lay -> addChild( label, 1);
 			modelAnimeListStart = anime;
 		}
+		fclose( fp);
 		return 0;
 	#else
 
@@ -386,6 +387,45 @@ namespace TapGun
 		runAction( cocos2d::RepeatForever::create( animate));
 		return 0;
 	#endif
+	}
+	
+	/**
+	 *	3Dモデルのアニメーション再生（逆再生）
+	 *
+	 *	@author	minaka
+	 *	@param	animeName アニメーション名
+	 *	@return	正常終了:0 エラー発生:-1
+	 *	@date	1/20	Ver 1.0
+	 */
+	int _Sprite3D::startAnimationReverse( const string& animeName)
+	{
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		animeData* P;
+		for( P = modelAnimeListStart; P -> next != NULL; P = P -> next)
+		{
+			if( animeName.compare(  P -> name))
+			{
+				animation = cocos2d::Animation3D::create( P -> path);
+				if( animation == nullptr) return -1;
+				animate = cocos2d::Animate3D::create( animation);
+				if( animate == nullptr) return -1;
+				animate -> setSpeed( -1);
+				runAction( cocos2d::RepeatForever::create( animate));
+				return 0;
+			}
+		}
+		return -1;
+	#else
+		string str = modelAnimeList[animeName];
+		if( str == "") return -1;
+		animation = cocos2d::Animation3D::create( str);
+		if( animation == nullptr) return -1;
+		animate = cocos2d::Animate3D::create( animation);
+		if( animate == nullptr) return -1;
+		animate -> setSpeed( -1);
+		runAction( cocos2d::RepeatForever::create( animate));
+		return 0;
+#endif
 	}
 
 	/**
@@ -499,6 +539,7 @@ namespace TapGun
 			texture -> next = modelTextureListStart;
 			modelTextureListStart = texture;
 		}
+		fclose( fp);
 		return 0;
 	#else
 

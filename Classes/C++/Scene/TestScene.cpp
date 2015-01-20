@@ -55,34 +55,39 @@ bool Test::init()
 	auto sprite3D = Sprite3D::create( "stage.c3t");//, "bock_gurand2.png");
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		FILE *fp;
-		auto file = FileUtils::getInstance();
-		string filePath = file -> fullPathForFilename( "Parameter/Animation/Enemy.anime");
-		fp = fopen( filePath.c_str(), "r");
-		if( fp == NULL)
-		{
-			auto label = LabelTTF::create( "Hello World", "Arial", 24);
-			label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
-			SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
-			this -> addChild( label, 1);
-		}
+	FILE *fp;
+	auto file = FileUtils::getInstance();
+	
+	AAssetManager* mgr = FileUtilsAndroid::assetmanager;
+	AAssetDir* assetDir = AAssetManager_openDir( mgr, "Graph");
+	const char* filePath = AAssetDir_getNextFileName( assetDir);
+//	const char* filePath = "";
+//	string filePath = getFilesDir();
+//	string filePath = "Tap-Gun/Resources/Parameter/Animation/Enemy.anime";
+//	file -> fullPathForFilename( filePath.c_str());
+//	fp = fopen( filePath.c_str(), "r");
+//	if( fp == NULL)
+	if( strlen(filePath))
+	{
+		auto label = LabelTTF::create( "Hello World", "Arial", 24);
+		label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
+		SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
+		this -> addChild( label, 1);
+	}
 #endif
-//	auto mesh = sprite3D -> getMeshCount();
-	//sprite3D -> startAnimationLoop( "shot");
-	//mesh[1] -> setTexture( "tex_sita.png");
-	//	sprite3D -> setShaderFile( "toon");
-	//	auto animation = Animation3D::create( "Graph/Models/test.c3t");
-	//	auto animate = Animate3D::create( animation);
-	//	sprite3D -> runAction( RepeatForever::create( animate));
-	//	sprite3D -> startAnimationLoop("Test");
+
+	sprite3D -> startAnimationReverse( "dei1");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
 	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
-	sprite3D -> setScale( 10.0f);
+	sprite3D -> setScale( 250.0f);
 	this -> addChild( sprite3D);
 
-	//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
-	//	addChild (light);
+	auto light = AmbientLight::create (Color3B::RED);
+//	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
+//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
+	addChild (light);
 
+//	auto light = SpotLight::create(Vec3(-1.0f, -1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f),Color3B::RED, 0.0, 0.5, 10000.0f) ;
 
 	#ifdef CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
 	auto screenSize = Director::getInstance()->getWinSize();//„Çπ„ÇØ„É™„Éº„É≥„Çµ„Ç§„Ç∫„ÇíÂèñÂæó
