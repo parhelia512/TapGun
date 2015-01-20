@@ -95,7 +95,7 @@ void GameUILayer::SetUI()
 	auto s = Director::getInstance()->getWinSize();//スクリーンサイズを取得
 	UIBillBoard[UIKIND_RETICLE] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 	UIBillBoard[UIKIND_RETICLE]->setPosition(s.width / 2, s.height / 2);
-	UIBillBoard[UIKIND_RETICLE]->setScale(0.25f);
+	UIBillBoard[UIKIND_RETICLE]->setScale(0.3f);
 	addChild(UIBillBoard[UIKIND_RETICLE]);
 
 	Ui[UIKIND_RETICLE].Init(num, UIKIND_RETICLE);
@@ -104,8 +104,8 @@ void GameUILayer::SetUI()
 	//矢印の初期化
 	fileName1 = "Graph/Pictures/arrow.png";
 	UIBillBoard[UIKIND_ARROW] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	UIBillBoard[UIKIND_ARROW]->setPosition(50.0f, 50.0f);
-	UIBillBoard[UIKIND_ARROW]->setScale(0.5f);
+	UIBillBoard[UIKIND_ARROW]->setPosition(120.0f, 100.0f);
+	UIBillBoard[UIKIND_ARROW]->setScale(1.0f);
 	addChild(UIBillBoard[UIKIND_ARROW]);
 
 	Ui[UIKIND_ARROW].Init(UIKIND_ARROW, UIKIND_ARROW);
@@ -114,8 +114,8 @@ void GameUILayer::SetUI()
 	//ライフバーの初期化
 	fileName1 = "Graph/Pictures/lifebar.png";
 	UIBillBoard[UIKIND_LIFEBAR] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	UIBillBoard[UIKIND_LIFEBAR]->setPosition(220.0f, 750.0f);
-	UIBillBoard[UIKIND_LIFEBAR]->setScale(0.8f);
+	UIBillBoard[UIKIND_LIFEBAR]->setPosition(270.0f, 730.0f);
+	UIBillBoard[UIKIND_LIFEBAR]->setScale(1.0f);
 	addChild(UIBillBoard[UIKIND_LIFEBAR]);
 
 	Ui[UIKIND_LIFEBAR].Init(UIKIND_LIFEBAR, UIKIND_LIFEBAR);
@@ -124,8 +124,8 @@ void GameUILayer::SetUI()
 	//弾数Ａ（アイコン）
 	fileName1 = "Graph/Pictures/bullet_a.png";
 	UIBillBoard[UKIND_BULLET_A] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	UIBillBoard[UKIND_BULLET_A]->setPosition(160.0f, 670.0f);
-	UIBillBoard[UKIND_BULLET_A]->setScale(0.8f);
+	UIBillBoard[UKIND_BULLET_A]->setPosition(200.0f, 630.0f);
+	UIBillBoard[UKIND_BULLET_A]->setScale(1.0f);
 	addChild(UIBillBoard[UKIND_BULLET_A]);
 
 	Ui[UKIND_BULLET_A].Init(UKIND_BULLET_A, UKIND_BULLET_A);
@@ -134,8 +134,8 @@ void GameUILayer::SetUI()
 	//弾数Ｂ（数字）
 	fileName1 = "Graph/Pictures/bullet_b.png";
 	UIBillBoard[UKIND_BULLET_B] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	UIBillBoard[UKIND_BULLET_B]->setPosition(370.0f, 670.0f);
-	UIBillBoard[UKIND_BULLET_B]->setScale(0.8f);
+	UIBillBoard[UKIND_BULLET_B]->setPosition(450.0f, 630.0f);
+	UIBillBoard[UKIND_BULLET_B]->setScale(1.0f);
 	addChild(UIBillBoard[UKIND_BULLET_B]);
 
 	Ui[UKIND_BULLET_B].Init(UKIND_BULLET_B, UKIND_BULLET_B);

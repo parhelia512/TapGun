@@ -1,6 +1,7 @@
 
 #include "GameModelsLayer.h"
 
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 
@@ -103,12 +104,12 @@ int GameModelsLayer::InitPlayer(int stage_num)
 	unit[num].Init();//メンバ変数の初期化をしておく
 
 #ifdef	COCOS_TMP
-	std::string fileName1 = "Graph/Models/mot_player_hide shot.c3t";
+	std::string fileName1 = "Graph/Models/model_player.c3t";
 	std::string fileName2 = "Graph/Textures/box_tex.png";
 
 	unit[num].sprite3d = Sprite3D::create(fileName1, fileName2);
 #else
-	std::string fileName1 = "mot_player_hide shot";
+	std::string fileName1 = "model_player";
 	std::string fileName2 = "box_tex.png";
 
 	unit[num].sprite3d = TapGun::Sprite3D::create(fileName1, fileName2);
@@ -201,6 +202,11 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		unit[num].collisionPos = Vec3(0.8, 0.8, 0.8);
 		unit[num].SetCollision();
 
+		/*-*/
+		unit[num].InitFrame();//フレームをクリア
+		int r = rand() % 40 - 40;//とりあえず
+		unit[num].SetFrame(r);//フレームをクリア
+
 		//アニメーション読み込み
 		{
 			//auto animation = Animation3D::create("Graph/Models/mot_enemy_dei1_mot.c3b");
@@ -243,6 +249,10 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		unit[num].collisionPos = Vec3(0.8, 0.8, 0.8);
 		unit[num].SetCollision();
 
+		/*-*/
+		unit[num].InitFrame();//フレームをクリア
+		r = rand() % 40 - 40;//とりあえず
+		unit[num].SetFrame(r);//フレームをクリア
 
 		//アニメーション読み込み
 		{
@@ -329,25 +339,36 @@ void GameModelsLayer::UpdateLayer()
 	CheckHit();//当たり判定のチェック
 }
 
-void GameModelsLayer::UpdatePlayer()
+
+/**
+*	プレイヤーの更新
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
+void GameModelsLayer::UpdatePlayer(void)
 {
 	//タッチ座標をもとに攻撃や回避の処理を行う
 	//この関数内では、タッチ状態とタッチフラグの更新は行わないこと。
 	static Vec2 tmpPos;
 
+	unit[playerNum].Update();//プレイヤーのフレーム・座標更新
+
 	//プレイヤーの状態を取得して場合分け
-	switch(GameMasterM->GetPlayerState())
+	switch (GameMasterM->GetPlayerState())
 	{
 
 	case PSTATE_IDLE://アイドル状態
 
-		if(TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
+		if (TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
 		{
 			{
 				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
 				Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
 				tmpPos = GameMasterM->GetTouchPos();
-				if(tPos.x > s.width * 0.4f)//攻撃可能範囲をタッチしていれば
+				if (tPos.x > s.width * 0.4f)//攻撃可能範囲をタッチしていれば
 				{
 					//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
 					GameMasterM->SetPlayerState(PSTATE_SHOT);
@@ -355,20 +376,23 @@ void GameModelsLayer::UpdatePlayer()
 				else//それ以外は今のところ回避
 				{
 					GameMasterM->SetPlayerState(PSTATE_HIDING);//回避に移行
+					unit[playerNum].InitFrame();//フレームをリフレッシュ
 
 					//アニメーション読み込み
-
-					//auto animation = Animation3D::create(fileName1);
-					//auto animate = Animate3D::create(animation);
-					//animate->setSpeed(1);
-					//unit[num].sprite3d->runAction(animate);
+					std::string fileName1 = "Graph/Models/mot_player_hide shot left.c3t";
+					auto animation = Animation3D::create(fileName1);
+					auto animate = Animate3D::create(animation, 0, 10);
+					animate->setSpeed(1);
+					animate->reverse();
+					unit[playerNum].sprite3d->runAction(animate);
 				}
 			}
 		}
 		break;
 	case PSTATE_SHOT:
 
-		if(TSTATE_ON == GameMasterM->GetTouchState())
+		//
+		if (TSTATE_ON == GameMasterM->GetTouchState())
 		{
 			{
 				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
@@ -378,7 +402,7 @@ void GameModelsLayer::UpdatePlayer()
 				GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
 			}
 		}
-		else if(TSTATE_MOVE == GameMasterM->GetTouchState())
+		else if (TSTATE_MOVE == GameMasterM->GetTouchState())
 		{
 			{
 				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
@@ -388,7 +412,7 @@ void GameModelsLayer::UpdatePlayer()
 				GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
 			}
 		}
-		else if(TSTATE_RELEASE == GameMasterM->GetTouchState())//タッチを離したら
+		else if (TSTATE_RELEASE == GameMasterM->GetTouchState())//タッチを離したら
 		{
 			//フラグ更新の順番により、現在はこのif文に入らない
 			GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
@@ -400,12 +424,65 @@ void GameModelsLayer::UpdatePlayer()
 
 		break;
 	case PSTATE_HIDING://隠れ中
-		GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
+		//キャラクター固有フレームが一定以上になったら状態遷移
+		if (10 <= unit[playerNum].GetFrame())
+		{
+			GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
+			unit[playerNum].InitFrame();//フレームをリフレッシュ
+		}
+
 		break;
 	case PSTATE_HIDE://隠れている
-		GameMasterM->SetPlayerState(PSTATE_IDLE);//とりあえずアイドル状態に移行
+
+		if (TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
+		{
+			{
+				auto s = Director::getInstance()->getWinSize();//画面サイズ取得
+				Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
+				tmpPos = GameMasterM->GetTouchPos();
+				if (tPos.x > s.width * 0.5f)//攻撃可能範囲をタッチしていれば
+				{
+					//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
+					GameMasterM->SetPlayerState(PSTATE_SHOT);
+					unit[playerNum].InitFrame();//フレームをリフレッシュ
+				}
+				else//それ以外は今のところ飛び出し動作
+				{
+					GameMasterM->SetPlayerState(PSTATE_HIDING);//回避に移行
+					unit[playerNum].InitFrame();//フレームをリフレッシュ
+
+					//アニメーション読み込み
+
+					//auto animation = Animation3D::create(fileName1);
+					//auto animate = Animate3D::create(animation);
+					//animate->setSpeed(1);
+					//unit[num].sprite3d->runAction(animate);
+				}
+			}
+		}
+
+
 		break;
-	case PSTATE_APPEAR:
+	case PSTATE_APPEAR://隠れた状態から出る
+
+		//キャラクター固有フレームが一定以上になったら状態遷移
+		if (10 <= unit[playerNum].GetFrame())
+		{
+			GameMasterM->SetPlayerState(PSTATE_IDLE);//とりあえずアイドル状態に移行
+			unit[playerNum].InitFrame();//フレームをリフレッシュ
+
+		}
+		break;
+
+	case PSTATE_APPEARSHOT://隠れた状態から攻撃
+
+		//キャラクター固有フレームが一定以上になったら状態遷移
+		if (10 <= unit[playerNum].GetFrame())
+		{
+
+			GameMasterM->SetPlayerState(PSTATE_IDLE);//とりあえずアイドル状態に移行
+			unit[playerNum].InitFrame();//フレームをリフレッシュ
+		}
 		break;//隠れた状態から出る
 	case PSTATE_DAMAGED:
 		break;
@@ -418,18 +495,36 @@ void GameModelsLayer::UpdatePlayer()
 }
 
 
-
+/**
+*	エネミーの更新
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
 void GameModelsLayer::UpdateEnemy()
 {
 	for(int i = 0; i < MAX_UNIT; i++)
 	{
 		if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
 		{
-			unit[i].frame += 1;
-			if(120 <= unit[i].frame)
+			unit[i].Update();//フレーム・座標・当たり判定の更新
+			if(300 <= unit[i].GetFrame())
 			{
+
+				//アニメーション読み込み
+				std::string fileName1 = "Graph/Models/enemy/enemy_shot.c3t";
+				auto animation = Animation3D::create(fileName1);
+				auto animate = Animate3D::create(animation);
+				animate->setSpeed(1);
+				unit[i].sprite3d->runAction(animate);
+
 				ShootBullet(i);//i番のエネミーが弾を発射する
-				unit[i].frame = 0;
+				unit[i].InitFrame();//フレームをクリア
+				int r = rand() % 40 - 40;//とりあえず
+				unit[i].SetFrame(r);
+
 			}
 		}
 	}
@@ -510,8 +605,8 @@ void GameModelsLayer::UpdateBullets()
 	{
 		if(FALSE != unit[i].valid && UKIND_EBULLET == unit[i].kind)
 		{
-			unit[i].UpdatePos();//座標と一緒に当たり判定を移動
-			unit[playerNum].UpdatePos();//当たり判定更新
+			unit[i].Update();//座標と一緒に当たり判定を移動
+			unit[playerNum].Update();//当たり判定更新
 
 			//unit[i].sprite3d->getBoundingBox();
 

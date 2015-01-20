@@ -35,7 +35,6 @@ void Unit::Init( void)
 	collisionPos = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
 
 	frame = 0;//管理フレーム
-
 }
 
 
@@ -120,20 +119,24 @@ void Unit::SetCollision(void)
 
 
 /**
-*	速度をもとにしたUnit移動
+*	Unitの各種変数更新
 *
 *	@author	sasebon
 *	@param	なし
 *	@return	なし
 *	@date	1/8 Ver 1.0
 */
-void Unit::UpdatePos(void)
+void Unit::Update(void)
 {
+	//フレームを加算
+	frame += 1;
+
+	//座標を移動
 	pos = sprite3d->getPosition3D();
 	pos += speedVec;
 	sprite3d->setPosition3D(pos);
 
-	//当たり判定の移動
+	//当たり判定を移動
 	Vec3 collision_min = pos - collisionPos / 2;
 	Vec3 collision_max = pos + collisionPos / 2;
 
@@ -144,15 +147,41 @@ void Unit::UpdatePos(void)
 
 
 /**
-*	引数座標へのUnit移動
+*	キャラクター固有フレームの初期化
 *
 *	@author	sasebon
-*	@param	座標
+*	@param	なし
 *	@return	なし
-*	@date	1/8 Ver 1.0
+*	@date	1/20 Ver 1.0
 */
-void Unit::UpdatePos(Vec3 pos_vec)
+void Unit::InitFrame(void)
 {
-	pos = pos_vec;
-	sprite3d->setPosition3D(pos_vec);
+	frame = 0;
+}
+
+
+/**
+*	キャラクター固有フレームのセット
+*
+*	@author	sasebon
+*	@param	任意のフレーム
+*	@return	なし
+*	@date	1/20 Ver 1.0
+*/
+void Unit::SetFrame(int f)
+{
+	frame = f;
+}
+
+/**
+*	キャラクター固有フレームを返す
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/20 Ver 1.0
+*/
+int Unit::GetFrame(void)
+{
+	return frame;
 }
