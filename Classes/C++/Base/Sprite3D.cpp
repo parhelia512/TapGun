@@ -410,7 +410,7 @@ namespace TapGun
 				animate = cocos2d::Animate3D::create( animation);
 				if( animate == nullptr) return -1;
 				animate -> setSpeed( -1);
-				runAction( cocos2d::RepeatForever::create( animate));
+				runAction( animate);
 				return 0;
 			}
 		}
@@ -423,7 +423,7 @@ namespace TapGun
 		animate = cocos2d::Animate3D::create( animation);
 		if( animate == nullptr) return -1;
 		animate -> setSpeed( -1);
-		runAction( cocos2d::RepeatForever::create( animate));
+		runAction( animate);
 		return 0;
 #endif
 	}

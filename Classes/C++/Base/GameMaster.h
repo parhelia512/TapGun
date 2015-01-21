@@ -37,10 +37,9 @@ namespace TapGun
 	{
 		PSTATE_IDLE,
 		PSTATE_SHOT,
-		PSTATE_HIDING,//隠れ中
+		PSTATE_DODGE,//隠れ中
 		PSTATE_HIDE,//隠れている
 		PSTATE_APPEAR,//隠れた状態から出る
-		PSTATE_APPEARSHOT,//隠れた状態から攻撃する
 		PSTATE_DAMAGED,
 		PSTATE_RUN,
 		PSTATE_DEAD,
@@ -145,8 +144,6 @@ namespace TapGun
 		static cocos2d::Camera* camera3D;
 
 		GameMaster() {}
-
-
 	};
 }
 

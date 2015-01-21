@@ -204,8 +204,7 @@ void GameUILayer::MoveReticle(void)
 			break;
 
 		case PSTATE_IDLE://アイドル状態
-		case PSTATE_HIDING://隠れる最中
-		case PSTATE_HIDE://隠れている
+ 		case PSTATE_HIDE://隠れている
 		case PSTATE_APPEAR://隠れた状態から出る
 		case PSTATE_DAMAGED://ダメージを受けた
 			break;

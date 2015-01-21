@@ -68,6 +68,7 @@ int Unit::Init(int num, int utype)
 	targetPos = Vec3(0, 0, 0);
 
 	frame = 0;//管理フレーム
+	animFrame = -2;//
 
 	//モデルの種別によって当たり判定の設定を行う
 	//敵や弾の種類（副種別）によってさらに条件分けする
@@ -142,6 +143,8 @@ void Unit::Update(void)
 
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
+
+//	Unit::UpdateAnimation();//アニメーションを更新
 }
 
 
@@ -172,6 +175,152 @@ void Unit::SetFrame(int f)
 {
 	frame = f;
 }
+
+
+
+/**
+*	再生するアニメーションをセットする
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/21 Ver 1.0
+*/
+void Unit::SetAnimation(const std::string& animeName, const int speed)
+{
+	sprite3d->stopALLAnimation();//現在行っているアニメーションを停止する
+
+	//アニメーションの再生方向の設定
+	if(0 < speed)//順再生
+	{
+		sprite3d->startAnimation(animeName);
+	}
+	else if(0 == speed)//ループ再生
+	{
+		sprite3d->startAnimationLoop(animeName);
+	}
+	else if(0 > speed)//逆再生
+	{
+		sprite3d->startAnimationReverse(animeName);
+	}
+}
+
+
+
+/**
+*	再生範囲を指定してアニメーションをセットする
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/21 Ver 1.0
+*/
+//void Unit::SetAnimation(const std::string& animeName, const int speed, const int frame ,const int startF, const int endF)
+//{
+//	/*@*/
+//	//現在はアニメーションフレームの範囲の整合性を取っていないので、今後処理を追加する
+//
+//	sprite3d->stopALLAnimation();//現在行っているアニメーションを停止する
+//	//アニメーション再生時間の設定
+//	int f = abs(endF - startF);
+//
+//	//ループ再生
+//	if(0 == frame)
+//	{
+//		animFrame = -1;//
+//		//この場合の処理は後で実装する
+//		sprite3d->startAnimationLoop(animeName, startF, endF);//とりあえず
+//		return;
+//	}
+//
+//	//それ以外
+//	if(0 < f)//アニメーションが正数ならば
+//	{
+//		animFrame = frame;//フレームが0になるとアニメーション停止
+//	}
+//	else if(0 == frame)//フレームに0を設定すると、停止しない
+//	{
+//		animFrame = -1;//
+//		//この場合の処理は後で実装する
+//		sprite3d->startAnimationLoop(animeName, startF, endF);//とりあえず
+//		return;
+//	}
+//	else
+//	{
+//		animFrame = 0;//負の数の場合は本来エラー/*@*/
+//	}
+//
+//	//アニメーションの再生方向の設定
+//	if(0 <= speed)//順再生
+//	{
+//		sprite3d->startAnimation(animeName, startF, endF);
+//	}
+//	else if(0 > speed)//逆再生
+//	{
+//		sprite3d->startAnimationReverse(animeName);
+//	}
+//}
+
+
+/**
+*	アニメーションを更新する
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/21 Ver 1.0
+*/
+//void Unit::UpdateAnimation(void)
+//{
+	/*-*/
+	//不要になったので削除予定
+
+	//if(-2 == animFrame)
+	//{
+
+	//}
+	//if(-1 == animFrame)//手動停止するまでループを続ける
+	//{
+
+	//}
+	//else
+	//{
+	//	animFrame--;//アニメーション管理フレームを減らす
+	//	if(0 >= animFrame)
+	//	{
+	//		sprite3d->stopALLAnimation();
+	//		animFrame = -2;
+	//	}
+	//}
+//}
+
+
+
+/**
+*	アニメーション中かを確認する
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	再生中: TRUE | 再生していない : FALSE
+*	@date	1/21 Ver 1.0
+*/
+//BOOL Unit::CheckAnimation(void)
+//{
+//	/*-*/
+//	//不要になったので削除予定
+//
+//
+//	if(0 < animFrame | -1 == animFrame)//再生中
+//	{
+//		return TRUE;
+//	}
+//	else if(0 == animFrame | -2 == animFrame)//再生終了または再生していない
+//	{
+//		return FALSE;
+//	}
+//}
+
+
 
 /**
 *	キャラクター固有フレームを返す

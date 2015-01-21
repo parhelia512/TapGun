@@ -211,6 +211,17 @@ void GameScene::moveTime(float delta)
 
 	case GSTATE_WAIT:
 
+		if(NULL != gGameLayer)//現在は初期化チェック確認する
+		{
+			gGameLayer->UpdateLayer();//レイヤーの更新
+		}
+		if(NULL != gUILayer)//現在は初期化チェック確認する
+		{
+			gUILayer->UpdateLayer();
+		}
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+
+
 		break;
 	case GSTATE_PLAY:
 
