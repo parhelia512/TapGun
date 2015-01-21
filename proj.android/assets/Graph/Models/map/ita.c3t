@@ -1,0 +1,88 @@
+{
+	"version": "0.5", 
+	"id": "", 
+	"meshes": [
+		{
+			"attributes": [{
+					"size":   3, 
+					"type": "GL_FLOAT", 
+					"attribute": "VERTEX_ATTRIB_POSITION"
+				}, {
+					"size":   3, 
+					"type": "GL_FLOAT", 
+					"attribute": "VERTEX_ATTRIB_NORMAL"
+				}, {
+					"size":   2, 
+					"type": "GL_FLOAT", 
+					"attribute": "VERTEX_ATTRIB_TEX_COORD"
+				}], 
+			"vertices": [
+				-2.500000, -5.000000,  0.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000, 
+				 2.500000, -5.000000,  0.000000,  0.000000,  0.000000,  1.000000,  1.000000,  0.000000, 
+				 2.500000,  5.000000,  0.000000,  0.000000,  0.000000,  1.000000,  1.000000,  1.000000, 
+				-2.500000,  5.000000,  0.000000,  0.000000,  0.000000,  1.000000,  0.000000,  1.000000
+			], 
+			"parts": [
+				{
+					"id": "shape1_part1", 
+					"type": "TRIANGLES", 
+					"indices": [  0,   1,   2,   2,   3,   0], 
+					"aabb": [-2.500000, -5.000000,  0.000000,  2.500000,  5.000000,  0.000000]
+				}
+			]
+		}
+	], 
+	"materials": [
+		{
+			"id": "Material #18", 
+			"ambient": [ 0.588000,  0.588000,  0.588000], 
+			"diffuse": [ 0.588000,  0.588000,  0.588000], 
+			"emissive": [ 0.000000,  0.000000,  0.000000], 
+			"opacity":  1.000000, 
+			"specular": [ 0.900000,  0.900000,  0.900000], 
+			"shininess":  2.000000, 
+			"textures": [
+				{
+					"id": "マップ #3", 
+					"filename": "bock_gurand2.png", 
+					"type": "DIFFUSE", 
+					"wrapModeU": "REPEAT", 
+					"wrapModeV": "REPEAT"
+				}
+			]
+		}, 
+		{
+			"id": "02 - Default", 
+			"ambient": [ 0.588235,  0.588235,  0.588235], 
+			"diffuse": [ 0.588235,  0.588235,  0.588235], 
+			"emissive": [ 0.000000,  0.000000,  0.000000], 
+			"opacity":  1.000000, 
+			"specular": [ 0.900000,  0.900000,  0.900000], 
+			"shininess":  2.000000, 
+			"textures": [
+				{
+					"id": "マップ #2", 
+					"filename": "metal04.jpg", 
+					"type": "DIFFUSE", 
+					"wrapModeU": "REPEAT", 
+					"wrapModeV": "REPEAT"
+				}
+			]
+		}
+	], 
+	"nodes": [
+		{
+			"id": "ita", 
+			"skeleton": false, 
+			"transform": [ 0.567628,  0.000000, -0.823285,  0.000000, -0.823285,  0.000000, -0.567628,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  1.000000], 
+			"parts": [
+				{
+					"meshpartid": "shape1_part1", 
+					"materialid": "Material #18", 
+					"uvMapping": [[  0]]
+				}
+			]
+		}
+	], 
+	"animations": []
+}

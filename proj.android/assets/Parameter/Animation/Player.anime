@@ -1,0 +1,16 @@
+player/mot_player_shot.c3b,shot
+player/mot_player_shot.c3t,shot
+player/mot_player_hide shot left.c3b,hideshot_l
+player/mot_player_hide shot left.c3t,hideshot_l
+player/mot_player_hide shot right.c3b,hideshot_r
+player/mot_player_hide shot right.c3t,hideshot_r
+player/mot_player_reload.c3b,reload
+player/mot_player_reload.c3t,reload
+player/mot_player_hit1.c3b,hit1
+player/mot_player_hit1.c3t,hit1
+player/mot_player_dei1.c3b,dei1
+player/mot_player_dei1.c3t,dei1
+player/mot_player_dei2.c3b,dei2
+player/mot_player_dei2.c3t,dei2
+player/mot_player_run.c3b,run
+player/mot_player_run.c3t,run
