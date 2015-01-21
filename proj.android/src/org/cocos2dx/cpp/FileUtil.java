@@ -1,30 +1,14 @@
 
 package Project.TapGun.Sasebon.minaka;
 
-import java.io.File;
-import java.io.IOException;
+import android.app.Activity;
+import android.content.Context;
 
-public class FileUtil
+public class FileUtil extends Activity
 {
-	public static String getExternalStorageDirectory()
+	public String getExternalStorageDirectory()
 	{
-		File readFile = new File("Graph");
-		String s="";
-		//s = readFile.getAbsolutePath();
-		//s = readFile.getPath();
-		s = System.getProperty("Graph");
-		return(s);
-		/*
-		try
-		{
-			File readFile = new File("Graph");
-			String s="";
-			s = readFile.getCanonicalPath();
-			return(s);
-		}
-		catch ( IOException e)
-		{
-			return ("");
-		}*/
+		return( "Hello World!");
 	}
 }
+
