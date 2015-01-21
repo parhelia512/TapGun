@@ -16,27 +16,12 @@ namespace TapGun
 		Num,
 	};
 
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-//	struct animeData
-//	{
-//		std::string name;
-//		std::string path;
-//		animeData* next;
-//	};
-//
-//	struct textureData
-//	{
-//		std::string name;
-//		std::string path;
-//		textureData* next;
-//	};
-//#else
 	struct textureData
 	{
 		std::string name;
 		std::string path;
 	};
-//#endif
+
 	class _Sprite3D : public cocos2d::Sprite3D
 	{
 	public:
@@ -47,6 +32,8 @@ namespace TapGun
 		int startAnimation( const std::string& animeName);
 		int startAnimationLoop( const std::string& animeName);
 		int startAnimationReverse( const std::string& animeName);
+		int startAnimationReverseLoop( const std::string& animeName);
+
 		
 		int stopAnimation( const std::string& animeName);
 		int stopALLAnimation( void);
@@ -70,13 +57,9 @@ namespace TapGun
 	private:
 		cocos2d::Animation3D*           animation;
 		cocos2d::Animate3D*             animate;
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-//		animeData* modelAnimeListStart;
-//		textureData* modelTextureListStart;
-//#else
 		std::map< const std::string, std::string>	modelAnimeList;
 		std::vector< textureData>	modelTextureList;
-//#endif
+
 		void setTextureList(void);
 		int load3DModelAnimeData( const std::string& fileName);
 		int load3DModelTextureData( const std::string& fileName);
