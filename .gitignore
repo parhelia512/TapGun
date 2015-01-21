@@ -9,4 +9,4 @@ proj.wp8-xaml
 !Android.mk
 !project.pbxproj
 !Recluta.vcxproj.filters
-!proj.android/src
+!FileUtil.java
