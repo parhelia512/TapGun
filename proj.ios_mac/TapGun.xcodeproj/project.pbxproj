@@ -45,6 +45,9 @@
 		521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6219F0C34300D177D7 /* Default-667h@2x.png */; };
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		820FEA3F1A70B15E00A564C6 /* tama.c3b in Resources */ = {isa = PBXBuildFile; fileRef = 820FEA3D1A70B15E00A564C6 /* tama.c3b */; };
+		820FEA401A70B15E00A564C6 /* tama.c3t in Resources */ = {isa = PBXBuildFile; fileRef = 820FEA3E1A70B15E00A564C6 /* tama.c3t */; };
+		820FEA431A70B19300A564C6 /* tama.png in Resources */ = {isa = PBXBuildFile; fileRef = 820FEA421A70B19300A564C6 /* tama.png */; };
 		8259B7D81A6F35130099560E /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8259B6FB1A6F35130099560E /* AppDelegate.cpp */; };
 		8259B7D91A6F35130099560E /* GameMaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8259B6FF1A6F35130099560E /* GameMaster.cpp */; };
 		8259B7DA1A6F35130099560E /* Sprite3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8259B7011A6F35130099560E /* Sprite3D.cpp */; };
@@ -65,7 +68,6 @@
 		8259B7E91A6F35130099560E /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8259B7211A6F35130099560E /* Sound.cpp */; };
 		8259B7EA1A6F35130099560E /* Wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8259B7231A6F35130099560E /* Wrapper.cpp */; };
 		8259B7EB1A6F35130099560E /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8259B7271A6F35130099560E /* a.txt */; };
-		8259B7EC1A6F35130099560E /* test.script in Resources */ = {isa = PBXBuildFile; fileRef = 8259B7291A6F35130099560E /* test.script */; };
 		8259B7ED1A6F35130099560E /* basic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 8259B72B1A6F35130099560E /* basic.fsh */; };
 		8259B7EE1A6F35130099560E /* basic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 8259B72C1A6F35130099560E /* basic.vsh */; };
 		8259B7EF1A6F35130099560E /* basic2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 8259B72D1A6F35130099560E /* basic2D.fsh */; };
@@ -326,6 +328,9 @@
 		521A8E6219F0C34300D177D7 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		820FEA3D1A70B15E00A564C6 /* tama.c3b */ = {isa = PBXFileReference; lastKnownFileType = file; path = tama.c3b; sourceTree = "<group>"; };
+		820FEA3E1A70B15E00A564C6 /* tama.c3t */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tama.c3t; sourceTree = "<group>"; };
+		820FEA421A70B19300A564C6 /* tama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tama.png; sourceTree = "<group>"; };
 		8259B6FB1A6F35130099560E /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		8259B6FC1A6F35130099560E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8259B6FF1A6F35130099560E /* GameMaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameMaster.cpp; sourceTree = "<group>"; };
@@ -364,7 +369,6 @@
 		8259B7241A6F35130099560E /* Wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wrapper.h; sourceTree = "<group>"; };
 		8259B7251A6F35130099560E /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
 		8259B7271A6F35130099560E /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
-		8259B7291A6F35130099560E /* test.script */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.script; sourceTree = "<group>"; };
 		8259B72B1A6F35130099560E /* basic.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic.fsh; sourceTree = "<group>"; };
 		8259B72C1A6F35130099560E /* basic.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic.vsh; sourceTree = "<group>"; };
 		8259B72D1A6F35130099560E /* basic2D.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic2D.fsh; sourceTree = "<group>"; };
@@ -709,12 +713,28 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
+		820FEA3C1A70B15E00A564C6 /* Bullet */ = {
+			isa = PBXGroup;
+			children = (
+				820FEA3D1A70B15E00A564C6 /* tama.c3b */,
+				820FEA3E1A70B15E00A564C6 /* tama.c3t */,
+			);
+			path = Bullet;
+			sourceTree = "<group>";
+		};
+		820FEA411A70B19300A564C6 /* Bullet */ = {
+			isa = PBXGroup;
+			children = (
+				820FEA421A70B19300A564C6 /* tama.png */,
+			);
+			path = Bullet;
+			sourceTree = "<group>";
+		};
 		8259B6FA1A6F35130099560E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				8259B6FD1A6F35130099560E /* C++ */,
 				8259B7261A6F35130099560E /* Objective-C */,
-				8259B7281A6F35130099560E /* Script */,
 				8259B72A1A6F35130099560E /* Shader */,
 				8259B6FB1A6F35130099560E /* AppDelegate.cpp */,
 				8259B6FC1A6F35130099560E /* AppDelegate.h */,
@@ -815,14 +835,6 @@
 			path = "Objective-C";
 			sourceTree = "<group>";
 		};
-		8259B7281A6F35130099560E /* Script */ = {
-			isa = PBXGroup;
-			children = (
-				8259B7291A6F35130099560E /* test.script */,
-			);
-			path = Script;
-			sourceTree = "<group>";
-		};
 		8259B72A1A6F35130099560E /* Shader */ = {
 			isa = PBXGroup;
 			children = (
@@ -890,6 +902,7 @@
 		827BDFF81A6FB10100FAB22A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				820FEA3C1A70B15E00A564C6 /* Bullet */,
 				827BE1411A6FC01F00FAB22A /* test2.c3b */,
 				827BE1421A6FC01F00FAB22A /* test2.c3t */,
 				827BE13A1A6FBEE000FAB22A /* test */,
@@ -1032,6 +1045,7 @@
 		827BE04E1A6FB10100FAB22A /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				820FEA411A70B19300A564C6 /* Bullet */,
 				827BE1451A6FC08100FAB22A /* map.png */,
 				827BE13F1A6FBEEC00FAB22A /* omen kinga.png */,
 				827BE04F1A6FB10100FAB22A /* 01.png */,
@@ -1331,6 +1345,7 @@
 				827BE0A51A6FB10100FAB22A /* mot_enemy_run stop.c3b in Resources */,
 				827BE0E31A6FB10100FAB22A /* 02.png in Resources */,
 				827BE1071A6FB10100FAB22A /* Enemy.texture in Resources */,
+				820FEA3F1A70B15E00A564C6 /* tama.c3b in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				827BE0ED1A6FB10100FAB22A /* tex_boy_guns.png in Resources */,
@@ -1419,6 +1434,7 @@
 				827BE0B81A6FB10100FAB22A /* mot_player_dei1.c3t in Resources */,
 				827BE1281A6FB7B300FAB22A /* msp4.c3b in Resources */,
 				827BE0E51A6FB10100FAB22A /* backGrund.png in Resources */,
+				820FEA431A70B19300A564C6 /* tama.png in Resources */,
 				827BE0F61A6FB10100FAB22A /* nikotyan.png in Resources */,
 				827BE0C41A6FB10100FAB22A /* mot_player_reload.c3t in Resources */,
 				827BE09A1A6FB10100FAB22A /* enemy_shot.c3t in Resources */,
@@ -1472,6 +1488,7 @@
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				827BE0F71A6FB10100FAB22A /* stage_tex.png in Resources */,
 				827BE1201A6FB63E00FAB22A /* msp3.c3b in Resources */,
+				820FEA401A70B15E00A564C6 /* tama.c3t in Resources */,
 				827BE1391A6FBDD700FAB22A /* msp8.c3t in Resources */,
 				827BE09C1A6FB10100FAB22A /* mot_enemy_dei1.c3t in Resources */,
 				827BE11C1A6FB4AE00FAB22A /* msp.c3b in Resources */,
@@ -1479,7 +1496,6 @@
 				827BE0B71A6FB10100FAB22A /* mot_player_dei1.c3b in Resources */,
 				827BE0931A6FB10100FAB22A /* BBOX_NoConect.c3b in Resources */,
 				827BE0E41A6FB10100FAB22A /* _mazuru.png in Resources */,
-				8259B7EC1A6F35130099560E /* test.script in Resources */,
 				8259B7FB1A6F35130099560E /* toon.fsh in Resources */,
 				827BE09D1A6FB10100FAB22A /* mot_enemy_dei2.c3b in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,

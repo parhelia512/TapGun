@@ -48,20 +48,23 @@ bool Test::init()
 	}
 	setCocos();
 	lay = this;
-	
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	auto sprite3D = Sprite3D::create( "test1.c3t");
+	auto sprite3D = _Sprite3D::create( "player");//, "tama.png");//, "Enemy.anime", "Enemy.texture");
 #else
 //	auto sprite3D = _Sprite3D::create( "enemy/enemy", "Enemy.anime", "Enemy.texture");
 #endif
 //	auto sprite3D = _Sprite3D::create( "map/map.c3t", "map/metal.png");
 
-//	sprite3D -> startAnimationReverse( "dei1");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
-	sprite3D -> setRotation3D( Vec3( 90.0f, 0.0f, 0.0f));
-	sprite3D -> setScale( 5.0f);
+//	sprite3D -> setShaderFile( "basic");
+//	sprite3D -> startAnimationLoop( "dei1");
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 3, SystemValue::windowSize.height / 3, 0));
+	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
+	sprite3D -> setScale( 500.0f);
 	addChild( sprite3D);
 
+	
+	
 //	auto light = AmbientLight::create (Color3B::RED);
 //	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);

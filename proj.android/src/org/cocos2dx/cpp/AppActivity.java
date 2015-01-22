@@ -28,5 +28,17 @@ package org.cocos2dx.cpp;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
-public class AppActivity extends Cocos2dxActivity {
+import android.app.Activity;
+
+public class AppActivity extends Cocos2dxActivity 
+{
+	public class FileUtil extends Activity
+	{
+		public String getExternalDirectory()
+		{
+//			String s = this.getFilesDir().getPath();
+			String s = "Hello World";
+			return( s);
+		}
+	}
 }

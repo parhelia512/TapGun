@@ -1,8 +1,6 @@
 
-#include <stdio.h>
 #include <fstream>
 #include "cocos2d.h"
-#include "Define.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -11,7 +9,6 @@
 #else
 
 #include "C++/Base/Sprite3D.h"
-#include "C++/Scene/TestScene.h"
 
 #endif
 
@@ -245,7 +242,7 @@ namespace TapGun
 	}
 
 	/**
-	*	3Dモデルデータ用アニメーション設定ファイルの読み込み
+    *	3Dモデルデータ用アニメーション設定ファイルの読み込み
 	*
 	*	@author	minaka
 	*	@param	fileName モデルデータ名
@@ -328,7 +325,7 @@ namespace TapGun
 		runAction( cocos2d::RepeatForever::create( animate));
 		return 0;
 	}
-	
+
 	/**
 	 *	3Dモデルのアニメーション逆再生
 	 *
@@ -349,7 +346,7 @@ namespace TapGun
 		runAction( animate);
 		return 0;
 	}
-	
+
 	/**
 	 *	3Dモデルのアニメーション逆再生（ループ）
 	 *
@@ -499,7 +496,7 @@ namespace TapGun
 			auto mesh = getMeshByName( data.name);
 			mesh -> setTexture( data.path);
 		}
-	
+
 	}
 
 	/**
