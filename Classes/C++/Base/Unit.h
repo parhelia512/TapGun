@@ -3,9 +3,14 @@
 
 #include "cocos2d.h"
 
+#include <stdio.h>
+#include <fstream>
+
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "Sprite3D.h"
+
 
 #else
 
@@ -76,6 +81,12 @@ namespace TapGun
 
 		void Update(void);//速度をもとに座標移動と当たり判定移動
 		void SetPos(cocos2d::Vec3 pos);//引数の座標に移動
+
+		void SetAnimation(const std::string& animeName, const int speed);//
+		//void SetAnimation(const std::string& animeName, const int speed, const int frame, const int startF, const int endF);
+		//void UpdateAnimation(void);
+		//BOOL CheckAnimation(void);//
+
 		void InitFrame(void);//フレームを初期化
 		int GetFrame(void);//フレームの取得
 		void SetFrame(int f);//フレームのセット
@@ -84,6 +95,7 @@ namespace TapGun
 	private:
 
 		int frame;//Unit固有フレーム
+		int animFrame;//アニメーション管理フレーム(animFrame >= 0 : 再生中 | animFrame == -1 : ループ再生 | animFrame == -2 : 無再生)
 	};
 }
 #endif //__UNIT_H__

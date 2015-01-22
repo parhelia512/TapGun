@@ -37,10 +37,9 @@ namespace TapGun
 	{
 		PSTATE_IDLE,
 		PSTATE_SHOT,
-		PSTATE_HIDING,//隠れ中
+		PSTATE_DODGE,//隠れ中
 		PSTATE_HIDE,//隠れている
 		PSTATE_APPEAR,//隠れた状態から出る
-		PSTATE_APPEARSHOT,//隠れた状態から攻撃する
 		PSTATE_DAMAGED,
 		PSTATE_RUN,
 		PSTATE_DEAD,
@@ -82,6 +81,7 @@ namespace TapGun
 
 
 		//変数
+		static cocos2d::Node* CamNode;
 
 
 		//関数
@@ -90,8 +90,9 @@ namespace TapGun
 		static GameMaster* GetInstance(void);
 
 
-		static cocos2d::Camera* Get3DCamInstance(void);
 		static cocos2d::Camera* Get2DCamInstance(void);
+		static cocos2d::Camera* Get3DCamInstance(void);
+//		static cocos2d::Node* Get3DCamInstance(void);
 
 		void InitScreenSize(void);
 
@@ -113,6 +114,8 @@ namespace TapGun
 		void AddCamera3DPos(cocos2d::Vec3 pos);
 		void AddCamera3DRot(cocos2d::Vec3 rot);
 		cocos2d::Camera* GetCamera3D(void);
+		cocos2d::Node* GetCameraNode(void);
+
 
 		void SetGameState(int state);
 		void SetPlayerState(int state);
@@ -145,8 +148,6 @@ namespace TapGun
 		static cocos2d::Camera* camera3D;
 
 		GameMaster() {}
-
-
 	};
 }
 

@@ -36,8 +36,6 @@ GameUILayer* gUILayer;
 
 static GameScene *multiSceneLayerInstance;
 
-
-
 /**
 *	ゲーム管理シーンクリエイト
 *
@@ -136,7 +134,6 @@ int GameScene::InitCamera()
 
 	auto s = Director::getInstance()->getWinSize();
 
-
 	//2D用カメラの実装
 	if(NULL != gUILayer)
 	{
@@ -155,21 +152,29 @@ int GameScene::InitCamera()
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
 
-		cameraPos.x += 0.8;// += 0.5f;
-		cameraPos.y += 1.5f;// += 1.5f;
-		cameraPos.z += 2.8f;// += 3.1f;
+		//ノードを意識しない座標
+		/*
+		GameMasterS->CamNode->setPosition3D(Vec3(0.0f,0.0f,0.0f));//ノードは常にプレイヤーの座標に一致
+
+		Vec3 cameraPos2 = Vec3(cameraPos.x + 0.8f, cameraPos.y + 1.5f, cameraPos.z + 3.1f);
+		GameMasterS->SetCamera3DPos(cameraPos2);
+		*/
 
 
-		//cameraPos.x = 0.0f;// += 0.5f;
-		//cameraPos.y = 0.0f;// += 1.5f;
-		//cameraPos.z = 0.0f;// += 3.1f;
-		//		GameMasterS->SetCameraLookAt();
 
-		GameMasterS->SetCamera3DPos(cameraPos);
-		GameMasterS->SetCamera3DRot(Vec3(0.0f, 5.0f, 0.0f));
-		// gGameLayer->addChild(GameMasterS->Get3DCamInstance());//add camera to the scene
-		addChild(GameMasterS->Get3DCamInstance());//add camera to the scene
+		//ノードを意識する座標
 
+		GameMasterS->CamNode->setPosition3D(cameraPos);//ノードは常にプレイヤーの座標に一致
+
+		Vec3 cameraPos2 = Vec3(0.8f, 1.5f, 3.1f);
+		GameMasterS->SetCamera3DPos(cameraPos2);
+
+		GameMasterS->CamNode->setRotation3D(gGameLayer->unit[playerNum].sprite3d->getRotation3D());//ノードは常にプレイヤーの座標に一致
+		GameMasterS->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
+
+
+		addChild(GameMasterS->CamNode);
+		GameMasterS->CamNode->addChild(GameMasterS->Get3DCamInstance());
 	}
 	return TRUE;
 }
@@ -210,6 +215,17 @@ void GameScene::moveTime(float delta)
 		break;
 
 	case GSTATE_WAIT:
+
+		if(NULL != gGameLayer)//現在は初期化チェック確認する
+		{
+			gGameLayer->UpdateLayer();//レイヤーの更新
+		}
+		if(NULL != gUILayer)//現在は初期化チェック確認する
+		{
+			gUILayer->UpdateLayer();
+		}
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+
 
 		break;
 	case GSTATE_PLAY:
@@ -272,9 +288,21 @@ int GameScene::UpdateCamera()
 
 	if(NULL != gGameLayer)
 	{
-		static float rot;
-		rot = -0.01f;
-		//gGameLayer->setRotation3D(Vec3(0.0f, rot, 0.0f));
+
+		//プレイヤーの周りをカメラが回転するテスト
+
+		//プレイヤーの座標取得はとりあえずこのような形で記述しています
+		Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
+		Vec3 cameraRot = gGameLayer->unit[playerNum].sprite3d->getRotation3D();
+
+		//①：公転
+		//プレイヤーの座標にカメラのノードを置く
+		GameMasterS->CamNode->setPosition3D(cameraPos);
+
+		//カメラを公転させる
+		cameraRot.y -= 180.0f;
+		GameMasterS->CamNode->setRotation3D(cameraRot);
+
 	}
 	return TRUE;
 }
