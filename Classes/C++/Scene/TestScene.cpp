@@ -20,7 +20,7 @@
 
 #endif
 
-//#define CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
+#define CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
 
 USING_NS_CC;
 using namespace std;
@@ -29,6 +29,7 @@ using namespace CocosDenshion;
 
 cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
+cocos2d::Node* CamNode;
 
 Scene* Test::createScene()
 {
@@ -52,13 +53,14 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3D = Sprite3D::create( "test1.c3t");
 #else
-//	auto sprite3D = _Sprite3D::create( "enemy/enemy", "Enemy.anime", "Enemy.texture");
+	auto sprite3D = _Sprite3D::create( "enemy/enemy", "Enemy.anime", "Enemy.texture");
+//	auto sprite3D = Sprite3D::create("test1.c3t");
 #endif
 //	auto sprite3D = _Sprite3D::create( "map/map.c3t", "map/metal.png");
 
 //	sprite3D -> startAnimationReverse( "dei1");
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
-	sprite3D -> setRotation3D( Vec3( 90.0f, 0.0f, 0.0f));
+	sprite3D -> setRotation3D( Vec3( 0.0f, 180.0f, 0.0f));
 	sprite3D -> setScale( 5.0f);
 	addChild( sprite3D);
 
@@ -72,16 +74,27 @@ bool Test::init()
 	auto screenSize = Director::getInstance()->getWinSize();//„Çπ„ÇØ„É™„Éº„É≥„Çµ„Ç§„Ç∫„ÇíÂèñÂæó
 
 	//„Ç´„É°„É©ÂÆöÁæ©
-	Camera3D = Camera::createPerspective(20, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	CamNode = Node::create();
+	Camera3D = Camera::createPerspective(60, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	addChild(CamNode);
+	CamNode->addChild(Camera3D);
+
 	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
-	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 20.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
-	addChild(Camera3D);
+	CamNode->setPosition3D(Vec3(0.0f, 0.0f, -5.0f));
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 10.0f + 5.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
+
 
 	//sprite3D„ÅÆÂ∫ßÊ®ô„Çí3D„Å´ÂØæÂøú
-	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -20.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
-	sprite3D->setScale(0.1f);
-	sprite3D->setRotation3D(Vec3(0.0f, 60.0f, 0.0f));
+	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -5.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
+	sprite3D->setScale(1.0f);
+	sprite3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
 	#endif
+
+
+	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
+
+
+
 	return true;
 }
 
@@ -93,6 +106,12 @@ void Test::update( float delta)
 void Test::moveTime( float delta)
 {
 	//	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
+
+	static float crot;
+	crot += 1.5f;
+//	Camera3D->setRotation3D(Vec3(0.0f, crot, 0.0f));
+	CamNode->setRotation3D(Vec3(0.0f, crot, 0.0f));
+
 }
 
 void Test::menuCloseCallback(Ref* pSender)

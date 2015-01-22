@@ -10,6 +10,7 @@
  
 #endif
 
+//#define CN//カメラノードを使用するテスト
 
 USING_NS_CC;
 using namespace TapGun;
@@ -17,6 +18,7 @@ using namespace TapGun;
 //実態をNULLで初期化
 Camera* GameMaster::camera3D = NULL;
 Camera* GameMaster::camera2D = NULL;
+Node* GameMaster::CamNode = NULL;
 
 
 /**
@@ -83,12 +85,14 @@ Camera* GameMaster::Get2DCamInstance(void)
 *	@date	1/16 Ver 1.0
 */
 Camera* GameMaster::Get3DCamInstance(void)
+//Node* GameMaster::Get3DCamInstance(void)
 {
-	if(!camera3D)
+	if(NULL == camera3D)
 	{
 		GameMaster::camera3D = Camera::create();
+		GameMaster::CamNode = Node::create();
 	}
-
+//	return CamNode;
 	return camera3D;
 }
 
@@ -155,7 +159,11 @@ void GameMaster::SetCamera2DPos(cocos2d::Vec3 pos)
 */
 void GameMaster::SetCamera3DPos(cocos2d::Vec3 pos)
 {
+#ifdef CN
+	CamNode->setPosition3D(pos);
+#else
 	camera3D->setPosition3D(pos);
+#endif
 }
 
 
@@ -170,6 +178,7 @@ void GameMaster::SetCamera3DPos(cocos2d::Vec3 pos)
 */
 void GameMaster::SetCamera3DRot(cocos2d::Vec3 rot)
 {
+
 	camera3D->setRotation3D(rot);
 }
 
@@ -217,6 +226,7 @@ void GameMaster::InitCamera3D()
 	//camera3D->createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
 
 	//
+	CamNode = Node::create();
 	camera3D = Camera::createPerspective(20, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
 	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));//lookAtは原点に置き、setPositionで視点を動かします。
 	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
@@ -395,6 +405,11 @@ Camera* GameMaster::GetCamera3D(void)
 	return camera3D;
 }
 
+
+Node* GameMaster::GetCameraNode(void)
+{
+	return CamNode;
+}
 
 /**
 *	プレイヤー状態の取得

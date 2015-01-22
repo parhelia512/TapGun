@@ -1,5 +1,7 @@
 player/mot_player_shot.c3b,shot
 player/mot_player_shot.c3t,shot
+player/mot_player_shot_new.c3b,shot_new
+player/mot_player_shot_new.c3t,shot_new
 player/mot_player_hide shot left.c3b,hideshot_l
 player/mot_player_hide shot left.c3t,hideshot_l
 player/mot_player_hide shot right.c3b,hideshot_r

@@ -81,6 +81,7 @@ namespace TapGun
 
 
 		//変数
+		static cocos2d::Node* CamNode;
 
 
 		//関数
@@ -89,8 +90,9 @@ namespace TapGun
 		static GameMaster* GetInstance(void);
 
 
-		static cocos2d::Camera* Get3DCamInstance(void);
 		static cocos2d::Camera* Get2DCamInstance(void);
+		static cocos2d::Camera* Get3DCamInstance(void);
+//		static cocos2d::Node* Get3DCamInstance(void);
 
 		void InitScreenSize(void);
 
@@ -112,6 +114,8 @@ namespace TapGun
 		void AddCamera3DPos(cocos2d::Vec3 pos);
 		void AddCamera3DRot(cocos2d::Vec3 rot);
 		cocos2d::Camera* GetCamera3D(void);
+		cocos2d::Node* GetCameraNode(void);
+
 
 		void SetGameState(int state);
 		void SetPlayerState(int state);

@@ -339,7 +339,6 @@ namespace TapGun
 	 */
 	int _Sprite3D::startAnimationReverse( const string& animeName)
 	{
-				runAction( animate));
 		string str = modelAnimeList[animeName];
 		if( str == "") return -1;
 		animation = cocos2d::Animation3D::create( str);
