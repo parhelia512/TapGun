@@ -144,3 +144,31 @@ void Test::setCocos( void)
 	SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
 //	this -> addChild( label, 1);
 }
+
+
+void loadSoundFile( void)
+{
+	auto sound = Sound::getInstance();
+	sound -> loadBGM( "testBGM.mp3");
+	sound -> playBGMLoop( 0.3f);
+
+	sound -> loadSE( "Enemy/Shot.wav");
+	sound -> loadSE( "Enemy/Reload.mp3");
+	sound -> loadSE( "Enemy/Damage_01.wav");
+	sound -> loadSE( "Enemy/Damage_02.wav");
+	sound -> loadSE( "Enemy/Damage_03.wav");
+	sound -> loadSE( "Enemy/Damage_04.wav");
+}
+
+void playSoundFile( void)
+{
+	auto sound = Sound::getInstance();
+
+	sound -> playSE( "Enemy/Shot.wav");
+	sound -> playSE( "Enemy/Replay.mp3");
+	sound -> playSE( "Enemy/Damage_01.wav");
+	sound -> playSE( "Enemy/Damage_02.wav");
+	sound -> playSE( "Enemy/Damage_03.wav");
+	sound -> playSE( "Enemy/Damage_04.wav");
+
+}
