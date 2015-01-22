@@ -175,7 +175,8 @@ int GameModelsLayer::InitEnemy(int stage_num)
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		std::string fileName1 = "enemy";
-		std::string fileName3 = "enemy/Enemy.texture";
+		std::string fileName2 = "Enemy.texture";
+		std::string fileName3;
 		unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
 
 #else

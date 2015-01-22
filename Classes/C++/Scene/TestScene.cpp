@@ -20,7 +20,7 @@
 
 #endif
 
-#define CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
+//#define CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
 
 USING_NS_CC;
 using namespace std;
@@ -51,7 +51,7 @@ bool Test::init()
 	lay = this;
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	auto sprite3D = Sprite3D::create( "test1.c3t");
+	auto sprite3D = _Sprite3D::create( "mot_player_run");
 #else
 	auto sprite3D = _Sprite3D::create( "enemy/enemy", "Enemy.anime", "Enemy.texture");
 //	auto sprite3D = Sprite3D::create("test1.c3t");
@@ -59,18 +59,21 @@ bool Test::init()
 //	auto sprite3D = _Sprite3D::create( "map/map.c3t", "map/metal.png");
 
 //	sprite3D -> startAnimationReverse( "dei1");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 2, 0));
-	sprite3D -> setRotation3D( Vec3( 0.0f, 180.0f, 0.0f));
-	sprite3D -> setScale( 5.0f);
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
+	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
+	sprite3D -> setScale( 300.0f);
 	addChild( sprite3D);
 
+	auto mesh = sprite3D -> getMeshCount();
+	
 //	auto light = AmbientLight::create (Color3B::RED);
 //	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
 //	addChild (light);
 //	auto light = SpotLight::create(Vec3(-1.0f, -1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f),Color3B::RED, 0.0, 0.5, 10000.0f) ;
 
-	#ifdef CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
+#ifdef CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
+	
 	auto screenSize = Director::getInstance()->getWinSize();//„Çπ„ÇØ„É™„Éº„É≥„Çµ„Ç§„Ç∫„ÇíÂèñÂæó
 
 	//„Ç´„É°„É©ÂÆöÁæ©
@@ -85,10 +88,11 @@ bool Test::init()
 
 
 	//sprite3D„ÅÆÂ∫ßÊ®ô„Çí3D„Å´ÂØæÂøú
-	sprite3D->setPosition3D(Vec3(0.0f, 0.0f, -5.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
+	sprite3D->setPosition3D(Vec3( 0.0f, -1.0f, 0.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
 	sprite3D->setScale(1.0f);
 	sprite3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
-	#endif
+	
+#endif
 
 
 	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
@@ -110,7 +114,7 @@ void Test::moveTime( float delta)
 	static float crot;
 	crot += 1.5f;
 //	Camera3D->setRotation3D(Vec3(0.0f, crot, 0.0f));
-	CamNode->setRotation3D(Vec3(0.0f, crot, 0.0f));
+//	CamNode->setRotation3D(Vec3(0.0f, crot, 0.0f));
 
 }
 
