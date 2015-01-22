@@ -53,19 +53,23 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3D = _Sprite3D::create( "mot_player_run");
 #else
-	auto sprite3D = _Sprite3D::create( "enemy/enemy", "Enemy.anime", "Enemy.texture");
+//	auto sprite3D = _Sprite3D::create( "Player/mot_player_dei1");//, "Enemy.anime");
 //	auto sprite3D = Sprite3D::create("test1.c3t");
 #endif
-//	auto sprite3D = _Sprite3D::create( "map/map.c3t", "map/metal.png");
-
-//	sprite3D -> startAnimationReverse( "dei1");
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
-	sprite3D -> setScale( 300.0f);
-	addChild( sprite3D);
-
-	auto mesh = sprite3D -> getMeshCount();
+	Sprite* sprite[4];
 	
+	sprite[0] = Sprite::create( "Graph/Pictures/tairyoku_tama.png");
+	sprite[1] = Sprite::create( "Graph/Pictures/time.png");
+	sprite[2] = Sprite::create( "Graph/Pictures/kaihiai.png");
+	sprite[3] = Sprite::create( "Graph/Pictures/timelogo.png");
+	
+	sprite[0] -> setPosition( Vec2( 285, 695));
+	sprite[1] -> setPosition( Vec2( 1085, 760));
+	sprite[2] -> setPosition( Vec2( 100, 150));
+	sprite[3] -> setPosition( Vec2( 250, 80));
+
+	for( auto &p : sprite) addChild(p);
+
 //	auto light = AmbientLight::create (Color3B::RED);
 //	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
@@ -95,10 +99,6 @@ bool Test::init()
 #endif
 
 
-	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
-
-
-
 	return true;
 }
 
@@ -120,20 +120,19 @@ void Test::moveTime( float delta)
 
 void Test::menuCloseCallback(Ref* pSender)
 {
-
-	#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 	return;
-	#endif
+#endif
 	Director::getInstance() -> end();
-	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
-	#endif
+#endif
 }
 
 void Test::setCocos( void)
 {
-	auto closeItem = MenuItemImage::create( "CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1( Test::menuCloseCallback, this));
+	auto closeItem = MenuItemImage::create( "Graph/Pictures/CloseNormal.png", "Graph/Pictures/CloseSelected.png", CC_CALLBACK_1( Test::menuCloseCallback, this));
 	closeItem -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width - closeItem->getContentSize().width/2 ,
 	SystemValue::origin.y + closeItem->getContentSize().height/2));
 	auto menu = Menu::create( closeItem, NULL);

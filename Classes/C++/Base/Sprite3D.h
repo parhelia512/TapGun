@@ -30,10 +30,13 @@ namespace TapGun
 		static _Sprite3D* create( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath);
 
 		int startAnimation( const std::string& animeName);
+		int startAnimation( const std::string& animeName, int startTime, int endTime);
 		int startAnimationLoop( const std::string& animeName);
+		int startAnimationLoop( const std::string& animeName, int startTime, int endTime);
 		int startAnimationReverse( const std::string& animeName);
+		int startAnimationReverse( const std::string& animeName, int startTime, int endTime);
 		int startAnimationReverseLoop( const std::string& animeName);
-
+		int startAnimationReverseLoop( const std::string& animeName, int startTime, int endTime);
 		
 		int stopAnimation( const std::string& animeName);
 		int stopALLAnimation( void);
