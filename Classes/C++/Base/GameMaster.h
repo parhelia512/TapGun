@@ -4,9 +4,6 @@
 #include "cocos2d.h"
 
 
-
-
-
 namespace TapGun
 {
 
@@ -26,6 +23,7 @@ namespace TapGun
 	{
 		GSTATE_INIT,
 		GSTATE_WAIT,
+		GSTATE_PLAY_INIT,
 		GSTATE_PLAY,
 		GSTATE_PAUSE,
 		GSTATE_CONTINUE,
@@ -46,16 +44,6 @@ namespace TapGun
 		PSTATE_NUM
 	};
 
-	enum _ENEMY_STATE_
-	{
-		ESTATE_IDLE,
-		ESTATE_ATTACK1,
-		ESTATE_ATTACK2,
-		ESTATE_ATTACK3,
-		ESTATE_DAMAGED,
-		ESTATE_DEAD,
-		ESTATE_NUM
-	};
 
 	enum _TOUCH_STATE_
 	{
@@ -75,27 +63,57 @@ namespace TapGun
 		TFLAG_NUM
 	};
 
+
+	enum _STAGE_POINT_DEF_
+	{
+		POINT_NONE,//使用しない
+		POINT_BATTLE,//バトルマス
+		POINT_CHANGE,//方向転換
+		POINT_CLEAR,
+	};
+
+	enum _STAGE_POINT_
+	{
+		//後で名前を設定
+		POINT_START,
+		POINT_STAGE1,
+		POINT_S2_1,
+		POINT_STAGE2,
+		POINT_S3_1,
+		POINT_S3_2,
+
+		POINT_FINISH,
+	};
+
+	//プレイヤーの進行座標を定義する構造体
+	typedef struct
+	{
+		cocos2d::Vec3 pos;
+		cocos2d::Vec3 rot;
+		int pointType;
+	}StagePoint;
+
 	class GameMaster
 	{
 	public:
 
-
 		//変数
-		static cocos2d::Node* CamNode;
 
+		//各種フラグ（後でprivateに修正する）
+		int waitFlag;//ウェイトモードを進行させるフラグ
+		int sPoint;//現在のステージポイント
+		StagePoint stagePoint[100];//プレイヤーの進行座標を定義する構造体
 
 		//関数
 		GameMaster(const GameMaster &P) = delete;
 		GameMaster& operator= (const GameMaster &P) = delete;
 		static GameMaster* GetInstance(void);
 
-
 		static cocos2d::Camera* Get2DCamInstance(void);
 		static cocos2d::Camera* Get3DCamInstance(void);
-//		static cocos2d::Node* Get3DCamInstance(void);
+		static cocos2d::Node* GetCamNodeInstance(void);
 
 		void InitScreenSize(void);
-
 
 		void InitParam(void);
 		void InitParam(int wave);
@@ -113,11 +131,16 @@ namespace TapGun
 		void SetCamera3DRot(cocos2d::Vec3 rot);
 		void AddCamera3DPos(cocos2d::Vec3 pos);
 		void AddCamera3DRot(cocos2d::Vec3 rot);
+
+		void SetCameraNodePos(cocos2d::Vec3 pos);
+		void SetCameraNodeRot(cocos2d::Vec3 rot);
+		void AddCameraNodePos(cocos2d::Vec3 pos);
+		void AddCameraNodeRot(cocos2d::Vec3 rot);
+
+
 		cocos2d::Camera* GetCamera3D(void);
-		cocos2d::Node* GetCameraNode(void);
+		const cocos2d::Node* GetCameraNode(void);
 
-
-		void SetGameState(int state);
 		void SetPlayerState(int state);
 
 		//タッチ関連
@@ -131,14 +154,17 @@ namespace TapGun
 		int GetTouchState(void);//タッチ状態を返す
 
 		int GetPlayerState(void);
+
+		//ゲーム状態のセットと取得
 		int GetGameState(void);
+		void SetGameState(int gState);
 
 	private:
 		cocos2d::Size screenSize;
 		int wave;//現在ウェーブ
 		int playerState;//プレイヤーの状態
 		int gameState;//ゲームの状態
-
+		int playerHP;//プレイヤーの体力
 
 		cocos2d::Touch* touch;//タッチ管理
 		int touchState;//タッチの状態
@@ -146,6 +172,8 @@ namespace TapGun
 
 		static cocos2d::Camera* camera2D;
 		static cocos2d::Camera* camera3D;
+		static cocos2d::Node* CamNode;
+
 
 		GameMaster() {}
 	};

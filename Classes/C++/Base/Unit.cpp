@@ -26,6 +26,7 @@ void Unit::Init( void)
 	//管理フラグ
 	valid = FALSE;
 	kind = UKIND_NONE;//Unit種別をNONEに
+	eState = ESTATE_IDLE;//とりあえずIDLEで初期化
 
 	//変数
 	pos = Vec3(0, 0, 0);//モデル座標

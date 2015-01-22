@@ -20,11 +20,7 @@ using namespace TapGun;
 
 GameMaster* GameMasterM;//変数名は今後考慮する
 
-/*-*/
-//Animate3D* animateShot;
-//Animation3D* animationShot;
-//Animate3D* animateHiding;
-//Animation3D* animationHiding;
+Sprite3D* SpriteMap;
 
 /**
 *	ゲーム本編のモデルレイヤーの初期化
@@ -107,7 +103,7 @@ int GameModelsLayer::InitPlayer(int stage_num)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string fileName1 = "player";
 	std::string fileName2 = "Player.anime";
-//	std::string fileName3 = "Enemy.texture";
+	//	std::string fileName3 = "Enemy.texture";
 	std::string fileName3 = "box_tex.png";
 	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2, fileName3);
 #else
@@ -125,20 +121,11 @@ int GameModelsLayer::InitPlayer(int stage_num)
 	addChild(unit[num].wrapper);//親ノードをレイヤーに紐付け
 
 	//ステージに応じた初期化
-	switch(stage_num)
-	{
-	case 0:
 
-		unit[num].sprite3d->setScale(1.0f);
-		unit[num].sprite3d->setRotation3D(Vec3(0.0f, 160.f, 0.0f));//プレイヤーは正面を向く
-		unit[num].sprite3d->setPosition3D(Vec3(-6.0f, 0.0f, 4.0f));
-
-		break;
-
-	default:
-		return FALSE;
-		break;
-	}
+	unit[num].sprite3d->setScale(1.0f);
+	unit[num].sprite3d->setRotation3D(GameMasterM->stagePoint[POINT_START].rot);//プレイヤーは正面を向く
+	unit[num].sprite3d->setPosition3D(GameMasterM->stagePoint[POINT_START].pos);
+	GameMasterM->sPoint = POINT_STAGE1;//ステージ1に走る
 
 	//当たり判定の定義（仮）
 	unit[num].collisionPos = Vec3(1.2, 3.0, 1.2);//範囲を指定して
@@ -175,8 +162,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		std::string fileName1 = "enemy";
-		std::string fileName2 = "Enemy.texture";
-		std::string fileName3;
+		std::string fileName3 = "enemy/Enemy.texture";
 		unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
 
 #else
@@ -251,8 +237,6 @@ int GameModelsLayer::InitEnemy(int stage_num)
 
 
 
-
-
 		//テストエネミーの読み込み：3
 
 		num = SearchFreeUnit();
@@ -316,7 +300,6 @@ int GameModelsLayer::InitEnemy(int stage_num)
 */
 int GameModelsLayer::InitMap(int stage_num)
 {
-
 	int num = SearchFreeUnit();
 	if(-1 == num)
 	{
@@ -325,25 +308,32 @@ int GameModelsLayer::InitMap(int stage_num)
 	unit[num].Init();//メンバ変数の初期化をしておく
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	std::string fileName1 = "map";
-	std::string fileName2 = "stage_tex.png";
+	std::string fileName1 = "stage";
+	//std::string fileName2 = "stage_tex.png";
 #else
-	std::string fileName1 = "map/map";
-	std::string fileName2 = "map/metal.png";
+	std::string fileName1 = "stage";
+	//std::string fileName2 = "bock_gurand2.png";
 #endif
-	unit[num].sprite3d = _Sprite3D::create(fileName1,fileName2);
+	unit[num].sprite3d = _Sprite3D::create(fileName1);
 
-	unit[num].Init(num, UKIND_MAP);
-
-	unit[num].wrapper = Node::create();//モデルの親ノード
-	unit[num].wrapper->addChild(unit[num].sprite3d);
-	addChild(unit[num].wrapper);
+//	unit[num].Init(num, UKIND_MAP);
 
 
-	unit[num].sprite3d->setScale(1.0f);
-	unit[num].sprite3d->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
-	unit[num].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+//	unit[num].wrapper = Node::create();//モデルの親ノード
+//	unit[num].wrapper->addChild(unit[num].sprite3d);
+//	addChild(unit[num].wrapper);
 
+	//unit[num].sprite3d->setScale(1.0f);
+	//unit[num].sprite3d->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+	//unit[num].sprite3d->setPosition3D(Vec3(0.0f, -4.0f, 0.0f));
+
+	SpriteMap = Sprite3D::create("stage.c3t");
+	addChild(SpriteMap);
+
+	SpriteMap->setScale(1.0f);
+	SpriteMap->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+	SpriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+	
 	return TRUE;
 }
 
@@ -376,6 +366,73 @@ void GameModelsLayer::UpdateLayer()
 
 
 /**
+*	ウェイト状態の更新
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/23 Ver 1.0
+*/
+void GameModelsLayer::UpdateWait()
+{
+	if(0 == GameMasterM->waitFlag)	//次の目的地を検索
+	{
+		unit[playerNum].targetPos = GameMasterM->stagePoint[GameMasterM->sPoint].pos;//
+		unit[playerNum].speed = 0.05f;//スピードは後で調整する
+
+		unit[playerNum].speedVec = unit[playerNum].targetPos - unit[playerNum].sprite3d->getPosition3D();//この方法が正しければ使用する
+
+		//ベクトルの正規化を行う
+		unit[playerNum].speedVec.normalize();
+
+		//正規化が終わったら、速度をかけて方向ベクトルの計算終了
+		unit[playerNum].speedVec.x *= unit[playerNum].speed;
+		unit[playerNum].speedVec.z *= unit[playerNum].speed;
+
+		unit[playerNum].speedVec.y = 0;//yは今のところ0で扱う
+		unit[playerNum].sprite3d->startAnimationLoop("run");
+		GameMasterM->waitFlag = 1;
+	}
+	else if(1 == GameMasterM->waitFlag)	//次の目的地まで走る処理
+	{
+		UpdatePlayer();//プレイヤーの更新
+		Vec3 tmpPos = unit[playerNum].sprite3d->getPosition3D();
+
+		//一定以上目的地に近付いたら
+		if(0.1f * 0.1f >= (unit[playerNum].targetPos.x - tmpPos.x) * (unit[playerNum].targetPos.x - tmpPos.x)
+			+ (unit[playerNum].targetPos.y - tmpPos.y) *(unit[playerNum].targetPos.y - tmpPos.y))
+		{
+			GameMasterM->waitFlag = 2;
+		}
+	}
+	else if(2 == GameMasterM->waitFlag)	//目的地に到着したら、カメラを回転させる
+	{
+		if(POINT_CHANGE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//進行方向切り替え
+		{
+				unit[playerNum].sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
+				GameMasterM->sPoint++;
+				GameMasterM->waitFlag = 0;
+
+		}
+		else if(POINT_BATTLE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//次のウェーブに到達した
+		{
+			//ステージポイントを進める
+			unit[playerNum].sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
+			unit[playerNum].speed = 0.0f;
+			unit[playerNum].speedVec = Vec3(0.0f, 0.0f, 0.0f);
+			GameMasterM->sPoint++;
+			GameMasterM->SetGameState(GSTATE_PLAY_INIT);//次の戦闘ポイントに到着したら、ウェイトからプレイに移行
+
+			unit[playerNum].sprite3d->stopAllActions();
+		}
+	}
+	else if(3 == GameMasterM->waitFlag)	//次の戦闘ポイントに到着したら、ウェイトからプレイに移行
+	{
+
+	}
+}
+
+/**
 *	プレイヤーの更新
 *
 *	@author	sasebon
@@ -390,12 +447,6 @@ void GameModelsLayer::UpdatePlayer(void)
 
 	//１：プレイヤーのフレーム・座標更新
 	unit[playerNum].Update();
-
-	static float rot;
-	rot = 0.5f;
-	//Vec3 PRot = unit[playerNum].sprite3d->getRotation3D();
-	//PRot.y += rot;
-	//unit[playerNum].sprite3d->setRotation3D(PRot);
 
 	//２：プレイヤーの状態を取得して場合分け
 	switch (GameMasterM->GetPlayerState())
@@ -417,8 +468,10 @@ void GameModelsLayer::UpdatePlayer(void)
 		ActionAppear();
 		break;
 	case PSTATE_DAMAGED:
+
 		break;
-	case PSTATE_RUN:
+	case PSTATE_RUN://ウェイト状態
+
 		break;
 	case PSTATE_DEAD:
 		break;
@@ -453,7 +506,7 @@ void GameModelsLayer::ActionIdle()
 		{
 			GameMasterM->SetPlayerState(PSTATE_DODGE);//回避に移行
 			unit[playerNum].InitFrame();//フレームをリフレッシュ
-			unit[playerNum].sprite3d->startAnimationReverse("hideshot_l");
+			unit[playerNum].sprite3d->startAnimationReverse("hideshot_ln");
 		}
 	}
 }
@@ -548,14 +601,14 @@ void GameModelsLayer::ActionHide(void)
 			{
 				//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
 				GameMasterM->SetPlayerState(PSTATE_APPEAR);
-				unit[playerNum].sprite3d->startAnimation("hideshot_l");
+				unit[playerNum].sprite3d->startAnimation("hideshot_ln");
 				unit[playerNum].InitFrame();//フレームをリフレッシュ
 			}
 			else//それ以外は今のところ同じ
 			{
 				//座標とフレーム数をさらに取得して、その数値に応じて攻撃処理
 				GameMasterM->SetPlayerState(PSTATE_APPEAR);
-				unit[playerNum].sprite3d->startAnimation("hideshot_l");
+				unit[playerNum].sprite3d->startAnimation("hideshot_ln");
 				unit[playerNum].InitFrame();//フレームをリフレッシュ
 			}
 		}
@@ -635,20 +688,42 @@ void GameModelsLayer::UpdateEnemy()
 		if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
 		{
 			unit[i].Update();//フレーム・座標・当たり判定の更新
-			if(300 <= unit[i].GetFrame())
+
+			switch(unit[i].eState)
 			{
+			case ESTATE_IDLE://アイドル状態
 
-				//アニメーション読み込み
-				//unit[i].sprite3d->startAnimation("dei1");
+				//アイドル状態からは、指定座標への移動を行う
+				unit[i].eState = ESTATE_MOVE;
+				unit[i].sprite3d->startAnimation("run");
 
-				ShootBullet(i);//i番のエネミーが弾を発射する
-				unit[i].InitFrame();//フレームをクリア
-				int r = rand() % 40 - 40;//とりあえず
-				unit[i].SetFrame(r);
+				break;
+			case ESTATE_MOVE://移動状態
+				break;
+
+			case ESTATE_WAIT://ウェイト
+				break;
+
+			case ESTATE_ATTACK1://攻撃
+				break;
+
+			case ESTATE_ATTACK2:
+				break;
+
+			case ESTATE_ATTACK3:
+				break;
+
+			case ESTATE_DAMAGED://被弾
+				break;
+
+			case ESTATE_DEAD://死亡
+				break;
 			}
 		}
 	}
 }
+
+
 
 
 
@@ -748,7 +823,7 @@ void  GameModelsLayer::CheckHit(void)
 		Vec3 rayEnd = Vec3(0, 0, 0);//レイの終点
 
 		Camera* cam3d = GameMasterM->GetCamera3D();//カメラのインスタンスを取得
-		Node* camNode = GameMasterM->GetCameraNode();//ノードのインスタンスを取得
+		const Node* camNode = GameMasterM->GetCameraNode();//ノードのインスタンスを取得
 
 		Vec3 tmpPos = cam3d->getPosition3D();//カメラ座標を保存
 		Vec3 tmpRot = cam3d->getRotation3D();//カメラ回転を保存

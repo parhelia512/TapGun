@@ -139,14 +139,13 @@ int GameScene::InitCamera()
 	{
 		GameMasterS->InitCamera2D();//カメラを初期化
 		gUILayer->setCameraMask(CAMFLAG_DEFAULT);
-		int a = gUILayer->getCameraMask();
 		addChild(GameMasterS->Get2DCamInstance());
 	}
 
 	//3D用カメラの実装
 	if(NULL != gGameLayer)
 	{
-		GameMasterS->InitCamera3D();//カメラを初期化
+		GameMasterS->InitCamera3D();//カメラを初期化（ノードにaddChildもする）
 		gGameLayer->setCameraMask(CAMFLAG_3D);
 
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
@@ -164,17 +163,18 @@ int GameScene::InitCamera()
 
 		//ノードを意識する座標
 
-		GameMasterS->CamNode->setPosition3D(cameraPos);//ノードは常にプレイヤーの座標に一致
+		GameMasterS->SetCameraNodePos(cameraPos);//ノードは常にプレイヤーの座標に一致
+		GameMasterS->SetCameraNodeRot(gGameLayer->unit[playerNum].sprite3d->getRotation3D());//ノード回転もプレイヤーをもとに設定
 
-		Vec3 cameraPos2 = Vec3(0.8f, 1.5f, 3.1f);
+		Vec3 cameraPos2 = Vec3(0.8f, 1.5f, 3.1f);//プレイヤー（親ノード）とカメラの位置関係をセット
+		//Vec3 cameraPos2 = Vec3(0.8f, 1.5f, 10.1f);//プレイヤー（親ノード）とカメラの位置関係をセット
+
 		GameMasterS->SetCamera3DPos(cameraPos2);
 
-		GameMasterS->CamNode->setRotation3D(gGameLayer->unit[playerNum].sprite3d->getRotation3D());//ノードは常にプレイヤーの座標に一致
-		GameMasterS->SetCamera3DRot(Vec3(0.0f, 0.0f, 0.0f));
+		GameMasterS->GetCameraNode();
+		GameMasterS->Get3DCamInstance();
+		addChild(GameMasterS->GetCamNodeInstance());
 
-
-		addChild(GameMasterS->CamNode);
-		GameMasterS->CamNode->addChild(GameMasterS->Get3DCamInstance());
 	}
 	return TRUE;
 }
@@ -196,7 +196,7 @@ void GameScene::moveTime(float delta)
 {
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
-
+	//現在のゲームの状態でゲーム分岐
 	switch(GameMasterS->GetGameState())
 	{
 
@@ -211,14 +211,14 @@ void GameScene::moveTime(float delta)
 		}
 
 		InitCamera();
-		GameMasterS->SetGameState(GSTATE_PLAY);
+		GameMasterS->SetGameState(GSTATE_WAIT);
 		break;
 
 	case GSTATE_WAIT:
 
 		if(NULL != gGameLayer)//現在は初期化チェック確認する
 		{
-			gGameLayer->UpdateLayer();//レイヤーの更新
+			gGameLayer->UpdateWait();//レイヤーの更新
 		}
 		if(NULL != gUILayer)//現在は初期化チェック確認する
 		{
@@ -226,6 +226,11 @@ void GameScene::moveTime(float delta)
 		}
 		UpdateCamera();//モデルの移動をもとにカメラ移動
 
+		break;
+	case GSTATE_PLAY_INIT://ウェイト終了後プレイ前の処理
+
+		//敵の配置を行う
+		GameMasterS->SetGameState(GSTATE_PLAY);
 
 		break;
 	case GSTATE_PLAY:
@@ -297,11 +302,11 @@ int GameScene::UpdateCamera()
 
 		//①：公転
 		//プレイヤーの座標にカメラのノードを置く
-		GameMasterS->CamNode->setPosition3D(cameraPos);
+		GameMasterS->SetCameraNodePos(cameraPos);
 
 		//カメラを公転させる
-		cameraRot.y -= 180.0f;
-		GameMasterS->CamNode->setRotation3D(cameraRot);
+		cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
+		GameMasterS->SetCameraNodeRot(cameraRot);
 
 	}
 	return TRUE;

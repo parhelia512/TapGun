@@ -32,6 +32,8 @@ namespace TapGun
 
 		//更新
 		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
+		void UpdateWait(void);//
+
 
 		int GetPlayerNum();
 		//
@@ -51,6 +53,8 @@ namespace TapGun
 		void UpdateBullets(void);
 		void UpdateModels(void);//
 
+
+
 		//プレイヤーの更新
 		void ActionShot(void);
 		void ActionIdle(void);
@@ -61,11 +65,11 @@ namespace TapGun
 		void ActionRun(void);
 		void ActionDead(void);
 
+
 		void ShootBullet(int enemy_num);//
-		void CheckHit( void);//当たり判定処理
+		void CheckHit(void);//当たり判定処理
 
 		int SearchFreeUnit();//空きユニットの検索
 	};
 }
-
 #endif //__GAME_MODELSLAYER_H__

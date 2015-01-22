@@ -11,7 +11,6 @@
 
 #include "Sprite3D.h"
 
-
 #else
 
 #include "C++/Base/Sprite3D.h"
@@ -20,7 +19,6 @@
 
 #define MAX_UNIT 100
 
-//using namespace cocos2d;
 
 namespace TapGun
 {
@@ -42,6 +40,19 @@ namespace TapGun
 	};
 
 
+	enum _ENEMY_STATE_
+	{
+		ESTATE_IDLE,
+		ESTATE_MOVE,
+		ESTATE_WAIT,
+		ESTATE_ATTACK1,
+		ESTATE_ATTACK2,
+		ESTATE_ATTACK3,
+		ESTATE_DAMAGED,
+		ESTATE_DEAD,
+		ESTATE_NUM
+	};
+
 
 	//Unitクラス
 	//プレイヤー・エネミー・弾・マップデータに用います
@@ -51,9 +62,13 @@ namespace TapGun
 
 		//メンバ変数
 
+
 		//==フラグ系==
 		int valid;//Unit使用フラグ（TRUE/FALSE）
 		int kind;//Unit種別（_UNIT_KIND_）
+
+		//敵用ステート
+		int eState;
 
 		//==変数==
 		cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
