@@ -34,6 +34,8 @@ namespace TapGun
 		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
 		void UpdateWait(void);//
 
+		void SetEnemy(void);//
+
 
 		int GetPlayerNum();
 		//

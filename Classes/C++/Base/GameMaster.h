@@ -102,6 +102,7 @@ namespace TapGun
 		//各種フラグ（後でprivateに修正する）
 		int waitFlag;//ウェイトモードを進行させるフラグ
 		int sPoint;//現在のステージポイント
+		int wave;//現在ウェーブ
 		StagePoint stagePoint[100];//プレイヤーの進行座標を定義する構造体
 
 		//関数
@@ -161,7 +162,6 @@ namespace TapGun
 
 	private:
 		cocos2d::Size screenSize;
-		int wave;//現在ウェーブ
 		int playerState;//プレイヤーの状態
 		int gameState;//ゲームの状態
 		int playerHP;//プレイヤーの体力

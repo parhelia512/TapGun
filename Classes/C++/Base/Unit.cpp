@@ -35,6 +35,7 @@ void Unit::Init( void)
 	targetPos = Vec3(0, 0, 0);//移動目標
 	collisionPos = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
 
+	colisionNode = Node::create();
 	frame = 0;//管理フレーム
 }
 
@@ -71,22 +72,27 @@ int Unit::Init(int num, int utype)
 	frame = 0;//管理フレーム
 	animFrame = -2;//
 
+	eWaitFrame = 0;//出現までの待ちフレーム
+	StandbyPos = Vec3(0,0,0);//待機座標
+
+
 	//モデルの種別によって当たり判定の設定を行う
 	//敵や弾の種類（副種別）によってさらに条件分けする
 	switch(utype)
 	{
 	case UKIND_ENEMY://エネミー
 
+
 		break;
 	case UKIND_EBULLET://敵弾
 
+//		colisionNode->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
 
 		break;
 	default:
 
 		break;
 	}
-
 
 	//必要ならばモデルやアニメーション関連のデータを初期化する
 }
@@ -107,14 +113,18 @@ void Unit::SetCollision(void)
 	//当たり判定の定義（仮）
 	aabbBody = sprite3d->getAABB();
 
+	colisionNode->setPosition3D(Vec3(0.0f, 1.0f, 0.0f));
+
 	//当たり判定の移動
-	Vec3 collision_center = sprite3d->getPosition3D();
+	Vec3 collision_center = colisionNode->getPosition3D() + sprite3d->getPosition3D();
 
 	Vec3 collision_min = collision_center - collisionPos * 0.5f;
 	Vec3 collision_max = collision_center + collisionPos * 0.5f;
 
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
+
+	sprite3d->addChild(colisionNode);
 }
 
 
@@ -139,8 +149,11 @@ void Unit::Update(void)
 	sprite3d->setPosition3D(pos);
 
 	//当たり判定を移動
-	Vec3 collision_min = pos - collisionPos / 2;
-	Vec3 collision_max = pos + collisionPos / 2;
+	Vec3 collision_center = colisionNode->getPosition3D() + sprite3d->getPosition3D();
+
+	Vec3 collision_min = collision_center - collisionPos * 0.5f;
+	Vec3 collision_max = collision_center + collisionPos * 0.5f;
+
 
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
@@ -205,121 +218,6 @@ void Unit::SetAnimation(const std::string& animeName, const int speed)
 		sprite3d->startAnimationReverse(animeName);
 	}
 }
-
-
-
-/**
-*	再生範囲を指定してアニメーションをセットする
-*
-*	@author	sasebon
-*	@param	なし
-*	@return	なし
-*	@date	1/21 Ver 1.0
-*/
-//void Unit::SetAnimation(const std::string& animeName, const int speed, const int frame ,const int startF, const int endF)
-//{
-//	/*@*/
-//	//現在はアニメーションフレームの範囲の整合性を取っていないので、今後処理を追加する
-//
-//	sprite3d->stopALLAnimation();//現在行っているアニメーションを停止する
-//	//アニメーション再生時間の設定
-//	int f = abs(endF - startF);
-//
-//	//ループ再生
-//	if(0 == frame)
-//	{
-//		animFrame = -1;//
-//		//この場合の処理は後で実装する
-//		sprite3d->startAnimationLoop(animeName, startF, endF);//とりあえず
-//		return;
-//	}
-//
-//	//それ以外
-//	if(0 < f)//アニメーションが正数ならば
-//	{
-//		animFrame = frame;//フレームが0になるとアニメーション停止
-//	}
-//	else if(0 == frame)//フレームに0を設定すると、停止しない
-//	{
-//		animFrame = -1;//
-//		//この場合の処理は後で実装する
-//		sprite3d->startAnimationLoop(animeName, startF, endF);//とりあえず
-//		return;
-//	}
-//	else
-//	{
-//		animFrame = 0;//負の数の場合は本来エラー/*@*/
-//	}
-//
-//	//アニメーションの再生方向の設定
-//	if(0 <= speed)//順再生
-//	{
-//		sprite3d->startAnimation(animeName, startF, endF);
-//	}
-//	else if(0 > speed)//逆再生
-//	{
-//		sprite3d->startAnimationReverse(animeName);
-//	}
-//}
-
-
-/**
-*	アニメーションを更新する
-*
-*	@author	sasebon
-*	@param	なし
-*	@return	なし
-*	@date	1/21 Ver 1.0
-*/
-//void Unit::UpdateAnimation(void)
-//{
-	/*-*/
-	//不要になったので削除予定
-
-	//if(-2 == animFrame)
-	//{
-
-	//}
-	//if(-1 == animFrame)//手動停止するまでループを続ける
-	//{
-
-	//}
-	//else
-	//{
-	//	animFrame--;//アニメーション管理フレームを減らす
-	//	if(0 >= animFrame)
-	//	{
-	//		sprite3d->stopALLAnimation();
-	//		animFrame = -2;
-	//	}
-	//}
-//}
-
-
-
-/**
-*	アニメーション中かを確認する
-*
-*	@author	sasebon
-*	@param	なし
-*	@return	再生中: TRUE | 再生していない : FALSE
-*	@date	1/21 Ver 1.0
-*/
-//BOOL Unit::CheckAnimation(void)
-//{
-//	/*-*/
-//	//不要になったので削除予定
-//
-//
-//	if(0 < animFrame | -1 == animFrame)//再生中
-//	{
-//		return TRUE;
-//	}
-//	else if(0 == animFrame | -2 == animFrame)//再生終了または再生していない
-//	{
-//		return FALSE;
-//	}
-//}
 
 
 

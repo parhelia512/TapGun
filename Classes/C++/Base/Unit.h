@@ -43,6 +43,7 @@ namespace TapGun
 	enum _ENEMY_STATE_
 	{
 		ESTATE_IDLE,
+		ESTATE_STANDBY,
 		ESTATE_MOVE,
 		ESTATE_WAIT,
 		ESTATE_ATTACK1,
@@ -66,9 +67,12 @@ namespace TapGun
 		//==フラグ系==
 		int valid;//Unit使用フラグ（TRUE/FALSE）
 		int kind;//Unit種別（_UNIT_KIND_）
-
+		int hitpoint;
 		//敵用ステート
 		int eState;
+		int eWaitFrame;//出現までの待ちフレーム
+		cocos2d::Vec3 StandbyPos;//待機座標
+		int atkFrame;//
 
 		//==変数==
 		cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
@@ -78,11 +82,16 @@ namespace TapGun
 		cocos2d::Vec3 collisionPos;//OBBの辺の長さ（現在は１つのみ定義）
 
 		//==当たり判定関連クラス(仮)==
+
+		cocos2d::Node* colisionNode;//当たり判定基準用ノード
+
 		cocos2d::AABB aabbHead;//
 		cocos2d::AABB aabbBody;//
 		cocos2d::OBB obbHead;
 
 		//==モデル・アニメーション関連クラス==
+		cocos2d::Node* BulletNode;//攻撃位置基準用ノード
+
 		TapGun::_Sprite3D* sprite3d;
 		cocos2d::Node* wrapper;//モデルの親ノード（モデル基準座標として使用する。通常は(0,0,0)座標）
 		cocos2d::Animation3D* animation;
