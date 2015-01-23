@@ -5,12 +5,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "TestScene.h"
-#include "C++/Scene/GameScene.h"
+#include "TitleScene.h"
 
 #else
 
 #include "C++/Scene/TestScene.h"
-#include "C++/Scene/GameScene.h"
+#include "C++/Scene/TitleScene.h"
 
 #endif
 
@@ -56,7 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #ifdef TEST_SCENE
 	auto scene = Test::createScene();
 #else
-	auto scene = GameScene::CreateScene();
+	auto scene = TitleScene::createScene();
 #endif
 	director -> runWithScene( scene);
 

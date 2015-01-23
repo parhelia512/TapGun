@@ -46,12 +46,12 @@ static GameScene *multiSceneLayerInstance;
 */
 Scene* GameScene::CreateScene()
 {
-    Scene *scene = Scene::create();//GameSceneのシーンを作成
-    GameScene *layer = GameScene::create();//上記シーンに
+	Scene *scene = Scene::create();//GameSceneのシーンを作成
+	GameScene *layer = GameScene::create();//上記シーンに
 
-    scene->addChild(layer);
+	scene->addChild(layer);
 
-    return scene;
+	return scene;
 };
 
 
@@ -80,43 +80,43 @@ Scene* GameScene::CreateScene()
 */
 bool GameScene::init()
 {
-    //レイヤー初期化
-    if(!Layer::init())
-    {
-        return false;
-    }
+	//レイヤー初期化
+	if(!Layer::init())
+	{
+		return false;
+	}
 
-    //ゲームレイヤーを作成
-    gGameLayer = GameModelsLayer::create();
-    this->addChild(gGameLayer);
-
-
-    //UIレイヤーを作成
-    gUILayer = GameUILayer::create();
-    this->addChild(gUILayer);
+	//ゲームレイヤーを作成
+	gGameLayer = GameModelsLayer::create();
+	this->addChild(gGameLayer);
 
 
-    GameMasterS = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成
-    GameMasterS->InitScreenSize();//スクリーンサイズのセット
-    GameMasterS->InitParam();//ゲームパラメータの初期化
+	//UIレイヤーを作成
+	gUILayer = GameUILayer::create();
+	this->addChild(gUILayer);
 
 
-    //現在はタッチイベントのリスナーをここに用意しています
-    auto dispatcher = Director::getInstance()->getEventDispatcher();
+	GameMasterS = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成
+	GameMasterS->InitScreenSize();//スクリーンサイズのセット
+	GameMasterS->InitParam();//ゲームパラメータの初期化
 
-    listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 
-    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	//現在はタッチイベントのリスナーをここに用意しています
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
 
-    //setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+	listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 
-    this->scheduleUpdate();
-    this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    return true;
+	//setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+
+	this->scheduleUpdate();
+	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
+
+	return true;
 }
 
 
@@ -324,7 +324,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
 	GameMasterS->SetTouchPos(pTouch);//タッチ座標を取得してセット
 	GameMasterS->SetTouchFlag(TFLAG_ON);
-    return true;
+	return true;
 }
 
 
