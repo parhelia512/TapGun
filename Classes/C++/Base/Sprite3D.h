@@ -38,9 +38,12 @@ namespace TapGun
 		int startAnimationReverseLoop( const std::string& animeName);
 		int startAnimationReverseLoop( const std::string& animeName, int startTime, int endTime);
 		
-		int stopAnimation( const std::string& animeName);
+		int stopAnimation( void);
 		int stopALLAnimation( void);
 
+		int pauseAnimation( void);
+		int restartAnimation( void);
+		
 		int setAnimationSpeed( float speed);
 
 		int checkAnimationState( void);
@@ -58,12 +61,14 @@ namespace TapGun
 	protected:
 
 	private:
+		double time;
 		cocos2d::Animation3D*           animation;
 		cocos2d::Animate3D*             animate;
 		std::map< const std::string, std::string>	modelAnimeList;
 		std::vector< textureData>	modelTextureList;
 
 		void setTextureList(void);
+//		int startAnimation( const std::string& animeName);
 		int load3DModelAnimeData( const std::string& fileName);
 		int load3DModelTextureData( const std::string& fileName);
 		static _Sprite3D* createObject( const char* firstPath, const char* secondPath, const char* thirdPath);

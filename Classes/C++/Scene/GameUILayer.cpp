@@ -87,11 +87,19 @@ int GameUILayer::SerchFreeUI()
 */
 void GameUILayer::SetUI()
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	std::string fileName1 = "reticle.png";
+#else
 	std::string fileName1 = "Graph/Pictures/reticle.png";
-
+#endif
 	int num = SerchFreeUI();
 	//レティクル
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	fileName1 = "reticle.png";
+#else
 	fileName1 = "Graph/Pictures/reticle.png";
+#endif
+	
 	auto s = Director::getInstance()->getWinSize();//スクリーンサイズを取得
 	UIBillBoard[UIKIND_RETICLE] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 	UIBillBoard[UIKIND_RETICLE]->setPosition(s.width / 2, s.height / 2);
@@ -141,19 +149,23 @@ void GameUILayer::SetUI()
 	//Ui[UKIND_BULLET_B].Init(UKIND_BULLET_B, UKIND_BULLET_B);
 	//valid[UKIND_BULLET_B] = TRUE;
 	Sprite* sprite[4];
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	sprite[0] = Sprite::create("tairyoku_tama.png");
+	sprite[1] = Sprite::create("time.png");
+	sprite[2] = Sprite::create("kaihiai.png");
+	sprite[3] = Sprite::create("timelogo.png");
+#else
 	sprite[0] = Sprite::create("Graph/Pictures/tairyoku_tama.png");
 	sprite[1] = Sprite::create("Graph/Pictures/time.png");
 	sprite[2] = Sprite::create("Graph/Pictures/kaihiai.png");
 	sprite[3] = Sprite::create("Graph/Pictures/timelogo.png");
-
+#endif
 	sprite[0]->setPosition(Vec2(285, 695));
 	sprite[1]->setPosition(Vec2(1085, 760));
 	sprite[2]->setPosition(Vec2(100, 150));
 	sprite[3]->setPosition(Vec2(250, 80));
 
 	for(auto &p : sprite) addChild(p);
-
 }
 
 

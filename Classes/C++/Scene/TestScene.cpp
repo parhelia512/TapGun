@@ -27,6 +27,7 @@ using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
+_Sprite3D* sprite3D;
 cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
 cocos2d::Node* CamNode;
@@ -51,25 +52,34 @@ bool Test::init()
 	lay = this;
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	auto sprite3D = _Sprite3D::create( "mot_player_run");
+	sprite3D = _Sprite3D::create( "StageVer5.c3t");
 #else
 //	auto sprite3D = _Sprite3D::create( "Player/mot_player_dei1");//, "Enemy.anime");
 //	auto sprite3D = Sprite3D::create("test1.c3t");
 #endif
-	Sprite* sprite[4];
-	
-	sprite[0] = Sprite::create( "Graph/Pictures/tairyoku_tama.png");
-	sprite[1] = Sprite::create( "Graph/Pictures/time.png");
-	sprite[2] = Sprite::create( "Graph/Pictures/kaihiai.png");
-	sprite[3] = Sprite::create( "Graph/Pictures/timelogo.png");
-	
-	sprite[0] -> setPosition( Vec2( 285, 695));
-	sprite[1] -> setPosition( Vec2( 1085, 760));
-	sprite[2] -> setPosition( Vec2( 100, 150));
-	sprite[3] -> setPosition( Vec2( 250, 80));
+//	Sprite* sprite[4];
+//
+//	sprite[0] = Sprite::create( "Graph/Pictures/tairyoku_tama.png");
+//	sprite[1] = Sprite::create( "Graph/Pictures/time.png");
+//	sprite[2] = Sprite::create( "Graph/Pictures/kaihiai.png");
+//	sprite[3] = Sprite::create( "Graph/Pictures/timelogo.png");
+//	
+//	sprite[0] -> setPosition( Vec2( 285, 695));
+//	sprite[1] -> setPosition( Vec2( 1085, 760));
+//	sprite[2] -> setPosition( Vec2( 100, 150));
+//	sprite[3] -> setPosition( Vec2( 250, 80));
+//
+//	for( auto &p : sprite) addChild(p);
 
-	for( auto &p : sprite) addChild(p);
-
+//	sprite3D -> startAnimationLoop( "dei1", 0, 10);
+	auto animation = Animation3D::create( "enemy_shot.c3t");
+	auto animate = Animate3D::create( animation, 0, 1);
+	sprite3D -> runAction( cocos2d::RepeatForever::create( animate));
+	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
+	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
+	sprite3D -> setScale( 10.0f);
+	addChild( sprite3D);
+	
 //	auto light = AmbientLight::create (Color3B::RED);
 //	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
@@ -98,13 +108,27 @@ bool Test::init()
 	
 #endif
 
+	this -> scheduleUpdate();
 
 	return true;
 }
 
 void Test::update( float delta)
 {
-	//this -> scheduleUpdate();
+	static int count = 0;
+	if( count % 20 == 0)
+	{
+		if( !sprite3D -> checkAnimationState())
+		{
+			// 再開処理
+//			sprite3D -> stopAnimation();
+		}
+		else
+		{
+//			sprite3D -> stopALLAnimation();
+		}
+	}
+	count++;
 }
 
 void Test::moveTime( float delta)

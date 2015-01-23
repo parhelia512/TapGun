@@ -373,7 +373,7 @@ namespace TapGun
 	*
 	*	@author	minaka
 	*	@param	animeName アニメーション名
-	*	@param	startTime トリミング開始フレーム
+	*	@param	startTime / 60 トリミング開始フレーム
 	*	@param	endTime トリミング終了フレーム
 	*	@return	正常終了:0 エラー発生:-1
 	*	@date	1/23	Ver 1.0
@@ -384,7 +384,7 @@ namespace TapGun
 		if( str == "") return -1;
 		animation = cocos2d::Animation3D::create( str);
 		if( animation == nullptr) return -1;
-		animate = cocos2d::Animate3D::create( animation, startTime, endTime);
+		animate = cocos2d::Animate3D::create( animation, startTime / 60, endTime / 60);
 		if( animate == nullptr) return -1;
 		runAction( animate);
 		return 0;
@@ -406,7 +406,7 @@ namespace TapGun
 		if( str == "") return -1;
 		animation = cocos2d::Animation3D::create( str);
 		if( animation == nullptr) return -1;
-		animate = cocos2d::Animate3D::create( animation, startTime, endTime);
+		animate = cocos2d::Animate3D::create( animation, startTime / 60, endTime / 60);
 		if( animate == nullptr) return -1;
 		runAction( cocos2d::RepeatForever::create( animate));
 		return 0;
@@ -428,7 +428,7 @@ namespace TapGun
 		if( str == "") return -1;
 		animation = cocos2d::Animation3D::create( str);
 		if( animation == nullptr) return -1;
-		animate = cocos2d::Animate3D::create( animation, startTime, endTime);
+		animate = cocos2d::Animate3D::create( animation, startTime / 60, endTime / 60);
 		if( animate == nullptr) return -1;
 		animate -> setSpeed( -1);
 		runAction( animate);
@@ -451,7 +451,7 @@ namespace TapGun
 		if( str == "") return -1;
 		animation = cocos2d::Animation3D::create( str);
 		if( animation == nullptr) return -1;
-		animate = cocos2d::Animate3D::create( animation, startTime, endTime);
+		animate = cocos2d::Animate3D::create( animation, startTime / 60, endTime / 60);
 		if( animate == nullptr) return -1;
 		animate -> setSpeed( -1);
 		runAction( cocos2d::RepeatForever::create( animate));
@@ -466,7 +466,7 @@ namespace TapGun
 	*	@return	正常終了:0
 	*	@date	1/3	Ver 1.0
 	*/
-	int _Sprite3D::stopAnimation( const string& animeName)
+	int _Sprite3D::stopAnimation( void)
 	{
 		stopAction( animate);
 		return 0;
@@ -485,6 +485,24 @@ namespace TapGun
 		return 0;
 	}
 
+	int _Sprite3D::pauseAnimation( void)
+	{
+		if( numberOfRunningActions() == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			
+		}
+	}
+	
+	int _Sprite3D::restartAnimation( void)
+	{
+		
+		
+	}
+	
 	/**
 	*	3Dモデルのアニメーション再生速度を設定
 	*
@@ -626,5 +644,12 @@ namespace TapGun
 		shader -> updateUniforms();
 		this -> setShaderProgram( shader);
 		return 0;
+	}
+	
+	double getSec( void)
+	{
+		timeval tv;
+		gettimeofday(&tv, nullptr);
+		return (tv.tv_sec) + (tv.tv_usec) * 1e-6;
 	}
 }

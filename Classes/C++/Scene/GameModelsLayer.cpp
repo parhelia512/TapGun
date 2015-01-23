@@ -58,7 +58,7 @@ int GameModelsLayer::InitLayer(void)
 {
 	InitAllModels();
 
-	playerNum = -1;
+//	playerNum = -1;
 	playerNum = InitPlayer(0);//とりあえず引数0
 	InitMap(0);//正規のマップデータが降りてくるまでいったん保留します
 	InitEnemy(0);
@@ -105,8 +105,8 @@ int GameModelsLayer::InitPlayer(int stage_num)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string fileName1 = "player";
 	std::string fileName2 = "Player.anime";
-	std::string fileName3 = "box_tex.png";
-	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2, fileName3);
+//	std::string fileName3 = "box_tex.png";
+	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
 #else
 	std::string fileName1 = "_Player/player";
 	std::string fileName2 = "Player.anime";
@@ -154,7 +154,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string fileName1 = "enemy";
 	std::string fileName2 = "Enemy.anime";
-	std::string fileName3 = "enemy/Enemy.texture";
+//	std::string fileName3 = "Enemy.texture";
 #else
 	std::string fileName1 = "enemy/enemy";
 	std::string fileName2 = "Enemy.anime";
@@ -173,7 +173,11 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		}
 		//共通
 		unit[num].Init();//メンバ変数の初期化をしておく
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+		unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
+#else
 		unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2, fileName3);
+#endif
 		unit[num].Init(num, UKIND_ENEMY);
 		unit[num].wrapper = Node::create();//モデルの親ノード
 		unit[num].wrapper->addChild(unit[num].sprite3d);
@@ -306,7 +310,7 @@ int GameModelsLayer::InitMap(int stage_num)
 	unit[num].Init();//メンバ変数の初期化をしておく
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	std::string fileName1 = "stage";
+	std::string fileName1 = "StageVer5";
 	//std::string fileName2 = "stage_tex.png";
 #else
 	std::string fileName1 = "Stage/StageVer5";
@@ -726,7 +730,8 @@ void GameModelsLayer::UpdateEnemy()
 
 
 					unit[i].speedVec.y = 0;//yは今のところ0で扱う
-					unit[i].sprite3d->startAnimationLoop("stop", 0, 10);
+					unit[i].sprite3d->startAnimationLoop("stop");
+					unit[i].atkFrame = 50;
 					unit[i].sprite3d->setRotation3D(Vec3(0.0f, r + 180.0f, 0.0f));
 				}
 
@@ -734,19 +739,22 @@ void GameModelsLayer::UpdateEnemy()
 			case ESTATE_IDLE://アイドル状態
 
 				unit[i].atkFrame--;
+				unit[i].sprite3d->stopALLAnimation();
 				if(unit[i].atkFrame <= 0)
 				{
-					unit[i].eState = ESTATE_ATTACK1;
-					unit[i].sprite3d->startAnimation("rshot");
+//					unit[i].eState = ESTATE_ATTACK1;
+//					unit[i].sprite3d->startAnimationLoop("rshot");
+				
+				unit[i].eState = ESTATE_ATTACK1;
+				unit[i].sprite3d->startAnimationLoop("rshot");
 				}
-
 				break;
 			case ESTATE_MOVE://移動状態
 			{
 								 Vec3 tmpPos = unit[i].sprite3d->getPosition3D();
 
 								 //一定以上目的地に近付いたら
-								 if(0.001f >= sqrtf(unit[i].targetPos.x - tmpPos.x) * (unit[i].targetPos.x - tmpPos.x)
+								 if(0.01f >= sqrtf(unit[i].targetPos.x - tmpPos.x) * (unit[i].targetPos.x - tmpPos.x)
 									 + (unit[i].targetPos.y - tmpPos.y) *(unit[i].targetPos.y - tmpPos.y))
 								 {
 									 //プレイヤーと反対方向を向く
@@ -756,14 +764,14 @@ void GameModelsLayer::UpdateEnemy()
 									 unit[i].sprite3d->setPosition3D(unit[i].targetPos);
 									 unit[i].sprite3d->setRotation3D(rot);
 
-									 unit[i].sprite3d->stopAnimation("stop");
+									 unit[i].sprite3d->stopALLAnimation();
 
 									 unit[i].speed = 0.0f;
 									 unit[i].speedVec = Vec3(0.0f, 0.0f, 0.0f);
 
 
 									 unit[i].eState = ESTATE_IDLE;
-									 unit[i].atkFrame = 120;
+									 unit[i].atkFrame = 5;
 								 }
 			}
 				break;
@@ -783,14 +791,30 @@ void GameModelsLayer::UpdateEnemy()
 
 			case ESTATE_DAMAGED://被弾
 
-				unit[i].sprite3d->stopALLAnimation();
-				unit[i].sprite3d->startAnimation("dei3");
-				unit[i].eState = ESTATE_DEAD;
-				unit[i].eWaitFrame = 180;
+//				unit[i].sprite3d->stopALLAnimation();
+//				unit[i].sprite3d->startAnimation("dei2");
+//				unit[i].eState = ESTATE_DEAD;
+//				unit[i].eWaitFrame = 180;
+					
+					//共通
+	
+					unit[i].eState = ESTATE_STANDBY;
+					unit[i].hitpoint = 5;
+					//個別
+					unit[i].sprite3d->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
+					unit[i].targetPos = Vec3(15.0f, 0.0f, 5.5f);
+					unit[i].eWaitFrame = 0;
+					unit[i].atkFrame = 20;
+					
+					unit[i].eState = ESTATE_STANDBY;
+					
+
+//				unit[i].sprite3d->setVisible( false);
 				break;
 
 			case ESTATE_DEAD://死亡
-				if(unit[i].sprite3d->checkAnimationState() == -1)
+				unit[i].eState = ESTATE_DEAD;
+				if(unit[i].sprite3d->checkAnimationState() == 0)
 				{
 					unit[i].eWaitFrame--;
 					if(unit[i].eWaitFrame <= 0)
