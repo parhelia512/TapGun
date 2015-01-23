@@ -8,17 +8,21 @@
 #include "GameModelsLayer.h"
 #include "GameUILayer.h"
 #include "GameMaster.h"
+#include "Sound.h"
 
 #else
 
 #include "C++/Scene/GameModelsLayer.h"
 #include "C++/Scene/GameUILayer.h"
 #include "C++/Base/GameMaster.h"
+#include "C++/System/Sound.h"
 
 #endif
 
 USING_NS_CC;
 using namespace TapGun;
+
+Sound* sound;
 
 /*
 GameScene
@@ -113,6 +117,16 @@ bool GameScene::init()
 
 	//setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 
+	sound = Sound::getInstance();
+	
+	sound -> loadBGM( "testBGM.mp3");
+	sound -> playBGM();
+	sound -> loadSE( "Shot.wav");
+	sound -> loadSE( "Damage_01.wav");
+	sound -> loadSE( "Damage_02.wav");
+	sound -> loadSE( "Damage_03.wav");
+	sound -> loadSE( "Damage_04.wav");
+	
 	this->scheduleUpdate();
 	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
 
@@ -324,6 +338,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
 	GameMasterS->SetTouchPos(pTouch);//タッチ座標を取得してセット
 	GameMasterS->SetTouchFlag(TFLAG_ON);
+	
 	return true;
 }
 

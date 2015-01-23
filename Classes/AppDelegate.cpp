@@ -47,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		director -> setOpenGLView( glview);
 	}
 
-//	director -> setDisplayStats( true) ;
+	director -> setDisplayStats( true) ;
 	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview -> setFrameSize( 1280, 800);

@@ -10653,7 +10653,43 @@
 			"textures": [
 				{
 					"id": "マップ #28", 
-					"filename": "tex_player_2.png", 
+					"filename": "tex_player_2.psd", 
+					"type": "DIFFUSE", 
+					"wrapModeU": "REPEAT", 
+					"wrapModeV": "REPEAT"
+				}
+			]
+		}, 
+		{
+			"id": "Material #974", 
+			"ambient": [ 0.588000,  0.588000,  0.588000], 
+			"diffuse": [ 0.588000,  0.588000,  0.588000], 
+			"emissive": [ 0.000000,  0.000000,  0.000000], 
+			"opacity":  1.000000, 
+			"specular": [ 0.900000,  0.900000,  0.900000], 
+			"shininess":  2.000000, 
+			"textures": [
+				{
+					"id": "マップ #34", 
+					"filename": "tex_player_1.psd", 
+					"type": "DIFFUSE", 
+					"wrapModeU": "REPEAT", 
+					"wrapModeV": "REPEAT"
+				}
+			]
+		}, 
+		{
+			"id": "Material #969", 
+			"ambient": [ 0.588000,  0.588000,  0.588000], 
+			"diffuse": [ 0.588000,  0.588000,  0.588000], 
+			"emissive": [ 0.000000,  0.000000,  0.000000], 
+			"opacity":  1.000000, 
+			"specular": [ 0.900000,  0.900000,  0.900000], 
+			"shininess":  2.000000, 
+			"textures": [
+				{
+					"id": "マップ #30", 
+					"filename": "tex_player_1.psd", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
 					"wrapModeV": "REPEAT"
@@ -10679,7 +10715,7 @@
 			]
 		}, 
 		{
-			"id": "Material #971", 
+			"id": "Material #954", 
 			"ambient": [ 0.588000,  0.588000,  0.588000], 
 			"diffuse": [ 0.588000,  0.588000,  0.588000], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
@@ -10688,8 +10724,8 @@
 			"shininess":  2.000000, 
 			"textures": [
 				{
-					"id": "マップ #32", 
-					"filename": "tex_player_2.png", 
+					"id": "マップ #27", 
+					"filename": "tex_player_1.psd", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
 					"wrapModeV": "REPEAT"
@@ -10715,7 +10751,7 @@
 			]
 		}, 
 		{
-			"id": "Material #954", 
+			"id": "Material #971", 
 			"ambient": [ 0.588000,  0.588000,  0.588000], 
 			"diffuse": [ 0.588000,  0.588000,  0.588000], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
@@ -10724,44 +10760,8 @@
 			"shininess":  2.000000, 
 			"textures": [
 				{
-					"id": "マップ #27", 
-					"filename": "tex_player_1.png", 
-					"type": "DIFFUSE", 
-					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "Material #974", 
-			"ambient": [ 0.588000,  0.588000,  0.588000], 
-			"diffuse": [ 0.588000,  0.588000,  0.588000], 
-			"emissive": [ 0.000000,  0.000000,  0.000000], 
-			"opacity":  1.000000, 
-			"specular": [ 0.900000,  0.900000,  0.900000], 
-			"shininess":  2.000000, 
-			"textures": [
-				{
-					"id": "マップ #34", 
-					"filename": "tex_player_1.png", 
-					"type": "DIFFUSE", 
-					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "Material #969", 
-			"ambient": [ 0.588000,  0.588000,  0.588000], 
-			"diffuse": [ 0.588000,  0.588000,  0.588000], 
-			"emissive": [ 0.000000,  0.000000,  0.000000], 
-			"opacity":  1.000000, 
-			"specular": [ 0.900000,  0.900000,  0.900000], 
-			"shininess":  2.000000, 
-			"textures": [
-				{
-					"id": "マップ #30", 
-					"filename": "tex_player_1.png", 
+					"id": "マップ #32", 
+					"filename": "tex_player_2.psd", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
 					"wrapModeV": "REPEAT"

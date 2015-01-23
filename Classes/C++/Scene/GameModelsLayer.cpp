@@ -6,11 +6,13 @@
 
 #include "GameMaster.h"
 #include "Sprite3D.h"
+#include "Sound.h"
 
 #else
 
 #include "C++/Base/Sprite3D.h"
 #include "C++/Base/GameMaster.h"
+#include "C++/System/Sound.h"
 
 #endif
 
@@ -108,7 +110,7 @@ int GameModelsLayer::InitPlayer(int stage_num)
 //	std::string fileName3 = "box_tex.png";
 	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
 #else
-	std::string fileName1 = "_Player/player";
+	std::string fileName1 = "_Player/playertest";
 	std::string fileName2 = "Player.anime";
 	std::string fileName3 = "box_tex.png";
 	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2, fileName3);
@@ -511,6 +513,8 @@ void GameModelsLayer::ActionIdle()
 
 			//アニメーションを再生
 			unit[playerNum].sprite3d->startAnimationLoop("shot_new");
+			
+			
 		}
 		else//それ以外は今のところ回避
 		{
@@ -532,6 +536,7 @@ void GameModelsLayer::ActionIdle()
 */
 void GameModelsLayer::ActionShot()
 {
+	auto sound = Sound::getInstance();
 	if(TSTATE_ON == GameMasterM->GetTouchState())
 	{
 		auto s = Director::getInstance()->getWinSize();//画面サイズ取得
@@ -541,6 +546,7 @@ void GameModelsLayer::ActionShot()
 		GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
 
 		//アニメーションは継続して再生
+		sound -> playSE("Shot.wav");
 	}
 	else if(TSTATE_MOVE == GameMasterM->GetTouchState())
 	{
@@ -551,6 +557,7 @@ void GameModelsLayer::ActionShot()
 		GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
 
 		//アニメーションは継続して再生
+
 	}
 	else if(TSTATE_RELEASE == GameMasterM->GetTouchState())//タッチを離したら
 	{
@@ -692,6 +699,8 @@ void GameModelsLayer:: ActionDead(void)
 */
 void GameModelsLayer::UpdateEnemy()
 {
+	auto sound = Sound::getInstance();
+	auto random = rand() % 4;
 	for(int i = 0; i < MAX_UNIT; i++)
 	{
 		if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
@@ -796,22 +805,39 @@ void GameModelsLayer::UpdateEnemy()
 //				unit[i].eState = ESTATE_DEAD;
 //				unit[i].eWaitFrame = 180;
 					
-					//共通
+					
+				
+				if( random == 0)
+				{
+					sound -> playSE("Damage_01.wav");
+				}
+				else if( random == 1)
+				{
+					sound -> playSE("Damage_02.wav");
+				}
+				else if( random == 2)
+				{
+					sound -> playSE("Damage_03.wav");
+				}
+				else if( random == 3)
+				{
+					sound -> playSE("Damage_04.wav");
+				}
+					
+				//共通
 	
-					unit[i].eState = ESTATE_STANDBY;
-					unit[i].hitpoint = 5;
-					//個別
-					unit[i].sprite3d->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
-					unit[i].targetPos = Vec3(15.0f, 0.0f, 5.5f);
-					unit[i].eWaitFrame = 0;
-					unit[i].atkFrame = 20;
-					
-					unit[i].eState = ESTATE_STANDBY;
-					
-
+				unit[i].eState = ESTATE_STANDBY;
+				unit[i].hitpoint = 5;
+				//個別
+				unit[i].sprite3d->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
+				unit[i].targetPos = Vec3(15.0f, 0.0f, 5.5f);
+				unit[i].eWaitFrame = 0;
+				unit[i].atkFrame = 20;
+				
+				unit[i].eState = ESTATE_STANDBY;
+				
 //				unit[i].sprite3d->setVisible( false);
 				break;
-
 			case ESTATE_DEAD://死亡
 				unit[i].eState = ESTATE_DEAD;
 				if(unit[i].sprite3d->checkAnimationState() == 0)
