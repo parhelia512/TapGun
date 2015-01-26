@@ -1,20 +1,20 @@
-_Player/mot_player_shot.c3b,shot
-_Player/mot_player_shot.c3t,shot
-_Player/mot_player_shot_new.c3b,shot_new
-_Player/mot_player_shot_new.c3t,shot_new
-_Player/mot_player_hide shot left.c3b,hideshot_l
-_Player/mot_player_hide shot left.c3t,hideshot_l
-_Player/mot_player_hide shot leftN.c3b,hideshot_ln
-_Player/mot_player_hide shot leftN.c3t,hideshot_ln
-_Player/mot_player_hide shot right.c3b,hideshot_r
-_Player/mot_player_hide shot right.c3t,hideshot_r
-_Player/mot_player_reload.c3b,reload
-_Player/mot_player_reload.c3t,reload
-_Player/mot_player_hit1.c3b,hit1
-_Player/mot_player_hit1.c3t,hit1
-_Player/mot_player_dei1.c3b,dei1
-_Player/mot_player_dei1.c3t,dei1
-_Player/mot_player_dei2.c3b,dei2
-_Player/mot_player_dei2.c3t,dei2
-_Player/mot_plyaer_run.c3b,run
-_Player/mot_plyaer_run.c3t,run
+Player/mot_player_shot.c3b,shot
+Player/mot_player_shot.c3t,shot
+Player/mot_player_shot_new.c3b,shot_new
+Player/mot_player_shot_new.c3t,shot_new
+Player/mot_player_hide shot left.c3b,hideshot_l
+Player/mot_player_hide shot left.c3t,hideshot_l
+Player/mot_player_hide shot leftN.c3b,hideshot_ln
+Player/mot_player_hide shot leftN.c3t,hideshot_ln
+Player/mot_player_hide shot right.c3b,hideshot_r
+Player/mot_player_hide shot right.c3t,hideshot_r
+Player/mot_player_reload.c3b,reload
+Player/mot_player_reload.c3t,reload
+Player/mot_player_hit1.c3b,hit1
+Player/mot_player_hit1.c3t,hit1
+Player/mot_player_dei1.c3b,dei1
+Player/mot_player_dei1.c3t,dei1
+Player/mot_player_dei2.c3b,dei2
+Player/mot_player_dei2.c3t,dei2
+Player/mot_plyaer_run.c3b,run
+Player/mot_plyaer_run.c3t,run

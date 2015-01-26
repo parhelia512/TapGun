@@ -55,7 +55,7 @@ bool Test::init()
 	sprite3D = _Sprite3D::create( "StageVer5.c3t");
 #else
 //	auto sprite3D = _Sprite3D::create( "Player/mot_player_dei1");//, "Enemy.anime");
-//	auto sprite3D = Sprite3D::create("test1.c3t");
+	auto sprite3D = _Sprite3D::create("enemy/enemy","Enemy.anime");
 #endif
 //	Sprite* sprite[4];
 //
@@ -72,14 +72,17 @@ bool Test::init()
 //	for( auto &p : sprite) addChild(p);
 
 //	sprite3D -> startAnimationLoop( "dei1", 0, 10);
-	auto animation = Animation3D::create( "enemy_shot.c3t");
-	auto animate = Animate3D::create( animation, 0, 1);
-	sprite3D -> runAction( cocos2d::RepeatForever::create( animate));
+	//auto animation = Animation3D::create( "enemy_shot.c3t");
+	//auto animate = Animate3D::create( animation, 0, 1);
+	//sprite3D -> runAction( cocos2d::RepeatForever::create( animate));
+	
 	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
 	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
 	sprite3D -> setScale( 10.0f);
-	addChild( sprite3D);
-	
+	addChild(sprite3D);
+	sprite3D->startAnimation("stop");
+//
+
 //	auto light = AmbientLight::create (Color3B::RED);
 //	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
 //	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
@@ -108,7 +111,7 @@ bool Test::init()
 	
 #endif
 
-	this -> scheduleUpdate();
+//	this -> scheduleUpdate();
 
 	return true;
 }

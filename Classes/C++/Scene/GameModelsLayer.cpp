@@ -110,7 +110,7 @@ int GameModelsLayer::InitPlayer(int stage_num)
 //	std::string fileName3 = "box_tex.png";
 	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
 #else
-	std::string fileName1 = "_Player/player";
+	std::string fileName1 = "Player/player";
 	std::string fileName2 = "Player.anime";
 	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
 
