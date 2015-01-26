@@ -110,10 +110,9 @@ int GameModelsLayer::InitPlayer(int stage_num)
 //	std::string fileName3 = "box_tex.png";
 	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
 #else
-	std::string fileName1 = "_Player/playertest";
+	std::string fileName1 = "_Player/player";
 	std::string fileName2 = "Player.anime";
-	std::string fileName3 = "box_tex.png";
-	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2, fileName3);
+	unit[num].sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
 
 #endif
 
@@ -160,7 +159,6 @@ int GameModelsLayer::InitEnemy(int stage_num)
 #else
 	std::string fileName1 = "enemy/enemy";
 	std::string fileName2 = "Enemy.anime";
-	std::string fileName3 = "Enemy.texture";
 #endif
 
 	int num = -1;
@@ -178,7 +176,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
 #else
-		unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2, fileName3);
+		unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
 #endif
 		unit[num].Init(num, UKIND_ENEMY);
 		unit[num].wrapper = Node::create();//モデルの親ノード

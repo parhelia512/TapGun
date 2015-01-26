@@ -500,7 +500,7 @@ namespace TapGun
 	int _Sprite3D::restartAnimation( void)
 	{
 		
-		
+		return 0;
 	}
 	
 	/**

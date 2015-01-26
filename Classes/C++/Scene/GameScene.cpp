@@ -119,8 +119,8 @@ bool GameScene::init()
 
 	sound = Sound::getInstance();
 	
-	sound -> loadBGM( "testBGM.mp3");
-	sound -> playBGM();
+	//sound -> loadBGM( "testBGM.mp3");
+	//sound -> playBGM();
 	sound -> loadSE( "Shot.wav");
 	sound -> loadSE( "Damage_01.wav");
 	sound -> loadSE( "Damage_02.wav");
