@@ -5,7 +5,7 @@ TapGun
 
 #### 使用するライブラリ
 
-##### cocos2d-x ver 3.3
+##### cocos2d-x ver 3.4rc1
  * android adk 
  * android ndk r10c
  * apache ant 1.9.4
