@@ -14,7 +14,7 @@ TapGun
 
 #### 想定プラットフォーム及び実機
 
-##### Android 4.1 ~ 5.0
+##### Android 4.1 ~ 5.0.2
  * nexus7 (2012)
  * AQUOS PHONE 303SH
 
