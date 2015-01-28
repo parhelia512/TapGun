@@ -155,7 +155,6 @@ int GameModelsLayer::InitEnemy(int stage_num)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string fileName1 = "enemy";
 	std::string fileName2 = "Enemy.anime";
-//	std::string fileName3 = "Enemy.texture";
 #else
 	std::string fileName1 = "enemy/enemy";
 	std::string fileName2 = "Enemy.anime";
@@ -195,9 +194,6 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		unit[num].targetPos = Vec3(15.0f, 0.0f, 5.5f);
 		unit[num].eWaitFrame = 20;
 
-
-
-
 		for(int i = 3; i < 50; i++)
 		{
 
@@ -227,13 +223,6 @@ int GameModelsLayer::InitEnemy(int stage_num)
 			//unit[num].eWaitFrame = 20;
 
 		}
-
-
-
-
-
-
-
 
 
 	case 1:

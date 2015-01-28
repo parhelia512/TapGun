@@ -20,7 +20,7 @@
 
 #endif
 
-//#define CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
+#define CAMERA3D//
 
 USING_NS_CC;
 using namespace std;
@@ -89,9 +89,9 @@ bool Test::init()
 //	addChild (light);
 //	auto light = SpotLight::create(Vec3(-1.0f, -1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f),Color3B::RED, 0.0, 0.5, 10000.0f) ;
 
-#ifdef CAMERA3D//3DÂ∫ßÊ®ô„Åß‰ΩúÊ•≠„Åó„Åü„ÅÑ„Å®„Åç„Å´‰ΩøÁî®„Åó„Å¶‰∏ã„Åï„ÅÑ
+#ifdef CAMERA3D//
 	
-	auto screenSize = Director::getInstance()->getWinSize();//„Çπ„ÇØ„É™„Éº„É≥„Çµ„Ç§„Ç∫„ÇíÂèñÂæó
+	auto screenSize = Director::getInstance()->getWinSize();//
 
 	//„Ç´„É°„É©ÂÆöÁæ©
 	CamNode = Node::create();
@@ -101,11 +101,10 @@ bool Test::init()
 
 	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
 	CamNode->setPosition3D(Vec3(0.0f, 0.0f, -5.0f));
-	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 10.0f + 5.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
-
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 10.0f + 5.0f));//
 
 	//sprite3D„ÅÆÂ∫ßÊ®ô„Çí3D„Å´ÂØæÂøú
-	sprite3D->setPosition3D(Vec3( 0.0f, -1.0f, 0.0f));//Â∫ßÊ®ô„ÅØÈÅ©ÂÆúË™øÊï¥
+	sprite3D->setPosition3D(Vec3( 0.0f, -1.0f, 0.0f));//
 	sprite3D->setScale(1.0f);
 	sprite3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
 	
