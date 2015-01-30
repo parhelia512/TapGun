@@ -22,12 +22,32 @@
 
 #define CAMERA3D//
 
+//一時的に定義する
+#define PERSE 35//カメラ視野角
+#define SETX 0.4f
+#define SETY 1.85f
+#define SETZ 3.3f
+
+#define ROTX -8.0f
+#define ROTY -10.0f
+#define ROTZ 0.0f
+
+//プレイヤー
+#define PPOSX 5.5f
+#define PPOSY 0.0f
+#define PPOSZ 4.0f
+
+#define PROTX 0.0f
+#define PROTY 85.0f
+#define PROTZ 0.0f
+
+
 USING_NS_CC;
 using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
 
-_Sprite3D* sprite3D;
+//_Sprite3D* sprite3D;
 cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
 cocos2d::Node* CamNode;
@@ -54,60 +74,47 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	sprite3D = _Sprite3D::create( "StageVer5.c3t");
 #else
-//	auto sprite3D = _Sprite3D::create( "Player/mot_player_dei1");//, "Enemy.anime");
-	auto sprite3D = _Sprite3D::create("enemy/enemy","Enemy.anime");
+	auto spriteMap = _Sprite3D::create( "Stage/StageVer5");//, "Enemy.anime");
+	auto spritePlayer = _Sprite3D::create("Player/player","player.anime");
+	auto spriteEnemy1 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
+	auto spriteEnemy2 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
+
 #endif
-//	Sprite* sprite[4];
-//
-//	sprite[0] = Sprite::create( "Graph/Pictures/tairyoku_tama.png");
-//	sprite[1] = Sprite::create( "Graph/Pictures/time.png");
-//	sprite[2] = Sprite::create( "Graph/Pictures/kaihiai.png");
-//	sprite[3] = Sprite::create( "Graph/Pictures/timelogo.png");
-//	
-//	sprite[0] -> setPosition( Vec2( 285, 695));
-//	sprite[1] -> setPosition( Vec2( 1085, 760));
-//	sprite[2] -> setPosition( Vec2( 100, 150));
-//	sprite[3] -> setPosition( Vec2( 250, 80));
-//
-//	for( auto &p : sprite) addChild(p);
+	//マップ
+	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+	addChild(spriteMap);
 
-//	sprite3D -> startAnimationLoop( "dei1", 0, 10);
-	//auto animation = Animation3D::create( "enemy_shot.c3t");
-	//auto animate = Animate3D::create( animation, 0, 1);
-	//sprite3D -> runAction( cocos2d::RepeatForever::create( animate));
-	
-	sprite3D -> setPosition3D( Vec3( SystemValue::windowSize.width / 2, SystemValue::windowSize.height / 4, 0));
-	sprite3D -> setRotation3D( Vec3( 0.0f, 0.0f, 0.0f));
-	sprite3D -> setScale( 10.0f);
-	addChild(sprite3D);
-	sprite3D->startAnimation("stop");
-//
+	//エネミー
+	spriteEnemy1->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
+	spriteEnemy1->setPosition3D(Vec3(15.0f, 0.0f, 5.5f));
+	addChild(spriteEnemy1);
 
-//	auto light = AmbientLight::create (Color3B::RED);
-//	auto light = PointLight::create(Vec3(0.0f, 0.0f, 0.0f), Color3B::RED, 10000.0f);
-//	auto light = DirectionLight::create(Vec3(-1.0f, -1.0f, 0.0f), Color3B::RED);
-//	addChild (light);
-//	auto light = SpotLight::create(Vec3(-1.0f, -1.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f),Color3B::RED, 0.0, 0.5, 10000.0f) ;
+	//プレイヤー
+	spritePlayer->setPosition3D(Vec3(PPOSX, PPOSY, PPOSZ));
+	spritePlayer->setRotation3D(Vec3(0.0f, PROTY, 0.0f));
+	addChild(spritePlayer);
 
 #ifdef CAMERA3D//
 	
 	auto screenSize = Director::getInstance()->getWinSize();//
 
-	//„Ç´„É°„É©ÂÆöÁæ©
 	CamNode = Node::create();
-	Camera3D = Camera::createPerspective(60, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	Camera3D = Camera::createPerspective(PERSE, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
 	addChild(CamNode);
 	CamNode->addChild(Camera3D);
 
+	//カメラ設定
 	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
-	CamNode->setPosition3D(Vec3(0.0f, 0.0f, -5.0f));
-	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 10.0f + 5.0f));//
 
-	//sprite3D„ÅÆÂ∫ßÊ®ô„Çí3D„Å´ÂØæÂøú
-	sprite3D->setPosition3D(Vec3( 0.0f, -1.0f, 0.0f));//
-	sprite3D->setScale(1.0f);
-	sprite3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
-	
+	//カメラ座標と回転
+	CamNode->setPosition3D(Vec3(SETX, SETY, SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
+	CamNode->setPosition3D(Vec3(ROTX, ROTY, ROTZ));
+
+	//カメラとプレイヤーの距離
+	Camera3D->setPosition3D(Vec3(SETX, SETY, SETZ));
+	Camera3D->setRotation3D(Vec3(ROTX, ROTY, ROTZ));
+
+//	Camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
 #endif
 
 //	this -> scheduleUpdate();
@@ -120,15 +127,6 @@ void Test::update( float delta)
 	static int count = 0;
 	if( count % 20 == 0)
 	{
-		if( !sprite3D -> checkAnimationState())
-		{
-			// 再開処理
-//			sprite3D -> stopAnimation();
-		}
-		else
-		{
-//			sprite3D -> stopALLAnimation();
-		}
 	}
 	count++;
 }
@@ -136,12 +134,6 @@ void Test::update( float delta)
 void Test::moveTime( float delta)
 {
 	//	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
-
-	static float crot;
-	crot += 1.5f;
-//	Camera3D->setRotation3D(Vec3(0.0f, crot, 0.0f));
-//	CamNode->setRotation3D(Vec3(0.0f, crot, 0.0f));
-
 }
 
 void Test::menuCloseCallback(Ref* pSender)

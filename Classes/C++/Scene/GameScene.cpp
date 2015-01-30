@@ -173,23 +173,16 @@ int GameScene::InitCamera()
 		GameMasterS->SetCamera3DPos(cameraPos2);
 		*/
 
-
-
 		//ノードを意識する座標
-
 		GameMasterS->SetCameraNodePos(cameraPos);//ノードは常にプレイヤーの座標に一致
 		GameMasterS->SetCameraNodeRot(gGameLayer->unit[playerNum].sprite3d->getRotation3D());//ノード回転もプレイヤーをもとに設定
 
-		Vec3 cameraPos2 = Vec3(0.58f, 1.55f, 1.3f);//プレイヤー（親ノード）とカメラの位置関係をセット
-		//Vec3 cameraPos2 = Vec3(0.8f, 1.5f, 10.1f);//プレイヤー（親ノード）とカメラの位置関係をセット
-
-		GameMasterS->SetCamera3DPos(cameraPos2);
-		GameMasterS->SetCamera3DRot(Vec3(-3.0f, 0.0f, 0.0f));
+		GameMasterS->SetCamera3DPos(Vec3(SETX, SETY, SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
+		GameMasterS->SetCamera3DRot(Vec3(ROTX, ROTY, ROTZ));
 
 		GameMasterS->GetCameraNode();
 		GameMasterS->Get3DCamInstance();
 		addChild(GameMasterS->GetCamNodeInstance());
-
 	}
 	return TRUE;
 }
@@ -313,14 +306,12 @@ int GameScene::UpdateCamera()
 
 	if(NULL != gGameLayer)
 	{
-
 		//プレイヤーの周りをカメラが回転するテスト
 
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		Vec3 cameraPos = gGameLayer->unit[playerNum].sprite3d->getPosition3D();
 		Vec3 cameraRot = gGameLayer->unit[playerNum].sprite3d->getRotation3D();
 
-		//①：公転
 		//プレイヤーの座標にカメラのノードを置く
 		GameMasterS->SetCameraNodePos(cameraPos);
 
