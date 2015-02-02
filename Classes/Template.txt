@@ -1,0 +1,146 @@
+
+コメントの記述方法
+/**
+ *	関数名
+ *		initPlayer
+ *
+ *	@return
+ *	@
+ *	@
+ *	@
+ */
+void initPlayer( std::string fileName)
+{
+
+}
+
+
+例外処理の記述方法
+
+#include "cocos2d.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+
+
+#else
+
+
+#endif
+
+USING_NS_CC;
+
+
+デバッグモード時専用処理記述方法
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+  #ifdef DEBUG
+	
+  #else
+	
+  #endif
+
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#else
+
+  #ifdef _DEBUG
+	
+  #else
+	
+  #endif
+
+#endif
+
+
+変数名
+	先頭小文字　+　単語の先頭大文字
+	例外　２文字の単語は両方大文字
+	例　playerHP;  gameFrameCount;
+
+
+ポインタ宣言
+	命名規則は変数名と同じ
+	型の後ろに*をつける（変数名の先頭にはつけない！）
+	int* pointer;
+	Player* player;
+
+
+関数名
+	命名規則は変数名と同じ
+	引数なしの場合は必ずvoidを書く!
+	引数型の前には半角スペースを１つ入れる
+	引数が２つ以上ある場合も半角スペースを１つ入れる
+	例外 コンストラクタ・デストラクタはvoid省略
+	void intiPlayer( int HP, std::string fileName);
+
+
+制御構文
+	条件式の前には半角スペースを１つ入れる
+	if( i == 0)
+	{
+
+	}
+	for( int i = 0; i < 10; i++)
+	{
+
+	}
+	while( ture)
+	{
+
+	}
+	do 
+	{
+
+	} while( true);
+
+
+定数定義
+	#define の後ろに半角スペース１つ
+	すべて大文字で定義
+
+#define NULL 0
+#define PLAYER_HP_DEFALULT 100
+
+
+インクルード文
+	#includeの後ろに半角スペース１つ
+
+#include <iostream>
+
+
+構造体・列挙型定義
+	型名は単語の先頭１文字を大文字
+	後は単語ごとに先頭１文字を大文字
+	列挙型定数は全て大文字
+	メンバ変数・関数はそれぞれの命名規則に従う
+
+	enum PlayerState 
+	{
+		IDLE,
+		ATTACK,
+		MOVE,
+	};
+
+	struct Player 
+	{
+
+	}
+
+	class Player
+	{
+
+	}
+
+
+名前空間
+	作成したファイルは原則 namespace Ilohasに入れる
+
+
+ファイル名
+	先頭小文字　+　単語の先頭大文字
+	継承元のクラス名を先頭に記述する
+	継承元となるクラスを記述しているファイルはbaseを記述する
+	ゲームの各シーンの場合はsceneを記述する
