@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Player/mot_player_run_ver2.c3b,run
 Player/mot_player_run_ver2.c3t,run
 Player/mot_player_shot_left_ver2.c3b,shot_l
@@ -14,3 +15,37 @@ Player/mot_player_hide_reload_left_ver3.c3b,h_reload_l
 Player/mot_player_hide_reload_left_ver3.c3t,h_reload_l
 Player/mot_player_hide_reload_right_ver2.c3b,h_reload_r
 Player/mot_player_hide_reload_right_ver2.c3t,h_reload_r
+=======
+Player/mot_player_shot.c3b,shot
+Player/mot_player_shot.c3t,shot
+Player/mot_player_shot_new.c3b,shot_new
+Player/mot_player_shot_new.c3t,shot_new
+Player/mot_player_hide_shot_left.c3b,hideshot_l
+Player/mot_player_hide_shot_left.c3t,hideshot_l
+Player/mot_player_hide_shot_leftN.c3b,hideshot_ln
+Player/mot_player_hide_shot_leftN.c3t,hideshot_ln
+Player/mot_player_hide_shot_right.c3b,hideshot_r
+Player/mot_player_hide_shot_right.c3t,hideshot_r
+Player/mot_player_reload.c3b,reload
+Player/mot_player_reload.c3t,reload
+Player/mot_player_hit1.c3b,hit1
+Player/mot_player_hit1.c3t,hit1
+Player/mot_player_dei1.c3b,dei1
+Player/mot_player_dei1.c3t,dei1
+Player/mot_player_dei2.c3b,dei2
+Player/mot_player_dei2.c3t,dei2
+Player/mot_player_run.c3b,run
+Player/mot_player_run.c3t,run
+Player/mot_player_aidling_left.c3b,idol_l
+Player/mot_player_aidling_left.c3t,idol_l
+Player/mot_player_aidling_right.c3b,idol_r
+Player/mot_player_aidling_right.c3t,idol_r
+Player/mot_player_hide_reload_left.c3t,hreload_l
+Player/mot_player_hide_reload_left.c3b,hreload_l
+Player/mot_player_hide_reload_right.c3t,hreload_r
+Player/mot_player_hide_reload_right.c3b,hreload_r
+Player/mot_player_relord_left.c3t,reload_l
+Player/mot_player_relord_left.c3b,reload_l
+Player/mot_player_relord_right.c3t,reload_r
+Player/mot_player_relord_right.c3b,reload_r
+>>>>>>> e1baa956a7a6fbe8aef6ca94c5e6b0e4cff04578
