@@ -7,10 +7,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "Unit.h"
+#include "Player.h"
 
 #else
 
 #include "C++/Base/Unit.h"
+#include "C++/Base/Player.h"
 
 #endif
 
@@ -19,14 +21,14 @@ namespace TapGun
 	class GameModelsLayer : public cocos2d::Layer
 	{
 	public:
-
+		Player player;
 		Unit unit[MAX_UNIT];//
 
 		virtual bool init();//レイヤーのインスタンス生成
 		//初期化系
-		int InitLayer(void);//レイヤーの変数初期化
+		void InitLayer(void);//レイヤーの変数初期化
 		void InitAllModels();//モデル全体の初期化
-		int InitPlayer(int stage_num);//プレイヤーの初期化
+		void InitPlayer(int stage_num);//プレイヤーの初期化
 		int InitEnemy(int stage_num);//エネミー初期化
 		int InitMap(int stage_num);//マップの初期化
 
@@ -36,9 +38,6 @@ namespace TapGun
 
 		void SetEnemy(void);//
 
-
-		int GetPlayerNum();
-		//
 		void update(float delta);//現在使用しない
 		void moveTime(float delta);//現在使用しない
 
@@ -47,7 +46,10 @@ namespace TapGun
 	private:
 
 		//メンバ変数
-		int playerNum;
+//		cocos2d::Node* hideNodeLeft;
+//		cocos2d::Node* hideNodeRight;
+//		cocos2d::Point hidePoint;
+
 
 		//更新系
 		void UpdatePlayer(void);//

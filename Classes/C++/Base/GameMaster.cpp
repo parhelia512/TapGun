@@ -20,7 +20,6 @@ Camera* GameMaster::camera3D = NULL;
 Camera* GameMaster::camera2D = NULL;
 Node* GameMaster::CamNode = NULL;
 
-
 /**
 *	ゲームパラメータクラスの生成
 *
@@ -153,9 +152,10 @@ void GameMaster::InitParam()
 	//stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 88.0f, 0.0f);
 
 	stagePoint[POINT_STAGE1].pos = Vec3(5.5f, 0.0f, 4.0f);
-	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 80.0f, 0.0f);
+	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 0.0f, 0.0f);
 	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
 	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
+	stagePoint[POINT_STAGE1].hidePoint = setHidePoint(stagePoint[POINT_STAGE1]);
 	//stagePoint[0].pos = Vec3(14.0f, 0.0f, 2.5f);
 	//stagePoint[0].rot = Vec3(0.0f, 180.0f, 0.0f);
 
@@ -635,4 +635,35 @@ int GameMaster::GetTouchFlag(void)
 int GameMaster::GetTouchState(void)
 {
 	return touchState;
+}
+
+
+
+
+
+/**
+*	回避動作の軸座標の計算
+*
+*	@author	sasebon
+*	@param	stagePoint
+*	@return	軸座標
+*	@date	2/1 Ver 1.0
+*/
+Vec2 GameMaster::setHidePoint(StagePoint stagePoint)
+{
+	Vec2 hidePoint = Vec2(-HIDEPOINT_X, -HIDEPOINT_Y);
+
+	if(PSIDE_LEFT == stagePoint.playerSide)
+	{
+		hidePoint.x = hidePoint.x * cosf(stagePoint.rot.y) - hidePoint.y * sinf(stagePoint.rot.y);
+		hidePoint.y = hidePoint.x * sinf(stagePoint.rot.y) + hidePoint.y * cosf(stagePoint.rot.y);
+	}
+	else
+	{
+		hidePoint = Vec2(HIDEPOINT_X, -HIDEPOINT_Y);
+
+		hidePoint.x = hidePoint.x * cosf(stagePoint.rot.y) - hidePoint.y * sinf(stagePoint.rot.y);
+		hidePoint.y = hidePoint.x * sinf(stagePoint.rot.y) + hidePoint.y * cosf(stagePoint.rot.y);
+	}
+	return hidePoint;
 }

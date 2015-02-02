@@ -18,12 +18,12 @@ namespace TapGun
 #define STS_MAXBULLETS 30//プレイヤーの最大弾数
 #define STS_MUTEKIFRAME 120//無敵時間
 
-#define STS_HIDEWAIT 7//回避モーションが終了するまでの全体フレーム
+#define STS_HIDEWAIT 12//回避モーションが終了するまでの全体フレーム
 #define STS_HIDESTART 1//回避ボタンを押してから回避モーションが始まるまでの時間
-#define STS_MUTEKISTART 1//回避モーションが始まってから無敵時間に移行するまでの時間
+#define STS_MUTEKISTART 0//回避モーションが始まってから無敵時間に移行するまでの時間
 #define STS_APPEARSTART 1//回避ボタンを離してから突撃モーションが始まるまでの時間
 #define STS_MUTEKIEND (STS_HIDEWAIT - STS_MUTEKISTART)//突撃モーションが始まってから無敵時間が終了するまでの時間
-#define STS_RELOADSTART 7//回避モーションが始まってからリロードが行われるまでの時間
+#define STS_RELOADSTART 12//回避モーションが始まってからリロードが行われるまでの時間
 
 #define BATTLE_FEILD_X 0.8//タッチで攻撃可能な画面割合
 
@@ -49,6 +49,21 @@ namespace TapGun
 #define ROTX -4.0f
 #define ROTY -10.0f
 #define ROTZ 0.0f
+
+
+	//一時的に定義する
+#define W_PERSE 35//カメラ視野角
+#define W_SETX -0.5f
+#define W_SETY 1.61f
+#define W_SETZ 2.9f
+
+#define W_ROTX 0.0f
+#define W_ROTY -10.0f
+#define W_ROTZ 0.0f
+
+
+#define HIDEPOINT_X 0.6f
+#define HIDEPOINT_Y 0.6f
 
 	//
 	enum _CAMERA_FLAG_
@@ -136,6 +151,7 @@ namespace TapGun
 		cocos2d::Vec3 rot;
 		int pointType;
 		int playerSide;
+		cocos2d::Point hidePoint;//回避動作の軸となる座標
 	}StagePoint;
 
 	class GameMaster
@@ -147,6 +163,7 @@ namespace TapGun
 		//各種フラグ（後でprivateに修正する）
 		int waitFlag;//ウェイトモードを進行させるフラグ
 		int sPoint;//現在のステージポイント
+		int rapidFrame;//連射待ち時間
 		int wave;//現在ウェーブ
 		StagePoint stagePoint[100];//プレイヤーの進行座標を定義する構造体
 
@@ -154,9 +171,10 @@ namespace TapGun
 		int playerHitFlag;//プレイヤーの無敵状態のフラグ（TRUE/FALSE）
 		int nowBullets;//プレイヤーの現在弾数
 
+		int flgPlayerATK;//プレイヤーの攻撃処理判定を行うか（TRUE/FALSE）
+
 		int hideFrame;//回避フレーム
 		int mutekiFrame;//無敵時間
-
 
 		//関数
 		GameMaster(const GameMaster &P) = delete;
@@ -229,6 +247,9 @@ namespace TapGun
 		static cocos2d::Camera* camera2D;
 		static cocos2d::Camera* camera3D;
 		static cocos2d::Node* CamNode;
+
+		//
+		cocos2d::Vec2 setHidePoint(StagePoint stagePoint);
 
 		GameMaster() {}
 	};

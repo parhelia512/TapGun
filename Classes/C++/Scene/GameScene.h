@@ -23,7 +23,6 @@ namespace TapGun
 
 
 		//==変数系==
-		int playerNum;//Unit配列のプレイヤー番号（0で固定してもよい？）
 
 		//==メンバ関数==
 		static cocos2d::Scene* CreateScene();
