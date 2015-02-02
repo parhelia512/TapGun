@@ -139,12 +139,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\C++\Base\GameMaster.cpp" />
+    <ClCompile Include="..\Classes\C++\Base\Player.cpp" />
     <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp" />
     <ClCompile Include="..\Classes\C++\Base\UI.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Classes\C++\Base\Unit.cpp" />
     <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp" />
+    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Classes\C++\Scene\GameScene.cpp" />
     <ClCompile Include="..\Classes\C++\Scene\GameUILayer.cpp" />
     <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
@@ -162,12 +166,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\C++\Base\GameMaster.h" />
+    <ClInclude Include="..\Classes\C++\Base\Player.h" />
     <ClInclude Include="..\Classes\C++\Base\Sprite3D.h" />
     <ClInclude Include="..\Classes\C++\Base\UI.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Base\Unit.h" />
     <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h" />
+    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Classes\C++\Scene\GameScene.h" />
     <ClInclude Include="..\Classes\C++\Scene\GameUILayer.h" />
     <ClInclude Include="..\Classes\C++\Scene\TestScene.h">

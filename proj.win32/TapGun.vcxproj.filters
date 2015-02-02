@@ -90,6 +90,12 @@
     <ClCompile Include="..\Classes\C++\Base\UI.cpp">
       <Filter>Source\C++\Base</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Base\Player.cpp">
+      <Filter>Source\C++\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -147,6 +153,12 @@
       <Filter>Source\C++\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Base\UI.h">
+      <Filter>Source\C++\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Base\Player.h">
       <Filter>Source\C++\Base</Filter>
     </ClInclude>
   </ItemGroup>

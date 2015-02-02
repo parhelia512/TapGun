@@ -20,7 +20,6 @@ Camera* GameMaster::camera3D = NULL;
 Camera* GameMaster::camera2D = NULL;
 Node* GameMaster::CamNode = NULL;
 
-
 /**
 *	ゲームパラメータクラスの生成
 *
@@ -139,6 +138,7 @@ void GameMaster::InitParam()
 		stagePoint[i].pos = Vec3(0.0f, 0.0f, 0.0f);
 		stagePoint[i].rot = Vec3(0.0f, 0.0f, 0.0f);
 		stagePoint[i].pointType = POINT_NONE;
+		stagePoint[i].playerSide = PSIDE_RIGHT;//初期化は全てRIGHT
 	}
 	//stagePointの定義
 
@@ -148,10 +148,14 @@ void GameMaster::InitParam()
 	stagePoint[POINT_START].pointType = POINT_NONE;
 
 	//ステージ１
-	stagePoint[POINT_STAGE1].pos = Vec3(6.4f, 0.0f, 4.65f);
-	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 88.0f, 0.0f);
-	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
+	//stagePoint[POINT_STAGE1].pos = Vec3(6.4f, 0.0f, 4.65f);
+	//stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 88.0f, 0.0f);
 
+	stagePoint[POINT_STAGE1].pos = Vec3(5.5f, 0.0f, 4.0f);
+	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 0.0f, 0.0f);
+	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
+	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
+	stagePoint[POINT_STAGE1].hidePoint = setHidePoint(stagePoint[POINT_STAGE1]);
 	//stagePoint[0].pos = Vec3(14.0f, 0.0f, 2.5f);
 	//stagePoint[0].rot = Vec3(0.0f, 180.0f, 0.0f);
 
@@ -344,7 +348,7 @@ void GameMaster::InitCamera3D()
 
 	//
 	CamNode = Node::create();
-	camera3D = Camera::createPerspective(45, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	camera3D = Camera::createPerspective(PERSE, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
 	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));//lookAtは原点に置き、setPositionで視点を動かします。
 	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
 
@@ -631,4 +635,35 @@ int GameMaster::GetTouchFlag(void)
 int GameMaster::GetTouchState(void)
 {
 	return touchState;
+}
+
+
+
+
+
+/**
+*	回避動作の軸座標の計算
+*
+*	@author	sasebon
+*	@param	stagePoint
+*	@return	軸座標
+*	@date	2/1 Ver 1.0
+*/
+Vec2 GameMaster::setHidePoint(StagePoint stagePoint)
+{
+	Vec2 hidePoint = Vec2(-HIDEPOINT_X, -HIDEPOINT_Y);
+
+	if(PSIDE_LEFT == stagePoint.playerSide)
+	{
+		hidePoint.x = hidePoint.x * cosf(stagePoint.rot.y) - hidePoint.y * sinf(stagePoint.rot.y);
+		hidePoint.y = hidePoint.x * sinf(stagePoint.rot.y) + hidePoint.y * cosf(stagePoint.rot.y);
+	}
+	else
+	{
+		hidePoint = Vec2(HIDEPOINT_X, -HIDEPOINT_Y);
+
+		hidePoint.x = hidePoint.x * cosf(stagePoint.rot.y) - hidePoint.y * sinf(stagePoint.rot.y);
+		hidePoint.y = hidePoint.x * sinf(stagePoint.rot.y) + hidePoint.y * cosf(stagePoint.rot.y);
+	}
+	return hidePoint;
 }
