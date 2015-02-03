@@ -84,7 +84,6 @@ Camera* GameMaster::Get2DCamInstance(void)
 *	@date	1/16 Ver 1.0
 */
 Camera* GameMaster::Get3DCamInstance(void)
-//Node* GameMaster::Get3DCamInstance(void)
 {
 	if(!camera3D)
 	{
@@ -348,7 +347,7 @@ void GameMaster::InitCamera3D()
 
 	//
 	CamNode = Node::create();
-	camera3D = Camera::createPerspective(PERSE, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	camera3D = Camera::createPerspective(C_PERSE_L, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
 	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));//lookAtは原点に置き、setPositionで視点を動かします。
 	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
 

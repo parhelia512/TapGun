@@ -109,27 +109,29 @@ void GameUILayer::SetUI()
 	Ui[UIKIND_RETICLE].Init(num, UIKIND_RETICLE);
 	valid[UIKIND_RETICLE] = TRUE;
 
-	////矢印の初期化
-	//fileName1 = "Graph/Pictures/kaihiai.png";
-	//UIBillBoard[UIKIND_ARROW] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	//UIBillBoard[UIKIND_ARROW]->setPosition(120.0f, 100.0f);
-	//UIBillBoard[UIKIND_ARROW]->setScale(1.0f);
-	//addChild(UIBillBoard[UIKIND_ARROW]);
+	//矢印の初期化
+	fileName1 = "Graph/Pictures/four2048.png";
+	UIBillBoard[UIKIND_ARROW] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_ARROW]->setPosition(600.0f, 740.0f);
+	UIBillBoard[UIKIND_ARROW]->setScaleX(0.2f);
+	UIBillBoard[UIKIND_ARROW]->setScaleY(0.2f);
+	addChild(UIBillBoard[UIKIND_ARROW]);
 
-	//Ui[UIKIND_ARROW].Init(UIKIND_ARROW, UIKIND_ARROW);
-	//valid[UIKIND_ARROW] = TRUE;
+	Ui[UIKIND_ARROW].Init(UIKIND_ARROW, UIKIND_ARROW);
+	valid[UIKIND_ARROW] = TRUE;
 
-	////ライフバーの初期化
-	//fileName1 = "Graph/Pictures/tairyoku_tama.png";
-	//UIBillBoard[UIKIND_LIFEBAR] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	//UIBillBoard[UIKIND_LIFEBAR]->setPosition(100, 150);
-	//UIBillBoard[UIKIND_LIFEBAR]->setScale(1.0f);
-	//addChild(UIBillBoard[UIKIND_LIFEBAR]);
+	//ライフバーの初期化
+	fileName1 = "Graph/Pictures/four4096.png";
+	UIBillBoard[UIKIND_LIFEBAR] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_LIFEBAR]->setPosition(600.0f, 70.0f);
+	UIBillBoard[UIKIND_LIFEBAR]->setScaleX(0.08f);
+	UIBillBoard[UIKIND_LIFEBAR]->setScaleY(0.08f);
+	addChild(UIBillBoard[UIKIND_LIFEBAR]);
 
-	//Ui[UIKIND_LIFEBAR].Init(UIKIND_LIFEBAR, UIKIND_LIFEBAR);
-	//valid[UIKIND_LIFEBAR] = TRUE;
+	Ui[UIKIND_LIFEBAR].Init(UIKIND_LIFEBAR, UIKIND_LIFEBAR);
+	valid[UIKIND_LIFEBAR] = TRUE;
 
-	////弾数Ａ（アイコン）
+	//弾数Ａ（アイコン）
 	//fileName1 = "Graph/Pictures/time.png";
 	//UIBillBoard[UKIND_BULLET_A] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 	//UIBillBoard[UKIND_BULLET_A]->setPosition(1085, 760);
@@ -139,7 +141,7 @@ void GameUILayer::SetUI()
 	//Ui[UKIND_BULLET_A].Init(UKIND_BULLET_A, UKIND_BULLET_A);
 	//valid[UKIND_BULLET_A] = TRUE;
 
-	////弾数Ｂ（数字）
+	//弾数Ｂ（数字）
 	//fileName1 = "Graph/Pictures/timelogo.png";
 	//UIBillBoard[UKIND_BULLET_B] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 	//UIBillBoard[UKIND_BULLET_B]->setPosition(250, 80);
@@ -148,24 +150,30 @@ void GameUILayer::SetUI()
 
 	//Ui[UKIND_BULLET_B].Init(UKIND_BULLET_B, UKIND_BULLET_B);
 	//valid[UKIND_BULLET_B] = TRUE;
+
+
 	Sprite* sprite[4];
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	sprite[0] = Sprite::create("tairyoku_tama.png");
-	sprite[1] = Sprite::create("time.png");
-	sprite[2] = Sprite::create("kaihiai.png");
-	sprite[3] = Sprite::create("timelogo.png");
+	sprite[0] = Sprite::create("four4096.png");
+//	sprite[1] = Sprite::create("time.png");
+//	sprite[2] = Sprite::create("kaihiai.png");
+//	sprite[3] = Sprite::create("timelogo.png");
 #else
-	sprite[0] = Sprite::create("Graph/Pictures/tairyoku_tama.png");
-	sprite[1] = Sprite::create("Graph/Pictures/time.png");
-	sprite[2] = Sprite::create("Graph/Pictures/kaihiai.png");
-	sprite[3] = Sprite::create("Graph/Pictures/timelogo.png");
+//	sprite[0] = Sprite::create("Graph/Pictures/four2048.png");
+//	sprite[1] = Sprite::create("Graph/Pictures/time.png");
+//	sprite[2] = Sprite::create("Graph/Pictures/kaihiai.png");
+//	sprite[3] = Sprite::create("Graph/Pictures/timelogo.png");
 #endif
-	sprite[0]->setPosition(Vec2(285, 695));
-	sprite[1]->setPosition(Vec2(1085, 760));
-	sprite[2]->setPosition(Vec2(100, 150));
-	sprite[3]->setPosition(Vec2(250, 80));
+//	sprite[0]->setPosition(Vec2(285, 695));
+//	sprite[0]->setScale(0.3f);
 
-	for(auto &p : sprite) addChild(p);
+//	sprite[1]->setPosition(Vec2(1085, 760));
+//	sprite[2]->setPosition(Vec2(100, 150));
+//	sprite[3]->setPosition(Vec2(250, 80));
+
+//	addChild(sprite[0]);
+
+//	for(auto &p : sprite) addChild(p);
 }
 
 

@@ -18,7 +18,7 @@ namespace TapGun
 #define STS_MAXBULLETS 30//プレイヤーの最大弾数
 #define STS_MUTEKIFRAME 120//無敵時間
 
-#define STS_HIDEWAIT 12//回避モーションが終了するまでの全体フレーム
+#define STS_HIDEWAIT (12 + 12)//回避モーションが終了するまでの全体フレーム
 #define STS_HIDESTART 1//回避ボタンを押してから回避モーションが始まるまでの時間
 #define STS_MUTEKISTART 0//回避モーションが始まってから無敵時間に移行するまでの時間
 #define STS_APPEARSTART 1//回避ボタンを離してから突撃モーションが始まるまでの時間
@@ -40,18 +40,25 @@ namespace TapGun
 #define HIDE_UI_Y1 (HIDE_UI_RECT_Y * 0.5f + HIDE_UI_POS_Y)
 
 
-	//一時的に定義する
-#define PERSE 35//カメラ視野角
-#define SETX 0.62f
-#define SETY 1.61f
-#define SETZ 2.3f
+//Action時のカメラの設定(左)
+#define C_PERSE_R 35//カメラ視野角
+#define C_SETX_R 0.62f
+#define C_SETY_R 1.61f
+#define C_SETZ_R 5.3f
+#define C_ROTX_R -4.0f
+#define C_ROTY_R -10.0f
+#define C_ROTZ_R 0.0f
 
-#define ROTX -4.0f
-#define ROTY -10.0f
-#define ROTZ 0.0f
+//Action時のカメラの設定(右)
+#define C_PERSE_L 35//カメラ視野角
+#define C_SETX_L -0.62f
+#define C_SETY_L 1.61f
+#define C_SETZ_L 5.3f
+#define C_ROTX_L 4.0f
+#define C_ROTY_L -10.0f
+#define C_ROTZ_L 0.0f
 
-
-	//一時的に定義する
+//Wait時のカメラの設定
 #define W_PERSE 35//カメラ視野角
 #define W_SETX -0.5f
 #define W_SETY 1.61f
@@ -62,8 +69,9 @@ namespace TapGun
 #define W_ROTZ 0.0f
 
 
-#define HIDEPOINT_X 0.6f
-#define HIDEPOINT_Y 0.6f
+#define HIDEPOINT_X 0.35f
+#define HIDEPOINT_Y 0.35f
+
 
 	//
 	enum _CAMERA_FLAG_
@@ -240,7 +248,6 @@ namespace TapGun
 
 		//プレイヤーのステータス
 		int playerHP;//プレイヤーの体力
-		float rapidWait;//連射待ち時間
 
 		cocos2d::Size screenSize;
 

@@ -60,12 +60,11 @@ int GameModelsLayer::InitLayer(void)
 {
 	InitAllModels();
 
-//	playerNum = -1;
-	playerNum = InitPlayer(0);//とりあえず引数0
+	InitPlayer(0);//とりあえず引数0
 	InitMap(0);//正規のマップデータが降りてくるまでいったん保留します
 	InitEnemy(0);
 
-	return playerNum;
+	return 0;
 }
 
 
@@ -289,10 +288,8 @@ int GameModelsLayer::InitMap(int stage_num)
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	std::string fileName1 = "StageVer5";
-	//std::string fileName2 = "stage_tex.png";
 #else
 	std::string fileName1 = "Stage/StageVer5";
-	//std::string fileName2 = "bock_gurand2.png";
 #endif
 	unit[num].sprite3d = _Sprite3D::create(fileName1);
 
@@ -1018,8 +1015,7 @@ void  GameModelsLayer::CheckHit(void)
 
 	//レイと敵の当たり判定処理
 	const int pstate = GameMasterM->GetPlayerState();
-	const int count = unit[playerNum].GetFrame();
-	if(pstate == PSTATE_SHOT && ((count % 8) == 0))
+	if(pstate == PSTATE_SHOT)
 	{
 		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
 		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得

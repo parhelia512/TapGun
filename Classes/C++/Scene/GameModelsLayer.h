@@ -55,8 +55,6 @@ namespace TapGun
 		void UpdatePlayer(void);//
 		void UpdateEnemy(void);
 		void UpdateBullets(void);
-		void UpdateModels(void);//
-
 
 
 		//プレイヤーの更新

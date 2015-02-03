@@ -177,8 +177,8 @@ int GameScene::InitCamera()
 		GameMasterS->SetCameraNodePos(cameraPos);//ノードは常にプレイヤーの座標に一致
 		GameMasterS->SetCameraNodeRot(gGameLayer->player.sprite3d->getRotation3D());//ノード回転もプレイヤーをもとに設定
 
-		GameMasterS->SetCamera3DPos(Vec3(SETX, SETY, SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
-		GameMasterS->SetCamera3DRot(Vec3(ROTX, ROTY, ROTZ));
+		GameMasterS->SetCamera3DPos(Vec3(C_SETX_L, C_SETY_L, C_SETZ_L));//プレイヤー（親ノード）とカメラの位置関係をセット
+		GameMasterS->SetCamera3DRot(Vec3(C_ROTX_L, C_ROTY_L, C_ROTZ_L));
 
 		GameMasterS->GetCameraNode();
 		GameMasterS->Get3DCamInstance();
@@ -299,15 +299,16 @@ void GameScene::update(float delta)
 */
 int GameScene::UpdateCamera()
 {
-	if(NULL != gUILayer)
+	if (NULL != gUILayer)
 	{
 
 	}
 
-	if(NULL != gGameLayer)
+	if (NULL != gGameLayer)
 	{
-		
-		////プレイヤーの座標取得はとりあえずこのような形で記述しています
+
+
+		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		//Vec3 cameraPos;
 		//Vec3 cameraRot;
 		////プレイヤーの状態でカメラの位置を調整する
@@ -391,17 +392,18 @@ int GameScene::UpdateCamera()
 		//	GameMasterS->SetCameraNodeRot(cameraRot);
 		//	break;
 		//}
-		
+
 
 		Vec3 cameraPos;
 		Vec3 cameraRot;
 		cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() +gGameLayer->player.cameraAjust;
 		cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 
-		//プレイヤーの座標にカメラのノードを置く
+
+		//		プレイヤーの座標にカメラのノードを置く
 		GameMasterS->SetCameraNodePos(cameraPos);
 
-		//カメラを公転させる
+		//		カメラを公転させる
 		cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
 		GameMasterS->SetCameraNodeRot(cameraRot);
 
