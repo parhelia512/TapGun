@@ -190,8 +190,11 @@ void GameModelsLayer::InitPlayer(int stage_num)
 
 	cNode.gNode = Node::create();
 	cNode.lNode = Node::create();
+	cNode.lNode2 = Node::create();
+
 	addChild(cNode.gNode);
 	cNode.gNode->addChild(cNode.lNode);
+	cNode.lNode->addChild(cNode.lNode2);
 }
 
 
@@ -481,6 +484,9 @@ void GameModelsLayer::UpdateWait()
 					pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
 					newPos = player.sprite3d->getPosition3D() - Vec3(pos.x, 0.0f, pos.y);
 					player.sprite3d->setPosition3D(newPos);//wrapper
+
+					//目標角度をもとに、回避時のカメラ移動座標を計算
+					camTarget = calcCamRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, PSIDE_LEFT);
 				}
 				else
 				{
@@ -506,6 +512,9 @@ void GameModelsLayer::UpdateWait()
 					pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
 					newPos = player.sprite3d->getPosition3D() - Vec3(pos.x, 0.0f, pos.y);
 					player.sprite3d->setPosition3D(newPos);//wrapper
+
+					//目標角度をもとに、回避時のカメラ移動座標を計算
+					camTarget = calcCamRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, PSIDE_RIGHT);
 				}
 
 				GameMasterM->SetGameState(GSTATE_PLAY_INIT);//戦闘ポイントに到着したら、ウェイトからプレイに移行
@@ -759,7 +768,7 @@ void GameModelsLayer::ActionDodge(void)
 	std::string shot;
 	std::string h_shot;
 	std::string h_reload;
-	if (PSIDE_LEFT == GameMasterM->playerSide)
+	if(PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		h_shot = "h_shot_l";
 		h_reload = "h_reload_l";
@@ -779,88 +788,95 @@ void GameModelsLayer::ActionDodge(void)
 	int flag = GameMasterM->GetTouchFlag();//現在のタッチ状態を取得
 
 	//無敵時間の判定を行う
-	if (STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵開始フレームに達したら
+	if(STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵開始フレームに達したら
 	{
 		GameMasterM->playerHitFlag = FALSE;//当たり判定を無効化する
 	}
 
 	//リロード判定を行う
-	if (STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
+	if(STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
 	{
 		GameMasterM->nowBullets = STS_MAXBULLETS;//弾数を回復する
 	}
 
-	if (STS_HIDEWAIT <= GameMasterM->hideFrame)//回避完了フレームに達したら
+	//回避完了フレームに達したら
+	if(STS_HIDEWAIT <= GameMasterM->hideFrame)
 	{
 		GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
-		//リロードモーションの残りを再生するために、モーション終了は行わない
+		//リロードモーションが終了した後は、リロードモーションを行う
 		player.sprite3d->stopAllActions();
-		//		player.sprite3d->startAnimation(idle);
-	}
-
-	//とりあえずTFLAG_CANCELをif内に入れておく
-	if (TFLAG_RELEASE == flag || TFLAG_CANCEL == flag)//回避完了前にホールド解除した場合
-	{
-		player.sprite3d->stopALLAnimation();//モーション終了
-		GameMasterM->SetPlayerState(PSTATE_APPEAR);//隠れている状態に移行
-		//突撃モーションを再生
-		GameMasterM->hideFrame = STS_HIDEWAIT - GameMasterM->hideFrame;//突撃のフレーム数をセットする
-	}
-	else if (TFLAG_ON == flag || TFLAG_MOVE == flag)//ホールド状態
-	{
-		//回避動作中は指定座標を軸に座標移動を行う
-		//回避フレーム（12フレーム）を12分割し、90度程度回転する
-		if (PSIDE_LEFT == GameMasterM->playerSide)
-		{
-			//
-			float rot = 96.0f / STS_HIDEWAIT;
-			Vec3 tmp = player.wrapper->getRotation3D();
-			tmp.y -= rot;
-			player.wrapper->setRotation3D(tmp);
-			tmp = player.sprite3d->getRotation3D();
-			tmp.y += rot;
-			player.sprite3d->setRotation3D(tmp);
-
-
-			//毎フレーム角度を調整して
-			tmp.y = rot * GameMasterM->hideFrame;
-			Vec2 newPos = calcCamRot(tmp.y, PSIDE_LEFT);//ノード（回転軸）の角度を引数にし、カメラの位置を変更する
-			player.cameraAjust.x = newPos.x;
-			player.cameraAjust.z = newPos.y;
-
-
-			////回避に合わせてカメラの座標を補正する
-			//player.cameraAjust = Vec3((HIDEPOINT_X * 2.5f) * GameMasterM->hideFrame / STS_HIDEWAIT, 0.0f, -(HIDEPOINT_Y * 1) * GameMasterM->hideFrame / STS_HIDEWAIT);
-			//Vec3 cameraRot = player.wrapper->getRotation3D() + player.sprite3d->getRotation3D() + Vec3(0.0f, 0.0f, 0.0f);//進行方向の角度
-			//Vec2 tmp2;
-			//tmp2.x = player.cameraAjust.x * cosf(-cameraRot.y) - player.cameraAjust.z * sinf(-cameraRot.y);
-			//tmp2.y = player.cameraAjust.x * sinf(-cameraRot.y) + player.cameraAjust.z * cosf(-cameraRot.y);
-			//player.cameraAjust.x = tmp2.x;
-			//player.cameraAjust.z = tmp2.y;
-		}
-		else
-		{
-			float rot = 96.0f / STS_HIDEWAIT;
-			Vec3 tmp = player.wrapper->getRotation3D();
-			tmp.y += rot;
-			player.wrapper->setRotation3D(tmp);
-			tmp = player.sprite3d->getRotation3D();
-			tmp.y -= rot;
-			player.sprite3d->setRotation3D(tmp);
-
-
-			tmp.y = rot * GameMasterM->hideFrame;
-			Vec2 newPos = calcCamRot(tmp.y, PSIDE_LEFT);//ノード（回転軸）の角度を引数にし、カメラの位置を変更する
-			player.cameraAjust.x = newPos.x;
-			player.cameraAjust.z = newPos.y;
-
-			////回避に合わせてカメラの座標を補正する
-			//player.cameraAjust = Vec3(-HIDEPOINT_X, 0.0f, 0.0f);
-		}
+		//player.sprite3d->startAnimation(idle);
 	}
 	else
 	{
+		//回避完了前にホールド解除した場合
+		//とりあえずTFLAG_CANCELをif内に入れておく
+		if(TFLAG_RELEASE == flag || TFLAG_CANCEL == flag)
+		{
+			player.sprite3d->stopALLAnimation();//モーション終了
+			GameMasterM->SetPlayerState(PSTATE_APPEAR);//隠れている状態に移行
+			//突撃モーションを再生
+			GameMasterM->hideFrame = STS_HIDEWAIT - GameMasterM->hideFrame;//突撃のフレーム数をセットする
+		}
+		else if(TFLAG_ON == flag || TFLAG_MOVE == flag)//ホールド状態
+		{
+			//回避動作中は指定座標を軸に座標移動を行う
+			//回避フレーム（12フレーム）を12分割し、90度程度回転する
+			if(PSIDE_LEFT == GameMasterM->playerSide)
+			{
+				//プレイヤーの座標の更新
+				float rot = 96.0f / STS_HIDEWAIT;
+				Vec3 tmp = player.wrapper->getRotation3D();
+				tmp.y -= rot;
+				player.wrapper->setRotation3D(tmp);
+				tmp = player.sprite3d->getRotation3D();
+				tmp.y += rot;
+				player.sprite3d->setRotation3D(tmp);
 
+
+				//毎フレーム角度を調整して
+				//tmp.y = rot * GameMasterM->hideFrame;
+				//Vec2 newPos = calcCamRot(tmp.y, PSIDE_LEFT);//ノード（回転軸）の角度を引数にし、カメラの位置を変更する
+				//player.cameraAjust.x = newPos.x;
+				//player.cameraAjust.z = newPos.y;
+
+				//camTargetに向けて座標を移動させる
+
+
+
+				////回避に合わせてカメラの座標を補正する
+				//player.cameraAjust = Vec3((HIDEPOINT_X * 2.5f) * GameMasterM->hideFrame / STS_HIDEWAIT, 0.0f, -(HIDEPOINT_Y * 1) * GameMasterM->hideFrame / STS_HIDEWAIT);
+				//Vec3 cameraRot = player.wrapper->getRotation3D() + player.sprite3d->getRotation3D() + Vec3(0.0f, 0.0f, 0.0f);//進行方向の角度
+				//Vec2 tmp2;
+				//tmp2.x = player.cameraAjust.x * cosf(-cameraRot.y) - player.cameraAjust.z * sinf(-cameraRot.y);
+				//tmp2.y = player.cameraAjust.x * sinf(-cameraRot.y) + player.cameraAjust.z * cosf(-cameraRot.y);
+				//player.cameraAjust.x = tmp2.x;
+				//player.cameraAjust.z = tmp2.y;
+			}
+			else
+			{
+				float rot = 96.0f / STS_HIDEWAIT;
+				Vec3 tmp = player.wrapper->getRotation3D();
+				tmp.y += rot;
+				player.wrapper->setRotation3D(tmp);
+				tmp = player.sprite3d->getRotation3D();
+				tmp.y -= rot;
+				player.sprite3d->setRotation3D(tmp);
+
+
+				tmp.y = rot * GameMasterM->hideFrame;
+				Vec2 newPos = calcCamRot(tmp.y, PSIDE_LEFT);//ノード（回転軸）の角度を引数にし、カメラの位置を変更する
+				player.cameraAjust.x = newPos.x;
+				player.cameraAjust.z = newPos.y;
+
+				////回避に合わせてカメラの座標を補正する
+				//player.cameraAjust = Vec3(-HIDEPOINT_X, 0.0f, 0.0f);
+			}
+		}
+		else
+		{
+
+		}
 	}
 }
 
@@ -1464,22 +1480,30 @@ Vec2 GameModelsLayer::calcCamRot(float pRot, int pSide)
 	cNode.lNode->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
 	cNode.lNode->setPosition(Vec2(0.0f, 0.0f));
 
+	cNode.lNode2->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+	cNode.lNode2->setPosition(Vec2(0.0f, 0.0f));
+
 	//プレイヤーの向きに応じて処理を変更する
 	if (PSIDE_LEFT == pSide)
 	{
-		cNode.lNode->setPositionX(-HIDEPOINT_X + C_SETX_L);//回転軸に対するカメラ座標を代入
-		cNode.lNode->setPositionY(-HIDEPOINT_Y + C_SETZ_L);//回転軸に対するカメラ座標を代入
+		cNode.lNode->setPositionX(C_SETX_L);//
+		cNode.lNode->setPositionY(C_SETZ_L);//
+		cNode.lNode2->setPositionX(HIDECAMERA_X);
+		cNode.lNode2->setPositionY(HIDECAMERA_Y);
 
 		cNode.gNode->setRotation(pRot);
-		ret = cNode.gNode->convertToWorldSpace(cNode.lNode->getPosition());//回転後のlNodeの座標を取得
+		Vec2 camPos = cNode.gNode->convertToWorldSpace(cNode.lNode2->getPosition());//回転後のカメラの座標（プレイヤーとの相対位置）
+
 	}
 	else
 	{
-		cNode.lNode->setPositionX(HIDEPOINT_X + C_SETX_R);//回転軸に対するカメラ座標を代入
-		cNode.lNode->setPositionY(HIDEPOINT_Y + C_SETY_R);//回転軸に対するカメラ座標を代入
+		cNode.lNode->setPositionX(C_SETX_R);//
+		cNode.lNode->setPositionY(C_SETZ_R);//
+		cNode.lNode2->setPositionX(-HIDECAMERA_X);
+		cNode.lNode2->setPositionY(HIDECAMERA_Y);
 
 		cNode.gNode->setRotation(pRot);
-		ret = cNode.gNode->convertToWorldSpace(cNode.lNode->getPosition());//回転後のlNodeの座標を取得
+		ret = cNode.gNode->convertToWorldSpace(cNode.lNode2->getPosition());//回転後のlNodeの座標を取得
 	}
 
 	return ret;

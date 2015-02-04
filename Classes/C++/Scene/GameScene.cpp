@@ -307,7 +307,6 @@ int GameScene::UpdateCamera()
 	if (NULL != gGameLayer)
 	{
 
-
 		////プレイヤーの座標取得はとりあえずこのような形で記述しています
 		//Vec3 cameraPos;
 		//Vec3 cameraRot;

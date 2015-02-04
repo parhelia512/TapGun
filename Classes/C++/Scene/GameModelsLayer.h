@@ -22,6 +22,8 @@ namespace TapGun
 	{
 		cocos2d::Node* gNode;
 		cocos2d::Node* lNode;
+		cocos2d::Node* lNode2;
+
 	}CalcNode;
 
 	class GameModelsLayer : public cocos2d::Layer
@@ -34,6 +36,7 @@ namespace TapGun
 		//Node* gNode;
 		//Node* lNode;
 		CalcNode cNode;
+		cocos2d::Vec2 camTarget;//
 
 		virtual bool init();//レイヤーのインスタンス生成
 		//初期化系
