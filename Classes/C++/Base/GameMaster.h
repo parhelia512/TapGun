@@ -40,21 +40,21 @@ namespace TapGun
 #define HIDE_UI_Y1 (HIDE_UI_RECT_Y * 0.5f + HIDE_UI_POS_Y)
 
 
-//Action時のカメラの設定(左)
+//Action時のカメラの設定(右)
 #define C_PERSE_R 35//カメラ視野角
-#define C_SETX_R 0.62f
+#define C_SETX_R -0.62f
 #define C_SETY_R 1.61f
 #define C_SETZ_R 5.3f
 #define C_ROTX_R -4.0f
-#define C_ROTY_R -10.0f
+#define C_ROTY_R 10.0f
 #define C_ROTZ_R 0.0f
 
-//Action時のカメラの設定(右)
+//Action時のカメラの設定(左)
 #define C_PERSE_L 35//カメラ視野角
-#define C_SETX_L -0.62f
+#define C_SETX_L 0.62f
 #define C_SETY_L 1.61f
 #define C_SETZ_L 5.3f
-#define C_ROTX_L 4.0f
+#define C_ROTX_L -4.0f
 #define C_ROTY_L -10.0f
 #define C_ROTZ_L 0.0f
 

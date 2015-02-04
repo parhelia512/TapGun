@@ -133,6 +133,11 @@ void GameModelsLayer::InitPlayer(int stage_num)
 	player.SetCollision();
 
 	GameMasterM->nowBullets = STS_MAXBULLETS;//
+
+
+	center.sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
+	center.sprite3d->setScale(0.1f);
+	player.wrapper->addChild(center.sprite3d);
 }
 
 
@@ -165,34 +170,34 @@ int GameModelsLayer::InitEnemy(int stage_num)
 
 		for (int i = 0; i < 20; i++)
 		{
-			num = SearchFreeUnit();
-			if (-1 == num)
-			{
-				return false;
-			}
-			//共通
-			unit[num].Init();//メンバ変数の初期化をしておく
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-			unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
-#else
-			unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
-#endif
-			unit[num].Init(num, UKIND_ENEMY);
-			unit[num].wrapper = Node::create();//モデルの親ノード
-			unit[num].wrapper->addChild(unit[num].sprite3d);
-			addChild(unit[num].wrapper);
-
-			//当たり判定の定義（仮）
-			unit[num].collisionPos = Vec3(0.8f, 1.0f, 0.8f);
-			unit[num].SetCollision();
-			unit[num].sprite3d->setScale(1.0f);
-
-			unit[num].eState = ESTATE_STANDBY;
-			unit[num].hitpoint = 5;
-			//個別
-			unit[num].sprite3d->setPosition3D(Vec3(14.4f, 0.0f, 16.8f));
-			unit[num].targetPos = Vec3(2.0f + i * 0.7f, 0.0f, 6.5f + i * 0.6f);
-			unit[num].eWaitFrame = 20;
+//			num = SearchFreeUnit();
+//			if (-1 == num)
+//			{
+//				return false;
+//			}
+//			//共通
+//			unit[num].Init();//メンバ変数の初期化をしておく
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+//			unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
+//#else
+//			unit[num].sprite3d = _Sprite3D::create(fileName1, fileName2);
+//#endif
+//			unit[num].Init(num, UKIND_ENEMY);
+//			unit[num].wrapper = Node::create();//モデルの親ノード
+//			unit[num].wrapper->addChild(unit[num].sprite3d);
+//			addChild(unit[num].wrapper);
+//
+//			//当たり判定の定義（仮）
+//			unit[num].collisionPos = Vec3(0.8f, 1.0f, 0.8f);
+//			unit[num].SetCollision();
+//			unit[num].sprite3d->setScale(1.0f);
+//
+//			unit[num].eState = ESTATE_STANDBY;
+//			unit[num].hitpoint = 5;
+//			//個別
+//			unit[num].sprite3d->setPosition3D(Vec3(14.4f, 0.0f, 16.8f));
+//			unit[num].targetPos = Vec3(2.0f + i * 0.7f, 0.0f, 6.5f + i * 0.6f);
+//			unit[num].eWaitFrame = 20;
 
 
 			//共通
@@ -271,10 +276,8 @@ int GameModelsLayer::InitMap(int stage_num)
 	unit[num].Init();//メンバ変数の初期化をしておく
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	std::string fileName1 = "StageVer5";
-	//std::string fileName2 = "stage_tex.png";
+	std::string fileName1 = "stage4";
 #else
-//	std::string fileName1 = "Stage/StageVer5";
 	std::string fileName1 = "Stage/stage4";
 #endif
 	unit[num].sprite3d = _Sprite3D::create(fileName1);
@@ -355,7 +358,6 @@ void GameModelsLayer::UpdateWait()
 		//カメラの位置が滑らかに変化する処理を入れる
 		GameMasterM->SetCamera3DPos(Vec3(W_SETX, W_SETY, W_SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
 		GameMasterM->SetCamera3DRot(Vec3(W_ROTX, W_ROTY, W_ROTZ));
-
 	}
 	else if(1 == GameMasterM->waitFlag)	//次の目的地まで走る処理
 	{
@@ -428,9 +430,9 @@ void GameModelsLayer::UpdateWait()
 					Vec3 rot = player.sprite3d->getRotation3D();
 					tmp2.x = tmp1.x * cosf(rot.y) - tmp1.z * sinf(rot.y);
 					tmp2.y = tmp1.x * sinf(rot.y) + tmp1.z * cosf(rot.y);
-					//原点に対する回転後の座標が計算できたので、wrapperとsprite3dを移動させる
 					tmp1.x = tmp2.x;
 					tmp1.z = tmp2.y;
+					//原点に対する回転後の座標が計算できたので、wrapperとsprite3dを移動させる
 					player.wrapper->setPosition3D(player.wrapper->getPosition3D() + tmp1);
 					player.sprite3d->setPosition3D(player.sprite3d->getPosition3D() - tmp1);
 					player.cameraAjust = Vec3(0.0f, 0.0f, 0.0f);
@@ -438,14 +440,16 @@ void GameModelsLayer::UpdateWait()
 				}
 				else
 				{
-					Vec3 tmp1 = Vec3(-HIDEPOINT_X, 0.0f, HIDEPOINT_Y);//原点に対する回避座標
+					Vec3 tmp1 = Vec3(-HIDEPOINT_X, 0.0f, HIDEPOINT_Y);//プレイヤーから見た回避座標を設定
 					Vec2 tmp2;
-					Vec3 rot = player.sprite3d->getRotation3D();
+					Vec3 rot = player.sprite3d->getRotation3D();//プレイヤーの角度を取得
+
+					//プレイヤーの角度のずれに応じて、回避座標を行列計算して移動させる
 					tmp2.x = tmp1.x * cosf(rot.y) - tmp1.z * sinf(rot.y);
 					tmp2.y = tmp1.x * sinf(rot.y) + tmp1.z * cosf(rot.y);
-					//原点に対する回転後の座標が計算できたので、wrapperとsprite3dを移動させる
 					tmp1.x = tmp2.x;
 					tmp1.z = tmp2.y;
+					//原点に対する回転後の座標が計算できたので、wrapperとsprite3dを移動させる
 					player.wrapper->setPosition3D(player.wrapper->getPosition3D() + tmp1);
 					player.sprite3d->setPosition3D(player.sprite3d->getPosition3D() - tmp1);
 					player.cameraAjust = Vec3(0.0f, 0.0f, 0.0f);
@@ -701,7 +705,7 @@ void GameModelsLayer::ActionDodge(void)
 	std::string shot;
 	std::string h_shot;
 	std::string h_reload;
-	if (PSIDE_LEFT == GameMasterM->playerSide)
+	if(PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		h_shot = "h_shot_l";
 		h_reload = "h_reload_l";
@@ -721,38 +725,38 @@ void GameModelsLayer::ActionDodge(void)
 	int flag = GameMasterM->GetTouchFlag();//現在のタッチ状態を取得
 
 	//無敵時間の判定を行う
-	if (STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵開始フレームに達したら
+	if(STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵開始フレームに達したら
 	{
 		GameMasterM->playerHitFlag = FALSE;//当たり判定を無効化する
 	}
 
 	//リロード判定を行う
-	if (STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
+	if(STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
 	{
 		GameMasterM->nowBullets = STS_MAXBULLETS;//弾数を回復する
 	}
 
-	if (STS_HIDEWAIT <= GameMasterM->hideFrame)//回避完了フレームに達したら
+	if(STS_HIDEWAIT <= GameMasterM->hideFrame)//回避完了フレームに達したら
 	{
 		GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
 		//リロードモーションの残りを再生するために、モーション終了は行わない
 		player.sprite3d->stopAllActions();
-//		player.sprite3d->startAnimation(idle);
+		//		player.sprite3d->startAnimation(idle);
 	}
 
 	//とりあえずTFLAG_CANCELをif内に入れておく
-	if (TFLAG_RELEASE == flag || TFLAG_CANCEL == flag)//回避完了前にホールド解除した場合
+	if(TFLAG_RELEASE == flag || TFLAG_CANCEL == flag)//回避完了前にホールド解除した場合
 	{
 		player.sprite3d->stopALLAnimation();//モーション終了
 		GameMasterM->SetPlayerState(PSTATE_APPEAR);//隠れている状態に移行
 		//突撃モーションを再生
 		GameMasterM->hideFrame = STS_HIDEWAIT - GameMasterM->hideFrame;//突撃のフレーム数をセットする
 	}
-	else if (TFLAG_ON == flag || TFLAG_MOVE == flag)//ホールド状態
+	else if(TFLAG_ON == flag || TFLAG_MOVE == flag)//ホールド状態
 	{
 		//回避動作中は指定座標を軸に座標移動を行う
 		//回避フレーム（12フレーム）を12分割し、90度程度回転する
-		if (PSIDE_LEFT == GameMasterM->playerSide)
+		if(PSIDE_LEFT == GameMasterM->playerSide)
 		{
 			//
 			float rot = 96.0f / STS_HIDEWAIT;
@@ -762,6 +766,8 @@ void GameModelsLayer::ActionDodge(void)
 			tmp = player.sprite3d->getRotation3D();
 			tmp.y += rot;
 			player.sprite3d->setRotation3D(tmp);
+
+
 			//回避に合わせてカメラの座標を補正する
 			player.cameraAjust = Vec3((HIDEPOINT_X * 2.5f) * GameMasterM->hideFrame / STS_HIDEWAIT, 0.0f, -(HIDEPOINT_Y * 1) * GameMasterM->hideFrame / STS_HIDEWAIT);
 			Vec3 cameraRot = player.wrapper->getRotation3D() + player.sprite3d->getRotation3D() + Vec3(0.0f, 0.0f, 0.0f);//進行方向の角度
@@ -780,6 +786,8 @@ void GameModelsLayer::ActionDodge(void)
 			tmp = player.sprite3d->getRotation3D();
 			tmp.y -= rot;
 			player.sprite3d->setRotation3D(tmp);
+
+
 			//回避に合わせてカメラの座標を補正する
 			player.cameraAjust = Vec3(-HIDEPOINT_X, 0.0f, 0.0f);
 		}
@@ -806,7 +814,7 @@ void GameModelsLayer::ActionHide(void)
 	std::string shot;
 	std::string h_shot;
 	std::string h_reload;
-	if (PSIDE_LEFT == GameMasterM->playerSide)
+	if(PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		h_shot = "h_shot_l";
 		h_reload = "h_reload_l";
@@ -823,8 +831,6 @@ void GameModelsLayer::ActionHide(void)
 	if(TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
 	{
 		//タッチ中はリロードを再生、再生後はモーション停止
-
-
 	}
 	else if(TSTATE_RELEASE == GameMasterM->GetTouchState())//離されれば
 	{
@@ -848,7 +854,7 @@ void GameModelsLayer::ActionAppear(void)
 	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
 	//とりあえずここで文字列作成
 	std::string idle;
-	if (PSIDE_LEFT == GameMasterM->playerSide)
+	if(PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		idle = "idel_l";
 	}
@@ -857,7 +863,6 @@ void GameModelsLayer::ActionAppear(void)
 		idle = "idel_r";
 	}
 
-
 	//１：突撃終了フレームが終了するとActionIdleに移行する
 
 	int flag = GameMasterM->GetTouchFlag();//現在のタッチ状態を取得
@@ -865,21 +870,21 @@ void GameModelsLayer::ActionAppear(void)
 	GameMasterM->hideFrame += 1;//回避フレームを加算する
 
 	//無敵時間の判定を行う
-	if (STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵終了フレームに達したら
+	if(STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵終了フレームに達したら
 	{
 		GameMasterM->playerHitFlag = TRUE;//当たり判定を有効化する
 	}
 
 	//回避完了の判定
-	if (STS_HIDEWAIT <= GameMasterM->hideFrame)//回避完了フレームに達したら
+	if(STS_HIDEWAIT <= GameMasterM->hideFrame)//回避完了フレームに達したら
 	{
 		//必要ならばモーションの停止を行う
 		GameMasterM->SetPlayerState(PSTATE_IDLE);//アイドル状態に移行
 		player.sprite3d->stopAllActions();
-//		player.sprite3d->startAnimation(idle);
+		//		player.sprite3d->startAnimation(idle);
 	}
 
-	if (PSIDE_LEFT == GameMasterM->playerSide)
+	if(PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		//
 		float rot = 96.0f / STS_HIDEWAIT;
@@ -921,6 +926,7 @@ void GameModelsLayer::ActionAppear(void)
 */
 void GameModelsLayer:: ActionDamaged(void)
 {
+
 }
 
 /**
@@ -946,6 +952,7 @@ void GameModelsLayer:: ActionRun(void)
 */
 void GameModelsLayer:: ActionDead(void)
 {
+
 }
 
 
@@ -966,7 +973,6 @@ void GameModelsLayer::UpdateEnemy()
 	{
 		if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind)
 		{
-
 			unit[i].Update();//フレーム・座標・当たり判定の更新
 			if(unit[i].hitpoint <= 0)
 			{

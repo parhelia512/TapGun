@@ -153,7 +153,8 @@ void GameMaster::InitParam()
 	stagePoint[POINT_STAGE1].pos = Vec3(5.5f, 0.0f, 4.0f);
 	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 0.0f, 0.0f);
 	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
-	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
+//	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
+	stagePoint[POINT_STAGE1].playerSide = PSIDE_RIGHT;
 	stagePoint[POINT_STAGE1].hidePoint = setHidePoint(stagePoint[POINT_STAGE1]);
 	//stagePoint[0].pos = Vec3(14.0f, 0.0f, 2.5f);
 	//stagePoint[0].rot = Vec3(0.0f, 180.0f, 0.0f);
@@ -168,18 +169,15 @@ void GameMaster::InitParam()
 	stagePoint[POINT_STAGE2].rot = Vec3(0.0f, 175.0f, 0.0f);
 	stagePoint[POINT_STAGE2].pointType = POINT_BATTLE;
 
-
 	//連結ポイント
 	stagePoint[POINT_S3_1].pos = Vec3(16.2f, 0.0f, 1.3f);
 	stagePoint[POINT_S3_1].rot = Vec3(0.0f, 185.0f, 0.0f);
 	stagePoint[POINT_S3_1].pointType = POINT_CHANGE;
 
-
 	//クリア
 	stagePoint[POINT_FINISH].pos = Vec3(14.7f, 0.0f, -4.5f);
 	stagePoint[POINT_FINISH].rot = Vec3(0.0f, 165.0f, 0.0f);
 	stagePoint[POINT_FINISH].pointType = POINT_NONE;
-
 }
 
 

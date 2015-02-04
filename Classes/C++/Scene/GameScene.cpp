@@ -396,7 +396,7 @@ int GameScene::UpdateCamera()
 
 		Vec3 cameraPos;
 		Vec3 cameraRot;
-		cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() +gGameLayer->player.cameraAjust;
+		cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();// +gGameLayer->player.cameraAjust;
 		cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 
 

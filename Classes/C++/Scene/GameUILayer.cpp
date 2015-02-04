@@ -110,26 +110,26 @@ void GameUILayer::SetUI()
 	valid[UIKIND_RETICLE] = TRUE;
 
 	//矢印の初期化
-	fileName1 = "Graph/Pictures/four2048.png";
-	UIBillBoard[UIKIND_ARROW] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	UIBillBoard[UIKIND_ARROW]->setPosition(600.0f, 740.0f);
-	UIBillBoard[UIKIND_ARROW]->setScaleX(0.2f);
-	UIBillBoard[UIKIND_ARROW]->setScaleY(0.2f);
-	addChild(UIBillBoard[UIKIND_ARROW]);
+	//fileName1 = "Graph/Pictures/four2048.png";
+	//UIBillBoard[UIKIND_ARROW] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	//UIBillBoard[UIKIND_ARROW]->setPosition(600.0f, 740.0f);
+	//UIBillBoard[UIKIND_ARROW]->setScaleX(0.2f);
+	//UIBillBoard[UIKIND_ARROW]->setScaleY(0.2f);
+	//addChild(UIBillBoard[UIKIND_ARROW]);
 
-	Ui[UIKIND_ARROW].Init(UIKIND_ARROW, UIKIND_ARROW);
-	valid[UIKIND_ARROW] = TRUE;
+	//Ui[UIKIND_ARROW].Init(UIKIND_ARROW, UIKIND_ARROW);
+	//valid[UIKIND_ARROW] = TRUE;
 
 	//ライフバーの初期化
-	fileName1 = "Graph/Pictures/four4096.png";
-	UIBillBoard[UIKIND_LIFEBAR] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	UIBillBoard[UIKIND_LIFEBAR]->setPosition(600.0f, 70.0f);
-	UIBillBoard[UIKIND_LIFEBAR]->setScaleX(0.08f);
-	UIBillBoard[UIKIND_LIFEBAR]->setScaleY(0.08f);
-	addChild(UIBillBoard[UIKIND_LIFEBAR]);
+	//fileName1 = "Graph/Pictures/four4096.png";
+	//UIBillBoard[UIKIND_LIFEBAR] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	//UIBillBoard[UIKIND_LIFEBAR]->setPosition(600.0f, 70.0f);
+	//UIBillBoard[UIKIND_LIFEBAR]->setScaleX(0.08f);
+	//UIBillBoard[UIKIND_LIFEBAR]->setScaleY(0.08f);
+	//addChild(UIBillBoard[UIKIND_LIFEBAR]);
 
-	Ui[UIKIND_LIFEBAR].Init(UIKIND_LIFEBAR, UIKIND_LIFEBAR);
-	valid[UIKIND_LIFEBAR] = TRUE;
+	//Ui[UIKIND_LIFEBAR].Init(UIKIND_LIFEBAR, UIKIND_LIFEBAR);
+	//valid[UIKIND_LIFEBAR] = TRUE;
 
 	//弾数Ａ（アイコン）
 	//fileName1 = "Graph/Pictures/time.png";

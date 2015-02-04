@@ -22,6 +22,7 @@ namespace TapGun
 	{
 	public:
 		Player player;
+		Unit center;
 		Unit unit[MAX_UNIT];//
 
 		virtual bool init();//レイヤーのインスタンス生成
