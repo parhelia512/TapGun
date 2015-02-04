@@ -239,7 +239,7 @@ void GameUILayer::MoveReticle(void)
 		case PSTATE_IDLE://アイドル状態
 			UIBillBoard[UIKIND_RETICLE]->setVisible(true);/*b*/
 			break;
- 		case PSTATE_HIDE://隠れている
+		case PSTATE_HIDE://隠れている
 		case PSTATE_APPEAR://隠れた状態から出る
 		case PSTATE_DAMAGED://ダメージを受けた
 			break;

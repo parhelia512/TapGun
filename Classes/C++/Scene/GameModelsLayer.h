@@ -18,20 +18,34 @@
 
 namespace TapGun
 {
+	typedef struct
+	{
+		cocos2d::Node* gNode;
+		cocos2d::Node* lNode;
+	}CalcNode;
+
 	class GameModelsLayer : public cocos2d::Layer
 	{
 	public:
 		Player player;
 		Unit center;
+		Unit calc;
 		Unit unit[MAX_UNIT];//
+		//Node* gNode;
+		//Node* lNode;
+		CalcNode cNode;
 
 		virtual bool init();//レイヤーのインスタンス生成
 		//初期化系
+		void LoadModels(void);//スプライトを生成
 		void InitLayer(void);//レイヤーの変数初期化
 		void InitAllModels();//モデル全体の初期化
 		void InitPlayer(int stage_num);//プレイヤーの初期化
 		int InitEnemy(int stage_num);//エネミー初期化
 		int InitMap(int stage_num);//マップの初期化
+
+		cocos2d::Vec2 calcRot(float pRot,int pSide);//角度計算
+		cocos2d::Vec2 calcCamRot(float pRot, int pSide);//角度計算
 
 		//更新
 		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
