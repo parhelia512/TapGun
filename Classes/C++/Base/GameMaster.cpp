@@ -151,7 +151,7 @@ void GameMaster::InitParam()
 	//stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 88.0f, 0.0f);
 
 	stagePoint[POINT_STAGE1].pos = Vec3(5.5f, 0.0f, 4.0f);
-	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 60.0f, 0.0f);
+	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 0.0f, 0.0f);
 	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
 	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
 //	stagePoint[POINT_STAGE1].playerSide = PSIDE_RIGHT;

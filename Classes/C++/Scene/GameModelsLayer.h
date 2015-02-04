@@ -36,7 +36,8 @@ namespace TapGun
 		//Node* gNode;
 		//Node* lNode;
 		CalcNode cNode;
-		cocos2d::Vec2 camTarget;//
+		cocos2d::Vec3 camTarget;//回避時のカメラの移動先座標
+		cocos2d::Vec3 camCenter;//回避時のカメラの移動前座標
 
 		virtual bool init();//レイヤーのインスタンス生成
 		//初期化系
@@ -48,7 +49,8 @@ namespace TapGun
 		int InitMap(int stage_num);//マップの初期化
 
 		cocos2d::Vec2 calcRot(float pRot,int pSide);//角度計算
-		cocos2d::Vec2 calcCamRot(float pRot, int pSide);//角度計算
+		cocos2d::Vec2 calcCamPos(float pRot, int pSide);//角度計算
+		cocos2d::Vec2 calcCamPos2(float pRot, int pSide);//角度計算
 
 		//更新
 		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）

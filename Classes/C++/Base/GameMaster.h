@@ -60,21 +60,22 @@ namespace TapGun
 
 //Wait時のカメラの設定
 #define W_PERSE 35//カメラ視野角
-#define W_SETX -0.5f
+#define W_SETX -1.5f
 #define W_SETY 1.61f
 #define W_SETZ 2.9f
 
 #define W_ROTX 0.0f
-#define W_ROTY -10.0f
+#define W_ROTY 0.0f
 #define W_ROTZ 0.0f
 
 //プレイヤーが回避する時の軸の座標（プレイヤーから見た相対座標、左側時）
+//プレイヤーは0度基準で配置しているので、X軸Y軸がカメラとそれぞれ反転しています
 #define HIDEPOINT_X 0.35f
 #define HIDEPOINT_Y 0.35f
 
-	//回避した時のカメラの移動後の座標（カメラから見た相対座標、左側時）
-#define HIDECAMERA_X 2.35f
-#define HIDECAMERA_Y 2.35f
+//回避した時のカメラの移動後の座標（カメラから見た相対座標、左側時）
+#define HIDECAMERA_X -0.8f
+#define HIDECAMERA_Y 0.8f
 
 	//
 	enum _CAMERA_FLAG_
