@@ -151,7 +151,7 @@ void GameMaster::InitParam()
 	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 140.0f, 0.0f);
 	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
 	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
-//	stagePoint[POINT_STAGE1].playerSide = PSIDE_RIGHT;
+	stagePoint[POINT_STAGE1].playerSide = PSIDE_RIGHT;
 	stagePoint[POINT_STAGE1].hidePoint = setHidePoint(stagePoint[POINT_STAGE1]);
 
 	//連結ポイント

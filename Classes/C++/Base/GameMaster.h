@@ -18,7 +18,7 @@ namespace TapGun
 #define STS_MAXBULLETS 30//プレイヤーの最大弾数
 #define STS_MUTEKIFRAME 120//無敵時間
 
-#define STS_HIDEWAIT (12)// + 12)//回避モーションが終了するまでの全体フレーム
+#define STS_HIDEWAIT (24)// + 12)//回避モーションが終了するまでの全体フレーム
 #define STS_HIDESTART 1//回避ボタンを押してから回避モーションが始まるまでの時間
 #define STS_MUTEKISTART 0//回避モーションが始まってから無敵時間に移行するまでの時間
 #define STS_APPEARSTART 1//回避ボタンを離してから突撃モーションが始まるまでの時間
@@ -52,10 +52,10 @@ namespace TapGun
 //Action時のカメラの設定(左)
 #define C_PERSE_L 55//カメラ視野角
 #define C_SETX_L 0.62f
-#define C_SETY_L 6.21f
-#define C_SETZ_L 12.3f
-#define C_ROTX_L -20.0f
-#define C_ROTY_L -35.0f
+#define C_SETY_L 1.61f
+#define C_SETZ_L 5.3f
+#define C_ROTX_L 4.0f
+#define C_ROTY_L 10.0f
 #define C_ROTZ_L 0.0f
 
 //Wait時のカメラの設定
