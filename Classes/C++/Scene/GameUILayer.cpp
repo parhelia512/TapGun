@@ -100,30 +100,31 @@ void GameUILayer::LoadUISprite()
 
 	//リロードアラートの生成
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	fileName1 = "Reload.png";
+	fileName1 = "reload.png";
 #else
-	fileName1 = "Graph/Pictures/Reload.png";
+	fileName1 = "Graph/Pictures/reload.png";
 #endif
 	UIBillBoard[UIKIND_RELOAD] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 
 
 	//アクションUIの生成
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	fileName1 = "Action.png";
+	fileName1 = "action.png";
 #else
-	fileName1 = "Graph/Pictures/Action.png";
+	fileName1 = "Graph/Pictures/action.png";
 #endif
 	UIBillBoard[UIKIND_ACTION] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 
 
 	//ウェイトUIの生成
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	fileName1 = "Wait.png";
+	fileName1 = "wait.png";
 #else
-	fileName1 = "Graph/Pictures/Wait.png";
+	fileName1 = "Graph/Pictures/wait.png";
 #endif
 	UIBillBoard[UIKIND_WAIT] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
 }
+
 
 /**
 *	UIの配置
@@ -245,13 +246,13 @@ void GameUILayer::UpdateLayer( void)
 */
 void GameUILayer::MoveReticle(void)
 {
-	if (TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要にならば消す
+	if(TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要にならば消す
 	{
 		Vec2 tPos;
 		int a = 0;
 		//レティクルの挙動
 		//プレイヤーの状態を取得して場合分け
-		switch (GameMasterL->GetPlayerState())
+		switch(GameMasterL->GetPlayerState())
 		{
 		case PSTATE_SHOT://攻撃中はレティクルを移動させる
 
@@ -281,14 +282,14 @@ void GameUILayer::MoveReticle(void)
 
 		//リロードアラートの挙動
 		//プレイヤーの状態を取得して場合分け
-		switch (GameMasterL->GetPlayerState())
+		switch(GameMasterL->GetPlayerState())
 		{
 		case PSTATE_SHOT:
 		case PSTATE_IDLE:
 		case PSTATE_DAMAGED:
 		case PSTATE_DODGE:
 		case PSTATE_APPEAR://隠れた状態から出る
-			if (GameMasterL->nowBullets <= 0)
+			if(GameMasterL->nowBullets <= 0)
 			{
 				UIBillBoard[UIKIND_RELOAD]->setVisible(true);
 			}
@@ -314,7 +315,7 @@ void GameUILayer::MoveReticle(void)
 
 		//ウェイトUIの挙動
 		//プレイヤーの状態を取得して場合分け
-		switch (GameMasterL->GetPlayerState())
+		switch(GameMasterL->GetPlayerState())
 		{
 		case PSTATE_SHOT:
 		case PSTATE_IDLE:
@@ -333,7 +334,7 @@ void GameUILayer::MoveReticle(void)
 
 		//アクションUIの挙動
 		//プレイヤーの状態を取得して場合分け
-		switch (GameMasterL->GetPlayerState())
+		switch(GameMasterL->GetPlayerState())
 		{
 		case PSTATE_SHOT:
 		case PSTATE_IDLE:
@@ -347,7 +348,6 @@ void GameUILayer::MoveReticle(void)
 		}
 	}
 }
-
 
 
 

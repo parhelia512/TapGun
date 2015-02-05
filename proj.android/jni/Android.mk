@@ -23,6 +23,9 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/C++/Scene/TestScene.cpp \
                    ../../Classes/C++/Scene/TitleScene.cpp \
                    ../../Classes/C++/System/Sound.cpp \
+                   ../../Classes/C++/Object/Muzzle.cpp \
+                   ../../Classes/C++/Stage/Enemy.cpp \
+                   ../../Classes/C++/Stage/EnemyTable.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

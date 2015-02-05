@@ -145,7 +145,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\C++\Base\UI.cpp" />
     <ClCompile Include="..\Classes\C++\Base\Unit.cpp" />
     <ClCompile Include="..\Classes\C++\Object\Muzzle.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Classes\C++\Scene\Character.cpp" />
     <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp" />
@@ -172,7 +172,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\C++\Base\UI.h" />
     <ClInclude Include="..\Classes\C++\Base\Unit.h" />
     <ClInclude Include="..\Classes\C++\Object\Muzzle.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Scene\Character.h" />
     <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h" />

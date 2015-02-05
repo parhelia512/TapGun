@@ -8,14 +8,14 @@
 
 #include "Unit.h"
 #include "Player.h"
-#include "muzzle.h"
+//#include "muzzle.h"
 #include "EnemyTable.h"
 
 #else
 
 #include "C++/Base/Unit.h"
 #include "C++/Base/Player.h"
-#include "C++/Object/muzzle.h"
+//#include "C++/Object/muzzle.h"
 #include "C++/Stage/EnemyTable.h"
 
 #endif
@@ -40,7 +40,7 @@ namespace TapGun
 
 		EnemyTable enemyTable[100];//敵の出現テーブル
 
-		Muzzle muzzle;//プレイヤーのマズル
+//		Muzzle muzzle;//プレイヤーのマズル
 
 		//Node* gNode;
 		//Node* lNode;
@@ -102,6 +102,9 @@ namespace TapGun
 		//エネミーの更新
 		void ActionEnemy1(int num);
 		void ActionEnemy2(int num);
+
+		//敵の処理
+		void setNextEnemy(int num);
 
 		void ShootBullet(int enemy_num);//
 		void CheckHit(void);//当たり判定処理

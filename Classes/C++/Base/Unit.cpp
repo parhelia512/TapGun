@@ -73,7 +73,7 @@ int Unit::Init(int num, int utype)
 	animFrame = -2;//
 
 	eWaitFrame = 0;//出現までの待ちフレーム
-	StandbyPos = Vec3(0,0,0);//待機座標
+	StandbyPos = Vec3(0, 0, 0);//待機座標
 
 
 	//モデルの種別によって当たり判定の設定を行う
@@ -82,18 +82,19 @@ int Unit::Init(int num, int utype)
 	{
 	case UKIND_ENEMY://エネミー
 
+		visible = FALSE;//キャラクターの描画は最初OFF
 
 		break;
 	case UKIND_EBULLET://敵弾
 
-//		colisionNode->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+		visible = FALSE;//キャラクターの描画は最初OFF
 
 		break;
 	default:
-
+		//マップ
+		visible = TRUE;//マップの描画は最初からON
 		break;
 	}
-
 	//必要ならばモデルやアニメーション関連のデータを初期化する
 }
 

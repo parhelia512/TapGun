@@ -10,12 +10,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "Sprite3D.h"
-#include "Muzzle.h"
+//#include "Muzzle.h"
 
 #else
 
 #include "C++/Base/Sprite3D.h"
-#include "C++/Object/Muzzle.h"
+//#include "C++/Object/Muzzle.h"
 
 #endif
 
