@@ -14,7 +14,7 @@
 
 #endif
 
-//#define TEST_SCENE
+#define TEST_SCENE
 
 USING_NS_CC;
 using namespace TapGun;

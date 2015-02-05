@@ -1,10 +1,14 @@
 ﻿#include"UI.h"
 
+#include "Define.h"
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
+#include "GameUILayer.h"
 
 #else
 
+#include "C++/Scene/GameUILayer.h"
 
 #endif
 
@@ -165,4 +169,80 @@ void UI::UpdatePos(void)
 */
 void UI::UpdatePos(Vec2 pos)
 {
+}
+
+LifeUI* LifeUI::getInstance( void)
+{
+	static LifeUI* P;
+	if( !P) P = new LifeUI;
+	return P;
+}
+
+LifeUI::LifeUI()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Life.plist");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Logo.plist");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Number.plist");
+	this -> frame = Sprite::create( "lifekara.png");
+#else
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Life/Life.plist");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Life/Logo.plist");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Number/Number.plist");
+	this -> frame = Sprite::create( "Graph/Pictures/Life/lifekara.png");
+#endif
+	frame -> setPosition( Vec2( SystemValue::windowSize.width / 2, frame -> getContentSize().height));
+	
+	life[Up] = Sprite::createWithSpriteFrameName( "life4.png");
+	life[Down] = Sprite::createWithSpriteFrameName( "life2.png");
+	life[Left] = Sprite::createWithSpriteFrameName( "life1.png");
+	life[Right] = Sprite::createWithSpriteFrameName( "life3.png");
+	for( auto &p : life) { frame -> addChild( p); }
+}
+
+void LifeUI::init( Layer* layer)
+{
+	layer -> addChild( frame);
+}
+
+void LifeUI::update( void)
+{
+
+}
+
+
+LogoUI* LogoUI::getInstance( void)
+{
+	static LogoUI* P;
+	if( !P) P = new LogoUI;
+	return P;
+}
+
+LogoUI::LogoUI()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Logo.plist");
+#else
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Life/Logo.plist");
+#endif
+	logo[Action] = Sprite::createWithSpriteFrameName( "action.png");
+	logo[Wait] = Sprite::createWithSpriteFrameName( "wait.png");
+	logo[Reload] = Sprite::createWithSpriteFrameName( "rerode.png");
+	for( auto &p : logo) { p -> setVisible( false); }
+}
+
+void LogoUI::init( Layer* layer)
+{
+	for( auto &p : logo) { layer -> addChild( p); }
+}
+
+void LogoUI::update( void)
+{
+
+}
+
+void LogoUI::setLogo( LogoNumber num)
+{
+	logo[num] -> setVisible(true);
+	logo[num] -> runAction(Sequence::create( DelayTime::create(0.5f), Hide::create(), NULL));
 }

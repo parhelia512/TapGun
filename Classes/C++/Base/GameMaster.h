@@ -243,6 +243,10 @@ namespace TapGun
 		int GetGameState(void);
 		void SetGameState(int gState);
 
+		//プレイヤーHPのゲッターとセッター
+		float GetPlayerHP(void);
+		void SetPlayerHP(float value);
+
 	private:
 		int playerState;//プレイヤーの状態
 		int gameState;//ゲームの状態

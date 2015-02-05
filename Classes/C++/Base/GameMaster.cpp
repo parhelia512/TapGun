@@ -671,3 +671,30 @@ Vec2 GameMaster::setHidePoint(StagePoint stagePoint)
 	}
 	return hidePoint;
 }
+
+
+/**
+*	プレイヤーHPのゲッター
+*
+*	@author	minaka
+*	@param	なし
+*	@return	HP
+*	@date	2/6 Ver 1.0
+*/
+float GameMaster::GetPlayerHP(void)
+{
+	return playerHP;
+}
+
+/**
+*	プレイヤーHPのセッター
+*
+*	@author	minaka
+*	@param	パラメーター
+*	@return	なし
+*	@date	2/6 Ver 1.0
+*/
+void GameMaster::SetPlayerHP(float value)
+{
+	playerHP = value;
+}
