@@ -31,20 +31,24 @@ namespace TapGun
 	enum _UNIT_KIND_
 	{
 		UKIND_NONE,//未使用
-		UKIND_PLAYER1,//プレイヤー1
-		UKIND_PLAYER2,//プレイヤー2
 		UKIND_ENEMY,//エネミー
 		UKIND_EBULLET,//敵弾
 		UKIND_MAP,//マップモデルも現在はUnitに含めています
 		UKIND_NUM
 	};
 
+	enum _ENEMY_KIND_
+	{
+		EKIND_TWIN,//ツインマシンガン
+		EKIND_NUM//
+	};
 
 	enum _ENEMY_STATE_
 	{
 		ESTATE_IDLE,
 		ESTATE_STANDBY,
 		ESTATE_MOVE,
+
 		ESTATE_WAIT,
 		ESTATE_ATTACK1,
 		ESTATE_ATTACK2,
@@ -66,8 +70,14 @@ namespace TapGun
 
 		//==フラグ系==
 		int valid;//Unit使用フラグ（TRUE/FALSE）
+		int visible;//ユニット表示フラグ
+
+		int nextEnemy;//このエネミーが倒れたときに次に出てくるエネミーの番号
+		int AIType;//エネミーの行動パターン
+
 		int kind;//Unit種別（_UNIT_KIND_）
 		int hitpoint;
+
 		//敵用ステート
 		int eState;
 		int eWaitFrame;//出現までの待ちフレーム

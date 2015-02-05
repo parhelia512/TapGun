@@ -50,17 +50,17 @@ namespace TapGun
 #define C_ROTZ_R 0.0f
 
 //Action時のカメラの設定(左)
-#define C_PERSE_L 35//カメラ視野角
+#define C_PERSE_L 55//カメラ視野角
 #define C_SETX_L 0.62f
-#define C_SETY_L 1.61f
-#define C_SETZ_L 5.3f
-#define C_ROTX_L -4.0f
-#define C_ROTY_L -10.0f
+#define C_SETY_L 6.21f
+#define C_SETZ_L 12.3f
+#define C_ROTX_L -20.0f
+#define C_ROTY_L -35.0f
 #define C_ROTZ_L 0.0f
 
 //Wait時のカメラの設定
 #define W_PERSE 35//カメラ視野角
-#define W_SETX -1.5f
+#define W_SETX 0.0f
 #define W_SETY 1.61f
 #define W_SETZ 2.9f
 
@@ -74,8 +74,8 @@ namespace TapGun
 #define HIDEPOINT_Y 0.35f
 
 //回避した時のカメラの移動後の座標（カメラから見た相対座標、左側時）
-#define HIDECAMERA_X -0.8f
-#define HIDECAMERA_Y 0.8f
+#define HIDECAMERA_X 0.8f
+#define HIDECAMERA_Y -0.8f
 
 	//
 	enum _CAMERA_FLAG_

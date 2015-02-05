@@ -14,14 +14,13 @@
 
 #endif
 
-#define MAX_UI 20
+#define MAX_UI UIKIND_NUM
 
 namespace TapGun
 {
 	class GameUILayer : public cocos2d::Layer
 	{
 	public:
-		//�����o�֐�
 		virtual bool init();
 
 		void update(float delta);
@@ -35,13 +34,12 @@ namespace TapGun
 		void UpdateLayer(void);
 		void MoveReticle(void);
 		void UpdateLifeBar(void);
+		void LoadUISprite(void);
 
-		//cocos2d::Sprite* UISprite[MAX_UI];
-		//cocos2d::BillBoard* UIBillBoard[MAX_UI];
 		cocos2d::Sprite* UISprite[MAX_UI];
 		cocos2d::BillBoard* UIBillBoard[MAX_UI];
-//		cocos2d::Node* UINode[MAX_UI];//Z軸を考慮する必要がなくなったので、今後削除する/*-*/
 		int valid[MAX_UI];
+		int visible[MAX_UI];
 
 		TapGun::UI Ui[MAX_UI];
 

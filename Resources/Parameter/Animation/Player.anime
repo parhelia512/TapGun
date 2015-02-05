@@ -19,8 +19,8 @@ player/mot_player_hit1.c3t,hit1
 player/mot_player_run.c3b,run
 player/mot_player_run.c3t,run
 
-player/mot_player_shot_left_ver2.c3b,shot_l
-player/mot_player_shot_left_ver2.c3t,shot_l
+player/mot_player_shot_left.c3b,shot_l
+player/mot_player_shot_left.c3t,shot_l
 player/mot_player_shot_right_ver2.c3b,shot_r
 player/mot_player_shot_right_ver2.c3t,shot_r
 

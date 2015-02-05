@@ -22,6 +22,11 @@ namespace TapGun
 		UIKIND_ARROW,//回避アイコン
 		UKIND_BULLET_A,//残弾（アイコン）
 		UKIND_BULLET_B,//残弾（数字）
+
+		UIKIND_WAIT,//ウェイトアラーム
+		UIKIND_ACTION,//アクションアラーム
+		UIKIND_RELOAD,//リロードアラーム
+
 		UIKIND_NUM//
 	};
 

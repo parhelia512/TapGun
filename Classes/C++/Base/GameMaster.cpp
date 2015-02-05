@@ -142,22 +142,17 @@ void GameMaster::InitParam()
 	//stagePointの定義
 
 	//ゲーム開始地点
-	stagePoint[POINT_START].pos = Vec3(-3.0f, 0.0f, -1.9f);
-	stagePoint[POINT_START].rot = Vec3(0.0f, 65.0f, 0.0f);
+	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 43.0f);//
+	stagePoint[POINT_START].rot = Vec3(0.0f, 60.0f, 0.0f);
 	stagePoint[POINT_START].pointType = POINT_NONE;
 
 	//ステージ１
-	//stagePoint[POINT_STAGE1].pos = Vec3(6.4f, 0.0f, 4.65f);
-	//stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 88.0f, 0.0f);
-
-	stagePoint[POINT_STAGE1].pos = Vec3(5.5f, 0.0f, 4.0f);
-	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 0.0f, 0.0f);
+	stagePoint[POINT_STAGE1].pos = Vec3(-11.0f, 0.0f, 38.0f);//
+	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 140.0f, 0.0f);
 	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
 	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
 //	stagePoint[POINT_STAGE1].playerSide = PSIDE_RIGHT;
 	stagePoint[POINT_STAGE1].hidePoint = setHidePoint(stagePoint[POINT_STAGE1]);
-	//stagePoint[0].pos = Vec3(14.0f, 0.0f, 2.5f);
-	//stagePoint[0].rot = Vec3(0.0f, 180.0f, 0.0f);
 
 	//連結ポイント
 	stagePoint[POINT_S2_1].pos = Vec3(14.1f, 0.0f, 5.0f);
@@ -344,8 +339,13 @@ void GameMaster::InitCamera3D()
 	//camera3D->createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
 
 	//
+
 	CamNode = Node::create();
 	camera3D = Camera::createPerspective(C_PERSE_L, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+
+	//
+//	camera3D->
+
 	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));//lookAtは原点に置き、setPositionで視点を動かします。
 	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
 

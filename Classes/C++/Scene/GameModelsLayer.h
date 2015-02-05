@@ -8,11 +8,15 @@
 
 #include "Unit.h"
 #include "Player.h"
+#include "muzzle.h"
+#include "EnemyTable.h"
 
 #else
 
 #include "C++/Base/Unit.h"
 #include "C++/Base/Player.h"
+#include "C++/Object/muzzle.h"
+#include "C++/Stage/EnemyTable.h"
 
 #endif
 
@@ -33,6 +37,11 @@ namespace TapGun
 		Unit center;
 		Unit calc;
 		Unit unit[MAX_UNIT];//
+
+		EnemyTable enemyTable[100];//敵の出現テーブル
+
+		Muzzle muzzle;//プレイヤーのマズル
+
 		//Node* gNode;
 		//Node* lNode;
 		CalcNode cNode;
@@ -48,9 +57,12 @@ namespace TapGun
 		int InitEnemy(int stage_num);//エネミー初期化
 		int InitMap(int stage_num);//マップの初期化
 
-		cocos2d::Vec2 calcRot(float pRot,int pSide);//角度計算
+		void checkNextEnemy(int enemyNum);//
+
+		cocos2d::Vec2 calcRot(float pRot, int pSide);//角度計算
 		cocos2d::Vec2 calcCamPos(float pRot, int pSide);//角度計算
 		cocos2d::Vec2 calcCamPos2(float pRot, int pSide);//角度計算
+		cocos2d::Vec2 calcCamPos3(float pRot, int pSide);//角度計算
 
 		//更新
 		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
@@ -66,9 +78,9 @@ namespace TapGun
 	private:
 
 		//メンバ変数
-//		cocos2d::Node* hideNodeLeft;
-//		cocos2d::Node* hideNodeRight;
-//		cocos2d::Point hidePoint;
+		//		cocos2d::Node* hideNodeLeft;
+		//		cocos2d::Node* hideNodeRight;
+		//		cocos2d::Point hidePoint;
 
 
 		//更新系
@@ -87,11 +99,17 @@ namespace TapGun
 		void ActionRun(void);
 		void ActionDead(void);
 
+		//エネミーの更新
+		void ActionEnemy1(int num);
+		void ActionEnemy2(int num);
 
 		void ShootBullet(int enemy_num);//
 		void CheckHit(void);//当たり判定処理
 
 		int SearchFreeUnit();//空きユニットの検索
+
+		int enemyStuck;//各ステージごとの残り敵数
+
 	};
 }
 #endif //__GAME_MODELSLAYER_H__

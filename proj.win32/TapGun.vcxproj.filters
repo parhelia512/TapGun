@@ -22,6 +22,12 @@
     <Filter Include="src\C++\System">
       <UniqueIdentifier>{2ba94c5b-b41e-4ba3-904d-1ebe37d9079c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\C++\Stage">
+      <UniqueIdentifier>{28112c9c-42af-4c45-85bc-a333ae74a2e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\C++\Object">
+      <UniqueIdentifier>{8bcc8a76-e992-429c-8d57-d687ece87d51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +89,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\C++\Scene\TitleScene.cpp">
       <Filter>src\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Object\Muzzle.cpp">
+      <Filter>src\C++\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Stage\EnemyTable.cpp">
+      <Filter>src\C++\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Stage\Enemy.cpp">
+      <Filter>src\C++\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +163,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Scene\TitleScene.h">
       <Filter>src\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Object\Muzzle.h">
+      <Filter>src\C++\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Stage\EnemyTable.h">
+      <Filter>src\C++\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Stage\Enemy.h">
+      <Filter>src\C++\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

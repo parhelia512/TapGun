@@ -51,6 +51,7 @@ bool GameUILayer::init()
 void GameUILayer::InitLayer(void)
 {
 	InitAllUI();
+	LoadUISprite();
 	SetUI();
 }
 
@@ -76,6 +77,53 @@ int GameUILayer::SerchFreeUI()
 }
 
 
+/**
+*	UIスプライトの生成
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	2/5 Ver 1.0
+*/
+void GameUILayer::LoadUISprite()
+{
+	std::string fileName1;
+
+	//レティクルの生成
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	fileName1 = "reticle.png";
+#else
+	fileName1 = "Graph/Pictures/reticle.png";
+#endif
+	UIBillBoard[UIKIND_RETICLE] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	 
+
+	//リロードアラートの生成
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	fileName1 = "Reload.png";
+#else
+	fileName1 = "Graph/Pictures/Reload.png";
+#endif
+	UIBillBoard[UIKIND_RELOAD] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+
+
+	//アクションUIの生成
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	fileName1 = "Action.png";
+#else
+	fileName1 = "Graph/Pictures/Action.png";
+#endif
+	UIBillBoard[UIKIND_ACTION] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+
+
+	//ウェイトUIの生成
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	fileName1 = "Wait.png";
+#else
+	fileName1 = "Graph/Pictures/Wait.png";
+#endif
+	UIBillBoard[UIKIND_WAIT] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+}
 
 /**
 *	UIの配置
@@ -87,69 +135,44 @@ int GameUILayer::SerchFreeUI()
 */
 void GameUILayer::SetUI()
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	std::string fileName1 = "reticle.png";
-#else
-	std::string fileName1 = "Graph/Pictures/reticle.png";
-#endif
-	int num = SerchFreeUI();
-	//レティクル
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	fileName1 = "reticle.png";
-#else
-	fileName1 = "Graph/Pictures/reticle.png";
-#endif
-	
 	auto s = Director::getInstance()->getWinSize();//スクリーンサイズを取得
-	UIBillBoard[UIKIND_RETICLE] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+
+	//レティクルの設定
 	UIBillBoard[UIKIND_RETICLE]->setPosition(s.width / 2, s.height / 2);
 	UIBillBoard[UIKIND_RETICLE]->setScale(0.3f);
 	addChild(UIBillBoard[UIKIND_RETICLE]);
 
-	Ui[UIKIND_RETICLE].Init(num, UIKIND_RETICLE);
+	Ui[UIKIND_RETICLE].Init(UIKIND_RETICLE, UIKIND_RETICLE);
 	valid[UIKIND_RETICLE] = TRUE;
 
-	//矢印の初期化
-	//fileName1 = "Graph/Pictures/four2048.png";
-	//UIBillBoard[UIKIND_ARROW] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	//UIBillBoard[UIKIND_ARROW]->setPosition(600.0f, 740.0f);
-	//UIBillBoard[UIKIND_ARROW]->setScaleX(0.2f);
-	//UIBillBoard[UIKIND_ARROW]->setScaleY(0.2f);
-	//addChild(UIBillBoard[UIKIND_ARROW]);
+	//ウェイトUIの設定
+	UIBillBoard[UIKIND_WAIT]->setPosition(s.width / 2, s.height / 2);
+	UIBillBoard[UIKIND_WAIT]->setScale(0.1f);
+	UIBillBoard[UIKIND_WAIT]->setVisible(false);
+	addChild(UIBillBoard[UIKIND_WAIT]);
 
-	//Ui[UIKIND_ARROW].Init(UIKIND_ARROW, UIKIND_ARROW);
-	//valid[UIKIND_ARROW] = TRUE;
+	Ui[UKIND_BULLET_B].Init(UKIND_BULLET_B, UKIND_BULLET_B);
+	valid[UKIND_BULLET_B] = TRUE;
 
-	//ライフバーの初期化
-	//fileName1 = "Graph/Pictures/four4096.png";
-	//UIBillBoard[UIKIND_LIFEBAR] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	//UIBillBoard[UIKIND_LIFEBAR]->setPosition(600.0f, 70.0f);
-	//UIBillBoard[UIKIND_LIFEBAR]->setScaleX(0.08f);
-	//UIBillBoard[UIKIND_LIFEBAR]->setScaleY(0.08f);
-	//addChild(UIBillBoard[UIKIND_LIFEBAR]);
+	//アクションUIの設定
+	UIBillBoard[UIKIND_ACTION]->setPosition(s.width / 2, s.height / 2);
+	UIBillBoard[UIKIND_ACTION]->setScale(0.1f);
+	UIBillBoard[UIKIND_ACTION]->setVisible(false);
+	addChild(UIBillBoard[UIKIND_ACTION]);
 
-	//Ui[UIKIND_LIFEBAR].Init(UIKIND_LIFEBAR, UIKIND_LIFEBAR);
-	//valid[UIKIND_LIFEBAR] = TRUE;
+	Ui[UIKIND_ACTION].Init(UIKIND_ACTION, UIKIND_ACTION);
+	valid[UIKIND_ACTION] = TRUE;
 
-	//弾数Ａ（アイコン）
-	//fileName1 = "Graph/Pictures/time.png";
-	//UIBillBoard[UKIND_BULLET_A] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	//UIBillBoard[UKIND_BULLET_A]->setPosition(1085, 760);
-	//UIBillBoard[UKIND_BULLET_A]->setScale(1.0f);
-	//addChild(UIBillBoard[UKIND_BULLET_A]);
 
-	//Ui[UKIND_BULLET_A].Init(UKIND_BULLET_A, UKIND_BULLET_A);
-	//valid[UKIND_BULLET_A] = TRUE;
+	//リロードアラートの設定
+	UIBillBoard[UIKIND_RELOAD]->setPosition(s.width / 2, s.height / 2);
+	UIBillBoard[UIKIND_RELOAD]->setScale(0.1f);
+	addChild(UIBillBoard[UIKIND_RELOAD]);
+	UIBillBoard[UIKIND_RELOAD]->setVisible(false);
 
-	//弾数Ｂ（数字）
-	//fileName1 = "Graph/Pictures/timelogo.png";
-	//UIBillBoard[UKIND_BULLET_B] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	//UIBillBoard[UKIND_BULLET_B]->setPosition(250, 80);
-	//UIBillBoard[UKIND_BULLET_B]->setScale(1.0f);
-	//addChild(UIBillBoard[UKIND_BULLET_B]);
+	Ui[UIKIND_RELOAD].Init(UIKIND_RELOAD, UIKIND_RELOAD);
+	valid[UIKIND_RELOAD] = TRUE;
 
-	//Ui[UKIND_BULLET_B].Init(UKIND_BULLET_B, UKIND_BULLET_B);
-	//valid[UKIND_BULLET_B] = TRUE;
 
 
 	Sprite* sprite[4];
@@ -222,34 +245,104 @@ void GameUILayer::UpdateLayer( void)
 */
 void GameUILayer::MoveReticle(void)
 {
-	if(TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要にならば消す
+	if (TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要にならば消す
 	{
 		Vec2 tPos;
 		int a = 0;
+		//レティクルの挙動
 		//プレイヤーの状態を取得して場合分け
-		switch(GameMasterL->GetPlayerState())
+		switch (GameMasterL->GetPlayerState())
 		{
 		case PSTATE_SHOT://攻撃中はレティクルを移動させる
 
 			tPos = GameMasterL->GetTouchPos();//
-//			tPos = GameMasterL->GetTouchPosInView();//
 			UIBillBoard[UIKIND_RETICLE]->setPosition(tPos);
-			break;
 
-		case PSTATE_IDLE://アイドル状態
-			UIBillBoard[UIKIND_RETICLE]->setVisible(true);/*b*/
 			break;
-		case PSTATE_HIDE://隠れている
+		case PSTATE_IDLE://アイドル状態
+
+			UIBillBoard[UIKIND_RETICLE]->setVisible(true);
+			break;
+		case PSTATE_HIDE://隠れているa
 		case PSTATE_APPEAR://隠れた状態から出る
 		case PSTATE_DAMAGED://ダメージを受けた
 			break;
 		case PSTATE_RUN://走っている（Wait時）
-			UIBillBoard[UIKIND_RETICLE]->setVisible(false);/*b*/
+			UIBillBoard[UIKIND_RETICLE]->setVisible(false);
+
 			break;
 		case PSTATE_DEAD://死亡
 			//ウェイト時と死亡時はGSTATE_PLAYではないので、他のステート時は一括でUIの非表示を管理した方がよい
 			//現在はここにも記述しておく
-			UIBillBoard[UIKIND_RETICLE]->setVisible(false);/*-*/
+			UIBillBoard[UIKIND_RETICLE]->setVisible(false);
+			break;
+		}
+
+
+		//リロードアラートの挙動
+		//プレイヤーの状態を取得して場合分け
+		switch (GameMasterL->GetPlayerState())
+		{
+		case PSTATE_SHOT:
+		case PSTATE_IDLE:
+		case PSTATE_DAMAGED:
+		case PSTATE_DODGE:
+		case PSTATE_APPEAR://隠れた状態から出る
+			if (GameMasterL->nowBullets <= 0)
+			{
+				UIBillBoard[UIKIND_RELOAD]->setVisible(true);
+			}
+			else
+			{
+				UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+			}
+			break;
+		case PSTATE_HIDE://隠れている
+			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+			break;
+		case PSTATE_RUN://走っている（Wait時）
+			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+
+			break;
+		case PSTATE_DEAD://死亡
+			//ウェイト時と死亡時はGSTATE_PLAYではないので、他のステート時は一括でUIの非表示を管理した方がよい
+			//現在はここにも記述しておく
+			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+			break;
+		}
+
+
+		//ウェイトUIの挙動
+		//プレイヤーの状態を取得して場合分け
+		switch (GameMasterL->GetPlayerState())
+		{
+		case PSTATE_SHOT:
+		case PSTATE_IDLE:
+		case PSTATE_DAMAGED:
+		case PSTATE_DODGE:
+		case PSTATE_APPEAR://隠れた状態から出る
+		case PSTATE_HIDE://隠れている
+		case PSTATE_DEAD://死亡
+			UIBillBoard[UIKIND_WAIT]->setVisible(false);
+			break;
+		case PSTATE_RUN://走っている（Wait時）
+			UIBillBoard[UIKIND_WAIT]->setVisible(true);
+			break;
+		}
+
+
+		//アクションUIの挙動
+		//プレイヤーの状態を取得して場合分け
+		switch (GameMasterL->GetPlayerState())
+		{
+		case PSTATE_SHOT:
+		case PSTATE_IDLE:
+		case PSTATE_DAMAGED:
+		case PSTATE_DODGE:
+		case PSTATE_APPEAR://隠れた状態から出る
+		case PSTATE_HIDE://隠れている
+		case PSTATE_RUN://走っている（Wait時）
+		case PSTATE_DEAD://死亡
 			break;
 		}
 	}

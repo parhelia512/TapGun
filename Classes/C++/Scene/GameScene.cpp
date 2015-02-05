@@ -149,7 +149,7 @@ int GameScene::InitCamera()
 	auto s = Director::getInstance()->getWinSize();
 
 	//2D用カメラの実装
-	if(NULL != gUILayer)
+	if (NULL != gUILayer)
 	{
 		GameMasterS->InitCamera2D();//カメラを初期化
 		gUILayer->setCameraMask(CAMFLAG_DEFAULT);
@@ -157,7 +157,7 @@ int GameScene::InitCamera()
 	}
 
 	//3D用カメラの実装
-	if(NULL != gGameLayer)
+	if (NULL != gGameLayer)
 	{
 		GameMasterS->InitCamera3D();//カメラを初期化（ノードにaddChildもする）
 		gGameLayer->setCameraMask(CAMFLAG_3D);
@@ -315,12 +315,13 @@ int GameScene::UpdateCamera()
 		{
 
 		case PSTATE_DODGE:
-			//cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();// +gGameLayer->player.cameraAjust;
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() +gGameLayer->player.cameraAjust;
 			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 
 
 			//		プレイヤーの座標にカメラのノードを置く
-			GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
+			//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
+			GameMasterS->SetCameraNodePos(cameraPos);
 
 			//		カメラを公転させる
 			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
@@ -328,24 +329,26 @@ int GameScene::UpdateCamera()
 			break;
 		case PSTATE_HIDE:
 
-			//cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
 			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 
 
 			//		プレイヤーの座標にカメラのノードを置く
-			GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
+			//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
+			GameMasterS->SetCameraNodePos(cameraPos);
 
 			//		カメラを公転させる
 			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
 			GameMasterS->SetCameraNodeRot(cameraRot);
 			break;
 		case PSTATE_APPEAR:
-			//cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
 			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 
 
 			//		プレイヤーの座標にカメラのノードを置く
-			GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
+			//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
+			GameMasterS->SetCameraNodePos(cameraPos);
 
 			//		カメラを公転させる
 			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
