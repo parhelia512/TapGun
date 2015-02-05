@@ -242,7 +242,7 @@ void GameScene::moveTime(float delta)
 		//敵の配置を行う
 		GameMasterS->SetGameState(GSTATE_PLAY);
 		GameMasterS->SetPlayerState(PSTATE_IDLE);
-
+		gGameLayer->SetEnemy();
 //		UpdateCamera();//モデルの移動をもとにカメラ移動
 
 		break;

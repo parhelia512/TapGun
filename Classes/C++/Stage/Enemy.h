@@ -24,9 +24,10 @@ namespace TapGun
 		
 		int number;
 		int kind;//敵の種類
-
+		int alive;//生存チェック
 		int nextEnemyNum;//この敵が消えたときに、次に出てくる敵
-
+		int finishFlag;//この敵が消えると（倒す、または逃げる）とウェーブ終了（TRUE/FALSE）
+		int AIType;
 	private:
 
 	};

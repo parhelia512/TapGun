@@ -142,14 +142,15 @@ void GameMaster::InitParam()
 	//stagePointの定義
 
 	//ゲーム開始地点
-	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 43.0f);//
-	stagePoint[POINT_START].rot = Vec3(0.0f, 140.0f, 0.0f);
+	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 55.0f);//
+	stagePoint[POINT_START].rot = Vec3(0.0f, 150.0f, 0.0f);
 	stagePoint[POINT_START].pointType = POINT_NONE;
 
 	//ステージ１
 //	stagePoint[POINT_STAGE1].pos = Vec3(-3.8f, 0.0f, 34.0f);//
 //	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 165.0f, 0.0f);
-	stagePoint[POINT_STAGE1].pos = Vec3(-3.9f, 0.0f, 37.0f);//
+	//stagePoint[POINT_STAGE1].pos = Vec3(-3.9f, 0.0f, 37.0f);//
+	stagePoint[POINT_STAGE1].pos = Vec3(-4.0f, 0.0f, 37.7f);//
 	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 180.0f, 0.0f);
 
 	//一時的

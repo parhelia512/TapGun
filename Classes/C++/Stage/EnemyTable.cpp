@@ -34,5 +34,8 @@ void EnemyTable::InitAll()
 		enemyData[i].number = -1;
 		enemyData[i].standbyPos = Vec3(0.0f, 0.0f, 0.0f);
 		enemyData[i].targetPos = Vec3(0.0f, 0.0f, 0.0f);
+		enemyData[i].alive = FALSE;
+		enemyData[i].finishFlag = FALSE;
+		enemyData[i].AIType = -1;
 	}
 }
