@@ -261,91 +261,86 @@ void GameModelsLayer::SetEnemy(void)
 			//敵の目標地点をセット
 		}
 
-		for(int i = 0; i < enemyTable->finishNumber; i++)
-		{
-			//エネミーの初期座標をセット
-
 			//エネミーの最初のターゲット座標をセット
 
-		//敵の目標地点をセット
-		enemyTable->targetPos[0] = (Vec3(-0.3f, 0.0f, 20.4f));
-		enemyTable->targetPos[1] = (Vec3(-2.15f, 0.0f, 16.65f));
-		enemyTable->targetPos[2] = (Vec3(3.7f, 0.0f, 20.35f));
-		enemyTable->targetPos[3] = (Vec3(-0.3f, 0.0f, 26.5f));
+			//敵の目標地点をセット
+			enemyTable->targetPos[0] = (Vec3(-0.3f, 0.0f, 20.4f));
+			enemyTable->targetPos[1] = (Vec3(-2.15f, 0.0f, 16.65f));
+			enemyTable->targetPos[2] = (Vec3(3.7f, 0.0f, 20.35f));
+			enemyTable->targetPos[3] = (Vec3(-0.3f, 0.0f, 26.5f));
 
 
 
-		//エネミーの初期座標をセット
-		//エネミーの最初のターゲット座標をセット
-		//エネミーの行動パターンをセット
-		enemyTable->enemyData[0].standbyPos = enemyTable->standbyPos[0];
-		enemyTable->enemyData[0].targetPos = enemyTable->targetPos[0];
-		enemyTable->enemyData[0].nextEnemyNum = 3;
-		enemyTable->enemyData[0].alive = TRUE;
-		enemyTable->enemyData[0].AIType = AI_TYPE_MATO;//
+			//エネミーの初期座標をセット
+			//エネミーの最初のターゲット座標をセット
+			//エネミーの行動パターンをセット
+			enemyTable->enemyData[0].standbyPos = enemyTable->standbyPos[0];
+			enemyTable->enemyData[0].targetPos = enemyTable->targetPos[0];
+			enemyTable->enemyData[0].nextEnemyNum = 3;
+			enemyTable->enemyData[0].alive = TRUE;
+			enemyTable->enemyData[0].AIType = AI_TYPE_MATO;//
 
-		enemyTable->enemyData[1].standbyPos = enemyTable->standbyPos[1];
-		enemyTable->enemyData[1].targetPos = enemyTable->targetPos[1];
-		enemyTable->enemyData[1].nextEnemyNum = 4;
-		enemyTable->enemyData[1].alive = TRUE;
-		enemyTable->enemyData[1].AIType = AI_TYPE_MATO;//
-
-
-		enemyTable->enemyData[2].standbyPos = enemyTable->standbyPos[2];
-		enemyTable->enemyData[2].targetPos = enemyTable->targetPos[2];
-		enemyTable->enemyData[2].nextEnemyNum = 5;
-		enemyTable->enemyData[2].alive = TRUE;
-		enemyTable->enemyData[2].AIType = AI_TYPE_MATO;//
+			enemyTable->enemyData[1].standbyPos = enemyTable->standbyPos[1];
+			enemyTable->enemyData[1].targetPos = enemyTable->targetPos[1];
+			enemyTable->enemyData[1].nextEnemyNum = 4;
+			enemyTable->enemyData[1].alive = TRUE;
+			enemyTable->enemyData[1].AIType = AI_TYPE_MATO;//
 
 
-		enemyTable->enemyData[3].standbyPos = enemyTable->standbyPos[0];
-		enemyTable->enemyData[3].targetPos = enemyTable->targetPos[0];
-		enemyTable->enemyData[3].nextEnemyNum = 6;
-		enemyTable->enemyData[3].alive = TRUE;
-		enemyTable->enemyData[3].AIType = AI_TYPE_MATO;//
+			enemyTable->enemyData[2].standbyPos = enemyTable->standbyPos[2];
+			enemyTable->enemyData[2].targetPos = enemyTable->targetPos[2];
+			enemyTable->enemyData[2].nextEnemyNum = 5;
+			enemyTable->enemyData[2].alive = TRUE;
+			enemyTable->enemyData[2].AIType = AI_TYPE_MATO;//
 
 
-		enemyTable->enemyData[4].standbyPos = enemyTable->standbyPos[1];
-		enemyTable->enemyData[4].targetPos = enemyTable->targetPos[1];
-		enemyTable->enemyData[4].nextEnemyNum = 7;
-		enemyTable->enemyData[4].alive = TRUE;
-		enemyTable->enemyData[4].AIType = AI_TYPE_MATO;//
+			enemyTable->enemyData[3].standbyPos = enemyTable->standbyPos[0];
+			enemyTable->enemyData[3].targetPos = enemyTable->targetPos[0];
+			enemyTable->enemyData[3].nextEnemyNum = 6;
+			enemyTable->enemyData[3].alive = TRUE;
+			enemyTable->enemyData[3].AIType = AI_TYPE_MATO;//
 
 
-		enemyTable->enemyData[5].standbyPos = enemyTable->standbyPos[2];
-		enemyTable->enemyData[5].targetPos = enemyTable->targetPos[2];
-		enemyTable->enemyData[5].nextEnemyNum = 8;
-		enemyTable->enemyData[5].alive = TRUE;
-		enemyTable->enemyData[5].AIType = AI_TYPE_SINGLE;//
+			enemyTable->enemyData[4].standbyPos = enemyTable->standbyPos[1];
+			enemyTable->enemyData[4].targetPos = enemyTable->targetPos[1];
+			enemyTable->enemyData[4].nextEnemyNum = 7;
+			enemyTable->enemyData[4].alive = TRUE;
+			enemyTable->enemyData[4].AIType = AI_TYPE_MATO;//
 
 
-		enemyTable->enemyData[6].standbyPos = enemyTable->standbyPos[0];
-		enemyTable->enemyData[6].targetPos = enemyTable->targetPos[0];
-		enemyTable->enemyData[6].nextEnemyNum = -1;
-		enemyTable->enemyData[6].alive = TRUE;
-		enemyTable->enemyData[6].AIType = AI_TYPE_SINGLE;//
+			enemyTable->enemyData[5].standbyPos = enemyTable->standbyPos[2];
+			enemyTable->enemyData[5].targetPos = enemyTable->targetPos[2];
+			enemyTable->enemyData[5].nextEnemyNum = 8;
+			enemyTable->enemyData[5].alive = TRUE;
+			enemyTable->enemyData[5].AIType = AI_TYPE_SINGLE;//
 
 
-		enemyTable->enemyData[7].standbyPos = enemyTable->standbyPos[1];
-		enemyTable->enemyData[7].targetPos = enemyTable->targetPos[1];
-		enemyTable->enemyData[7].nextEnemyNum = -1;
-		enemyTable->enemyData[7].alive = TRUE;
-		enemyTable->enemyData[7].AIType = AI_TYPE_MATO;//
+			enemyTable->enemyData[6].standbyPos = enemyTable->standbyPos[0];
+			enemyTable->enemyData[6].targetPos = enemyTable->targetPos[0];
+			enemyTable->enemyData[6].nextEnemyNum = -1;
+			enemyTable->enemyData[6].alive = TRUE;
+			enemyTable->enemyData[6].AIType = AI_TYPE_SINGLE;//
 
-		enemyTable->enemyData[8].standbyPos = enemyTable->standbyPos[3];
-		enemyTable->enemyData[8].targetPos = enemyTable->targetPos[3];
-		enemyTable->enemyData[8].nextEnemyNum = 9;
-		enemyTable->enemyData[8].finishFlag = TRUE;
-		enemyTable->enemyData[8].alive = TRUE;
-		enemyTable->enemyData[8].AIType = AI_TYPE_SINGLE;//
 
-		enemyTable->enemyData[9].standbyPos = enemyTable->standbyPos[3];
-		enemyTable->enemyData[9].targetPos = enemyTable->targetPos[3];
-		enemyTable->enemyData[9].nextEnemyNum = -1;
-		enemyTable->enemyData[9].finishFlag = TRUE;
-		enemyTable->enemyData[9].alive = TRUE;
-		enemyTable->enemyData[9].AIType = AI_TYPE_SINGLE;//
+			enemyTable->enemyData[7].standbyPos = enemyTable->standbyPos[1];
+			enemyTable->enemyData[7].targetPos = enemyTable->targetPos[1];
+			enemyTable->enemyData[7].nextEnemyNum = -1;
+			enemyTable->enemyData[7].alive = TRUE;
+			enemyTable->enemyData[7].AIType = AI_TYPE_MATO;//
 
+			enemyTable->enemyData[8].standbyPos = enemyTable->standbyPos[3];
+			enemyTable->enemyData[8].targetPos = enemyTable->targetPos[3];
+			enemyTable->enemyData[8].nextEnemyNum = 9;
+			enemyTable->enemyData[8].finishFlag = TRUE;
+			enemyTable->enemyData[8].alive = TRUE;
+			enemyTable->enemyData[8].AIType = AI_TYPE_SINGLE;//
+
+			enemyTable->enemyData[9].standbyPos = enemyTable->standbyPos[3];
+			enemyTable->enemyData[9].targetPos = enemyTable->targetPos[3];
+			enemyTable->enemyData[9].nextEnemyNum = -1;
+			enemyTable->enemyData[9].finishFlag = TRUE;
+			enemyTable->enemyData[9].alive = TRUE;
+			enemyTable->enemyData[9].AIType = AI_TYPE_SINGLE;//
 		//敵の出現定義が済んだら、最初に出現させる敵のセットを行う
 
 
@@ -534,7 +529,7 @@ void GameModelsLayer::UpdateWait()
 			player.speedVec = Vec3(0.0f, 0.0f, 0.0f);
 		}
 	}
-	else if (2 == GameMasterM->waitFlag)	//目的地に到着したら、カメラを回転させる
+	else if (3 == GameMasterM->waitFlag)	//目的地に到着したら、カメラを回転させる
 	{
 		if (20 > rotationCount)//回転中の動作
 		{
@@ -626,7 +621,7 @@ void GameModelsLayer::UpdateWait()
 			}
 		}
 	}
-	else if (3 == GameMasterM->waitFlag)	//次の戦闘ポイントに到着したら、ウェイトからプレイに移行
+	else if (4 == GameMasterM->waitFlag)	//次の戦闘ポイントに到着したら、ウェイトからプレイに移行
 	{
 
 	}
