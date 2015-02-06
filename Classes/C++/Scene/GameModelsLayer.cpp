@@ -449,15 +449,15 @@ void GameModelsLayer::UpdateWait()
 {
 	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
 	//とりあえずここで文字列作成
-	std::string idle;
-	if (PSIDE_LEFT == GameMasterM->playerSide)
-	{
-		idle = "idle_l";
-	}
-	else
-	{
-		idle = "idle_r";
-	}
+	//std::string idle;
+	//if (PSIDE_LEFT == GameMasterM->playerSide)
+	//{
+	//	idle = "idle_l";
+	//}
+	//else
+	//{
+	//	idle = "idle_r";
+	//}
 
 	if (0 == GameMasterM->waitFlag)	//次の目的地を検索
 	{
@@ -610,7 +610,7 @@ void GameModelsLayer::UpdateWait()
 
 				//左右に応じたアイドルモーションを開始する
 				player.sprite3d->stopAllActions();
-				player.sprite3d->startAnimationLoop(idle);
+				//player.sprite3d->startAnimationLoop(idle);
 			}
 			else if (POINT_CLEAR == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//クリアしたら
 			{
@@ -622,6 +622,13 @@ void GameModelsLayer::UpdateWait()
 				//	GameMasterM->sPoint++;//座標と角度が設定できたらポイントを先に進める
 				//	GameMasterM->waitFlag = 0;
 				//}
+
+				player.sprite3d->setScale(1.0f);
+				player.sprite3d->setRotation3D(GameMasterM->stagePoint[POINT_START].rot);//プレイヤーは正面を向く
+				player.wrapper->setPosition3D(GameMasterM->stagePoint[POINT_START].pos);
+				GameMasterM->sPoint = POINT_STAGE1;//ステージ1に走る
+				GameMasterM->waitFlag = 0;
+				GameMasterM->wave = 0;
 			}
 			else
 			{
