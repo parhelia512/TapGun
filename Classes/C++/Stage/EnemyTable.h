@@ -33,7 +33,6 @@ namespace TapGun
 		cocos2d::Vec3 targetPos[20];//
 
 		int finishNumber;//“G‚ªÅ‘å‰½‘Îo‚Ä‚­‚é‚©
-
 		void InitAll();
 
 	private:
