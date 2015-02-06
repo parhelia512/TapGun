@@ -96,14 +96,13 @@ void GameModelsLayer::LoadModels()
 
 	//マップは0番に割り当て
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	fileName1 = "map1828";
-	fileName1 = "Stage/map218";
+	fileName1 = "map507";
 #else
 	//fileName1 = "Stage/map1828";
 	//fileName1 = "Stage/map2023";
 	//fileName1 = "Stage/map218";
 	//fileName1 = "Stage/map437";
-	fileName1 = "Stage/map";
+	fileName1 = "Stage/map507";
 #endif
 	unit[0].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
 
@@ -123,7 +122,7 @@ void GameModelsLayer::LoadModels()
 
 	//敵弾モデルは21番~40番に割り当て
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	std::string fileName1 = "bullet";
+	fileName1 = "bullet";
 #else
 	fileName1 = "Bullet/bullet";
 #endif

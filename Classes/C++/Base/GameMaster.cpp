@@ -129,6 +129,8 @@ void GameMaster::InitParam()
 	touchState = TSTATE_OFF;
 	touchFlag = TFLAG_OFF;
 
+	gameTime = 100;
+	
 	sPoint = 0;
 	//プレイヤーの移動ポイントを設定する
 	for(int i = 0; i < 100; i++)

@@ -202,6 +202,7 @@ int GameScene::InitCamera()
 */
 void GameScene::moveTime(float delta)
 {
+	GameMasterS->gameTime -= 0.8f;
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
 	//現在のゲームの状態でゲーム分岐

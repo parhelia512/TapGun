@@ -4,12 +4,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "GameMaster.h"
-//#include "C++/Base/UI.h"
+#include "UI.h"
 
 #else
 
 #include "C++/Base/GameMaster.h"
-//#include "C++/Base/UI.h"
+#include "C++/Base/UI.h"
 
 #endif
 
@@ -34,7 +34,8 @@ bool GameUILayer::init()
 	{
 		return false;
 	}
-
+	LifeUI::getInstance() -> init( this);
+	LogoUI::getInstance() -> init( this);
 	GameMasterL = GameMaster::GetInstance();//ゲームパラメータクラスの初期化
 	return true;
 }
@@ -291,24 +292,36 @@ void GameUILayer::MoveReticle(void)
 		case PSTATE_APPEAR://隠れた状態から出る
 			if(GameMasterL->nowBullets <= 0)
 			{
+				LogoUI::getInstance() -> setLogo( LogoUI::Reload);
+			}
+			else
+			{
+				LogoUI::getInstance() -> resetLogo( LogoUI::Reload);
+			}
+		/*
+			if(GameMasterL->nowBullets <= 0)
+			{
 				UIBillBoard[UIKIND_RELOAD]->setVisible(true);
 			}
 			else
 			{
 				UIBillBoard[UIKIND_RELOAD]->setVisible(false);
 			}
+		 */
 			break;
 		case PSTATE_HIDE://隠れている
-			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+			LogoUI::getInstance() -> resetLogo( LogoUI::Reload);
+//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
 			break;
 		case PSTATE_RUN://走っている（Wait時）
-			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
-
+			LogoUI::getInstance() -> resetLogo( LogoUI::Reload);
+//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
 			break;
 		case PSTATE_DEAD://死亡
 			//ウェイト時と死亡時はGSTATE_PLAYではないので、他のステート時は一括でUIの非表示を管理した方がよい
 			//現在はここにも記述しておく
-			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+			LogoUI::getInstance() -> resetLogo( LogoUI::Reload);
+//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
 			break;
 		}
 
@@ -324,10 +337,17 @@ void GameUILayer::MoveReticle(void)
 		case PSTATE_APPEAR://隠れた状態から出る
 		case PSTATE_HIDE://隠れている
 		case PSTATE_DEAD://死亡
-			UIBillBoard[UIKIND_WAIT]->setVisible(false);
+			LogoUI::getInstance() -> resetLogo( LogoUI::Wait);
+//			UIBillBoard[UIKIND_WAIT]->setVisible(false);
 			break;
 		case PSTATE_RUN://走っている（Wait時）
-			UIBillBoard[UIKIND_WAIT]->setVisible(true);
+			static int count = 0;
+			if( count % 60 == 0)
+			{
+				LogoUI::getInstance() -> setLogo( LogoUI::Wait);				
+			}
+			count++;
+//			UIBillBoard[UIKIND_WAIT]->setVisible(true);
 			break;
 		}
 
@@ -344,6 +364,14 @@ void GameUILayer::MoveReticle(void)
 		case PSTATE_HIDE://隠れている
 		case PSTATE_RUN://走っている（Wait時）
 		case PSTATE_DEAD://死亡
+				
+			break;
+		}
+		
+		switch( GameMasterL -> GetGameState())
+		{
+		case GSTATE_PLAY_INIT:
+			LogoUI::getInstance() -> setLogo( LogoUI::Action);
 			break;
 		}
 	}
