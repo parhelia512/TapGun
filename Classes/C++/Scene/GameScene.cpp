@@ -241,6 +241,7 @@ void GameScene::moveTime(float delta)
 	case GSTATE_PLAY_INIT://ウェイト終了後プレイ前の処理
 
 		//敵の配置を行う
+		gGameLayer->SetEnemy();
 		GameMasterS->SetGameState(GSTATE_PLAY);
 		GameMasterS->SetPlayerState(PSTATE_IDLE);
 

@@ -37,7 +37,7 @@ Vec3 changeCameraRot;
 */
 bool GameModelsLayer::init()
 {
-	if(!Layer::init())
+	if (!Layer::init())
 	{
 		return false;
 	}
@@ -60,8 +60,8 @@ bool GameModelsLayer::init()
 void GameModelsLayer::InitLayer(void)
 {
 	LoadModels();//スプライトの生成
-//	player.createMuzzle(player.sprite3d);
-//	player.muzzleFlagOff();
+	//	player.createMuzzle(player.sprite3d);
+	//	player.muzzleFlagOff();
 	InitAllModels();
 
 	InitPlayer(0);//とりあえず引数0
@@ -144,7 +144,7 @@ void GameModelsLayer::LoadModels()
 */
 void GameModelsLayer::InitAllModels()
 {
-	for(int i = 0; i < MAX_UNIT; i++)
+	for (int i = 0; i < MAX_UNIT; i++)
 	{
 		unit[i].Init();//メンバ変数初期化
 	}
@@ -219,7 +219,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 	//全てのエネミーユニットを初期化
 	//エネミーのセットはsetEnemyで行う
 
-	for(int i = 1; i <= 20; i++)
+	for (int i = 1; i <= 20; i++)
 	{
 		unit[i].Init(i, UKIND_ENEMY);
 		unit[i].wrapper = Node::create();//モデルの親ノード
@@ -247,100 +247,100 @@ int GameModelsLayer::InitEnemy(int stage_num)
 */
 void GameModelsLayer::SetEnemy(void)
 {
-	switch(GameMasterM->wave)
+	switch (GameMasterM->wave)
 	{
 	case 0://ステージ1
 
 		enemyTable->finishNumber = 10;//9体の敵が出る
-		for(int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			//敵の出現地点をセット
 		}
-		for(int i = 0; i < 20; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			//敵の目標地点をセット
 		}
 
-			//エネミーの最初のターゲット座標をセット
+		//エネミーの最初のターゲット座標をセット
 
-			//敵の目標地点をセット
-			enemyTable->targetPos[0] = (Vec3(-0.3f, 0.0f, 20.4f));
-			enemyTable->targetPos[1] = (Vec3(-2.15f, 0.0f, 16.65f));
-			enemyTable->targetPos[2] = (Vec3(3.7f, 0.0f, 20.35f));
-			enemyTable->targetPos[3] = (Vec3(-0.3f, 0.0f, 26.5f));
-
-
-
-			//エネミーの初期座標をセット
-			//エネミーの最初のターゲット座標をセット
-			//エネミーの行動パターンをセット
-			enemyTable->enemyData[0].standbyPos = enemyTable->standbyPos[0];
-			enemyTable->enemyData[0].targetPos = enemyTable->targetPos[0];
-			enemyTable->enemyData[0].nextEnemyNum = 3;
-			enemyTable->enemyData[0].alive = TRUE;
-			enemyTable->enemyData[0].AIType = AI_TYPE_MATO;//
-
-			enemyTable->enemyData[1].standbyPos = enemyTable->standbyPos[1];
-			enemyTable->enemyData[1].targetPos = enemyTable->targetPos[1];
-			enemyTable->enemyData[1].nextEnemyNum = 4;
-			enemyTable->enemyData[1].alive = TRUE;
-			enemyTable->enemyData[1].AIType = AI_TYPE_MATO;//
+		//敵の目標地点をセット
+		enemyTable->targetPos[0] = (Vec3(-0.3f, 0.0f, 20.4f));
+		enemyTable->targetPos[1] = (Vec3(-2.15f, 0.0f, 16.65f));
+		enemyTable->targetPos[2] = (Vec3(3.7f, 0.0f, 20.35f));
+		enemyTable->targetPos[3] = (Vec3(-0.3f, 0.0f, 26.5f));
 
 
-			enemyTable->enemyData[2].standbyPos = enemyTable->standbyPos[2];
-			enemyTable->enemyData[2].targetPos = enemyTable->targetPos[2];
-			enemyTable->enemyData[2].nextEnemyNum = 5;
-			enemyTable->enemyData[2].alive = TRUE;
-			enemyTable->enemyData[2].AIType = AI_TYPE_MATO;//
+
+		//エネミーの初期座標をセット
+		//エネミーの最初のターゲット座標をセット
+		//エネミーの行動パターンをセット
+		enemyTable->enemyData[0].standbyPos = enemyTable->standbyPos[0];
+		enemyTable->enemyData[0].targetPos = enemyTable->targetPos[0];
+		enemyTable->enemyData[0].nextEnemyNum = 3;
+		enemyTable->enemyData[0].alive = TRUE;
+		enemyTable->enemyData[0].AIType = AI_TYPE_MATO;//
+
+		enemyTable->enemyData[1].standbyPos = enemyTable->standbyPos[1];
+		enemyTable->enemyData[1].targetPos = enemyTable->targetPos[1];
+		enemyTable->enemyData[1].nextEnemyNum = 4;
+		enemyTable->enemyData[1].alive = TRUE;
+		enemyTable->enemyData[1].AIType = AI_TYPE_MATO;//
 
 
-			enemyTable->enemyData[3].standbyPos = enemyTable->standbyPos[0];
-			enemyTable->enemyData[3].targetPos = enemyTable->targetPos[0];
-			enemyTable->enemyData[3].nextEnemyNum = 6;
-			enemyTable->enemyData[3].alive = TRUE;
-			enemyTable->enemyData[3].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[2].standbyPos = enemyTable->standbyPos[2];
+		enemyTable->enemyData[2].targetPos = enemyTable->targetPos[2];
+		enemyTable->enemyData[2].nextEnemyNum = 5;
+		enemyTable->enemyData[2].alive = TRUE;
+		enemyTable->enemyData[2].AIType = AI_TYPE_MATO;//
 
 
-			enemyTable->enemyData[4].standbyPos = enemyTable->standbyPos[1];
-			enemyTable->enemyData[4].targetPos = enemyTable->targetPos[1];
-			enemyTable->enemyData[4].nextEnemyNum = 7;
-			enemyTable->enemyData[4].alive = TRUE;
-			enemyTable->enemyData[4].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[3].standbyPos = enemyTable->standbyPos[0];
+		enemyTable->enemyData[3].targetPos = enemyTable->targetPos[0];
+		enemyTable->enemyData[3].nextEnemyNum = 6;
+		enemyTable->enemyData[3].alive = TRUE;
+		enemyTable->enemyData[3].AIType = AI_TYPE_MATO;//
 
 
-			enemyTable->enemyData[5].standbyPos = enemyTable->standbyPos[2];
-			enemyTable->enemyData[5].targetPos = enemyTable->targetPos[2];
-			enemyTable->enemyData[5].nextEnemyNum = 8;
-			enemyTable->enemyData[5].alive = TRUE;
-			enemyTable->enemyData[5].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[4].standbyPos = enemyTable->standbyPos[1];
+		enemyTable->enemyData[4].targetPos = enemyTable->targetPos[1];
+		enemyTable->enemyData[4].nextEnemyNum = 7;
+		enemyTable->enemyData[4].alive = TRUE;
+		enemyTable->enemyData[4].AIType = AI_TYPE_MATO;//
 
 
-			enemyTable->enemyData[6].standbyPos = enemyTable->standbyPos[0];
-			enemyTable->enemyData[6].targetPos = enemyTable->targetPos[0];
-			enemyTable->enemyData[6].nextEnemyNum = -1;
-			enemyTable->enemyData[6].alive = TRUE;
-			enemyTable->enemyData[6].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[5].standbyPos = enemyTable->standbyPos[2];
+		enemyTable->enemyData[5].targetPos = enemyTable->targetPos[2];
+		enemyTable->enemyData[5].nextEnemyNum = 8;
+		enemyTable->enemyData[5].alive = TRUE;
+		enemyTable->enemyData[5].AIType = AI_TYPE_SINGLE;//
 
 
-			enemyTable->enemyData[7].standbyPos = enemyTable->standbyPos[1];
-			enemyTable->enemyData[7].targetPos = enemyTable->targetPos[1];
-			enemyTable->enemyData[7].nextEnemyNum = -1;
-			enemyTable->enemyData[7].alive = TRUE;
-			enemyTable->enemyData[7].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[6].standbyPos = enemyTable->standbyPos[0];
+		enemyTable->enemyData[6].targetPos = enemyTable->targetPos[0];
+		enemyTable->enemyData[6].nextEnemyNum = -1;
+		enemyTable->enemyData[6].alive = TRUE;
+		enemyTable->enemyData[6].AIType = AI_TYPE_SINGLE;//
 
-			enemyTable->enemyData[8].standbyPos = enemyTable->standbyPos[3];
-			enemyTable->enemyData[8].targetPos = enemyTable->targetPos[3];
-			enemyTable->enemyData[8].nextEnemyNum = 9;
-			enemyTable->enemyData[8].finishFlag = TRUE;
-			enemyTable->enemyData[8].alive = TRUE;
-			enemyTable->enemyData[8].AIType = AI_TYPE_SINGLE;//
 
-			enemyTable->enemyData[9].standbyPos = enemyTable->standbyPos[3];
-			enemyTable->enemyData[9].targetPos = enemyTable->targetPos[3];
-			enemyTable->enemyData[9].nextEnemyNum = -1;
-			enemyTable->enemyData[9].finishFlag = TRUE;
-			enemyTable->enemyData[9].alive = TRUE;
-			enemyTable->enemyData[9].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[7].standbyPos = enemyTable->standbyPos[1];
+		enemyTable->enemyData[7].targetPos = enemyTable->targetPos[1];
+		enemyTable->enemyData[7].nextEnemyNum = -1;
+		enemyTable->enemyData[7].alive = TRUE;
+		enemyTable->enemyData[7].AIType = AI_TYPE_MATO;//
+
+		enemyTable->enemyData[8].standbyPos = enemyTable->standbyPos[3];
+		enemyTable->enemyData[8].targetPos = enemyTable->targetPos[3];
+		enemyTable->enemyData[8].nextEnemyNum = 9;
+		enemyTable->enemyData[8].finishFlag = TRUE;
+		enemyTable->enemyData[8].alive = TRUE;
+		enemyTable->enemyData[8].AIType = AI_TYPE_SINGLE;//
+
+		enemyTable->enemyData[9].standbyPos = enemyTable->standbyPos[3];
+		enemyTable->enemyData[9].targetPos = enemyTable->targetPos[3];
+		enemyTable->enemyData[9].nextEnemyNum = -1;
+		enemyTable->enemyData[9].finishFlag = TRUE;
+		enemyTable->enemyData[9].alive = TRUE;
+		enemyTable->enemyData[9].AIType = AI_TYPE_SINGLE;//
 		//敵の出現定義が済んだら、最初に出現させる敵のセットを行う
 
 
@@ -451,7 +451,7 @@ void GameModelsLayer::UpdateWait()
 		idle = "idle_r";
 	}
 
-	if(0 == GameMasterM->waitFlag)	//次の目的地を検索
+	if (0 == GameMasterM->waitFlag)	//次の目的地を検索
 	{
 		player.targetPos = GameMasterM->stagePoint[GameMasterM->sPoint].pos;//
 		player.speed = 0.05f;//スピードは後で調整する
@@ -646,7 +646,7 @@ void GameModelsLayer::UpdatePlayer(void)
 	//	player.muzzleUpdate();
 
 	//２：プレイヤーの状態を取得して場合分け
-	switch(GameMasterM->GetPlayerState())
+	switch (GameMasterM->GetPlayerState())
 	{
 
 	case PSTATE_IDLE://アイドル状態
@@ -710,7 +710,7 @@ void GameModelsLayer::ActionIdle()
 		auto s = Director::getInstance()->getWinSize();//画面サイズ取得
 		const Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
 
-//		player.muzzleflagOn();
+		//		player.muzzleflagOn();
 
 		int tmpFlag = 0;
 
@@ -812,10 +812,10 @@ void GameModelsLayer::ActionShot()
 
 	GameMasterM->rapidFrame += 1;//連射フレームを加算する
 
-	if(TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
+	if (TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
 	{
 		//一定フレームごとに攻撃判定をONにする
-		if(0 == (GameMasterM->rapidFrame % STS_RAPIDSPEED))
+		if (0 == (GameMasterM->rapidFrame % STS_RAPIDSPEED))
 		{
 			GameMasterM->flgPlayerATK = TRUE;
 			//音声はフラグ成立時に鳴らす
@@ -837,7 +837,7 @@ void GameModelsLayer::ActionShot()
 		GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
 		player.sprite3d->stopAllActions();
 
-//		player.muzzleFlagOff();
+		//		player.muzzleFlagOff();
 
 		player.sprite3d->startAnimation(shot);
 	}
@@ -870,7 +870,7 @@ void GameModelsLayer::ActionDodge(void)
 	std::string shot;
 	std::string h_shot;
 	std::string h_reload;
-	if(PSIDE_LEFT == GameMasterM->playerSide)
+	if (PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		h_shot = "h_shot_l";
 		h_reload = "h_reload_l";
@@ -890,20 +890,20 @@ void GameModelsLayer::ActionDodge(void)
 	int state = GameMasterM->GetTouchState();//現在のタッチ状態を取得
 
 	//無敵時間の判定を行う
-	if(STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵開始フレームに達したら
+	if (STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵開始フレームに達したら
 	{
 		GameMasterM->playerHitFlag = FALSE;//当たり判定を無効化する
 	}
 
 	//リロード判定を行う
-	if(STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
+	if (STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
 	{
 		GameMasterM->nowBullets = STS_MAXBULLETS;//弾数を回復する
 	}
 
 	//回避完了フレームに達したら
-//	if (STS_HIDEWAIT <= GameMasterM->hideFrame)
-	if(0 == player.sprite3d->checkAnimationState())//アニメーションが終了したら
+	//	if (STS_HIDEWAIT <= GameMasterM->hideFrame)
+	if (0 == player.sprite3d->checkAnimationState())//アニメーションが終了したら
 	{
 		GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
 		//リロードモーションが終了した後は、リロードモーションを行う
@@ -911,7 +911,7 @@ void GameModelsLayer::ActionDodge(void)
 		player.sprite3d->startAnimation(h_reload);//リロードモーションを再生
 
 		//座標と角度をセットしてキャラクターの座標を補正
-		if(PSIDE_LEFT == GameMasterM->playerSide)
+		if (PSIDE_LEFT == GameMasterM->playerSide)
 		{
 			player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot + Vec3(0.0f, 96.0f, 0.0f));
 			player.wrapper->setRotation3D(Vec3(0.0f, -96.0f, 0.0f));
@@ -926,7 +926,7 @@ void GameModelsLayer::ActionDodge(void)
 	{
 		//回避完了前にホールド解除した場合
 		//とりあえずTFLAG_CANCELをif内に入れておく
-		if(TSTATE_RELEASE == state)
+		if (TSTATE_RELEASE == state)
 		{
 			player.sprite3d->stopALLAnimation();//モーション終了
 			GameMasterM->SetPlayerState(PSTATE_APPEAR);//隠れている状態に移行
@@ -934,11 +934,11 @@ void GameModelsLayer::ActionDodge(void)
 			GameMasterM->hideFrame = STS_HIDEWAIT - GameMasterM->hideFrame;//突撃のフレーム数をセットする
 			player.sprite3d->startAnimation(h_shot, GameMasterM->hideFrame * 0.016f, STS_HIDEWAIT * 0.016f);//モーション終了
 		}
-		else if(TSTATE_MOVE == state|| TSTATE_ON == state)//ホールド状態
+		else if (TSTATE_MOVE == state || TSTATE_ON == state)//ホールド状態
 		{
 			//回避動作中は指定座標を軸に座標移動を行う
 			//回避フレーム（12フレーム）を12分割し、90度程度回転する
-			if(PSIDE_LEFT == GameMasterM->playerSide)
+			if (PSIDE_LEFT == GameMasterM->playerSide)
 			{
 				//プレイヤーの座標の更新
 				float rot = 96.0f / STS_HIDEWAIT;
@@ -991,7 +991,7 @@ void GameModelsLayer::ActionHide(void)
 	std::string shot;
 	std::string h_shot;
 	std::string h_reload;
-	if(PSIDE_LEFT == GameMasterM->playerSide)
+	if (PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		h_shot = "h_shot_l";
 		h_reload = "h_reload_l";
@@ -1005,12 +1005,12 @@ void GameModelsLayer::ActionHide(void)
 	//ボタンが押しっぱなしであれば、回避状態を継続し、リロードアニメーションを再生
 	//ボタンが離されれば、回避状態を終了して突撃状態へ移行
 
-	if(TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
+	if (TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
 	{
 		//タッチ中はリロードを再生、再生後はモーション停止
 		player.cameraAjust = Vec3(camTarget.x * STS_HIDEWAIT, camTarget.y * STS_HIDEWAIT, camTarget.z * STS_HIDEWAIT);//カメラ位置
 	}
-	else if(TSTATE_RELEASE == GameMasterM->GetTouchState())//離されれば
+	else if (TSTATE_RELEASE == GameMasterM->GetTouchState())//離されれば
 	{
 		GameMasterM->SetPlayerState(PSTATE_APPEAR);
 		player.sprite3d->startAnimation(h_shot);
@@ -1032,7 +1032,7 @@ void GameModelsLayer::ActionAppear(void)
 	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
 	//とりあえずここで文字列作成
 	std::string idle;
-	if(PSIDE_LEFT == GameMasterM->playerSide)
+	if (PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		idle = "idel_l";
 	}
@@ -1048,13 +1048,13 @@ void GameModelsLayer::ActionAppear(void)
 	GameMasterM->hideFrame += 1;//回避フレームを加算する
 
 	//無敵時間の判定を行う
-	if(STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵終了フレームに達したら
+	if (STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵終了フレームに達したら
 	{
 		GameMasterM->playerHitFlag = TRUE;//当たり判定を有効化する
 	}
 
 	//回避完了の判定
-	if(STS_HIDEWAIT <= GameMasterM->hideFrame)//突撃フレームに達したら
+	if (STS_HIDEWAIT <= GameMasterM->hideFrame)//突撃フレームに達したら
 		//	if(0 == player.sprite3d->checkAnimationState())//アニメーションが終了したら
 	{
 		//必要ならばモーションの停止を行う
@@ -1076,7 +1076,7 @@ void GameModelsLayer::ActionAppear(void)
 	}
 	else
 	{
-		if(PSIDE_LEFT == GameMasterM->playerSide)
+		if (PSIDE_LEFT == GameMasterM->playerSide)
 		{
 			//回避フレームに比例してカメラの回転を変化させる
 			float rot = 96.0f / STS_HIDEWAIT;//
@@ -1116,7 +1116,7 @@ void GameModelsLayer::ActionAppear(void)
 *	@return	なし
 *	@date	1/21 Ver 1.0
 */
-void GameModelsLayer:: ActionDamaged(void)
+void GameModelsLayer::ActionDamaged(void)
 {
 
 }
@@ -1129,7 +1129,7 @@ void GameModelsLayer:: ActionDamaged(void)
 *	@return	なし
 *	@date	1/21 Ver 1.0
 */
-void GameModelsLayer:: ActionRun(void)
+void GameModelsLayer::ActionRun(void)
 {
 
 }
@@ -1142,19 +1142,11 @@ void GameModelsLayer:: ActionRun(void)
 *	@return	なし
 *	@date	1/21 Ver 1.0
 */
-void GameModelsLayer:: ActionDead(void)
+void GameModelsLayer::ActionDead(void)
 {
 
 }
 
-
-
-void GameModelsLayer::checkNextEnemy(int enemyNum)
-{
-
-
-
-}
 
 
 /*
@@ -1163,14 +1155,14 @@ void GameModelsLayer::checkNextEnemy(int enemyNum)
 void GameModelsLayer::ShootBullet(int enemy_num)
 {
 	int num = SearchFreeUnit();
-	if(FALSE != num)
+	if (FALSE != num)
 	{
 		unit[num].Init(num, UKIND_EBULLET);
 
 		unit[num].wrapper = Node::create();//モデルの親ノード
 		addChild(unit[num].sprite3d);
-//		unit[num].wrapper->addChild(unit[num].sprite3d);
-//		addChild(unit[num].wrapper);
+		//		unit[num].wrapper->addChild(unit[num].sprite3d);
+		//		addChild(unit[num].wrapper);
 
 		unit[num].sprite3d->setScale(1.0f);
 
@@ -1205,9 +1197,9 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 void GameModelsLayer::UpdateBullets()
 {
 	//全ての敵弾ユニットを更新
-	for(int num = 0; num < MAX_UNIT; num++)
+	for (int num = 0; num < MAX_UNIT; num++)
 	{
-		if(FALSE != unit[num].valid && UKIND_EBULLET == unit[num].kind)
+		if (FALSE != unit[num].valid && UKIND_EBULLET == unit[num].kind)
 		{
 			unit[num].Update();//座標と一緒に当たり判定を移動
 
@@ -1245,7 +1237,7 @@ void  GameModelsLayer::CheckHit(void)
 	const int count = player.GetFrame();
 
 	//攻撃判定フラグがONのときのみ攻撃判定を処理
-	if(TRUE == GameMasterM->flgPlayerATK)
+	if (TRUE == GameMasterM->flgPlayerATK)
 	{
 		//注意：敵が重なって存在する場合に備え、Ｚソートなどの並び替えを行う必要がありそうです
 		auto s = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
@@ -1284,11 +1276,11 @@ void  GameModelsLayer::CheckHit(void)
 		Ray touchRay(rayStart, rayEnd);//仮レイを設定
 
 		//レイの当たり判定
-		for(int i = 0; i < MAX_UNIT; i++)
+		for (int i = 0; i < MAX_UNIT; i++)
 		{
-			if(-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind && unit[i].eState != ESTATE_DAMAGED && unit[i].eState != ESTATE_DEAD)
+			if (-1 != unit[i].valid && UKIND_ENEMY == unit[i].kind && unit[i].eState != ESTATE_DAMAGED && unit[i].eState != ESTATE_DEAD)
 			{
-				if(touchRay.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
+				if (touchRay.intersects(unit[i].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
 				{
 					Vec3 rot = Vec3(0, 0, 0);
 					//rot = unit[i].sprite3d->getRotation3D();
@@ -1309,12 +1301,12 @@ void  GameModelsLayer::CheckHit(void)
 	//敵の攻撃処理（弾とプレイヤーの当たり判定）
 
 	//全ての敵弾ユニットを更新
-	for(int i = 0; i < MAX_UNIT; i++)
+	for (int i = 0; i < MAX_UNIT; i++)
 	{
-		if(FALSE != unit[i].valid && UKIND_EBULLET == unit[i].kind)
+		if (FALSE != unit[i].valid && UKIND_EBULLET == unit[i].kind)
 		{
 			//プレイヤーとの当たり判定を処理
-			if(player.obbHead.intersects(unit[i].obbHead))
+			if (player.obbHead.intersects(unit[i].obbHead))
 			{
 				//接触した場合は_sprite3Dの解放を行う
 				unit[i].sprite3d->setVisible(false);
@@ -1375,7 +1367,7 @@ Vec2 GameModelsLayer::calcRot(float pRot, int pSide)
 	cNode.lNode->setPosition(Vec2(0.0f, 0.0f));
 
 	//プレイヤーの向きに応じて処理を変更する
-	if(PSIDE_LEFT == pSide)
+	if (PSIDE_LEFT == pSide)
 	{
 		cNode.lNode->setPositionX(HIDEPOINT_X);//回避座標を代入
 		cNode.lNode->setPositionY(HIDEPOINT_Y);//回避座標を代入
@@ -1462,15 +1454,15 @@ Vec2 GameModelsLayer::calcCamPos2(float pRot, int pSide)
 	/*
 	行いたい処理
 	・前提
-		カメラの親ノードはプレイヤーの位置に一致させている
-		ただし戦闘中はプレイヤーの親ノードとプレイヤーの座標がずれるので、親ノードとプレイヤーの座標を加算し、ずれた分の座標を戻している
-		⇒つまり、プレイヤーの親ノードから見たプレイヤーの座標がカメラの親ノード座標と一致する
+	カメラの親ノードはプレイヤーの位置に一致させている
+	ただし戦闘中はプレイヤーの親ノードとプレイヤーの座標がずれるので、親ノードとプレイヤーの座標を加算し、ずれた分の座標を戻している
+	⇒つまり、プレイヤーの親ノードから見たプレイヤーの座標がカメラの親ノード座標と一致する
 
-		この状態でP親ノードを回転させることで、プレイヤーの回避を行っている。
-		そのためプレイヤーの座標と角度は更新されない
+	この状態でP親ノードを回転させることで、プレイヤーの回避を行っている。
+	そのためプレイヤーの座標と角度は更新されない
 
-		P親ノードの回転からP座標の移動を計算し、移動後の座標（P親ノードから見た座標）を取得する
-		その座標をC親ノードに当てはめれば、カメラの動きが正しくなる・・・はず
+	P親ノードの回転からP座標の移動を計算し、移動後の座標（P親ノードから見た座標）を取得する
+	その座標をC親ノードに当てはめれば、カメラの動きが正しくなる・・・はず
 	*/
 
 
@@ -1539,7 +1531,7 @@ Vec2 GameModelsLayer::calcCamPos3(float pRot, int pSide)
 	cNode.lNode2->setPosition(Vec2(0.0f, 0.0f));
 
 	//プレイヤーの向きに応じて処理を変更する
-	if(PSIDE_LEFT == pSide)
+	if (PSIDE_LEFT == pSide)
 	{
 		cNode.lNode->setPositionX(HIDECAMERA_X);//カメラの親ノードの回避後の座標
 		cNode.lNode->setPositionY(HIDECAMERA_Y);//カメラの親ノードの回避後の座標
@@ -1568,7 +1560,6 @@ Vec2 GameModelsLayer::calcCamPos3(float pRot, int pSide)
 
 
 
-
 /**
 *	エネミーの更新
 *
@@ -1581,19 +1572,26 @@ void GameModelsLayer::UpdateEnemy()
 {
 	auto sound = Sound::getInstance();
 	auto random = rand() % 4;
-	for(int i = 1; i <= 20; i++)//1番~20番を敵に割り当て
+	for (int i = 1; i <= 20; i++)//1番~20番を敵に割り当て
 	{
-		if(TRUE == unit[i].valid && TRUE == unit[i].visible)//エネミーが表示されていれば
+		if (TRUE == unit[i].valid && TRUE == unit[i].visible)//エネミーが表示されていれば
 		{
-			//switch(unit[i].AIType)
-			//{
-			//case 0:
-			//	ActionEnemy1(i);
-			//	break;
-			//default:
-			//	ActionEnemy2(i);
-			//	break;
-			//}
+			switch (unit[i].AIType)
+			{
+			case AI_TYPE_MATO:
+				//ActionEnemy1(i);//
+				//break;
+			case AI_TYPE_SINGLE:
+				ActionEnemy2(i);//
+				break;
+
+			case AI_TYPE_SINGLE_J:
+
+				break;
+			default:
+				break;
+			}
+
 		}
 	}
 }
@@ -1625,7 +1623,7 @@ void GameModelsLayer::ActionEnemy1(int num)
 	case ESTATE_STANDBY://キャラクターが目標地点
 
 		unit[num].eWaitFrame--;//待機時間を減らしていく
-		if(unit[num].eWaitFrame <= 0)
+		if (unit[num].eWaitFrame <= 0)
 		{
 			unit[num].eState = ESTATE_MOVE;//待機が終わったら移動
 
@@ -1654,7 +1652,7 @@ void GameModelsLayer::ActionEnemy1(int num)
 
 		unit[num].atkFrame--;
 		unit[num].sprite3d->stopALLAnimation();
-		if(unit[num].atkFrame <= 0)
+		if (unit[num].atkFrame <= 0)
 		{
 			//unit[num].eState = ESTATE_ATTACK1;
 			//unit[num].sprite3d->startAnimationLoop("rshot");
@@ -1705,51 +1703,17 @@ void GameModelsLayer::ActionEnemy1(int num)
 
 	case ESTATE_DAMAGED://被弾
 
-		//				unit[num].sprite3d->stopALLAnimation();
-		//				unit[num].sprite3d->startAnimation("dei2");
-		//				unit[num].eState = ESTATE_DEAD;
-		//				unit[num].eWaitFrame = 180;
 
 
-		//
-		//if( random == 0)
-		//{
-		//	sound -> playSE("Damage_01.wav");
-		//}
-		//else if( random == 1)
-		//{
-		//	sound -> playSE("Damage_02.wav");
-		//}
-		//else if( random == 2)
-		//{
-		//	sound -> playSE("Damage_03.wav");
-		//}
-		//else if( random == 3)
-		//{
-		//	sound -> playSE("Damage_04.wav");
-		//}
+//		ShootBullet(num);
 
-		//共通
-
-		unit[num].eState = ESTATE_STANDBY;
-		unit[num].hitpoint = 5;
-		//個別
-		unit[num].sprite3d->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
-		unit[num].targetPos = Vec3(15.0f, 0.0f, 5.5f);
-		unit[num].eWaitFrame = 0;
-		unit[num].atkFrame = 20;
-
-		ShootBullet(num);
-
-		unit[num].eState = ESTATE_STANDBY;
+		unit[num].eState = ESTATE_DEAD;
 
 		//				unit[num].sprite3d->setVisible( false);
 		break;
 	case ESTATE_DEAD://死亡
-		if(0 == unit[num].sprite3d->checkAnimationState())//死亡アニメーションが終了したら
+		if (0 == unit[num].sprite3d->checkAnimationState())//死亡アニメーションが終了したら
 		{
-			//
-			//unit[num].eState = ESTATE_END;
 			setNextEnemy(num);//
 		}
 		break;
@@ -1893,31 +1857,31 @@ void GameModelsLayer::ActionEnemy2(int num)
 		//
 		//if( random == 0)
 		//{
-		//	sound -> playSE("Damage_01.wav");
+		//    sound -> playSE("Damage_01.wav");
 		//}
 		//else if( random == 1)
 		//{
-		//	sound -> playSE("Damage_02.wav");
+		//    sound -> playSE("Damage_02.wav");
 		//}
 		//else if( random == 2)
 		//{
-		//	sound -> playSE("Damage_03.wav");
+		//    sound -> playSE("Damage_03.wav");
 		//}
 		//else if( random == 3)
 		//{
-		//	sound -> playSE("Damage_04.wav");
+		//    sound -> playSE("Damage_04.wav");
 		//}
 
 		//共通
 
-		//		unit[num].eState = ESTATE_STANDBY;
-		//	unit[num].hitpoint = 5;
+		//        unit[num].eState = ESTATE_STANDBY;
+		//    unit[num].hitpoint = 5;
 		//個別
 
-		//		ShootBullet(num);
+		//        ShootBullet(num);
 
 
-		//				unit[num].sprite3d->setVisible( false);
+		//                unit[num].sprite3d->setVisible( false);
 		break;
 	case ESTATE_DEAD://死亡
 		if (0 == unit[num].sprite3d->checkAnimationState())//死亡アニメーションが終了したら
@@ -1950,7 +1914,7 @@ void GameModelsLayer::setNextEnemy(int num)
 	//現在のウェーブと、死亡した敵の番号をもとに、次のモデルを準備する
 	const int nextNum = enemyTable->enemyData[unit[num].tableNum].nextEnemyNum;
 	enemyTable->enemyData[unit[num].tableNum].alive = FALSE;
-	if(-1 == nextNum)//次のモデルが設定されていなければ
+	if (-1 == nextNum)//次のモデルが設定されていなければ
 	{
 
 	}
