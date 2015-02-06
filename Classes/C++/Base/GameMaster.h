@@ -183,6 +183,8 @@ namespace TapGun
 
 		int hideFrame;//回避フレーム
 		int mutekiFrame;//無敵時間
+		
+		float gameTime;//ゲーム全体の時間
 
 		//関数
 		GameMaster(const GameMaster &P) = delete;

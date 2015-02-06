@@ -1,3 +1,4 @@
+
 #include "cocos2d.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -129,6 +130,8 @@ void GameMaster::InitParam()
 	touchState = TSTATE_OFF;
 	touchFlag = TFLAG_OFF;
 
+	gameTime = 100;
+	
 	sPoint = 0;
 	//プレイヤーの移動ポイントを設定する
 	for (int i = 0; i < 100; i++)
@@ -142,8 +145,8 @@ void GameMaster::InitParam()
 	//stagePointの定義
 
 	//ゲーム開始地点
-	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 55.0f);//
-	stagePoint[POINT_START].rot = Vec3(0.0f, 150.0f, 0.0f);
+	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 43.0f);//
+	stagePoint[POINT_START].rot = Vec3(0.0f, 140.0f, 0.0f);
 	stagePoint[POINT_START].pointType = POINT_NONE;
 
 	//ステージ１
