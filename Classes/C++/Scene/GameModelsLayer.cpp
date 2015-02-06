@@ -252,14 +252,22 @@ void GameModelsLayer::SetEnemy(void)
 	case 0://ステージ1
 
 		enemyTable->finishNumber = 10;//9体の敵が出る
-		for (int i = 0; i < 10; i++)
+		for (int i = 1; i < 20; i++)
 		{
-			//敵の出現地点をセット
+			unit[i].sprite3d->setVisible(false);//敵モデル非表示
+			unit[i].visible = FALSE;//敵モデル非表示
+			unit[i].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));//敵モデル非表示
+			unit[i].eState = ESTATE_SLEEP;
+			unit[i].tableNum = -1;
+			unit[i].hitpoint = 5;
 		}
-		for (int i = 0; i < 20; i++)
-		{
-			//敵の目標地点をセット
-		}
+
+
+		//敵の出現ポイントをセット
+		enemyTable->standbyPos[0] = (Vec3(-4.65f, 0.0f, 18.15f));
+		enemyTable->standbyPos[1] = (Vec3(0.65f, 0.0f, 10.8f));
+		enemyTable->standbyPos[2] = (Vec3(9.1f, 0.0f, 18.65f));
+		enemyTable->standbyPos[3] = (Vec3(-5.7f, 0.0f, 28.4f));
 
 		//エネミーの最初のターゲット座標をセット
 
@@ -402,7 +410,7 @@ int GameModelsLayer::InitMap(int stage_num)
 
 	unit[0].sprite3d->setScale(1.0f);
 	unit[0].sprite3d->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
-	unit[0].sprite3d->setPosition3D(Vec3(0.0f, -0.4f, 0.0f));
+	unit[0].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
 	unit[0].Init(0, UKIND_MAP);
 	return TRUE;
 }
@@ -1579,8 +1587,8 @@ void GameModelsLayer::UpdateEnemy()
 			switch (unit[i].AIType)
 			{
 			case AI_TYPE_MATO:
-				//ActionEnemy1(i);//
-				//break;
+				ActionEnemy1(i);//
+				break;
 			case AI_TYPE_SINGLE:
 				ActionEnemy2(i);//
 				break;
@@ -1612,54 +1620,43 @@ void GameModelsLayer::ActionEnemy1(int num)
 	//敵キャラクターのhpが0になったら
 	if (unit[num].hitpoint <= 0 && ESTATE_DAMAGED != unit[num].eState && ESTATE_DEAD != unit[num].eState)
 	{
-		unit[num].eState = ESTATE_DAMAGED;
+		unit[num].eState = ESTATE_DAMAGED;//ダメージ状態に変更
 	}
 
 	switch (unit[num].eState)
 	{
 	case ESTATE_SLEEP://プレイヤーが休眠状態
 
+
+
 		break;
-	case ESTATE_STANDBY://キャラクターが目標地点
+	case ESTATE_STANDBY://キャラクターが目標地点へと走るモーション
+	{
+		unit[num].eState = ESTATE_MOVE;//待機が終わったら移動
 
-		unit[num].eWaitFrame--;//待機時間を減らしていく
-		if (unit[num].eWaitFrame <= 0)
-		{
-			unit[num].eState = ESTATE_MOVE;//待機が終わったら移動
+		unit[num].speed = 0.08f;//スピードは後で調整する
 
-			unit[num].speed = 0.03f;//スピードは後で調整する
+		//向きの設定
+		unit[num].speedVec = unit[num].targetPos - unit[num].sprite3d->getPosition3D();
 
-			unit[num].speedVec = unit[num].targetPos - unit[num].sprite3d->getPosition3D();//この方法が正しければ使用する
+		unit[num].speedVec.normalize();//ベクトルの正規化を行う
+		double r = atan2(unit[num].speedVec.z, unit[num].speedVec.x);
+		r = CC_RADIANS_TO_DEGREES(r);
 
-			//ベクトルの正規化を行う
-			unit[num].speedVec.normalize();
+		//正規化が終わったら、速度をかけて方向ベクトルの計算終了
+		unit[num].speedVec.x *= unit[num].speed;
+		unit[num].speedVec.z *= unit[num].speed;
 
-			double r = atan2(unit[num].speedVec.y, unit[num].speedVec.y);
-			r = CC_DEGREES_TO_RADIANS(r);
+		unit[num].speedVec.y = 0;//yは今のところ0で扱う
+		unit[num].sprite3d->setRotation3D(Vec3(0.0f, 90.0f - r, 0.0f));//
 
-			//正規化が終わったら、速度をかけて方向ベクトルの計算終了
-			unit[num].speedVec.x *= unit[num].speed;
-			unit[num].speedVec.z *= unit[num].speed;
+		unit[num].sprite3d->startAnimationLoop("run");
 
-			unit[num].speedVec.y = 0;//yは今のところ0で扱う
-			unit[num].sprite3d->startAnimationLoop("run");
-			unit[num].atkFrame = 50;
-			unit[num].sprite3d->setRotation3D(Vec3(0.0f, r + 180.0f, 0.0f));
-		}
-
+	}
 		break;
 	case ESTATE_IDLE://アイドル状態
 
-		unit[num].atkFrame--;
-		unit[num].sprite3d->stopALLAnimation();
-		if (unit[num].atkFrame <= 0)
-		{
-			//unit[num].eState = ESTATE_ATTACK1;
-			//unit[num].sprite3d->startAnimationLoop("rshot");
 
-			unit[num].eState = ESTATE_ATTACK1;
-			unit[num].sprite3d->startAnimationLoop("rshot");
-		}
 		break;
 	case ESTATE_MOVE://移動状態
 	{
@@ -1669,26 +1666,32 @@ void GameModelsLayer::ActionEnemy1(int num)
 		if (0.01f >= sqrtf(unit[num].targetPos.x - tmpPos.x) * (unit[num].targetPos.x - tmpPos.x)
 			+ (unit[num].targetPos.y - tmpPos.y) *(unit[num].targetPos.y - tmpPos.y))
 		{
-			//プレイヤーと反対方向を向く
-			Vec3 rot = player.sprite3d->getRotation3D();
-			rot.y -= 180.0f;
+			//プレイヤーの立っている座標を向く
 
-			unit[num].sprite3d->setPosition3D(unit[num].targetPos);
-			unit[num].sprite3d->setRotation3D(rot);
+			Vec3 tmpPos = GameMasterM->stagePoint[GameMasterM->sPoint].pos;//プレイヤーの立っている座標の取得
+			unit[num].sprite3d->setPosition3D(unit[num].targetPos);//敵をポジションにセット
 
-			unit[num].sprite3d->stopALLAnimation();
+			tmpPos = tmpPos - unit[num].targetPos;//プレイヤーの位置へのベクトルを計算
+			tmpPos.normalize();//ベクトルの正規化を行う
+
+
+			double r = atan2(tmpPos.z, tmpPos.x);
+			r = CC_RADIANS_TO_DEGREES(r);
+			unit[num].sprite3d->setRotation3D(Vec3(0.0f, 90.0f - r, 0.0f));//
 
 			unit[num].speed = 0.0f;
-			unit[num].speedVec = Vec3(0.0f, 0.0f, 0.0f);
+			unit[num].speedVec = Vec3(0.0f, 0.0f, 0.0f);//移動終了
 
+			unit[num].eState = ESTATE_IDLE;//アイドル状態を開始
+			unit[num].sprite3d->stopALLAnimation();//現在のモーションを終了し
 
-			unit[num].eState = ESTATE_IDLE;
-			unit[num].atkFrame = 5;
+			unit[num].sprite3d->startAnimationLoop("dammy_shot");
 		}
 	}
 		break;
 
 	case ESTATE_WAIT://ウェイト
+
 		break;
 
 	case ESTATE_ATTACK1://攻撃
@@ -1703,29 +1706,57 @@ void GameModelsLayer::ActionEnemy1(int num)
 
 	case ESTATE_DAMAGED://被弾
 
+		//HPが0になったら
 
-
-//		ShootBullet(num);
-
+		unit[num].sprite3d->stopALLAnimation();
+		unit[num].sprite3d->startAnimation("dei2");
 		unit[num].eState = ESTATE_DEAD;
+
+
+		//
+		//if( random == 0)
+		//{
+		//	sound -> playSE("Damage_01.wav");
+		//}
+		//else if( random == 1)
+		//{
+		//	sound -> playSE("Damage_02.wav");
+		//}
+		//else if( random == 2)
+		//{
+		//	sound -> playSE("Damage_03.wav");
+		//}
+		//else if( random == 3)
+		//{
+		//	sound -> playSE("Damage_04.wav");
+		//}
+
+		//共通
+
+		//		unit[num].eState = ESTATE_STANDBY;
+		//	unit[num].hitpoint = 5;
+		//個別
+
+		//		ShootBullet(num);
+
 
 		//				unit[num].sprite3d->setVisible( false);
 		break;
 	case ESTATE_DEAD://死亡
 		if (0 == unit[num].sprite3d->checkAnimationState())//死亡アニメーションが終了したら
 		{
+			unit[num].sprite3d->setVisible(false);
+			unit[num].visible = FALSE;
+			//unit[num].eState = ESTATE_END;
 			setNextEnemy(num);//
 		}
 		break;
 	case ESTATE_END://死んだ敵の処分
 		//敵が死んだら次の敵を確認する
 		//
-
-
 		break;
 	}
 }
-
 /**
 *	エネミー2の更新
 *
@@ -1947,6 +1978,8 @@ int GameModelsLayer::CheckNextStage(void)
 				return FALSE;
 			}
 		}
+		player.sprite3d->stopALLAnimation();//現在のモーションを終了し
+
 		GameMasterM->SetGameState(GSTATE_WAIT);//次のウェイトへ進む
 		GameMasterM->wave += 1;//次のステージへ進む
 		GameMasterM->waitFlag = 0;//
