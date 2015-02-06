@@ -13,6 +13,7 @@
 
 #else
 
+#include "C++/Base/UI.h"
 #include "C++/Base/Sprite3D.h"
 #include "C++/System/Directory.h"
 #include "C++/System/Errorfunc.h"
@@ -20,7 +21,7 @@
 
 #endif
 
-#define CAMERA3D//
+//#define CAMERA3D//
 
 //一時的に定義する
 #define PERSE 35//カメラ視野角
@@ -82,7 +83,7 @@ bool Test::init()
 #endif
 	//マップ
 	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
-	addChild(spriteMap);
+//	addChild(spriteMap);
 
 	//エネミー
 	//spriteEnemy1->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
@@ -92,7 +93,10 @@ bool Test::init()
 	//プレイヤー
 	spritePlayer->setPosition3D(Vec3(PPOSX, PPOSY, PPOSZ));
 	spritePlayer->setRotation3D(Vec3(0.0f, PROTY, 0.0f));
-	addChild(spritePlayer);
+//	addChild(spritePlayer);
+
+	auto life = LifeUI::getInstance();
+	life -> init( this);
 
 #ifdef CAMERA3D//
 	

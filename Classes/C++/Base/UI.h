@@ -68,5 +68,58 @@ namespace TapGun
 
 	private:
 	};
+
+
+	class LifeUI
+	{
+	public:
+		enum LifeNUmber
+		{
+			Up,
+			Left,
+			Down,
+			Right,
+			LifeNum,
+		};
+
+		LifeUI( const LifeUI& p) = delete;
+		LifeUI& operator=( const LifeUI& P) = delete;
+		static LifeUI* getInstance( void);
+		
+		void init( cocos2d::Layer* layer);
+		void update( void);
+		
+
+	private:
+		LifeUI();
+
+		
+		cocos2d::Sprite* frame;
+		cocos2d::Sprite* life[LifeNum];
+	};
+
+	class LogoUI
+	{
+	public:
+		enum LogoNumber
+		{
+			Action,
+			Wait,
+			Reload,
+			LogoNum,
+		};
+
+		LogoUI( const LogoUI& p) = delete;
+		LogoUI& operator=( const LogoUI& P) = delete;
+		static LogoUI* getInstance( void);
+
+		void init( cocos2d::Layer* layer);
+		void update( void);
+		void setLogo( LogoNumber num);
+
+	private:
+		LogoUI();
+		cocos2d::Sprite* logo[LogoNum];
+	};
 }
 #endif //__UI_H__
