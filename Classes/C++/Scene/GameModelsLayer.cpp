@@ -483,8 +483,7 @@ void GameModelsLayer::UpdateWait()
 		player.sprite3d->stopALLAnimation();
 		player.sprite3d->startAnimationLoop("run");
 		GameMasterM->waitFlag = 1;
-
-
+		GameMasterM->SetPlayerState(PSTATE_RUN);
 		//カメラの位置が滑らかに変化する処理を入れる
 		GameMasterM->SetCamera3DPos(Vec3(W_SETX, W_SETY, W_SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
 		GameMasterM->SetCamera3DRot(Vec3(W_ROTX, W_ROTY, W_ROTZ));
@@ -610,6 +609,7 @@ void GameModelsLayer::UpdateWait()
 
 				//左右に応じたアイドルモーションを開始する
 				player.sprite3d->stopAllActions();
+
 				//player.sprite3d->startAnimationLoop(idle);
 			}
 			else if (POINT_CLEAR == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//クリアしたら
