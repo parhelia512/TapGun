@@ -85,6 +85,7 @@ namespace TapGun
 		int eWaitFrame;//出現までの待ちフレーム
 		cocos2d::Vec3 StandbyPos;//待機座標
 		int atkFrame;//
+		int tableNum;
 
 		//==変数==
 		cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）

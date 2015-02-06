@@ -34,8 +34,6 @@ bool GameUILayer::init()
 	{
 		return false;
 	}
-	LifeUI::getInstance() -> init( this);
-	LogoUI::getInstance() -> init( this);
 	GameMasterL = GameMaster::GetInstance();//ゲームパラメータクラスの初期化
 	return true;
 }
@@ -247,8 +245,16 @@ void GameUILayer::UpdateLayer( void)
 */
 void GameUILayer::MoveReticle(void)
 {
+	static bool flag = false;
 	if(TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要にならば消す
 	{
+		if( flag == false)
+		{
+			LifeUI::getInstance() -> init( this);
+			LogoUI::getInstance() -> init( this);
+			flag = true;
+		}
+		
 		Vec2 tPos;
 		int a = 0;
 		//レティクルの挙動

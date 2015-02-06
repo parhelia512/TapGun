@@ -202,8 +202,8 @@ void LifeUI::init( Layer* layer)
 	frame -> setScale( 0.05f);
 	frame -> setPosition3D( Vec3( 640 - 5, 800 - 100, 0));
 	
-	bullet -> setScale( 0.05f);
-	bullet -> setPosition3D( Vec3( 640, 60, 0));
+	bullet -> setScale( 0.1f);
+	bullet -> setPosition3D( Vec3( 640, 100, 0));
 	
 	life[Up] = Sprite::createWithSpriteFrameName( "life4.png");
 	life[Up] -> setPosition( Vec2( 2130, 3280));
