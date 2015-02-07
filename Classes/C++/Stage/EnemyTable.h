@@ -16,6 +16,15 @@
 
 namespace TapGun
 {
+
+	enum _ENEMY_AI_
+	{
+		AI_TYPE_MATO,//撃っている振りのみ
+		AI_TYPE_SINGLE,//その場で撃つモーション（走りで登場）
+		AI_TYPE_SINGLE_J,//サイドジャンプで登場、その後はその場で撃つのみ
+
+	};
+
 	class EnemyTable
 	{
 	public:
@@ -24,7 +33,6 @@ namespace TapGun
 		cocos2d::Vec3 targetPos[20];//
 
 		int finishNumber;//敵が最大何対出てくるか
-
 		void InitAll();
 
 	private:

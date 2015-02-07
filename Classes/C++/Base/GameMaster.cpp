@@ -1,3 +1,4 @@
+
 #include "cocos2d.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -129,9 +130,11 @@ void GameMaster::InitParam()
 	touchState = TSTATE_OFF;
 	touchFlag = TFLAG_OFF;
 
+	gameTime = 100;
+	
 	sPoint = 0;
 	//プレイヤーの移動ポイントを設定する
-	for(int i = 0; i < 100; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		//初期化
 		stagePoint[i].pos = Vec3(0.0f, 0.0f, 0.0f);
@@ -147,40 +150,22 @@ void GameMaster::InitParam()
 	stagePoint[POINT_START].pointType = POINT_NONE;
 
 	//ステージ１
-//	stagePoint[POINT_STAGE1].pos = Vec3(-3.8f, 0.0f, 34.0f);//
-//	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 165.0f, 0.0f);
-	stagePoint[POINT_STAGE1].pos = Vec3(-3.9f, 0.0f, 37.0f);//
+	stagePoint[POINT_STAGE1].pos = Vec3(-4.0f, 0.0f, 37.7f);//
 	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 180.0f, 0.0f);
-
-	//一時的
-//	stagePoint[POINT_START].pos = Vec3(5.0f, 0.0f, 2.0f);//
-//	stagePoint[POINT_STAGE1].pos = Vec3(5.0f, 0.0f, 2.0f);//
-//	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, -60.0f, 0.0f);
-
-
 	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
 	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
 	stagePoint[POINT_STAGE1].hidePoint = setHidePoint(stagePoint[POINT_STAGE1]);
 
 	//連結ポイント
-	stagePoint[POINT_S2_1].pos = Vec3(14.1f, 0.0f, 5.0f);
-	stagePoint[POINT_S2_1].rot = Vec3(0.0f, 170.0f, 0.0f);
+	stagePoint[POINT_S2_1].pos = Vec3(0.7f, 0.0f, 20.35f);
+	stagePoint[POINT_S2_1].rot = Vec3(0.0f, 130.0f, 0.0f);
 	stagePoint[POINT_S2_1].pointType = POINT_CHANGE;
 
-	//ステージ２
-	stagePoint[POINT_STAGE2].pos = Vec3(13.8f, 0.0f, 3.3f);
-	stagePoint[POINT_STAGE2].rot = Vec3(0.0f, 175.0f, 0.0f);
-	stagePoint[POINT_STAGE2].pointType = POINT_BATTLE;
-
-	//連結ポイント
-	stagePoint[POINT_S3_1].pos = Vec3(16.2f, 0.0f, 1.3f);
-	stagePoint[POINT_S3_1].rot = Vec3(0.0f, 185.0f, 0.0f);
-	stagePoint[POINT_S3_1].pointType = POINT_CHANGE;
 
 	//クリア
-	stagePoint[POINT_FINISH].pos = Vec3(14.7f, 0.0f, -4.5f);
+	stagePoint[POINT_FINISH].pos = Vec3(12.0f, 0.0f, 5.0f);
 	stagePoint[POINT_FINISH].rot = Vec3(0.0f, 165.0f, 0.0f);
-	stagePoint[POINT_FINISH].pointType = POINT_NONE;
+	stagePoint[POINT_FINISH].pointType = POINT_CLEAR;
 }
 
 

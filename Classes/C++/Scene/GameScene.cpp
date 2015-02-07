@@ -202,6 +202,7 @@ int GameScene::InitCamera()
 */
 void GameScene::moveTime(float delta)
 {
+	GameMasterS->gameTime -= 0.8f;
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
 	//現在のゲームの状態でゲーム分岐
@@ -240,6 +241,7 @@ void GameScene::moveTime(float delta)
 	case GSTATE_PLAY_INIT://ウェイト終了後プレイ前の処理
 
 		//敵の配置を行う
+		gGameLayer->SetEnemy();
 		GameMasterS->SetGameState(GSTATE_PLAY);
 		GameMasterS->SetPlayerState(PSTATE_IDLE);
 

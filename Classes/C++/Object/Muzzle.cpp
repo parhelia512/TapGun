@@ -75,8 +75,8 @@ void E_Muzzle::createMuzzle( _Sprite3D* parentData)
 	for( int i = 1; i < 5; i++)
 	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		muzzleR -> sprite3D[i] -> setTextrue( "tex_mazuruE.png");
-		muzzleL -> sprite3D[i] -> setTextrue( "tex_mazuruE.png");
+		muzzleR -> sprite3D[i] -> setTexture( "tex_mazuruE.png");
+		muzzleL -> sprite3D[i] -> setTexture( "tex_mazuruE.png");
 #else
 		muzzleR -> sprite3D[i] -> setTexture( "Graph/Models/Muzzle/tex_mazuruE.png");
 		muzzleL -> sprite3D[i] -> setTexture( "Graph/Models/Muzzle/tex_mazuruE.png");

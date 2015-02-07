@@ -1,18 +1,46 @@
-enemy/enemy_shot.c3b,rshot
-enemy/enemy_shot.c3t,rshot
+
+
 enemy/mot_enemy_dei1.c3b,dei1
 enemy/mot_enemy_dei1.c3t,dei1
+
 enemy/mot_enemy_dei2.c3b,dei2
 enemy/mot_enemy_dei2.c3t,dei2
+
 enemy/mot_enemy_dei3.c3b,dei3
 enemy/mot_enemy_dei3.c3t,dei3
-enemy/mot_enemy_front roll.c3b,frool
-enemy/mot_enemy_front roll.c3t,frool
+
+enemy/mot_enemy_dei3.c4b,dei4
+enemy/mot_enemy_dei3.c4t,dei4
+
+enemy/mot_enemy_front_roll.c3b,froll
+enemy/mot_enemy_front_roll.c3t,froll
+
+enemy/mot_enemy_hide_shot.c3b,hshot
+enemy/mot_enemy_hide_shot.c3t,hshot
+
 enemy/mot_enemy_jump.c3b,jump
 enemy/mot_enemy_jump.c3t,jump
-enemy/mot_enemy_run stop.c3b,stop
-enemy/mot_enemy_run stop.c3t,stop
+
+enemy/mot_enemy_run_stop.c3b,stop
+enemy/mot_enemy_run_stop.c3t,stop
+
+enemy/mot_enemy_run.c3b,run
+enemy/mot_enemy_run.c3t,run
+
+enemy/mot_enemy_idle.c3b,idle
+enemy/mot_enemy_idle.c3t,idle
+
 enemy/mot_enemy_shot.c3b,shot
 enemy/mot_enemy_shot.c3t,shot
-enemy/mot_enemy_side_roll.c3b,sroll
-enemy/mot_enemy_side_roll.c3b,sroll
+
+enemy/mot_enemy_shot2.c3b,dammy_shot
+enemy/mot_enemy_shot2.c3t,dammy_shot
+
+enemy/mot_enemy_side_roll1.c3b,sroll
+enemy/mot_enemy_side_roll1.c3t,sroll
+
+enemy/mot_enemy_side_roll2.c3b,sroll2
+enemy/mot_enemy_side_roll2.c3t,sroll2
+
+enemy/mot_enemy_suraid.c3b,slide
+enemy/mot_enemy_suraid.c3t,slide

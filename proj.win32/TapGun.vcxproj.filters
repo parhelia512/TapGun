@@ -4,29 +4,35 @@
     <Filter Include="win32">
       <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resource">
+    <Filter Include="Resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src">
+    <Filter Include="Source">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\C++">
-      <UniqueIdentifier>{5c2f924f-b4bf-4771-bec8-58c01c0a2567}</UniqueIdentifier>
+    <Filter Include="Source\C++">
+      <UniqueIdentifier>{6c7597f6-0c15-4135-9b33-28de73434544}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\C++\Scene">
-      <UniqueIdentifier>{0fc28019-1968-4c30-ab53-4dc7d51a8c3b}</UniqueIdentifier>
+    <Filter Include="Source\Objective-C">
+      <UniqueIdentifier>{87494e02-b32e-4aad-9a98-7a552ac78099}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\C++\Base">
-      <UniqueIdentifier>{b30483d0-2c32-49e9-bcbd-938212edbebc}</UniqueIdentifier>
+    <Filter Include="Source\C++\Base">
+      <UniqueIdentifier>{b29fd81f-a043-4521-b187-787b5f7c4b64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\C++\System">
-      <UniqueIdentifier>{2ba94c5b-b41e-4ba3-904d-1ebe37d9079c}</UniqueIdentifier>
+    <Filter Include="Source\C++\Object">
+      <UniqueIdentifier>{1a8f3aaf-cc38-42fb-9dce-6928a0351300}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\C++\Stage">
-      <UniqueIdentifier>{28112c9c-42af-4c45-85bc-a333ae74a2e4}</UniqueIdentifier>
+    <Filter Include="Source\C++\Scene">
+      <UniqueIdentifier>{1c01d3d8-e788-47d6-87c7-9ebfdf425ebc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\C++\Object">
-      <UniqueIdentifier>{8bcc8a76-e992-429c-8d57-d687ece87d51}</UniqueIdentifier>
+    <Filter Include="Source\C++\Stage">
+      <UniqueIdentifier>{15040231-692d-4413-85ab-1ec80979e973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\C++\System">
+      <UniqueIdentifier>{97eb3022-3c39-4b2e-baea-4a0d708a03a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shader">
+      <UniqueIdentifier>{3f8b109f-801d-4b05-a113-01aad22d91a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,70 +40,76 @@
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Directory.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Script.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Shader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Sound.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Sprite.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp">
-      <Filter>src</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\C++\Base\GameMaster.cpp">
-      <Filter>src\C++\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp">
-      <Filter>src\C++\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GameScene.cpp">
-      <Filter>src\C++\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GameUILayer.cpp">
-      <Filter>src\C++\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Player.cpp">
-      <Filter>src\C++\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\Character.cpp">
-      <Filter>src\C++\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\UI.cpp">
-      <Filter>src\C++\Base</Filter>
+      <Filter>Source\C++\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\C++\Base\Unit.cpp">
-      <Filter>src\C++\Base</Filter>
+      <Filter>Source\C++\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Wrapper.cpp">
-      <Filter>src\C++\System</Filter>
+    <ClCompile Include="..\Classes\C++\Base\UI.cpp">
+      <Filter>Source\C++\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
-      <Filter>src\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp">
+      <Filter>Source\C++\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\TitleScene.cpp">
-      <Filter>src\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\C++\Base\Sprite.cpp">
+      <Filter>Source\C++\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Base\Player.cpp">
+      <Filter>Source\C++\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\C++\Object\Muzzle.cpp">
-      <Filter>src\C++\Object</Filter>
+      <Filter>Source\C++\Object</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Stage\EnemyTable.cpp">
-      <Filter>src\C++\Stage</Filter>
+    <ClCompile Include="..\Classes\C++\Scene\Character.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer_Enemy.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GameScene.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\GameUILayer.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
+      <Filter>Source\C++\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Scene\TitleScene.cpp">
+      <Filter>Source\C++\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\C++\Stage\Enemy.cpp">
-      <Filter>src\C++\Stage</Filter>
+      <Filter>Source\C++\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\Stage\EnemyTable.cpp">
+      <Filter>Source\C++\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Directory.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Script.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Shader.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Sound.cpp">
+      <Filter>Source\C++\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\C++\System\Wrapper.cpp">
+      <Filter>Source\C++\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,78 +117,142 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
+      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Define.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Directory.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Errorfunc.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Script.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Shader.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Sound.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Sprite.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Sprite3D.h">
-      <Filter>src</Filter>
+      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Base\GameMaster.h">
-      <Filter>src\C++\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h">
-      <Filter>src\C++\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GameScene.h">
-      <Filter>src\C++\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GameUILayer.h">
-      <Filter>src\C++\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Player.h">
-      <Filter>src\C++\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\Character.h">
-      <Filter>src\C++\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\UI.h">
-      <Filter>src\C++\Base</Filter>
+      <Filter>Source\C++\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Base\Unit.h">
-      <Filter>src\C++\Base</Filter>
+      <Filter>Source\C++\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Wrapper.h">
-      <Filter>src\C++\System</Filter>
+    <ClInclude Include="..\Classes\C++\Base\UI.h">
+      <Filter>Source\C++\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
-      <Filter>src\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\C++\Base\Sprite3D.h">
+      <Filter>Source\C++\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\TitleScene.h">
-      <Filter>src\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\C++\Base\Sprite.h">
+      <Filter>Source\C++\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Base\Player.h">
+      <Filter>Source\C++\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Object\Muzzle.h">
-      <Filter>src\C++\Object</Filter>
+      <Filter>Source\C++\Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Stage\EnemyTable.h">
-      <Filter>src\C++\Stage</Filter>
+    <ClInclude Include="..\Classes\C++\Scene\Character.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer_Enemy.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GameScene.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\GameUILayer.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
+      <Filter>Source\C++\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Scene\TitleScene.h">
+      <Filter>Source\C++\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\C++\Stage\Enemy.h">
-      <Filter>src\C++\Stage</Filter>
+      <Filter>Source\C++\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\Stage\EnemyTable.h">
+      <Filter>Source\C++\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Directory.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Errorfunc.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Script.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Shader.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Sound.h">
+      <Filter>Source\C++\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\C++\System\Wrapper.h">
+      <Filter>Source\C++\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
-      <Filter>resource</Filter>
+      <Filter>Resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Classes\Template.txt">
+      <Filter>Source</Filter>
+    </Text>
+    <Text Include="..\Classes\Test.txt">
+      <Filter>Source</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\Shader\basic.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\basic.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\basic2D.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\basic2D.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\filter.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\filter.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\outline.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\outline.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\particle.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\particle.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\rimlight.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\rimlight.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\test.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\test.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\toon.fsh">
+      <Filter>Source\Shader</Filter>
+    </None>
+    <None Include="..\Classes\Shader\toon.vsh">
+      <Filter>Source\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -88,6 +88,7 @@ namespace TapGun
 		void UpdateEnemy(void);
 		void UpdateBullets(void);
 
+		int CheckNextStage(void);
 
 		//プレイヤーの更新
 		void ActionShot(void);

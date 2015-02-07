@@ -34,6 +34,7 @@ void Unit::Init( void)
 	speedVec = Vec3(0, 0, 0);//移動ベクトル
 	targetPos = Vec3(0, 0, 0);//移動目標
 	collisionPos = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
+	tableNum = -1;
 
 	colisionNode = Node::create();
 	frame = 0;//管理フレーム
@@ -62,6 +63,8 @@ int Unit::Init(int num, int utype)
 	//フラグの初期化
 	valid = TRUE;
 	kind = utype;
+
+	tableNum = -1;
 
 	//変数
 	pos = Vec3(0, 0, 0);

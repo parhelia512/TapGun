@@ -80,6 +80,8 @@ namespace TapGun
 			Down,
 			Right,
 			LifeNum,
+			
+			NumberNum = 5,
 		};
 
 		LifeUI( const LifeUI& p) = delete;
@@ -92,10 +94,11 @@ namespace TapGun
 
 	private:
 		LifeUI();
-
 		
+		cocos2d::Sprite* bullet;
 		cocos2d::Sprite* frame;
 		cocos2d::Sprite* life[LifeNum];
+		cocos2d::Sprite* number[NumberNum];
 	};
 
 	class LogoUI
@@ -116,6 +119,7 @@ namespace TapGun
 		void init( cocos2d::Layer* layer);
 		void update( void);
 		void setLogo( LogoNumber num);
+		void resetLogo( LogoNumber num);
 
 	private:
 		LogoUI();

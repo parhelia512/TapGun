@@ -1,6 +1,7 @@
 
 #include "cocos2d.h"
 #include "Muzzle.h"
+#include "Sprite3D.h"
 
 USING_NS_CC;
 using namespace TapGun;
@@ -10,11 +11,11 @@ Muzzle::Muzzle()
 	for( int i = 1; i < 5; i++)
 	{
 		auto str = __String::createWithFormat( "Muzzle/mazuru_%i.c3b", i);
-		sprite3D[i] = _Sprite3D::create( str);
-		player -> sprite3D[i] -> setVisible( false);
-		player -> sprite3D[i] -> setScale( 3.0f);
-		player -> sprite3D[i] -> setPosition3D( Vec3( 0, 0, 0));
-		player -> sprite3D[i] -> setRotation3D( Vec3( 180, 0, 0));
+		sprite3D[i] = _Sprite3D::create( str -> getCString());
+		sprite3D[i] -> setVisible( false);
+		sprite3D[i] -> setScale( 3.0f);
+		sprite3D[i] -> setPosition3D( Vec3( 0, 0, 0));
+		sprite3D[i] -> setRotation3D( Vec3( 180, 0, 0));
 	}
 }
 
@@ -75,8 +76,8 @@ void E_Muzzle::createMuzzle( _Sprite3D* parentData)
 	for( int i = 1; i < 5; i++)
 	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		muzzleR -> sprite3D[i] -> setTextrue( "tex_mazuruE.png");
-		muzzleL -> sprite3D[i] -> setTextrue( "tex_mazuruE.png");
+		muzzleR -> sprite3D[i] -> setTexture( "tex_mazuruE.png");
+		muzzleL -> sprite3D[i] -> setTexture( "tex_mazuruE.png");
 #else
 		muzzleR -> sprite3D[i] -> setTextrue( "Graph/Models/tex_mazuruE.png");
 		muzzleL -> sprite3D[i] -> setTextrue( "Graph/Models/tex_mazuruE.png");

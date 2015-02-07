@@ -10,6 +10,7 @@
 #include "Sprite3D.h"
 #include "Errorfunc.h"
 #include "Sound.h"
+#include "UI.h"
 
 #else
 
@@ -73,7 +74,7 @@ bool Test::init()
 	lay = this;
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	sprite3D = _Sprite3D::create( "StageVer5.c3t");
+	auto sprite3d = _Sprite3D::create( "StageVer5.c3t");
 #else
 	auto spriteMap = _Sprite3D::create( "Stage/StageVer5");//, "Enemy.anime");
 	auto spritePlayer = _Sprite3D::create("player/player");// , "player.anime");
@@ -82,7 +83,7 @@ bool Test::init()
 
 #endif
 	//マップ
-	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+//	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
 //	addChild(spriteMap);
 
 	//エネミー
@@ -91,13 +92,13 @@ bool Test::init()
 	//addChild(spriteEnemy1);
 
 	//プレイヤー
-	spritePlayer->setPosition3D(Vec3(PPOSX, PPOSY, PPOSZ));
-	spritePlayer->setRotation3D(Vec3(0.0f, PROTY, 0.0f));
+//	spritePlayer->setPosition3D(Vec3(PPOSX, PPOSY, PPOSZ));
+//	spritePlayer->setRotation3D(Vec3(0.0f, PROTY, 0.0f));
 //	addChild(spritePlayer);
 
-	auto life = LifeUI::getInstance();
-	life -> init( this);
-
+	LifeUI::getInstance() -> init( this);
+	LogoUI::getInstance() -> init( this);
+	
 #ifdef CAMERA3D//
 	
 	auto screenSize = Director::getInstance()->getWinSize();//
@@ -121,18 +122,14 @@ bool Test::init()
 //	Camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
 #endif
 
-//	this -> scheduleUpdate();
+	this -> scheduleUpdate();
 
 	return true;
 }
 
 void Test::update( float delta)
 {
-	static int count = 0;
-	if( count % 20 == 0)
-	{
-	}
-	count++;
+	
 }
 
 void Test::moveTime( float delta)
