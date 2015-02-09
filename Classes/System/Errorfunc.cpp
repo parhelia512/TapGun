@@ -8,7 +8,7 @@
 
 #else
 
-#include "C++/System/Errorfunc.h"
+#include "System/Errorfunc.h"
 
 #endif
 

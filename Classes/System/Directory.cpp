@@ -7,7 +7,7 @@
 
 #else
 
-#include "C++/System/Directory.h"
+#include "System/Directory.h"
 
 #endif
 

@@ -6,7 +6,7 @@
 
 #else
 
-#include "C++/Stage/Enemy.h"
+#include "Stage/Enemy.h"
 
 #endif
 

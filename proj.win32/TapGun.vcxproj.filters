@@ -10,29 +10,20 @@
     <Filter Include="Source">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\C++">
-      <UniqueIdentifier>{6c7597f6-0c15-4135-9b33-28de73434544}</UniqueIdentifier>
+    <Filter Include="Source\Base">
+      <UniqueIdentifier>{218e5988-55f6-43e7-8531-f8cf6fede037}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Objective-C">
-      <UniqueIdentifier>{87494e02-b32e-4aad-9a98-7a552ac78099}</UniqueIdentifier>
+    <Filter Include="Source\System">
+      <UniqueIdentifier>{79413f27-fd69-4fac-bdcf-e78f46f0377a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\C++\Base">
-      <UniqueIdentifier>{b29fd81f-a043-4521-b187-787b5f7c4b64}</UniqueIdentifier>
+    <Filter Include="Source\Stage">
+      <UniqueIdentifier>{24f4ffb0-4af8-44b8-9a5d-83680c2214d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\C++\Object">
-      <UniqueIdentifier>{1a8f3aaf-cc38-42fb-9dce-6928a0351300}</UniqueIdentifier>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{99016d1c-76a3-4637-ab11-47152a6c6140}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\C++\Scene">
-      <UniqueIdentifier>{1c01d3d8-e788-47d6-87c7-9ebfdf425ebc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\C++\Stage">
-      <UniqueIdentifier>{15040231-692d-4413-85ab-1ec80979e973}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\C++\System">
-      <UniqueIdentifier>{97eb3022-3c39-4b2e-baea-4a0d708a03a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Shader">
-      <UniqueIdentifier>{3f8b109f-801d-4b05-a113-01aad22d91a7}</UniqueIdentifier>
+    <Filter Include="Source\Object">
+      <UniqueIdentifier>{93248708-cb65-41ee-ae87-797f0cd1de06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,74 +33,74 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\GameMaster.cpp">
-      <Filter>Source\C++\Base</Filter>
+    <ClCompile Include="..\Classes\Base\GameMaster.cpp">
+      <Filter>Source\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Unit.cpp">
-      <Filter>Source\C++\Base</Filter>
+    <ClCompile Include="..\Classes\Base\Player.cpp">
+      <Filter>Source\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\UI.cpp">
-      <Filter>Source\C++\Base</Filter>
+    <ClCompile Include="..\Classes\Base\Sprite.cpp">
+      <Filter>Source\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp">
-      <Filter>Source\C++\Base</Filter>
+    <ClCompile Include="..\Classes\Base\Sprite3D.cpp">
+      <Filter>Source\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Sprite.cpp">
-      <Filter>Source\C++\Base</Filter>
+    <ClCompile Include="..\Classes\Base\UI.cpp">
+      <Filter>Source\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Base\Player.cpp">
-      <Filter>Source\C++\Base</Filter>
+    <ClCompile Include="..\Classes\Base\Unit.cpp">
+      <Filter>Source\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Object\Muzzle.cpp">
-      <Filter>Source\C++\Object</Filter>
+    <ClCompile Include="..\Classes\System\Directory.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\Character.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\System\Errorfunc.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\System\Script.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\System\Shader.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer_Enemy.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\System\Sound.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GameScene.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\System\Wrapper.cpp">
+      <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GameUILayer.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\Object\Muzzle.cpp">
+      <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\Scene\Character.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\TitleScene.cpp">
-      <Filter>Source\C++\Scene</Filter>
+    <ClCompile Include="..\Classes\Scene\GameModelsLayer.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Stage\Enemy.cpp">
-      <Filter>Source\C++\Stage</Filter>
+    <ClCompile Include="..\Classes\Scene\GamePlayerLayer.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\Stage\EnemyTable.cpp">
-      <Filter>Source\C++\Stage</Filter>
+    <ClCompile Include="..\Classes\Scene\GamePlayerLayer_Enemy.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Directory.cpp">
-      <Filter>Source\C++\System</Filter>
+    <ClCompile Include="..\Classes\Scene\GameScene.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp">
-      <Filter>Source\C++\System</Filter>
+    <ClCompile Include="..\Classes\Scene\GameUILayer.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Script.cpp">
-      <Filter>Source\C++\System</Filter>
+    <ClCompile Include="..\Classes\Scene\TestScene.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Shader.cpp">
-      <Filter>Source\C++\System</Filter>
+    <ClCompile Include="..\Classes\Scene\TitleScene.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Sound.cpp">
-      <Filter>Source\C++\System</Filter>
+    <ClCompile Include="..\Classes\Stage\Enemy.cpp">
+      <Filter>Source\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\C++\System\Wrapper.cpp">
-      <Filter>Source\C++\System</Filter>
+    <ClCompile Include="..\Classes\Stage\EnemyTable.cpp">
+      <Filter>Source\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,74 +113,74 @@
     <ClInclude Include="..\Classes\Define.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\GameMaster.h">
-      <Filter>Source\C++\Base</Filter>
+    <ClInclude Include="..\Classes\Base\GameMaster.h">
+      <Filter>Source\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Unit.h">
-      <Filter>Source\C++\Base</Filter>
+    <ClInclude Include="..\Classes\Base\Player.h">
+      <Filter>Source\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\UI.h">
-      <Filter>Source\C++\Base</Filter>
+    <ClInclude Include="..\Classes\Base\Sprite.h">
+      <Filter>Source\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Sprite3D.h">
-      <Filter>Source\C++\Base</Filter>
+    <ClInclude Include="..\Classes\Base\Sprite3D.h">
+      <Filter>Source\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Sprite.h">
-      <Filter>Source\C++\Base</Filter>
+    <ClInclude Include="..\Classes\Base\UI.h">
+      <Filter>Source\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Base\Player.h">
-      <Filter>Source\C++\Base</Filter>
+    <ClInclude Include="..\Classes\Base\Unit.h">
+      <Filter>Source\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Object\Muzzle.h">
-      <Filter>Source\C++\Object</Filter>
+    <ClInclude Include="..\Classes\System\Directory.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\Character.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\System\Errorfunc.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\System\Script.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\System\Shader.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer_Enemy.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\System\Sound.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GameScene.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\System\Wrapper.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GameUILayer.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\Object\Muzzle.h">
+      <Filter>Source\Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\TestScene.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\Scene\Character.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\TitleScene.h">
-      <Filter>Source\C++\Scene</Filter>
+    <ClInclude Include="..\Classes\Scene\GameModelsLayer.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Stage\Enemy.h">
-      <Filter>Source\C++\Stage</Filter>
+    <ClInclude Include="..\Classes\Scene\GamePlayerLayer.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\Stage\EnemyTable.h">
-      <Filter>Source\C++\Stage</Filter>
+    <ClInclude Include="..\Classes\Scene\GamePlayerLayer_Enemy.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Directory.h">
-      <Filter>Source\C++\System</Filter>
+    <ClInclude Include="..\Classes\Scene\GameScene.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Errorfunc.h">
-      <Filter>Source\C++\System</Filter>
+    <ClInclude Include="..\Classes\Scene\GameUILayer.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Script.h">
-      <Filter>Source\C++\System</Filter>
+    <ClInclude Include="..\Classes\Scene\TestScene.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Shader.h">
-      <Filter>Source\C++\System</Filter>
+    <ClInclude Include="..\Classes\Scene\TitleScene.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Sound.h">
-      <Filter>Source\C++\System</Filter>
+    <ClInclude Include="..\Classes\Stage\Enemy.h">
+      <Filter>Source\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\C++\System\Wrapper.h">
-      <Filter>Source\C++\System</Filter>
+    <ClInclude Include="..\Classes\Stage\EnemyTable.h">
+      <Filter>Source\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,55 +195,5 @@
     <Text Include="..\Classes\Test.txt">
       <Filter>Source</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Classes\Shader\basic.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\basic.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\basic2D.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\basic2D.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\filter.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\filter.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\outline.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\outline.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\particle.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\particle.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\rimlight.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\rimlight.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\test.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\test.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\toon.fsh">
-      <Filter>Source\Shader</Filter>
-    </None>
-    <None Include="..\Classes\Shader\toon.vsh">
-      <Filter>Source\Shader</Filter>
-    </None>
   </ItemGroup>
 </Project>

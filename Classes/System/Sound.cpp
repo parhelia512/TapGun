@@ -8,7 +8,7 @@
 
 #else
 
-#include "C++/System/Sound.h"
+#include "System/Sound.h"
 
 #endif
 

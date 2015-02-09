@@ -10,8 +10,8 @@
 
 #else
 
-#include "C++/Base/GameMaster.h"
-#include "C++/Scene/GameUILayer.h"
+#include "Base/GameMaster.h"
+#include "Scene/GameUILayer.h"
 
 #endif
 

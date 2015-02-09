@@ -7,7 +7,7 @@
 
 #else
 
-#include"C++/Base/GameMaster.h"
+#include"Base/GameMaster.h"
  
 #endif
 

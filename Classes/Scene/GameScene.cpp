@@ -12,10 +12,10 @@
 
 #else
 
-#include "C++/Scene/GameModelsLayer.h"
-#include "C++/Scene/GameUILayer.h"
-#include "C++/Base/GameMaster.h"
-#include "C++/System/Sound.h"
+#include "Scene/GameModelsLayer.h"
+#include "Scene/GameUILayer.h"
+#include "Base/GameMaster.h"
+#include "System/Sound.h"
 
 #endif
 

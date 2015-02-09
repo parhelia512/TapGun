@@ -8,8 +8,8 @@
 
 #else
 
-#include "C++/Scene/TitleScene.h"
-#include "C++/Scene/GameScene.h"//遷移先のシーンをインクルード
+#include "Scene/TitleScene.h"
+#include "Scene/GameScene.h"//遷移先のシーンをインクルード
 
 #endif
 

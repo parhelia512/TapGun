@@ -8,8 +8,8 @@
 
 #else
 
-#include "C++/Base/GameMaster.h"
-#include "C++/Base/UI.h"
+#include "Base/GameMaster.h"
+#include "Base/UI.h"
 
 #endif
 

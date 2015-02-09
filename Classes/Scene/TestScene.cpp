@@ -14,15 +14,15 @@
 
 #else
 
-#include "C++/Base/UI.h"
-#include "C++/Base/Sprite3D.h"
-#include "C++/System/Directory.h"
-#include "C++/System/Errorfunc.h"
-#include "C++/System/Sound.h"
+#include "Base/UI.h"
+#include "Base/Sprite3D.h"
+#include "System/Directory.h"
+#include "System/Errorfunc.h"
+#include "System/Sound.h"
 
 #endif
 
-//#define CAMERA3D//
+#define CAMERA3D//
 
 //一時的に定義する
 #define PERSE 35//カメラ視野角
@@ -52,7 +52,7 @@ using namespace CocosDenshion;
 //_Sprite3D* sprite3D;
 cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
-cocos2d::Node* CamNode;
+//cocos2d::Node* CamNode;
 
 Scene* Test::createScene()
 {
@@ -76,15 +76,15 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3d = _Sprite3D::create( "StageVer5.c3t");
 #else
-	auto spriteMap = _Sprite3D::create( "Stage/StageVer5");//, "Enemy.anime");
-	auto spritePlayer = _Sprite3D::create("player/player");// , "player.anime");
+	auto spriteMap = _Sprite3D::create( "Stage/1010_map");
+	auto spritePlayer = _Sprite3D::create("player/player");
 //	auto spriteEnemy1 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
 //	auto spriteEnemy2 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
 
 #endif
 	//マップ
-//	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
-//	addChild(spriteMap);
+	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+	addChild(spriteMap);
 
 	//エネミー
 	//spriteEnemy1->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
@@ -96,30 +96,36 @@ bool Test::init()
 //	spritePlayer->setRotation3D(Vec3(0.0f, PROTY, 0.0f));
 //	addChild(spritePlayer);
 
-	LifeUI::getInstance() -> init( this);
-	LogoUI::getInstance() -> init( this);
+
+
+//	LifeUI::getInstance() -> init( this);
+//	LogoUI::getInstance() -> init( this);
 	
 #ifdef CAMERA3D//
 	
 	auto screenSize = Director::getInstance()->getWinSize();//
 
-	CamNode = Node::create();
+//	CamNode = Node::create();
 	Camera3D = Camera::createPerspective(PERSE, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
-	addChild(CamNode);
-	CamNode->addChild(Camera3D);
+//	addChild(CamNode);
+//	CamNode->addChild(Camera3D);
+	addChild(Camera3D);
 
 	//カメラ設定
 	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
-
 	//カメラ座標と回転
-	CamNode->setPosition3D(Vec3(SETX, SETY, SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
-	CamNode->setPosition3D(Vec3(ROTX, ROTY, ROTZ));
+//	CamNode->setPosition3D(Vec3(SETX, SETY, SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
+//	CamNode->setPosition3D(Vec3(ROTX, ROTY, ROTZ));
 
 	//カメラとプレイヤーの距離
-	Camera3D->setPosition3D(Vec3(SETX, SETY, SETZ));
-	Camera3D->setRotation3D(Vec3(ROTX, ROTY, ROTZ));
+	Camera3D->setPosition3D(Vec3(-13.0f, 0.0f, 70.0f));//足場ブロック確認
+	Camera3D->setRotation3D(Vec3(-30.0f, 0.0f, 0.0f));
 
-//	Camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 80.0f));//足場ブロック確認
+	Camera3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+
+
+	Camera3D->setCameraFlag(CameraFlag::DEFAULT);//USER1を3D用にする
 #endif
 
 	this -> scheduleUpdate();

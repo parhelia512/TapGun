@@ -7,7 +7,7 @@
 //
 //#else
 //
-//#include "C++/Base/Sprite.h"
+//#include "Base/Sprite.h"
 //
 //#endif
 //

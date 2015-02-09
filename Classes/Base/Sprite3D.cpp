@@ -8,7 +8,7 @@
 
 #else
 
-#include "C++/Base/Sprite3D.h"
+#include "Base/Sprite3D.h"
 
 #endif
 

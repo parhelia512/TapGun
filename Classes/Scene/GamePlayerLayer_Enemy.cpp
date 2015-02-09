@@ -10,9 +10,9 @@
 
 #else
 
-#include "C++/Base/Sprite3D.h"
-#include "C++/Base/GameMaster.h"
-#include "C++/System/Sound.h"
+#include "Base/Sprite3D.h"
+#include "Base/GameMaster.h"
+#include "System/Sound.h"
 
 #endif
 

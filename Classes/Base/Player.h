@@ -14,8 +14,8 @@
 
 #else
 
-#include "C++/Base/Sprite3D.h"
-//#include "C++/Object/Muzzle.h"
+#include "Base/Sprite3D.h"
+//#include "Object/Muzzle.h"
 
 #endif
 

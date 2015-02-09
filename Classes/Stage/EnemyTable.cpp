@@ -7,8 +7,8 @@
 
 #else
 
-#include "C++/Stage/EnemyTable.h"
-#include "C++/Base/Unit.h"
+#include "Stage/EnemyTable.h"
+#include "Base/Unit.h"
 
 #endif
 

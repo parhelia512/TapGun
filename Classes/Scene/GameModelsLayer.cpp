@@ -10,9 +10,9 @@
 
 #else
 
-#include "C++/Base/Sprite3D.h"
-#include "C++/Base/GameMaster.h"
-#include "C++/System/Sound.h"
+#include "Base/Sprite3D.h"
+#include "Base/GameMaster.h"
+#include "System/Sound.h"
 
 #endif
 
@@ -102,7 +102,7 @@ void GameModelsLayer::LoadModels()
 	//fileName1 = "Stage/map2023";
 	//fileName1 = "Stage/map218";
 	//fileName1 = "Stage/map437";
-	fileName1 = "Stage/map507";
+	fileName1 = "Stage/1010_map";
 #endif
 	unit[0].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
 

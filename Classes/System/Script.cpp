@@ -10,9 +10,9 @@
 
 #else
 
-#include "C++/System/Errorfunc.h"
-#include "C++/System/Script.h"
-#include "C++/System/Sound.h"
+#include "System/Errorfunc.h"
+#include "System/Script.h"
+#include "System/Sound.h"
 
 #endif
 

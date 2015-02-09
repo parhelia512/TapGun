@@ -13,10 +13,10 @@
 
 #else
 
-#include "C++/Base/Unit.h"
-#include "C++/Base/Player.h"
-//#include "C++/Object/muzzle.h"
-#include "C++/Stage/EnemyTable.h"
+#include "Base/Unit.h"
+#include "Base/Player.h"
+//#include "Object/muzzle.h"
+#include "Stage/EnemyTable.h"
 
 #endif
 
