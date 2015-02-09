@@ -296,7 +296,7 @@ void GameUILayer::MoveReticle(void)
 		case PSTATE_DAMAGED:
 		case PSTATE_DODGE:
 		case PSTATE_APPEAR://隠れた状態から出る
-			if(GameMasterL->nowBullets <= 0)
+			if(GameMasterL->GetPlayerBullets() <= 0)
 			{
 				LogoUI::getInstance() -> setLogo( LogoUI::Reload);
 			}

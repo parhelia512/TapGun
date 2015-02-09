@@ -76,7 +76,7 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3d = _Sprite3D::create( "StageVer5.c3t");
 #else
-	auto spriteMap = _Sprite3D::create( "Stage/1010_map");
+	auto spriteMap = _Sprite3D::create( "Stage/1037_map");
 	auto spritePlayer = _Sprite3D::create("player/player");
 //	auto spriteEnemy1 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
 //	auto spriteEnemy2 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
@@ -85,7 +85,7 @@ bool Test::init()
 	//マップ
 	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
 	addChild(spriteMap);
-
+	spriteMap->setCameraMask(1);
 	//エネミー
 	//spriteEnemy1->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
 	//spriteEnemy1->setPosition3D(Vec3(15.0f, 0.0f, 5.5f));
@@ -111,6 +111,7 @@ bool Test::init()
 //	CamNode->addChild(Camera3D);
 	addChild(Camera3D);
 
+
 	//カメラ設定
 	Camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));
 	//カメラ座標と回転
@@ -118,11 +119,14 @@ bool Test::init()
 //	CamNode->setPosition3D(Vec3(ROTX, ROTY, ROTZ));
 
 	//カメラとプレイヤーの距離
-	Camera3D->setPosition3D(Vec3(-13.0f, 0.0f, 70.0f));//足場ブロック確認
-	Camera3D->setRotation3D(Vec3(-30.0f, 0.0f, 0.0f));
-
 	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 80.0f));//足場ブロック確認
 	Camera3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+
+	Camera3D->setPosition3D(Vec3(-13.0f, 8.0f, 65.0f));//足場ブロック確認
+	Camera3D->setRotation3D(Vec3(-30.0f, 0.0f, 0.0f));
+
+	Camera3D->setPosition3D(Vec3(-2.0f, 2.0f, 53.0f));//足場ブロック確認
+	Camera3D->setRotation3D(Vec3(-0.0f, -18.0f, 0.0f));
 
 
 	Camera3D->setCameraFlag(CameraFlag::DEFAULT);//USER1を3D用にする

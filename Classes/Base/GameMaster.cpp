@@ -683,3 +683,64 @@ void GameMaster::SetPlayerHP(float value)
 {
 	playerHP = value;
 }
+
+
+
+
+
+/**
+*	プレイヤー弾数のセッター
+*
+*	@author	sasebon
+*	@param	パラメーター
+*	@return	なし
+*	@date	2/9 Ver 1.0
+*/
+int GameMaster::GetPlayerBullets(void)
+{
+
+	return nowBullets;
+}
+
+/**
+*	プレイヤー弾数のセッター
+*
+*	@author	sasebon
+*	@param	パラメーター
+*	@return	なし
+*	@date	2/9 Ver 1.0
+*/
+void GameMaster::SetPlayerBullets(int value)
+{
+	if (0 > value)
+	{
+		value = 0;
+	}
+	else if (STS_MAXBULLETS < value)
+	{
+		value = STS_MAXBULLETS;
+	}
+	nowBullets = value;
+}
+
+
+/**
+*	プレイヤー弾数の加算
+*
+*	@author	sasebon
+*	@param	パラメーター
+*	@return	なし
+*	@date	2/9 Ver 1.0
+*/
+void GameMaster::AddPlayerBullets(int value)
+{
+	nowBullets += value;
+	if (nowBullets < 0)
+	{
+		nowBullets = 0;
+	}
+	else if (STS_MAXBULLETS < nowBullets)
+	{
+		nowBullets = STS_MAXBULLETS;
+	}
+}

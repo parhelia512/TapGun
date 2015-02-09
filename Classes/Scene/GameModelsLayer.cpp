@@ -60,8 +60,8 @@ bool GameModelsLayer::init()
 void GameModelsLayer::InitLayer(void)
 {
 	LoadModels();//スプライトの生成
-	//	player.createMuzzle(player.sprite3d);
-	//	player.muzzleFlagOff();
+//	player.createMuzzle(player.sprite3d);
+//	player.muzzleFlagOff();
 	InitAllModels();
 
 	InitPlayer(0);//とりあえず引数0
@@ -98,11 +98,7 @@ void GameModelsLayer::LoadModels()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	fileName1 = "map507";
 #else
-	//fileName1 = "Stage/map1828";
-	//fileName1 = "Stage/map2023";
-	//fileName1 = "Stage/map218";
-	//fileName1 = "Stage/map437";
-	fileName1 = "Stage/1010_map";
+	fileName1 = "Stage/map507";
 #endif
 	unit[0].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
 
@@ -188,7 +184,7 @@ void GameModelsLayer::InitPlayer(int stage_num)
 	player.collisionPos = Vec3(1.2, 3.0, 1.2);//範囲を指定して
 	player.SetCollision();
 
-	GameMasterM->nowBullets = STS_MAXBULLETS;//
+	GameMasterM->SetPlayerBullets(STS_MAXBULLETS);//
 
 
 	center.sprite3d->setScale(0.1f);
@@ -757,17 +753,19 @@ void GameModelsLayer::ActionIdle()
 				tmpFlag = 2;
 			}
 		}
-		//タッチしていない
+
+
+		//タッチ状態に応じて分岐
 		if (0 == tmpFlag)
 		{
-
+			//タッチしていない
 		}
 		else if (1 == tmpFlag)
 		{
 			//残弾に応じて処理を分ける
-			if (0 >= GameMasterM->nowBullets)
+			if (0 >= GameMasterM->GetPlayerBullets())
 			{
-				//弾きれ
+
 			}
 			else
 			{
@@ -776,7 +774,7 @@ void GameModelsLayer::ActionIdle()
 				player.sprite3d->stopAllActions();
 				player.sprite3d->startAnimationLoop(shot);
 				GameMasterM->rapidFrame = -1;//連射フレームを-1に初期化
-				GameMasterM->flgPlayerATK = FALSE;
+				GameMasterM->flgPlayerATK = FALSE;//
 				GameMasterM->hideFrame = 0;
 			}
 		}
@@ -826,13 +824,20 @@ void GameModelsLayer::ActionShot()
 	auto sound = Sound::getInstance();
 
 	GameMasterM->rapidFrame += 1;//連射フレームを加算する
-
-	if (TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
+	if (0 >= GameMasterM->GetPlayerBullets())
+	{
+		GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
+		player.InitFrame();//フレームをリフレッシュ
+		GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
+		player.sprite3d->stopAllActions();
+	}
+	else if (TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
 	{
 		//一定フレームごとに攻撃判定をONにする
 		if (0 == (GameMasterM->rapidFrame % STS_RAPIDSPEED))
 		{
 			GameMasterM->flgPlayerATK = TRUE;
+			GameMasterM->AddPlayerBullets(-1);//弾数を減らす
 			//音声はフラグ成立時に鳴らす
 			//sound->playSE("Shot.wav");
 		}
@@ -913,7 +918,7 @@ void GameModelsLayer::ActionDodge(void)
 	//リロード判定を行う
 	if (STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
 	{
-		GameMasterM->nowBullets = STS_MAXBULLETS;//弾数を回復する
+		GameMasterM->SetPlayerBullets(STS_MAXBULLETS);//弾数を回復する
 	}
 
 	//回避完了フレームに達したら

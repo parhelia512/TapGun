@@ -52,7 +52,9 @@ bool AppDelegate::applicationDidFinishLaunching()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview -> setFrameSize( 1280, 800);
 #endif
-	director -> setAnimationInterval( 1.0 / 60);
+
+//	director -> setAnimationInterval( 1.0 / 60);
+
 #ifdef TEST_SCENE
 	auto scene = Test::createScene();
 #else

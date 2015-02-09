@@ -10,12 +10,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "Sprite3D.h"
-//#include "Muzzle.h"
+#include "Muzzle.h"
 
 #else
 
 #include "Base/Sprite3D.h"
-//#include "Object/Muzzle.h"
+#include "Object/Muzzle.h"
 
 #endif
 
@@ -28,7 +28,7 @@ namespace TapGun
 
 
 	//プレイヤークラス
-	class Player// : public P_Muzzle
+	class Player : public P_Muzzle
 	{
 	public:
 

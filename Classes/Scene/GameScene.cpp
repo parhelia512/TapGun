@@ -59,20 +59,6 @@ Scene* GameScene::CreateScene()
 };
 
 
-//ゲームレイヤーの初期化関数
-//GameLayer* GameScene::gameLayer()
-//{
-//	cocos2d::Node* layer = this->getChildByTag(GameLayerTag);
-//	return (GameLayer *)layer;
-//}
-
-
-//UILayer* GameScene::uiLayer()
-//{
-//	cocos2d::Node* layer = GameScene::sharedLayer()->getChildByTag(UILayerTag);
-//	return (UILayer *)layer;
-//}
-
 
 /**
 *	ゲームシーン初期化
@@ -128,7 +114,7 @@ bool GameScene::init()
 	sound -> loadSE( "Damage_04.wav");
 	
 	this->scheduleUpdate();
-	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
+//	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
 
 	return true;
 }
@@ -286,7 +272,77 @@ void GameScene::moveTime(float delta)
 */
 void GameScene::update(float delta)
 {
+	GameMasterS->gameTime -= 0.8f;
+	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
+	//現在のゲームの状態でゲーム分岐
+	switch (GameMasterS->GetGameState())
+	{
+
+	case GSTATE_INIT:
+		if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
+		{
+			gGameLayer->InitLayer();//
+		}
+		if (NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
+		{
+			gUILayer->InitLayer();//
+		}
+
+		InitCamera();
+		GameMasterS->SetGameState(GSTATE_WAIT);
+		GameMasterS->SetPlayerState(PSTATE_RUN);
+
+		break;
+
+	case GSTATE_WAIT:
+
+		if (NULL != gGameLayer)//現在は初期化チェック確認する
+		{
+			gGameLayer->UpdateWait();//レイヤーの更新
+		}
+		if (NULL != gUILayer)//現在は初期化チェック確認する
+		{
+			gUILayer->UpdateLayer();
+		}
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+
+		break;
+	case GSTATE_PLAY_INIT://ウェイト終了後プレイ前の処理
+
+		//敵の配置を行う
+		gGameLayer->SetEnemy();
+		GameMasterS->SetGameState(GSTATE_PLAY);
+		GameMasterS->SetPlayerState(PSTATE_IDLE);
+
+		//		UpdateCamera();//モデルの移動をもとにカメラ移動
+
+		break;
+	case GSTATE_PLAY:
+
+		if (NULL != gGameLayer)//現在は初期化チェック確認する
+		{
+			gGameLayer->UpdateLayer();//レイヤーの更新
+		}
+		if (NULL != gUILayer)//現在は初期化チェック確認する
+		{
+			gUILayer->UpdateLayer();
+		}
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+
+		break;
+
+	case GSTATE_PAUSE:
+		//ポーズ中は専用のレイヤーを描画する？
+		//モデルの更新処理を制限する
+		break;
+	case GSTATE_CONTINUE:
+
+		break;
+	case GSTATE_GAMEOVER:
+
+		break;
+	}
 }
 
 
