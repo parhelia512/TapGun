@@ -21,6 +21,8 @@ USING_NS_CC;
 using namespace TapGun;
 
 GameMaster* GameMasterM;//変数名は今後考慮する
+#define DAMMY 200
+Unit dammyUnit[DAMMY];
 
 int rotationCount;
 float rotationR;//
@@ -116,6 +118,16 @@ void GameModelsLayer::LoadModels()
 	}
 
 
+	for (int i = 0; i < DAMMY; i++)
+	{
+		dammyUnit[i].sprite3d = _Sprite3D::create("enemy/enemy", "Enemy.anime");
+		dammyUnit[i].sprite3d->startAnimationLoop("sroll2");
+
+		dammyUnit[i].sprite3d->setPosition3D(Vec3(-0.3f, 0.0f, 26.5f + 0.1f * i));
+		addChild(dammyUnit[i].sprite3d);
+	}
+
+
 	//敵弾モデルは21番~40番に割り当て
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	fileName1 = "bullet";
@@ -127,7 +139,6 @@ void GameModelsLayer::LoadModels()
 		unit[i].sprite3d = _Sprite3D::create(fileName1);
 	}
 }
-
 
 
 /**
@@ -345,6 +356,7 @@ void GameModelsLayer::SetEnemy(void)
 		enemyTable->enemyData[9].finishFlag = TRUE;
 		enemyTable->enemyData[9].alive = TRUE;
 		enemyTable->enemyData[9].AIType = AI_TYPE_SINGLE;//
+
 		//敵の出現定義が済んだら、最初に出現させる敵のセットを行う
 
 
@@ -455,12 +467,13 @@ void GameModelsLayer::UpdateWait()
 	//	idle = "idle_r";
 	//}
 
+
 	if (0 == GameMasterM->waitFlag)	//次の目的地を検索
 	{
 		player.targetPos = GameMasterM->stagePoint[GameMasterM->sPoint].pos;//
-		player.speed = 0.05f;//スピードは後で調整する
+		player.speed = 4.0f;//スピードは後で調整する
 
-		player.speedVec = player.targetPos - player.wrapper->getPosition3D();
+		player.speedVec = player.targetPos - player.wrapper->getPosition3D();//
 
 		//ベクトルの正規化を行う
 		player.speedVec.normalize();
@@ -470,7 +483,7 @@ void GameModelsLayer::UpdateWait()
 		player.speedVec.z *= player.speed;
 
 		//キャラクターの向きを調整
-		double r = atan2(player.speedVec.z, player.speedVec.x);
+		double r = atan2f(player.speedVec.z, player.speedVec.x);
 		r = CC_RADIANS_TO_DEGREES(r);
 
 		player.speedVec.y = 0;//yは今のところ0で扱う
@@ -494,7 +507,7 @@ void GameModelsLayer::UpdateWait()
 		Vec3 tmpPos = player.wrapper->getPosition3D();
 
 		//一定以上目的地に近付いたら、カメラとプレイヤーを回転させる準備を行う
-		if (0.05f * 0.05f >= (player.targetPos.x - tmpPos.x) * (player.targetPos.x - tmpPos.x)
+		if (0.15f * 0.15f >= (player.targetPos.x - tmpPos.x) * (player.targetPos.x - tmpPos.x)
 			+ (player.targetPos.z - tmpPos.z) *(player.targetPos.z - tmpPos.z))
 		{
 			GameMasterM->waitFlag = 3;

@@ -48,10 +48,14 @@ namespace TapGun
 		void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
 
 	private:
-
+		clock_t nowTime;//現在時刻
+		float loopTime;//ループに要した時間
+		float fps;//
 		//void UpdatePlayer( void);
 		//void UpdateEnemy( void);
 
+		float TimeCheck( void);//時間計測
+		float CalcTime(void);//ループ時間計算
 		//void menuCloseCallback(CCObject* pSender);
 
 		CREATE_FUNC(GameScene);

@@ -24,14 +24,14 @@ using namespace TapGun;
 
 Sound* sound;
 
+
+
 /*
 GameScene
 （将来的にGameSceneなどに名前を変更する）
 ゲーム本編の更新処理を行う
 ここで処理された内容を元に、モデルデータを扱うレイヤーとＵＩを扱うレイヤーで描画を行う
 */
-
-
 
 GameMaster* GameMasterS;//とりあえず名前を変えるか名前空間で区別する
 
@@ -60,6 +60,7 @@ Scene* GameScene::CreateScene()
 
 
 
+
 /**
 *	ゲームシーン初期化
 *
@@ -71,7 +72,7 @@ Scene* GameScene::CreateScene()
 bool GameScene::init()
 {
 	//レイヤー初期化
-	if(!Layer::init())
+	if (!Layer::init())
 	{
 		return false;
 	}
@@ -116,9 +117,12 @@ bool GameScene::init()
 	this->scheduleUpdate();
 //	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
 
+
+	//fps計算のための変数を初期化
+	loopTime = 1.0f;//
+
 	return true;
 }
-
 
 
 /**
@@ -131,7 +135,6 @@ bool GameScene::init()
 */
 int GameScene::InitCamera()
 {
-
 	auto s = Director::getInstance()->getWinSize();
 
 	//2D用カメラの実装
@@ -175,9 +178,6 @@ int GameScene::InitCamera()
 
 
 
-//更新系
-
-
 /**
 *	指定フレームごとのゲームシーン更新
 *
@@ -192,15 +192,15 @@ void GameScene::moveTime(float delta)
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
 	//現在のゲームの状態でゲーム分岐
-	switch(GameMasterS->GetGameState())
+	switch (GameMasterS->GetGameState())
 	{
 
 	case GSTATE_INIT:
-		if(NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
+		if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
 		{
 			gGameLayer->InitLayer();//
 		}
-		if(NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
+		if (NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
 		{
 			gUILayer->InitLayer();//
 		}
@@ -213,11 +213,11 @@ void GameScene::moveTime(float delta)
 
 	case GSTATE_WAIT:
 
-		if(NULL != gGameLayer)//現在は初期化チェック確認する
+		if (NULL != gGameLayer)//現在は初期化チェック確認する
 		{
 			gGameLayer->UpdateWait();//レイヤーの更新
 		}
-		if(NULL != gUILayer)//現在は初期化チェック確認する
+		if (NULL != gUILayer)//現在は初期化チェック確認する
 		{
 			gUILayer->UpdateLayer();
 		}
@@ -231,16 +231,16 @@ void GameScene::moveTime(float delta)
 		GameMasterS->SetGameState(GSTATE_PLAY);
 		GameMasterS->SetPlayerState(PSTATE_IDLE);
 
-//		UpdateCamera();//モデルの移動をもとにカメラ移動
+		//		UpdateCamera();//モデルの移動をもとにカメラ移動
 
 		break;
 	case GSTATE_PLAY:
 
-		if(NULL != gGameLayer)//現在は初期化チェック確認する
+		if (NULL != gGameLayer)//現在は初期化チェック確認する
 		{
 			gGameLayer->UpdateLayer();//レイヤーの更新
 		}
-		if(NULL != gUILayer)//現在は初期化チェック確認する
+		if (NULL != gUILayer)//現在は初期化チェック確認する
 		{
 			gUILayer->UpdateLayer();
 		}
@@ -259,7 +259,11 @@ void GameScene::moveTime(float delta)
 
 		break;
 	}
+
+	clock_t start = clock();//現在時刻
+	(double)(clock() - start);
 }
+
 
 
 /**
@@ -272,6 +276,10 @@ void GameScene::moveTime(float delta)
 */
 void GameScene::update(float delta)
 {
+	//ループ開始の時間を計測
+	nowTime = clock();//現在時刻
+
+
 	GameMasterS->gameTime -= 0.8f;
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
@@ -364,7 +372,6 @@ int GameScene::UpdateCamera()
 
 	if (NULL != gGameLayer)
 	{
-
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		Vec3 cameraPos;
 		Vec3 cameraRot;
@@ -373,7 +380,7 @@ int GameScene::UpdateCamera()
 		{
 
 		case PSTATE_DODGE:
-			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() +gGameLayer->player.cameraAjust;
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
 			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 
 
@@ -458,6 +465,22 @@ int GameScene::UpdateCamera()
 	return TRUE;
 }
 
+
+
+/**
+*	ループにかかった時間の計測
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
+float GameScene::TimeCheck()
+{
+	nowTime = clock() - nowTime;//現在時刻とループ前の時間の差を計算
+	fps = nowTime * (1.0 / 60);
+	return fps;
+}
 
 
 bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)

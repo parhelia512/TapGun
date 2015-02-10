@@ -72,12 +72,15 @@ void Player::SetCollision(void)
 */
 void Player::Update(void)
 {
+	auto director = Director::getInstance();
+	auto loopTime = director->getDeltaTime();
+
 	//フレームを加算
 	frame += 1;
 
 	//座標を移動
 	Vec3 pos = wrapper->getPosition3D();
-	pos += speedVec;
+	pos += speedVec * loopTime;
 	wrapper->setPosition3D(pos);
 
 	//当たり判定を移動

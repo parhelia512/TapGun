@@ -53,7 +53,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 	glview -> setFrameSize( 1280, 800);
 #endif
 
-//	director -> setAnimationInterval( 1.0 / 60);
+	director -> setAnimationInterval( 1.0 / 60);
+//	director -> setAnimationInterval( 1.0 / 30);
 
 #ifdef TEST_SCENE
 	auto scene = Test::createScene();
@@ -61,7 +62,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 	auto scene = TitleScene::createScene();
 #endif
 	director -> runWithScene( scene);
-
 	return true;
 }
 
