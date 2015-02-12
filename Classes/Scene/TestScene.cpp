@@ -52,6 +52,7 @@ using namespace CocosDenshion;
 //_Sprite3D* sprite3D;
 cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
+Sprite3D* spriteBullet[20];
 //cocos2d::Node* CamNode;
 
 Scene* Test::createScene()
@@ -76,10 +77,15 @@ bool Test::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3d = _Sprite3D::create( "StageVer5.c3t");
 #else
-	auto spriteMap = _Sprite3D::create( "Stage/1037_map");
-	auto spritePlayer = _Sprite3D::create("player/player");
+	auto spriteMap = _Sprite3D::create( "Stage/map507");
+//	auto spritePlayer = _Sprite3D::create("player/player");
 //	auto spriteEnemy1 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
 //	auto spriteEnemy2 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
+
+	for (int i = 0; i < 20; i++)
+	{
+		spriteBullet[i] = Sprite3D::create("Graph/Models/Bullet/bullet.c3t");
+	}
 
 #endif
 	//マップ
@@ -96,7 +102,21 @@ bool Test::init()
 //	spritePlayer->setRotation3D(Vec3(0.0f, PROTY, 0.0f));
 //	addChild(spritePlayer);
 
+	//弾
+	for (int i = 0; i < 20; i++)
+	{
+		spriteBullet[i]->setPosition3D(Vec3(-1.5f + 0.2f * i, 0.0f, 1.0f + 0.6f * i));
+		spriteBullet[i]->setRotation3D(Vec3(-90.0f, 0.0f, 0.0f));
 
+
+		spriteBullet[i]->setPosition3D(Vec3(-0.6f + 0.05f * i, 0.0f, 2.85f + 0.03f * i));
+		spriteBullet[i]->setRotation3D(Vec3(-90.0f, 180.0f, 0.0f));
+
+		spriteBullet[i]->setScale(2.0f);
+
+		addChild(spriteBullet[i]);
+		spriteBullet[i]->setCameraMask(1);
+	}
 
 //	LifeUI::getInstance() -> init( this);
 //	LogoUI::getInstance() -> init( this);
@@ -127,6 +147,10 @@ bool Test::init()
 
 	Camera3D->setPosition3D(Vec3(-2.0f, 2.0f, 53.0f));//足場ブロック確認
 	Camera3D->setRotation3D(Vec3(-0.0f, -18.0f, 0.0f));
+
+
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 5.0f));//敵弾描画確認
+	Camera3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
 
 
 	Camera3D->setCameraFlag(CameraFlag::DEFAULT);//USER1を3D用にする

@@ -40,7 +40,7 @@ namespace TapGun
 
 		EnemyTable enemyTable[100];//敵の出現テーブル
 
-//		Muzzle muzzle;//プレイヤーのマズル
+		//		Muzzle muzzle;//プレイヤーのマズル
 
 		//Node* gNode;
 		//Node* lNode;
@@ -55,6 +55,7 @@ namespace TapGun
 		void InitAllModels();//モデル全体の初期化
 		void InitPlayer(int stage_num);//プレイヤーの初期化
 		int InitEnemy(int stage_num);//エネミー初期化
+		void InitBullet(void);
 		int InitMap(int stage_num);//マップの初期化
 
 		void checkNextEnemy(int enemyNum);//
@@ -113,7 +114,6 @@ namespace TapGun
 		int SearchFreeUnit();//空きユニットの検索
 
 		int enemyStuck;//各ステージごとの残り敵数
-
 	};
 }
 #endif //__GAME_MODELSLAYER_H__

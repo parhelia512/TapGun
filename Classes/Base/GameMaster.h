@@ -80,8 +80,6 @@ namespace TapGun
 #define HIDECAMERA_X 1.1f
 #define HIDECAMERA_Y -1.1f
 
-#define VFRAME//可変フレームレート設定
-
 	//
 	enum _CAMERA_FLAG_
 	{

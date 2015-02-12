@@ -85,7 +85,7 @@ namespace TapGun
 		int eState;
 		int eWaitFrame;//出現までの待ちフレーム
 		cocos2d::Vec3 StandbyPos;//待機座標
-		int atkFrame;//
+		float atkFrame;//
 		int tableNum;
 
 		//==変数==
@@ -108,6 +108,12 @@ namespace TapGun
 
 		TapGun::_Sprite3D* sprite3d;
 		cocos2d::Node* wrapper;//モデルの親ノード（モデル基準座標として使用する。通常は(0,0,0)座標）
+		cocos2d::Node* nodeLeftGun;//左銃口の子ノード（通常は(0,0,0)座標）
+		cocos2d::Node* nodeRightGun;//右銃口の子ノード（通常は(0,0,0)座標）
+
+		cocos2d::AttachNode* nodeL;//左銃口の子ノード（通常は(0,0,0)座標）
+		cocos2d::AttachNode* nodeR;//右銃口の子ノード（通常は(0,0,0)座標）
+
 		cocos2d::Animation3D* animation;
 		cocos2d::Animate3D* animate;
 
