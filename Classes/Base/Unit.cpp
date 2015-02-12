@@ -61,10 +61,10 @@ int Unit::Init(int num, int utype)
 	}
 
 	//フラグの初期化
-	valid = TRUE;
-	kind = utype;
+	valid = TRUE;//Unit構造体を使用している
+	kind = utype;//
 
-	tableNum = -1;
+	tableNum = -1;//敵用　敵が出現する順番を指定する
 
 	//変数
 	pos = Vec3(0, 0, 0);
@@ -128,7 +128,6 @@ void Unit::SetCollision(void)
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
 
-	sprite3d->addChild(colisionNode);
 }
 
 
@@ -144,12 +143,15 @@ void Unit::SetCollision(void)
 */
 void Unit::Update(void)
 {
+	auto director = Director::getInstance();
+	auto loopTime = director->getDeltaTime();
+
 	//フレームを加算
 	frame += 1;
 
 	//座標を移動
 	pos = sprite3d->getPosition3D();
-	pos += speedVec;
+	pos += speedVec * loopTime;
 	sprite3d->setPosition3D(pos);
 
 	//当たり判定を移動
