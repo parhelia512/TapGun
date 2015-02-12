@@ -144,12 +144,15 @@ void Unit::SetCollision(void)
 */
 void Unit::Update(void)
 {
+	auto director = Director::getInstance();
+	auto loopTime = director->getDeltaTime();//ループに要した時間を取得
+
 	//フレームを加算
 	frame += 1;
 
 	//座標を移動
 	pos = sprite3d->getPosition3D();
-	pos += speedVec;
+	pos += speedVec * loopTime;
 	sprite3d->setPosition3D(pos);
 
 	//当たり判定を移動
@@ -161,8 +164,6 @@ void Unit::Update(void)
 
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
-
-//	Unit::UpdateAnimation();//アニメーションを更新
 }
 
 
