@@ -53,6 +53,14 @@ using namespace CocosDenshion;
 cocos2d::Layer* Test::lay;
 cocos2d::Camera* Camera3D;
 Sprite3D* spriteBullet[20];
+_Sprite3D* spritePlayer;// = _Sprite3D::create("player/player");
+
+Animation3D* tHideShotLeft;// = Animation3D::create("Graph/Models/player/mot_player_hide_shot_left.c3b");
+Animate3D* teHideShotLeft;// = Animate3D::create(aHideShotLeft);
+Animate3D* teHideShotLeftR;// = Animate3D::create(aHideShotLeft);
+
+int tFlag;
+int aFlag;
 //cocos2d::Node* CamNode;
 
 Scene* Test::createScene()
@@ -73,50 +81,72 @@ bool Test::init()
 	}
 	setCocos();
 	lay = this;
+
+
+	//現在はタッチイベントのリスナーをここに用意しています
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+
+	listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(Test::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(Test::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(Test::onTouchEnded, this);
+
+	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	auto sprite3d = _Sprite3D::create( "StageVer5.c3t");
 #else
-	auto spriteMap = _Sprite3D::create( "Stage/map507");
-//	auto spritePlayer = _Sprite3D::create("player/player");
+//	auto spriteMap = _Sprite3D::create( "Stage/map507");
+	spritePlayer = _Sprite3D::create("player/player");
 //	auto spriteEnemy1 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
 //	auto spriteEnemy2 = _Sprite3D::create("enemy/enemy", "Enemy.anime");
 
-	for (int i = 0; i < 20; i++)
-	{
-		spriteBullet[i] = Sprite3D::create("Graph/Models/Bullet/bullet.c3t");
-	}
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	spriteBullet[i] = Sprite3D::create("Graph/Models/Bullet/bullet.c3t");
+	//}
 
 #endif
 	//マップ
-	spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
-	addChild(spriteMap);
-	spriteMap->setCameraMask(1);
+	//spriteMap->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+	//addChild(spriteMap);
+	//spriteMap->setCameraMask(1);
+
 	//エネミー
 	//spriteEnemy1->setPosition3D(Vec3(14.4f, 0.0f, 7.8f));
 	//spriteEnemy1->setPosition3D(Vec3(15.0f, 0.0f, 5.5f));
 	//addChild(spriteEnemy1);
 
 	//プレイヤー
-//	spritePlayer->setPosition3D(Vec3(PPOSX, PPOSY, PPOSZ));
-//	spritePlayer->setRotation3D(Vec3(0.0f, PROTY, 0.0f));
-//	addChild(spritePlayer);
+	spritePlayer->setPosition3D(Vec3(0, 0, 5.0f));
+	spritePlayer->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+	addChild(spritePlayer);
+	spritePlayer->setCameraMask(1);
+
+
+	//アニメーションロード
+	tHideShotLeft = Animation3D::create("Graph/Models/player/mot_player_hide_shot_left.c3t");
+	teHideShotLeft = Animate3D::create(tHideShotLeft);
+	teHideShotLeftR = Animate3D::create(tHideShotLeft);
+	teHideShotLeftR->setSpeed(-1.0f);
+
 
 	//弾
-	for (int i = 0; i < 20; i++)
-	{
-		spriteBullet[i]->setPosition3D(Vec3(-1.5f + 0.2f * i, 0.0f, 1.0f + 0.6f * i));
-		spriteBullet[i]->setRotation3D(Vec3(-90.0f, 0.0f, 0.0f));
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	spriteBullet[i]->setPosition3D(Vec3(-1.5f + 0.2f * i, 0.0f, 1.0f + 0.6f * i));
+	//	spriteBullet[i]->setRotation3D(Vec3(-90.0f, 0.0f, 0.0f));
 
 
-		spriteBullet[i]->setPosition3D(Vec3(-0.6f + 0.05f * i, 0.0f, 2.85f + 0.03f * i));
-		spriteBullet[i]->setRotation3D(Vec3(-90.0f, 180.0f, 0.0f));
+	//	spriteBullet[i]->setPosition3D(Vec3(-0.6f + 0.05f * i, 0.0f, 2.85f + 0.03f * i));
+	//	spriteBullet[i]->setRotation3D(Vec3(-90.0f, 180.0f, 0.0f));
 
-		spriteBullet[i]->setScale(2.0f);
+	//	spriteBullet[i]->setScale(2.0f);
 
-		addChild(spriteBullet[i]);
-		spriteBullet[i]->setCameraMask(1);
-	}
+	//	addChild(spriteBullet[i]);
+	//	spriteBullet[i]->setCameraMask(1);
+	//}
 
 //	LifeUI::getInstance() -> init( this);
 //	LogoUI::getInstance() -> init( this);
@@ -152,11 +182,14 @@ bool Test::init()
 	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 5.0f));//敵弾描画確認
 	Camera3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
 
+	Camera3D->setPosition3D(Vec3(0.0f, 0.0f, 15.0f));//敵弾描画確認
+	Camera3D->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
 
 	Camera3D->setCameraFlag(CameraFlag::DEFAULT);//USER1を3D用にする
 #endif
 
-	this -> scheduleUpdate();
+//	this -> scheduleUpdate();
+	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 
 	return true;
 }
@@ -168,7 +201,15 @@ void Test::update( float delta)
 
 void Test::moveTime( float delta)
 {
-	//	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
+
+	if(tFlag == 1 && aFlag == 0)
+	{
+		spritePlayer->stopAllActions();
+		spritePlayer->runAction(teHideShotLeft);
+		aFlag = 1;
+	}
+	int a = 0;
+	a++;
 }
 
 void Test::menuCloseCallback(Ref* pSender)
@@ -196,4 +237,25 @@ void Test::setCocos( void)
 	label -> setPosition( Vec2( SystemValue::origin.x + SystemValue::windowSize.width/2,
 	SystemValue::origin.y + SystemValue::windowSize.height - label->getContentSize().height));
 //	this -> addChild( label, 1);
+}
+
+
+bool Test::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
+{
+	tFlag = 1;
+	return true;
+}
+
+
+void Test::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
+{
+	tFlag = 0;
+}
+
+
+
+void Test::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
+{
+	aFlag = 0;
+	tFlag = 0;
 }

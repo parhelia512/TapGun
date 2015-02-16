@@ -26,6 +26,12 @@ namespace TapGun
 
 		static cocos2d::Layer* lay;
 
+		//タッチイベントのリスナー
+		cocos2d::EventListenerTouchOneByOne *listener;
+		bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
+		void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
+		void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
+
 		CREATE_FUNC(Test);
 	};
 }

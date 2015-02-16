@@ -33,10 +33,14 @@ namespace TapGun
 	public:
 
 		//メンバ変数
-
-
+		float animCount;//アニメーションの再生タイミングを管理する
+		float animEndTime;//アニメーション再生終了までの時間
 		//==フラグ系==
 		int hitpoint;
+
+		float nowTimeFrom;//
+		float nowTimeTo;//
+		float nowTimeBefore;
 
 		cocos2d::Vec3 cameraAjust;//回避モーション時のカメラ位置補正
 
@@ -62,14 +66,13 @@ namespace TapGun
 
 		cocos2d::Animation3D* animation;
 		cocos2d::Animate3D* animate;
+
 		/*
 		・座標移動はwrappar
 		・回転はsprite3d;
 		・Action時はwrapperを回転軸に移動し、移動した分sprite3dを逆に移動させる
 		・回避時はwrapperを回転させて座標移動、回転した分sprite3dを逆に回転させる
 		*/
-
-
 
 		//メンバ関数
 		void Init(void);//数値の初期化（今後はコンストラクタに置き換える？）
@@ -84,6 +87,9 @@ namespace TapGun
 		void InitFrame(void);//フレームを初期化
 		int GetFrame(void);//フレームの取得
 		void SetFrame(int f);//フレームのセット
+
+		void setAnimEndTime(float time);//
+		float getAnimEndTime( void);//
 		//Character();
 		//~Character();
 	private:

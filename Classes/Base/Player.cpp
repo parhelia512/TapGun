@@ -166,3 +166,31 @@ int Player::GetFrame(void)
 {
 	return frame;
 }
+
+
+/**
+*	アニメーション終了までの時間をセット
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/20 Ver 1.0
+*/
+void Player::setAnimEndTime(float time)
+{
+	animEndTime = time;
+}
+
+
+/**
+*	キャラクター固有フレームを返す
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/20 Ver 1.0
+*/
+float Player::getAnimEndTime(void)
+{
+	return animEndTime;
+}

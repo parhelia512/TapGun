@@ -55,6 +55,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	director -> setAnimationInterval( 1.0 / 60);
 //	director -> setAnimationInterval( 1.0 / 30);
+//	director->setAnimationInterval(1.0 / 120);
 
 #ifdef TEST_SCENE
 	auto scene = Test::createScene();

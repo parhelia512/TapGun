@@ -34,7 +34,7 @@ bool TitleScene::init()
 {
 	//////////////////////////////
 	// 1. super init first
-	if ( !Layer::init() )
+	if (!Layer::init())
 	{
 		return false;
 	}
@@ -43,10 +43,10 @@ bool TitleScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto listener = EventListenerTouchOneByOne::create();
-	listener -> setSwallowTouches( _swallowsTouches);
-	listener -> onTouchBegan = CC_CALLBACK_2( TitleScene::onTouchBegan, this);
-	_eventDispatcher -> addEventListenerWithSceneGraphPriority( listener, this);
-   
+	listener->setSwallowTouches(_swallowsTouches);
+	listener->onTouchBegan = CC_CALLBACK_2(TitleScene::onTouchBegan, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	return true;
 }
 
