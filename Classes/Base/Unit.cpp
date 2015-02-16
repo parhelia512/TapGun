@@ -144,7 +144,9 @@ void Unit::SetCollision(void)
 void Unit::Update(void)
 {
 	auto director = Director::getInstance();
-	auto loopTime = director->getDeltaTime();
+	auto loopTime = director->getDeltaTime();//ループに要した時間を取得
+
+
 
 	//フレームを加算
 	frame += 1;
@@ -163,8 +165,6 @@ void Unit::Update(void)
 
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
-
-//	Unit::UpdateAnimation();//アニメーションを更新
 }
 
 
