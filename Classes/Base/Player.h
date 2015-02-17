@@ -33,7 +33,7 @@ namespace TapGun
 	public:
 
 		//メンバ変数
-		float animCount;//アニメーションの再生タイミングを管理する
+		float animCount;//モーションを開始してからの経過時間（モーションを途中から再生した場合は0ではなく途中から時間を数える）
 		float animEndTime;//アニメーション再生終了までの時間
 		//==フラグ系==
 		int hitpoint;

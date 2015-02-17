@@ -11,6 +11,7 @@ namespace TapGun
 #define FALSE -1
 #define TRUE 1
 
+#define FRAME 0.01666f
 
 	//プレイヤーのパラメータ定義
 #define STS_PLAYERHP 6//プレイヤーの最大HP
@@ -23,7 +24,7 @@ namespace TapGun
 #define STS_MUTEKISTART 0//回避モーションが始まってから無敵時間に移行するまでの時間
 #define STS_APPEARSTART 1//回避ボタンを離してから突撃モーションが始まるまでの時間
 #define STS_MUTEKIEND (STS_HIDEWAIT - STS_MUTEKISTART)//突撃モーションが始まってから無敵時間が終了するまでの時間
-#define STS_RELOADSTART (12.0f / 60.0f)//回避モーションが始まってからリロードが行われるまでの時間
+#define STS_RELOADSTART (12.0f)//回避モーションが始まってからリロードが行われるまでの時間
 
 #define STS_RUNSPEED 4.0f//プレイヤーのウェイト時の速度
 
@@ -155,6 +156,7 @@ namespace TapGun
 		POINT_FINISH,
 	};
 
+
 	//プレイヤーの進行座標を定義する構造体
 	typedef struct
 	{
@@ -183,7 +185,7 @@ namespace TapGun
 
 		int flgPlayerATK;//プレイヤーの攻撃処理判定を行うか（TRUE/FALSE）
 
-		float hideFrame;//回避フレーム
+//		float hideFrame;//回避フレーム
 		float mutekiFrame;//無敵時間
 		
 		float gameTime;//ゲーム全体の時間

@@ -467,22 +467,6 @@ int GameScene::UpdateCamera()
 
 
 
-/**
-*	ループにかかった時間の計測
-*
-*	@author	sasebon
-*	@param	なし
-*	@return	なし
-*	@date	1/8 Ver 1.0
-*/
-float GameScene::TimeCheck()
-{
-	nowTime = clock() - nowTime;//現在時刻とループ前の時間の差を計算
-	fps = nowTime * (1.0 / 60);
-	return fps;
-}
-
-
 bool GameScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
 	GameMasterS->SetTouchPos(pTouch);//タッチ座標を取得してセット

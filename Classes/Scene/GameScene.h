@@ -54,8 +54,6 @@ namespace TapGun
 		//void UpdatePlayer( void);
 		//void UpdateEnemy( void);
 
-		float TimeCheck( void);//時間計測
-		float CalcTime(void);//ループ時間計算
 		//void menuCloseCallback(CCObject* pSender);
 
 		CREATE_FUNC(GameScene);

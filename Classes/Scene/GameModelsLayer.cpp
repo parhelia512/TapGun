@@ -621,11 +621,11 @@ void GameModelsLayer::UpdateWait()
 					player.sprite3d->setPosition3D(newPos);//wrapper
 
 					//目標角度をもとに、回避時のカメラ移動座標を計算
+					//プレイヤーの親ノードに対する回避後カメラ座標の相対座標を計算
 					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, PSIDE_LEFT);
-					//tmpがプレイヤーの親ノードに対する回避後カメラ座標の位置（相対）
+					camTarget = Vec3(tmp.x, 0.0f, tmp.y);
 
 					//回避時のカメラ移動前の座標を確保
-					camTarget = Vec3(tmp.x, 0.0f, tmp.y);// +player.wrapper->getPosition3D();
 					camCenter = player.wrapper->getPosition3D();
 				}
 				else
@@ -827,22 +827,23 @@ void GameModelsLayer::ActionIdle()
 				player.sprite3d->startAnimationLoop(shot, 0, 8 / 60);
 				GameMasterM->rapidFrame = -1;//連射フレームを-1に初期化
 				GameMasterM->flgPlayerATK = FALSE;//
-				GameMasterM->hideFrame = 0;
-				player.animCount = 0.0f;//
+				//GameMasterM->hideFrame = 0;//今後使用しなければ削除する
+				player.animCount = 0.0f;//hideFrameの代わりに使用する
 			}
 		}
 		else
 		{
 			GameMasterM->SetPlayerState(PSTATE_DODGE);//回避に移行
 			player.InitFrame();//フレームをリフレッシュ
-			GameMasterM->hideFrame = 0;
+			//GameMasterM->hideFrame = 0;//今後使用しなければ削除する
+			player.animCount = 0.0f;//hideFrameの代わりに使用する
 
 			player.sprite3d->stopAllActions();
 			player.sprite3d->startAnimationReverse(h_shot);//回避モーションを再生
 			player.nowTimeFrom = clock() * 0.001f;//現在時刻を取得
 			player.nowTimeBefore = clock() * 0.001f;
 
-			player.setAnimEndTime(STS_HIDEWAIT * 0.01666f);//回避モーションにかかる時間をセット
+			player.setAnimEndTime(STS_HIDEWAIT * FRAME);//回避モーションにかかる時間をセット
 		}
 	}
 }
@@ -945,14 +946,13 @@ void GameModelsLayer::ActionShot()
 void GameModelsLayer::ActionDodge(void)
 {
 	auto director = Director::getInstance();
-	auto loopTime = director->getDeltaTime();
 
-	player.animCount += loopTime;
 	player.nowTimeTo = clock() * 0.001f;
-	float time = player.nowTimeTo - player.nowTimeFrom;//
-	float lTime = player.nowTimeTo - player.nowTimeBefore;
+	float time = player.nowTimeTo - player.nowTimeFrom;//モーションを開始してから経過した時間
+	float lTime = player.nowTimeTo - player.nowTimeBefore;//前回のループからの経過時間（loopTime）
 	player.nowTimeBefore = clock() * 0.001f;
-
+	player.animCount += lTime;//アニメーションを開始してからの経過時間（≒ ステートが変化してからの経過時間）
+	
 	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
 	//とりあえずここで文字列作成
 	std::string shot;
@@ -972,26 +972,25 @@ void GameModelsLayer::ActionDodge(void)
 	//１：ボタンホールド状態で回避フレームが終了するとActionHideに移行する
 	//２：ボタンホールド状態が解除されればActionAppearに移行する
 	//３：ボタンホールド継続状態であれば、モーションを継続する・・・（ボタンON,ボタンMOVE）
-	GameMasterM->hideFrame += loopTime;//回避フレームを加算する
 
 	int state = GameMasterM->GetTouchState();//現在のタッチ状態を取得
 
 	//無敵時間の判定を行う
-	if (STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵開始フレームに達したら
+	if (STS_MUTEKISTART <= player.animCount * 60.0f)//無敵開始フレームに達したら
 	{
 		GameMasterM->playerHitFlag = FALSE;//当たり判定を無効化する
 	}
 
 	//リロード判定を行う
-	if (STS_RELOADSTART <= GameMasterM->hideFrame)//リロード開始フレームに達したら
+	if (STS_RELOADSTART <= player.animCount * 60.0f)//リロード開始フレームに達したら
 	{
 		GameMasterM->SetPlayerBullets(STS_MAXBULLETS);//弾数を回復する
 	}
 
 	//回避完了フレームに達したら
 	//	if (STS_HIDEWAIT <= GameMasterM->hideFrame)
+	//	if (0 == player.sprite3d->checkAnimationState())//アニメーションが終了したら
 	if (player.getAnimEndTime() <= time)
-		//	if (0 == player.sprite3d->checkAnimationState())//アニメーションが終了したら
 	{
 		GameMasterM->SetPlayerState(PSTATE_HIDE);//隠れている状態に移行
 		//リロードモーションが終了した後は、リロードモーションを行う
@@ -1020,49 +1019,53 @@ void GameModelsLayer::ActionDodge(void)
 		{
 			GameMasterM->SetPlayerState(PSTATE_APPEAR);//隠れている状態に移行
 			//突撃モーションを再生
-			GameMasterM->hideFrame = STS_HIDEWAIT - GameMasterM->hideFrame;//突撃のフレーム数をセットする
 
-			float startTime = STS_HIDEWAIT * 0.01666f - time;//
+			float startTime = STS_HIDEWAIT * FRAME - time;//回避モーションの残り時間をもとに、突撃モーションの開始時間を計算
 
-			player.setAnimEndTime(STS_HIDEWAIT * 0.01666f - startTime);//アニメーション終了までの残りフレームをセット
+			player.setAnimEndTime(STS_HIDEWAIT * FRAME - startTime);//アニメーション終了までの残りフレームをセット
 			player.sprite3d->stopALLAnimation();//モーション終了
-			player.sprite3d->startAnimation(h_shot, startTime, STS_HIDEWAIT * 0.01666f);//モーション終了
+			player.sprite3d->startAnimation(h_shot, startTime, STS_HIDEWAIT * FRAME);//
 
-			player.nowTimeTo = clock() * 0.001f;
+			player.nowTimeFrom = clock() * 0.001f;
 			player.nowTimeBefore = clock() * 0.001f;
+			player.animCount = STS_HIDEWAIT * FRAME - player.animCount;//突撃のフレーム数をセットする
+
 		}
-		else if(TSTATE_MOVE == state || TSTATE_ON == state)//ホールド状態
+		else if (TSTATE_MOVE == state || TSTATE_ON == state)//ホールド状態
 		{
 			//回避動作中は指定座標を軸に座標移動を行う
-
+			if (PSIDE_LEFT == GameMasterM->playerSide)
 			{
 				//プレイヤーの座標の更新
-				//float rot = 96.0f / STS_HIDEWAIT;
 				float rot = lTime * 90.0f / (STS_HIDEWAIT / 60.0f);
 
 				Vec3 tmp = player.wrapper->getRotation3D();
-				tmp.y -= rot * loopTime;
+				tmp.y -= rot;// *loopTime;
 				player.wrapper->setRotation3D(tmp);//毎フレームP親ノードの角度を更新する
 				tmp = player.sprite3d->getRotation3D();
-				tmp.y += rot * loopTime;
+				tmp.y += rot;// *loopTime;
 				player.sprite3d->setRotation3D(tmp);//プレイヤーの角度は逆に更新し、キャラクターの向きを正面に向かせる
 
 				//回避に合わせてカメラの座標を補正する
-				player.cameraAjust = Vec3(camTarget.x * GameMasterM->hideFrame, camTarget.y * GameMasterM->hideFrame, camTarget.z * GameMasterM->hideFrame);//ループごとの移動量を計算
+				//player.cameraAjust = Vec3(camTarget.x * GameMasterM->hideFrame, camTarget.y * GameMasterM->hideFrame, camTarget.z * GameMasterM->hideFrame);//ループごとの移動量を計算
+				player.cameraAjust = Vec3(camTarget.x * time * 60.0f, camTarget.y * time * 60.0f, camTarget.z * time * 60.0f);//ループごとの移動量を計算
+
 			}
 			else
 			{
 				//プレイヤーの座標の更新
-				float rot = 96.0f / STS_HIDEWAIT;
+				float rot = lTime * 90.0f / (STS_HIDEWAIT / 60.0f);
+
 				Vec3 tmp = player.wrapper->getRotation3D();
-				tmp.y += rot * loopTime;
+				tmp.y += rot;// *loopTime;
 				player.wrapper->setRotation3D(tmp);
 				tmp = player.sprite3d->getRotation3D();
-				tmp.y -= rot * loopTime;
+				tmp.y -= rot;// *loopTime;
 				player.sprite3d->setRotation3D(tmp);
 
 				//回避に合わせてカメラの座標を補正する
-				player.cameraAjust = Vec3(camTarget.x * GameMasterM->hideFrame, camTarget.y * GameMasterM->hideFrame, camTarget.z * GameMasterM->hideFrame);//ループごとの移動量を計算
+//				player.cameraAjust = Vec3(camTarget.x * GameMasterM->hideFrame, camTarget.y * GameMasterM->hideFrame, camTarget.z * GameMasterM->hideFrame);//ループごとの移動量を計算
+				player.cameraAjust = Vec3(camTarget.x * time * 60.0f, camTarget.y * time * 60.0f, camTarget.z * time * 60.0f);//ループごとの移動量を計算
 			}
 		}
 		else
@@ -1089,7 +1092,7 @@ void GameModelsLayer::ActionHide(void)
 	std::string shot;
 	std::string h_shot;
 	std::string h_reload;
-	if(PSIDE_LEFT == GameMasterM->playerSide)
+	if (PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		h_shot = "h_shot_l";
 		h_reload = "h_reload_l";
@@ -1103,21 +1106,22 @@ void GameModelsLayer::ActionHide(void)
 	//ボタンが押しっぱなしであれば、回避状態を継続し、リロードアニメーションを再生
 	//ボタンが離されれば、回避状態を終了して突撃状態へ移行
 
-	if(TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
+	if (TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
 	{
 		//タッチ中はリロードを再生、再生後はモーション停止
 		player.cameraAjust = Vec3(camTarget.x * STS_HIDEWAIT, camTarget.y * STS_HIDEWAIT, camTarget.z * STS_HIDEWAIT);//カメラ位置
 	}
-	else if(TSTATE_RELEASE == GameMasterM->GetTouchState())//離されれば
+	else if (TSTATE_RELEASE == GameMasterM->GetTouchState())//離されれば
 	{
 		GameMasterM->SetPlayerState(PSTATE_APPEAR);
 		player.sprite3d->startAnimation(h_shot);
-		GameMasterM->hideFrame = 0;
 		player.InitFrame();//フレームをリフレッシュ
 
 		player.nowTimeFrom = clock() * 0.001f;//現在時刻を取得
 		player.nowTimeBefore = clock() * 0.001f;
-		player.setAnimEndTime(STS_HIDEWAIT * 0.01666f);
+		player.animCount = 0.0f;
+
+		player.setAnimEndTime(STS_HIDEWAIT * FRAME);
 	}
 }
 
@@ -1132,16 +1136,11 @@ void GameModelsLayer::ActionHide(void)
 void GameModelsLayer::ActionAppear(void)
 {
 	//
-	auto director = Director::getInstance();
-	auto loopTime = director->getDeltaTime();
-
-	player.animCount += loopTime;
-
 	player.nowTimeTo = clock() * 0.001f;//現在時刻を取得
 	float time = player.nowTimeTo - player.nowTimeFrom;//アニメーション再生時刻と現在時刻の差を取得
 	float lTime = player.nowTimeTo - player.nowTimeBefore;//アニメーション再生1ループにかかった時間を取得
 	player.nowTimeBefore = clock() * 0.001f;
-
+	player.animCount += lTime;
 
 
 	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
@@ -1157,21 +1156,18 @@ void GameModelsLayer::ActionAppear(void)
 	}
 
 	//１：突撃終了フレームが終了するとActionIdleに移行する
-
 	int flag = GameMasterM->GetTouchFlag();//現在のタッチ状態を取得
 
-	GameMasterM->hideFrame += loopTime;//回避フレームを加算する
-
 	//無敵時間の判定を行う
-	if (STS_MUTEKISTART <= GameMasterM->hideFrame)//無敵終了フレームに達したら
+	if (STS_MUTEKISTART <= player.animCount)//無敵終了フレームに達したら
 	{
 		GameMasterM->playerHitFlag = TRUE;//当たり判定を有効化する
 	}
 
 	//回避完了の判定
-	if (player.getAnimEndTime() <= time)
 	//	if (STS_HIDEWAIT <= GameMasterM->hideFrame)//突撃フレームに達したら
 	//	if(0 == player.sprite3d->checkAnimationState())//アニメーションが終了したら
+	if (player.getAnimEndTime() <= time)
 	{
 		//必要ならばモーションの停止を行う
 		GameMasterM->SetPlayerState(PSTATE_IDLE);//アイドル状態に移行
@@ -1194,30 +1190,28 @@ void GameModelsLayer::ActionAppear(void)
 			//float rot = 96.0f / STS_HIDEWAIT;
 			float rot = lTime * 90.0f / (STS_HIDEWAIT / 60.0f);
 			Vec3 tmp = player.wrapper->getRotation3D();
-			tmp.y += rot * loopTime;
+			tmp.y += rot;//
 			player.wrapper->setRotation3D(tmp);//プレイヤーの親ノード（回避軸）の角度を更新する
 			tmp = player.sprite3d->getRotation3D();
-			tmp.y -= rot * loopTime;
+			tmp.y -= rot;//
 			player.sprite3d->setRotation3D(tmp);//プレイヤー自身の角度を更新する
 
 			//回避に合わせてカメラの座標を補正する
-			Vec3 moveVec = -camTarget + camCenter;//必要な移動量
-			player.cameraAjust = Vec3(camTarget.x * (STS_HIDEWAIT - GameMasterM->hideFrame), camTarget.y * (STS_HIDEWAIT - GameMasterM->hideFrame), camTarget.z * (STS_HIDEWAIT - GameMasterM->hideFrame));//ループごとの移動量を計算
-
+			player.cameraAjust = Vec3(camTarget.x * (STS_HIDEWAIT * FRAME - player.animCount) * 60.0f, camTarget.y * (STS_HIDEWAIT * FRAME - player.animCount) * 60.0f, camTarget.z * (STS_HIDEWAIT * FRAME - player.animCount) * 60.0f);//ループごとの移動量を計算
 		}
 		else
 		{
 			//回避フレームに比例してカメラの回転を変化させる
-			float rot = 96.0f / STS_HIDEWAIT;//
+			float rot = 96.0f / (STS_HIDEWAIT / 60.0f);//
 			Vec3 tmp = player.wrapper->getRotation3D();
-			tmp.y -= rot * loopTime;
+			tmp.y -= rot;// *loopTime;
 			player.wrapper->setRotation3D(tmp);//プレイヤーの親ノード（回避軸）の角度を更新する
 			tmp = player.sprite3d->getRotation3D();
-			tmp.y += rot * loopTime;
+			tmp.y += rot;// *loopTime;
 			player.sprite3d->setRotation3D(tmp);//プレイヤー自身の角度を更新する
 
 			//回避に合わせてカメラの座標を補正する
-			player.cameraAjust = Vec3(camTarget.x * (STS_HIDEWAIT - GameMasterM->hideFrame), camTarget.y * (STS_HIDEWAIT - GameMasterM->hideFrame), camTarget.z * (STS_HIDEWAIT - GameMasterM->hideFrame));//ループごとの移動量を計算
+			player.cameraAjust = Vec3(camTarget.x * (STS_HIDEWAIT * FRAME - player.animCount) * 60.0f, camTarget.y * (STS_HIDEWAIT * FRAME - player.animCount) * 60.0f, camTarget.z * (STS_HIDEWAIT * FRAME - player.animCount) * 60.0f);//ループごとの移動量を計算
 		}
 	}
 }
