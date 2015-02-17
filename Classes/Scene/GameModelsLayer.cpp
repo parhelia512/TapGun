@@ -74,6 +74,7 @@ void GameModelsLayer::InitLayer(void)
 }
 
 
+
 /**
 *	ゲーム本編のスプライトの生成
 *
@@ -101,13 +102,14 @@ void GameModelsLayer::LoadModels()
 	player.wrapper = Node::create();//モデルの親ノード
 	player.leftNode = Node::create();//プレイヤーの回転軸の基準ノード（左）
 	player.rightNode = Node::create();//プレイヤーの回転軸の基準ノード（右）
+	player.centerNode = Node::create();
 
 	//スプライトとノードのaddChild
 	player.wrapper->addChild(player.sprite3d);
 	addChild(player.wrapper);
 	player.wrapper->addChild(player.leftNode);
 	player.wrapper->addChild(player.rightNode);
-
+	player.wrapper->addChild(player.centerNode);
 
 	//マップのロード
 	//マップは0番に割り当て
@@ -116,8 +118,8 @@ void GameModelsLayer::LoadModels()
 #else
 	fileName1 = "Stage/map507";
 #endif
-	unit[0].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
-	addChild(unit[0].sprite3d);
+	unit[UNIT0_MAP].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
+	addChild(unit[UNIT0_MAP].sprite3d);
 
 
 	//敵のロード
@@ -129,7 +131,7 @@ void GameModelsLayer::LoadModels()
 	fileName1 = "enemy/enemy";
 	fileName2 = "Enemy.anime";
 #endif
-	for (int i = 1; i <= 20; i++)
+	for (int i = UNIT1_ENEMY; i < UNIT2_BULLET; i++)
 	{
 		//スプライトとノードのcreate
 		unit[i].sprite3d = _Sprite3D::create(fileName1, fileName2);//1番~20番を敵に割り当て
@@ -153,7 +155,7 @@ void GameModelsLayer::LoadModels()
 	fileName1 = "Bullet/tama";
 #endif
 
-	for (int i = 21; i <= 40; i++)
+	for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
 	{
 		unit[i].sprite3d = _Sprite3D::create(fileName1);
 		unit[i].wrapper = Node::create();
@@ -167,7 +169,6 @@ void GameModelsLayer::LoadModels()
 
 #ifdef DEBUG_CENTER
 	center.sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);//プレイヤーの回転中心を表す仮ポイント
-
 #endif
 
 	//座標計算用ノード
@@ -228,10 +229,13 @@ void GameModelsLayer::InitPlayer(int stage_num)
 	//当たり判定の定義（仮）
 	player.collisionPos = Vec3(1.2, 3.0, 1.2);//範囲を指定して
 	player.SetCollision();
+	player.centerNode->setPosition3D(Vec3(0.0f, PLAYER_CENTER_Y, 0.0f));
 
 	GameMasterM->SetPlayerBullets(STS_MAXBULLETS);//
 
+#ifdef DEBUG_CENTER
 	center.sprite3d->setScale(0.1f);
+#endif
 
 	player.animCount = 0.0f;
 	player.nowTimeFrom = 0.0f;
@@ -326,13 +330,12 @@ void GameModelsLayer::SetEnemy(void)
 
 		//エネミーの最初のターゲット座標をセット
 
+
 		//敵の目標地点をセット
 		enemyTable->targetPos[0] = (Vec3(-0.3f, 0.0f, 20.4f));
 		enemyTable->targetPos[1] = (Vec3(-2.15f, 0.0f, 16.65f));
 		enemyTable->targetPos[2] = (Vec3(3.7f, 0.0f, 20.35f));
 		enemyTable->targetPos[3] = (Vec3(-0.3f, 0.0f, 26.5f));
-
-
 
 		//エネミーの初期座標をセット
 		//エネミーの最初のターゲット座標をセット
@@ -461,12 +464,12 @@ void GameModelsLayer::SetEnemy(void)
 */
 int GameModelsLayer::InitMap(int stage_num)
 {
-	unit[0].Init();//メンバ変数の初期化をしておく
+	unit[UNIT0_MAP].Init();//メンバ変数の初期化をしておく
 
-	unit[0].sprite3d->setScale(1.0f);
-	unit[0].sprite3d->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
-	unit[0].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
-	unit[0].Init(0, UKIND_MAP);
+	unit[UNIT0_MAP].sprite3d->setScale(1.0f);
+	unit[UNIT0_MAP].sprite3d->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+	unit[UNIT0_MAP].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
+	unit[UNIT0_MAP].Init(0, UKIND_MAP);
 	return TRUE;
 }
 
@@ -502,7 +505,9 @@ void GameModelsLayer::UpdateLayer()
 */
 void GameModelsLayer::UpdateWait()
 {
-	if (0 == GameMasterM->waitFlag)	//次の目的地を検索
+	switch (GameMasterM->waitFlag)
+	{
+	case 0:
 	{
 		player.targetPos = GameMasterM->stagePoint[GameMasterM->sPoint].pos;//
 		player.speed = STS_RUNSPEED;//スピードは後で調整する
@@ -531,11 +536,11 @@ void GameModelsLayer::UpdateWait()
 		GameMasterM->SetCamera3DPos(Vec3(W_SETX, W_SETY, W_SETZ));//プレイヤー（親ノード）とカメラの位置関係をセット
 		GameMasterM->SetCamera3DRot(Vec3(W_ROTX, W_ROTY, W_ROTZ));
 	}
-	else if (1 == GameMasterM->waitFlag)
-	{
+		break;
+	case 1:
 		GameMasterM->waitFlag = 2;
-	}
-	else if (2 == GameMasterM->waitFlag)//次の目的地まで走る処理
+		break;
+	case 2:
 	{
 		UpdatePlayer();//プレイヤーの更新
 		Vec3 tmpPos = player.wrapper->getPosition3D();
@@ -579,7 +584,8 @@ void GameModelsLayer::UpdateWait()
 			player.speedVec = Vec3(0.0f, 0.0f, 0.0f);
 		}
 	}
-	else if (3 == GameMasterM->waitFlag)	//目的地に到着したら、カメラを回転させる
+		break;
+	case 3:
 	{
 		if (20 > rotationCount)//回転中の動作
 		{
@@ -649,7 +655,7 @@ void GameModelsLayer::UpdateWait()
 
 				//左右に応じたアイドルモーションを開始する
 				player.sprite3d->stopAllActions();
-				
+
 				//ゲームに関係する各種フラグの初期化
 				GameMasterM->flgPlayerATK = FALSE;//プレイヤーの攻撃判定をOFFに
 				GameMasterM->playerHitFlag = TRUE;//プレイヤーの食らい判定をONに
@@ -681,9 +687,10 @@ void GameModelsLayer::UpdateWait()
 			}
 		}
 	}
-	else if (4 == GameMasterM->waitFlag)	//次の戦闘ポイントに到着したら、ウェイトからプレイに移行
-	{
+		break;
+	case 4:
 
+		break;
 	}
 }
 
@@ -1522,6 +1529,10 @@ void  GameModelsLayer::CheckHit(void)
 			if (TRUE == unit[i].visible)
 			{
 				//プレイヤーとの当たり判定を処理
+
+				Vec3 pPos = player.sprite3d->getPosition3D() + player.centerNode->getPosition3D();
+
+
 				Vec3 dir = player.sprite3d->getPosition3D() - unit[i].sprite3d->getPosition3D();//プレイヤーと敵弾の差のベクトル
 
 				//平面の距離を求める

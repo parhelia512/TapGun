@@ -17,7 +17,7 @@
 
 #endif
 
-#define MAX_UNIT 100
+#define MAX_UNIT 70
 
 
 namespace TapGun

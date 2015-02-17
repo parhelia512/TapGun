@@ -20,23 +20,31 @@
 
 #endif
 
-#define DEBUG_CENTER//デバッグ用。回転軸を示すモデルを描画
+//#define DEBUG_CENTER//デバッグ用。回転軸を示すモデルを描画
 
 namespace TapGun
 {
+
+	enum _UNIT_NUM_
+	{
+		UNIT0_MAP = 0,
+		UNIT1_ENEMY = 1,
+		UNIT2_BULLET = 21,
+		UNIT3_MAX = MAX_UNIT
+	};
+
 	typedef struct
 	{
 		cocos2d::Node* gNode;
 		cocos2d::Node* lNode;
 		cocos2d::Node* lNode2;
-
 	}CalcNode;
+
 
 	class GameModelsLayer : public cocos2d::Layer
 	{
 	public:
 		Player player;
-
 
 #ifdef DEBUG_CENTER
 		Unit center;
@@ -83,11 +91,6 @@ namespace TapGun
 		CREATE_FUNC(GameModelsLayer);
 
 	private:
-
-		//メンバ変数
-		//		cocos2d::Node* hideNodeLeft;
-		//		cocos2d::Node* hideNodeRight;
-		//		cocos2d::Point hidePoint;
 
 
 		//更新系

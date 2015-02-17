@@ -63,6 +63,7 @@ namespace TapGun
 		cocos2d::Node* wrapper;//モデルの親ノード
 		cocos2d::Node* leftNode;//回転軸の基準ノード
 		cocos2d::Node* rightNode;//回転軸の基準ノード
+		cocos2d::Node* centerNode;//プレイヤーの当たり判定高さ（敵弾が目標とする高さ）
 
 		cocos2d::Animation3D* animation;
 		cocos2d::Animate3D* animate;
@@ -90,8 +91,7 @@ namespace TapGun
 
 		void setAnimEndTime(float time);//
 		float getAnimEndTime( void);//
-		//Character();
-		//~Character();
+
 	private:
 
 		int frame;//Unit固有フレーム

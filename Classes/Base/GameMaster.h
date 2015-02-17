@@ -37,7 +37,7 @@ namespace TapGun
 #define BATTLE_FEILD_X 0.8//タッチで攻撃可能な画面割合
 
 //当たり判定系定義
-#define PLAYER_CENTER_Y 1.2f;//プレイヤーの当たり判定高さ（敵弾が目標とする高さ）
+#define PLAYER_CENTER_Y 1.2f//プレイヤーの当たり判定高さ（敵弾が目標とする高さ）
 
 //回避ボタンの当たり判定定義（ボタンのスプライトと当たり判定を分けて実装します）
 #define HIDE_UI_RECT_X 0.18f//当たり判定矩形
@@ -89,7 +89,7 @@ namespace TapGun
 #define HIDECAMERA_X 1.1f
 #define HIDECAMERA_Y -1.1f
 
-	//
+
 	enum _CAMERA_FLAG_
 	{
 		//CAMFLAG_DEFAULT = CameraFlag::DEFAULT,//
