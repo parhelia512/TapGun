@@ -36,7 +36,7 @@ void Unit::Init( void)
 	collisionPos = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
 	tableNum = -1;
 
-	colisionNode = Node::create();
+//	colisionNode = Node::create();
 	frame = 0;//管理フレーム
 }
 

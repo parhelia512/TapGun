@@ -20,6 +20,8 @@
 
 #endif
 
+#define DEBUG_CENTER//デバッグ用。回転軸を示すモデルを描画
+
 namespace TapGun
 {
 	typedef struct
@@ -34,7 +36,11 @@ namespace TapGun
 	{
 	public:
 		Player player;
+
+
+#ifdef DEBUG_CENTER
 		Unit center;
+#endif
 		Unit calc;
 		Unit unit[MAX_UNIT];//
 
