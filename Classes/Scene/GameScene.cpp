@@ -119,7 +119,10 @@ bool GameScene::init()
 
 
 	//fps計算のための変数を初期化
-	loopTime = 1.0f;//
+	loopTime = 0.0f;//
+
+	//
+	GameMasterS->reticleAjust = 0.1f;//
 
 	return true;
 }
@@ -154,13 +157,6 @@ int GameScene::InitCamera()
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		Vec3 cameraPos = gGameLayer->player.wrapper->getPosition3D() - gGameLayer->player.sprite3d->getPosition3D();
 
-		//ノードを意識しない座標
-		/*
-		GameMasterS->CamNode->setPosition3D(Vec3(0.0f,0.0f,0.0f));//ノードは常にプレイヤーの座標に一致
-
-		Vec3 cameraPos2 = Vec3(cameraPos.x + 0.8f, cameraPos.y + 1.5f, cameraPos.z + 3.1f);
-		GameMasterS->SetCamera3DPos(cameraPos2);
-		*/
 
 		//ノードを意識する座標
 		GameMasterS->SetCameraNodePos(cameraPos);//ノードは常にプレイヤーの座標に一致

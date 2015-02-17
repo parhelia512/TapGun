@@ -122,6 +122,15 @@ void GameUILayer::LoadUISprite()
 	fileName1 = "Graph/Pictures/wait.png";
 #endif
 	UIBillBoard[UIKIND_WAIT] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+
+
+	//回避アイコンの生成
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	fileName1 = "wait.png";
+#else
+	fileName1 = "Graph/Pictures/wait.png";
+#endif
+
 }
 
 
@@ -139,7 +148,7 @@ void GameUILayer::SetUI()
 
 	//レティクルの設定
 	UIBillBoard[UIKIND_RETICLE]->setPosition(s.width / 2, s.height / 2);
-	UIBillBoard[UIKIND_RETICLE]->setScale(0.3f);
+	UIBillBoard[UIKIND_RETICLE]->setScale(0.4f);
 	addChild(UIBillBoard[UIKIND_RETICLE]);
 
 	Ui[UIKIND_RETICLE].Init(UIKIND_RETICLE, UIKIND_RETICLE);
@@ -246,7 +255,7 @@ void GameUILayer::UpdateLayer( void)
 void GameUILayer::MoveReticle(void)
 {
 	static bool flag = false;
-	if(TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要にならば消す
+	if(TRUE == valid[UIKIND_RETICLE])//初期化チェックは不要ならば消す
 	{
 		if( flag == false)
 		{
@@ -256,14 +265,20 @@ void GameUILayer::MoveReticle(void)
 		}
 		
 		Vec2 tPos;
-		int a = 0;
+		auto size = Director::getInstance()->getWinSize();//ウィンドウサイズを取得
 		//レティクルの挙動
 		//プレイヤーの状態を取得して場合分け
 		switch(GameMasterL->GetPlayerState())
 		{
 		case PSTATE_SHOT://攻撃中はレティクルを移動させる
 
-			tPos = GameMasterL->GetTouchPos();//
+			tPos = GameMasterL->GetTouchPos();//タッチ座標を取得
+			tPos.y += size.height * GameMasterL->reticleAjust;//
+			if (tPos.y >= size.height)
+			{
+				tPos.y = size.height;
+			}
+
 			UIBillBoard[UIKIND_RETICLE]->setPosition(tPos);
 
 			break;
@@ -302,7 +317,7 @@ void GameUILayer::MoveReticle(void)
 			}
 			else
 			{
-				LogoUI::getInstance() -> resetLogo( LogoUI::Reload);
+				LogoUI::getInstance()->resetLogo(LogoUI::Reload);
 			}
 		/*
 			if(GameMasterL->nowBullets <= 0)

@@ -172,6 +172,7 @@ namespace TapGun
 	public:
 
 		//変数
+		int shotFlag;//プレイヤーの攻撃アニメーション用フラグ(5フレーム以上タッチしているかどうか)
 
 		//各種フラグ（後でprivateに修正する）
 		int waitFlag;//ウェイトモードを進行させるフラグ
@@ -189,6 +190,8 @@ namespace TapGun
 		float mutekiFrame;//無敵時間
 		
 		float gameTime;//ゲーム全体の時間
+
+		float reticleAjust;//指の位置とレティクルの位置の差（画面に対する割合）
 
 		//関数
 		GameMaster(const GameMaster &P) = delete;

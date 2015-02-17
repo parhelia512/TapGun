@@ -643,14 +643,16 @@ void GameModelsLayer::UpdateWait()
 					//目標角度をもとに、回避時のカメラ移動座標を計算
 					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, PSIDE_RIGHT);
 					camTarget = Vec3(tmp.x, 0.0f, tmp.y);
-					//回避時のカメラ移動前の座標を確保
-					//					camTarget = Vec3(tmp.x, 0.0f, tmp.y) + player.wrapper->getPosition3D();
-					//					camCenter = player.wrapper->getPosition3D();
 				}
 				GameMasterM->SetGameState(GSTATE_PLAY_INIT);//戦闘ポイントに到着したら、ウェイトからプレイに移行
 
 				//左右に応じたアイドルモーションを開始する
 				player.sprite3d->stopAllActions();
+				
+				//ゲームに関係する各種フラグの初期化
+				GameMasterM->flgPlayerATK = FALSE;//プレイヤーの攻撃判定をOFFに
+				GameMasterM->playerHitFlag = TRUE;//プレイヤーの食らい判定をONに
+				GameMasterM->shotFlag = FALSE;//
 
 				//player.sprite3d->startAnimationLoop(idle);
 			}
@@ -824,15 +826,20 @@ void GameModelsLayer::ActionIdle()
 				//アニメーションを再生
 				GameMasterM->SetPlayerState(PSTATE_SHOT);
 				player.sprite3d->stopAllActions();
-				player.sprite3d->startAnimationLoop(shot, 0, 8 / 60);
-				GameMasterM->rapidFrame = -1;//連射フレームを-1に初期化
+//				player.sprite3d->startAnimationLoop(shot, 0, (7.0f * FRAME));
+				player.sprite3d->startAnimation(shot);//射撃アニメーションを最後まで再生する
+
+				GameMasterM->rapidFrame = -1.0f;//連射フレームを-1に初期化
 				GameMasterM->flgPlayerATK = FALSE;//
-				//GameMasterM->hideFrame = 0;//今後使用しなければ削除する
 				player.animCount = 0.0f;//hideFrameの代わりに使用する
+
+				GameMasterM->shotFlag = FALSE;//
 			}
 		}
 		else
 		{
+			//
+
 			GameMasterM->SetPlayerState(PSTATE_DODGE);//回避に移行
 			player.InitFrame();//フレームをリフレッシュ
 			//GameMasterM->hideFrame = 0;//今後使用しなければ削除する
@@ -860,9 +867,13 @@ void GameModelsLayer::ActionIdle()
 */
 void GameModelsLayer::ActionShot()
 {
-	//ループ時間を取得
-	auto director = Director::getInstance();
-	auto loopTime = director->getDeltaTime();
+	player.nowTimeTo = clock() * 0.001f;
+	float time = player.nowTimeTo - player.nowTimeFrom;//モーションを開始してから経過した時間
+	float lTime = player.nowTimeTo - player.nowTimeBefore;//前回のループからの経過時間（loopTime）
+	player.nowTimeBefore = clock() * 0.001f;
+	player.animCount += lTime;//アニメーションを開始してからの経過時間（≒ ステートが変化してからの経過時間）
+
+	GameMasterM->rapidFrame += lTime * 60.0f;//
 
 	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
 	//とりあえずここで文字列作成
@@ -882,54 +893,90 @@ void GameModelsLayer::ActionShot()
 		h_reload = "h_reload_r";
 	}
 
-
 	auto sound = Sound::getInstance();
 
-	GameMasterM->rapidFrame += 1 * loopTime;//連射フレームを加算する
-	if (0 >= GameMasterM->GetPlayerBullets())
+	//5フレーム以上タッチしているかのチェック
+	if (FALSE == GameMasterM->shotFlag && player.animCount * FRAME >= 5.0f)
 	{
-		//残弾がない場合
-		GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
-		player.InitFrame();//フレームをリフレッシュ
-		GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
+		GameMasterM->shotFlag = TRUE;
 		player.sprite3d->stopAllActions();
+		player.sprite3d->startAnimationLoop(shot, 0, (7.0f * FRAME));
 	}
-	else if (TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
+
+
+	if (TSTATE_ON == GameMasterM->GetTouchState() || TSTATE_MOVE == GameMasterM->GetTouchState())
 	{
-		//残弾がある場合
-		//一定フレームごとに攻撃判定をONにする
-		if (0 == ((int)GameMasterM->rapidFrame % STS_RAPIDSPEED))
+		if (0 >= GameMasterM->GetPlayerBullets())
 		{
-			GameMasterM->flgPlayerATK = TRUE;
-			GameMasterM->AddPlayerBullets(-1);//弾数を減らす
-			//音声はフラグ成立時に鳴らす
-			//sound->playSE("Shot.wav");
+			//残弾がない場合
+			GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
+			//アニメーションはそのまま行う
 		}
 		else
 		{
-			GameMasterM->flgPlayerATK = FALSE;
+			//残弾がある場合
+			//一定フレームごとに攻撃判定をONにする
+			if (STS_RAPIDSPEED < GameMasterM->rapidFrame)
+			{
+				GameMasterM->flgPlayerATK = TRUE;
+				GameMasterM->AddPlayerBullets(-1);//弾数を減らす
+				//音声はフラグ成立時に鳴らす
+				//sound->playSE("Shot.wav");
+				GameMasterM->rapidFrame = 0.0f;
+			}
+			else
+			{
+				GameMasterM->flgPlayerATK = FALSE;
+			}
 		}
 
 		GameMasterM->SetPlayerState(PSTATE_SHOT);//ステート状態はそのまま
-
 	}
 	else if (TSTATE_RELEASE == GameMasterM->GetTouchState())//タッチを離したら
 	{
-		GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
-		player.InitFrame();//フレームをリフレッシュ
-		GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
-		player.sprite3d->stopAllActions();
-		player.sprite3d->startAnimation(shot);
+		if (FALSE == GameMasterM->shotFlag)
+		{
+			//もしタッチ時間が5フレーム以内なら
+			GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
+			player.InitFrame();//フレームをリフレッシュ
+			GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
+
+			//そのままアニメーションを終了する
+		}
+		else
+		{
+			GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
+			player.InitFrame();//フレームをリフレッシュ
+			GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
+			player.sprite3d->stopAllActions();
+
+			//それ以外の場合、ショットの最後の部分まで再生する
+			player.sprite3d->startAnimation(shot);
+		}
 	}
 	else
 	{
-		GameMasterM->SetPlayerState(PSTATE_IDLE);
-		player.InitFrame();//フレームをリフレッシュ
-		GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
-		player.sprite3d->stopAllActions();
+		if (FALSE == GameMasterM->shotFlag)
+		{
+			//もしタッチ時間が5フレーム以内なら
+			GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
+			player.InitFrame();//フレームをリフレッシュ
+			GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
+			GameMasterM->shotFlag = FALSE;
+			//そのままアニメーションを終了する
+		}
+		else
+		{
+			GameMasterM->SetPlayerState(PSTATE_IDLE);//通常状態に戻す
+			player.InitFrame();//フレームをリフレッシュ
 
-		//アニメーションを再生
-		player.sprite3d->startAnimation(shot);
+			GameMasterM->flgPlayerATK = FALSE;//攻撃判定をオフにする
+			GameMasterM->shotFlag = FALSE;
+
+			//ショットの最後の部分を再生する
+			player.sprite3d->stopAllActions();
+			player.sprite3d->startAnimation(shot);
+		}
 	}
 }
 
@@ -1226,7 +1273,49 @@ void GameModelsLayer::ActionAppear(void)
 */
 void GameModelsLayer::ActionDamaged(void)
 {
+	//
+	player.nowTimeTo = clock() * 0.001f;//現在時刻を取得
+	float time = player.nowTimeTo - player.nowTimeFrom;//アニメーション再生時刻と現在時刻の差を取得
+	float lTime = player.nowTimeTo - player.nowTimeBefore;//アニメーション再生1ループにかかった時間を取得
+	player.nowTimeBefore = clock() * 0.001f;
+	player.animCount += lTime;
 
+
+	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
+	//とりあえずここで文字列作成
+	std::string idle;
+	if (PSIDE_LEFT == GameMasterM->playerSide)
+	{
+		idle = "idel_l";
+	}
+	else
+	{
+		idle = "idel_r";
+	}
+
+	//アニメーションの確認
+	if (0 == player.sprite3d->checkAnimationState())
+	{
+		//食らいモーションが終了したら
+
+		//必要ならばモーションの停止を行う
+		GameMasterM->SetPlayerState(PSTATE_IDLE);//アイドル状態に移行
+		player.sprite3d->stopAllActions();
+		player.sprite3d->startAnimationLoop(idle);
+
+		//座標と角度をセットしてキャラクターの座標を補正
+		player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
+		player.wrapper->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+
+		//座標と角度をセットしてカメラの座標を補正
+		Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->playerSide);
+		camTarget = Vec3(tmp.x, 0.0f, tmp.y);
+	}
+	else
+	{
+		//
+
+	}
 }
 
 /**
@@ -1387,6 +1476,12 @@ void  GameModelsLayer::CheckHit(void)
 		Vec2 tPos = GameMasterM->GetTouchPosInView();//タッチ座標を取得
 		//		Vec2 gliv = GameMasterM->GetTouchPos();
 
+		tPos.y -= GameMasterM->reticleAjust * s.height;//レティクルの状態を
+		if (tPos.y < 0.0f)
+		{
+			tPos.y = 0.0f;
+		}
+
 		Vec3 tmpPosNear = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
 		Vec3 tmpPosFar = Vec3(tPos.x, tPos.y, 1.0f);//1.0f == 視錘台の遠面（far plane）
 
@@ -1430,12 +1525,34 @@ void  GameModelsLayer::CheckHit(void)
 			{
 				//プレイヤーとの当たり判定を処理
 				Vec3 d = player.sprite3d->getPosition3D() - unit[i].sprite3d->getPosition3D();
-				if (0.1f >= sqrtf(((sqrtf(d.x * d.x + d.y * d.y)) * (sqrtf(d.x * d.x + d.y * d.y))) + (d.z * d.z)))
+				if (0.2f >= sqrtf(((sqrtf(d.x * d.x + d.y * d.y)) * (sqrtf(d.x * d.x + d.y * d.y))) + (d.z * d.z)))
 				{
 					//接触した場合は_sprite3Dの解放を行う
 					unit[i].sprite3d->setVisible(false);
 					unit[i].visible = FALSE;
 					unit[i].speedVec = Vec3(0.0f, 0.0f, 0.0f);
+
+					//プレイヤーの状態を食らい判定にする
+					player.sprite3d->stopALLAnimation();//すべてのアニメーションを中断して
+					player.sprite3d->startAnimation("dei2");//食らいモーションを再生
+					GameMasterM->SetPlayerState(PSTATE_DAMAGED);//
+
+					//ダメージを処理
+
+
+					//座標と角度をセットしてキャラクターの座標を補正
+					player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
+					player.wrapper->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+
+					//座標と角度をセットしてカメラの座標を補正
+					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->playerSide);
+					camTarget = Vec3(tmp.x, 0.0f, tmp.y);
+
+					//タイムとフレームの初期化
+					player.InitFrame();//フレームをリフレッシュ
+					player.nowTimeFrom = clock() * 0.001f;//現在時刻を取得
+					player.nowTimeBefore = clock() * 0.001f;
+					player.animCount = 0.0f;
 				}
 			}
 		}
@@ -1865,7 +1982,7 @@ void GameModelsLayer::ActionEnemy1(int num)
 		//	unit[num].hitpoint = 5;
 		//個別
 
-		//		ShootBullet(num);
+		//ShootBullet(num);
 
 
 		//				unit[num].sprite3d->setVisible( false);
@@ -2002,7 +2119,7 @@ void GameModelsLayer::ActionEnemy2(int num)
 		if (0.0f >= unit[num].atkFrame)
 		{
 			//フレームが0になったら
-			//ShootBullet(num);
+			ShootBullet(num);
 			unit[num].atkFrame = 20.0f;//次の攻撃までのフレームを設定
 		}
 		
