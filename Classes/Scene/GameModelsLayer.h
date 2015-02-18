@@ -107,6 +107,7 @@ namespace TapGun
 		void ActionHide(void);
 		void ActionAppear(void);
 		void ActionDamaged(void);
+		void ActionRecover(void);
 		void ActionRun(void);
 		void ActionDead(void);
 

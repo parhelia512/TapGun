@@ -116,7 +116,7 @@ void GameModelsLayer::LoadModels()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	fileName1 = "map507";
 #else
-	fileName1 = "Stage/map507";
+	fileName1 = "Stage/satge";
 #endif
 	unit[UNIT0_MAP].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
 	addChild(unit[UNIT0_MAP].sprite3d);
@@ -257,7 +257,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 	//全てのエネミーユニットを初期化
 	//エネミーのセットはsetEnemyで行う
 
-	for (int i = 1; i <= 20; i++)
+	for (int i = UNIT1_ENEMY; i < UNIT2_BULLET; i++)
 	{
 		unit[i].Init(i, UKIND_ENEMY);
 		unit[i].visible = FALSE;
@@ -285,7 +285,7 @@ void GameModelsLayer::InitBullet()
 {
 	//全てのエネミーユニットを初期化
 	//エネミーのセットはsetEnemyで行う
-	for (int i = 21; i <= 40; i++)
+	for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
 	{
 		unit[i].Init(i, UKIND_EBULLET);
 		unit[i].sprite3d->setVisible(FALSE);
@@ -311,7 +311,7 @@ void GameModelsLayer::SetEnemy(void)
 	case 0://ステージ1
 
 		enemyTable->finishNumber = 10;//9体の敵が出る
-		for (int i = 1; i < 20; i++)
+		for (int i = UNIT1_ENEMY; i < UNIT2_BULLET; i++)
 		{
 			unit[i].sprite3d->setVisible(false);//敵モデル非表示
 			unit[i].visible = FALSE;//敵モデル非表示
@@ -746,6 +746,9 @@ void GameModelsLayer::UpdatePlayer(void)
 		break;
 	case PSTATE_DAMAGED:
 		ActionDamaged();
+		break;
+	case PSTATE_RECOVER:
+		ActionRecover();
 		break;
 	case PSTATE_RUN://ウェイト状態
 
@@ -1305,6 +1308,54 @@ void GameModelsLayer::ActionDamaged(void)
 
 	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
 	//とりあえずここで文字列作成
+	std::string recov;
+	if (PSIDE_LEFT == GameMasterM->playerSide)
+	{
+		recov = "recov_l";
+	}
+	else
+	{
+		recov = "recov_r";
+	}
+
+	//アニメーションの確認
+	if (0 == player.sprite3d->checkAnimationState())
+	{
+		//食らいモーションが終了したら
+
+
+		//必要ならばモーションの停止を行う
+		GameMasterM->SetPlayerState(PSTATE_RECOVER);//起き上がり状態に移行
+		player.sprite3d->stopAllActions();
+		player.sprite3d->startAnimation(recov);//起き上がりモーションを再生
+	}
+	else
+	{
+		//
+	}
+}
+
+
+/**
+*	プレイヤーの起き上がり状態の更新
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/21 Ver 1.0
+*/
+void GameModelsLayer::ActionRecover(void)
+{
+	//
+	player.nowTimeTo = clock() * 0.001f;//現在時刻を取得
+	float time = player.nowTimeTo - player.nowTimeFrom;//アニメーション再生時刻と現在時刻の差を取得
+	float lTime = player.nowTimeTo - player.nowTimeBefore;//アニメーション再生1ループにかかった時間を取得
+	player.nowTimeBefore = clock() * 0.001f;
+	player.animCount += lTime;
+
+
+	//プレイヤーの向きに応じて呼び出すアニメーションを変更する
+	//とりあえずここで文字列作成
 	std::string idle;
 	if (PSIDE_LEFT == GameMasterM->playerSide)
 	{
@@ -1315,25 +1366,16 @@ void GameModelsLayer::ActionDamaged(void)
 		idle = "idel_r";
 	}
 
+
 	//アニメーションの確認
 	if (0 == player.sprite3d->checkAnimationState())
 	{
 		//食らいモーションが終了したら
-
-		//必要ならばモーションの停止を行う
 		GameMasterM->SetPlayerState(PSTATE_IDLE);//アイドル状態に移行
 		player.sprite3d->stopAllActions();
 		player.sprite3d->startAnimationLoop(idle);
 
-		GameMasterM->flgPlayerATK = TRUE;//当たり判定を戻す
-
-		//座標と角度をセットしてキャラクターの座標を補正
-		player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
-		player.wrapper->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
-
-		//座標と角度をセットしてカメラの座標を補正
-		Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->playerSide);
-		camTarget = Vec3(tmp.x, 0.0f, tmp.y);
+		GameMasterM->playerHitFlag = TRUE;//当たり判定を戻す
 	}
 	else
 	{
@@ -1431,14 +1473,20 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 }
 
 
-/*
-
+/**
+*	敵弾の更新処理
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	2/12 Ver 1.0
 */
 void GameModelsLayer::UpdateBullets()
 {
 	//全ての敵弾ユニットを更新
-	for (int num = 21; num <= 40; num++)
+	for (int num = UNIT2_BULLET; num <= UNIT3_MAX; num++)
 	{
+		//画面に出ている弾のみを更新
 		if (TRUE == unit[num].visible && TRUE == unit[num].valid)
 		{
 			unit[num].Update();//座標と一緒に当たり判定を移動
@@ -1541,8 +1589,6 @@ void  GameModelsLayer::CheckHit(void)
 
 				//プレイヤーのグローバル座標を取得
 				Vec3 pPos = player.wrapper->getPosition3D() + player.sprite3d->getPosition3D() + player.centerNode->getPosition3D();
-
-
 				Vec3 dir = pPos - unit[i].sprite3d->getPosition3D();//プレイヤーと敵弾の差のベクトル
 
 				//平面の距離を求める
@@ -1558,7 +1604,16 @@ void  GameModelsLayer::CheckHit(void)
 
 					//プレイヤーの状態を食らい判定にする
 					player.sprite3d->stopALLAnimation();//すべてのアニメーションを中断して
-					player.sprite3d->startAnimation("hit1");//食らいモーションを再生
+
+					switch (GameMasterM->playerSide)
+					{
+					case PSIDE_LEFT:
+						player.sprite3d->startAnimation("hit_l");//食らいモーションを再生
+						break;
+					case PSIDE_RIGHT:
+						player.sprite3d->startAnimation("hit_r");//食らいモーションを再生
+						break;
+					}
 					GameMasterM->SetPlayerState(PSTATE_DAMAGED);//
 					GameMasterM->playerHitFlag = FALSE;
 					//ダメージを処理
@@ -1584,7 +1639,8 @@ void  GameModelsLayer::CheckHit(void)
 			}
 		}
 	}
-	else if (PSTATE_DAMAGED == GameMasterM->GetPlayerState())
+
+	if (FALSE == GameMasterM->playerHitFlag && (PSTATE_DAMAGED == GameMasterM->GetPlayerState() || PSTATE_RECOVER == GameMasterM->GetPlayerState()))
 	{
 		//当たり判定がオフの時も、プレイヤーが食らいモーションを受けているときは弾とプレイヤーの当たり判定を処理する
 		//（演出のための処理）
@@ -1623,6 +1679,7 @@ void  GameModelsLayer::CheckHit(void)
 	{
 		if (TRUE == unit[i].visible)
 		{
+			//
 			if (180.0f < unit[i].GetFrame())
 			{
 				//
@@ -1887,7 +1944,7 @@ void GameModelsLayer::UpdateEnemy()
 {
 	auto sound = Sound::getInstance();
 	auto random = rand() % 4;
-	for (int i = 1; i <= 20; i++)//1番~20番を敵に割り当て
+	for (int i = UNIT1_ENEMY; i < UNIT2_BULLET; i++)//1番~20番を敵に割り当て
 	{
 		if (TRUE == unit[i].valid && TRUE == unit[i].visible)//エネミーが表示されていれば
 		{
@@ -2288,11 +2345,19 @@ void GameModelsLayer::setNextEnemy(int num)
 }
 
 
+/**
+*	ウェーブ終了のチェック
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	ウェーブ中:1 ウェーブ終了:-1
+*	@date	2/5 Ver 1.0
+*/
 int GameModelsLayer::CheckNextStage(void)
 {
 	if (GSTATE_PLAY == GameMasterM->GetGameState())
 	{
-		for (int i = 0; i <= 100; i++)//1番~20番を敵に割り当て
+		for (int i = 0; i <= 100; i++)//
 		{
 			if (TRUE == enemyTable->enemyData[i].alive)
 			{

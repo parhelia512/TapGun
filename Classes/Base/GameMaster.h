@@ -32,7 +32,7 @@ namespace TapGun
 //敵のパラメータ定義
 
 #define STS_ENEMY_HP 6//敵のHP
-#define STS_EBULLET_SPEED 12.0f//敵の弾の速度
+#define STS_EBULLET_SPEED 16.0f//敵の弾の速度
 
 #define BATTLE_FEILD_X 0.8//タッチで攻撃可能な画面割合
 
@@ -121,6 +121,7 @@ namespace TapGun
 		PSTATE_HIDE,//隠れている
 		PSTATE_APPEAR,//隠れた状態から出る
 		PSTATE_DAMAGED,
+		PSTATE_RECOVER,
 		PSTATE_RUN,
 		PSTATE_DEAD,
 		PSTATE_NUM
