@@ -21,7 +21,6 @@ USING_NS_CC;
 
 
 /**
-*	インクリメント
 *
 *	@author	sasebon
 *	@param	なし
@@ -143,7 +142,6 @@ void UI::SetCollision(void)
 {
 
 }
-
 
 
 

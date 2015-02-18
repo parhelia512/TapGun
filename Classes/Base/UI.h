@@ -17,9 +17,11 @@ namespace TapGun
 	enum _UI_KIND_
 	{
 		UIKIND_NONE,//未使用
+
+		UIKIND_RETICLE,//レティクル
+
 		UIKIND_LIFEBAR,//HPのバー部分
 		UIKIND_LIFE,//HPの弾部分
-		UIKIND_RETICLE,//レティクル
 		UIKIND_ARROW,//回避アイコン
 		UKIND_BULLET_A,//残弾（アイコン）
 		UKIND_BULLET_B,//残弾（数字）

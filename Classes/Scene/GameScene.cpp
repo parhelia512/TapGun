@@ -118,9 +118,12 @@ bool GameScene::init()
 //	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
 
 
-	//fps計算のための変数を初期化
-	loopTime = 0.0f;//
-
+	//時間取得のための変数を初期化
+	GameMasterS->nowTime = new timeval;
+	GameMasterS->preTime = new timeval;
+	gettimeofday(GameMasterS->nowTime, nullptr);
+	gettimeofday(GameMasterS->preTime, nullptr);
+	GameMasterS->loopTime = FRAME;
 	//
 	GameMasterS->reticleAjust = 0.1f;//
 
@@ -175,7 +178,7 @@ int GameScene::InitCamera()
 
 
 /**
-*	指定フレームごとのゲームシーン更新
+*	指定フレームごとのゲームシーン更新（現在使用していません）
 *
 *	@author	sasebon
 *	@param	なし
@@ -184,86 +187,86 @@ int GameScene::InitCamera()
 */
 void GameScene::moveTime(float delta)
 {
-	GameMasterS->gameTime -= 0.8f;
-	GameMasterS->UpdateTouchManager();//タッチ情報を更新
+	//GameMasterS->gameTime -= 0.8f;
+	//GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
-	//現在のゲームの状態でゲーム分岐
-	switch (GameMasterS->GetGameState())
-	{
+	////現在のゲームの状態でゲーム分岐
+	//switch (GameMasterS->GetGameState())
+	//{
 
-	case GSTATE_INIT:
-		if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
-		{
-			gGameLayer->InitLayer();//
-		}
-		if (NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
-		{
-			gUILayer->InitLayer();//
-		}
+	//case GSTATE_INIT:
+	//	if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
+	//	{
+	//		gGameLayer->InitLayer();//
+	//	}
+	//	if (NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
+	//	{
+	//		gUILayer->InitLayer();//
+	//	}
 
-		InitCamera();
-		GameMasterS->SetGameState(GSTATE_WAIT);
-		GameMasterS->SetPlayerState(PSTATE_RUN);
+	//	InitCamera();
+	//	GameMasterS->SetGameState(GSTATE_WAIT);
+	//	GameMasterS->SetPlayerState(PSTATE_RUN);
 
-		break;
+	//	break;
 
-	case GSTATE_WAIT:
+	//case GSTATE_WAIT:
 
-		if (NULL != gGameLayer)//現在は初期化チェック確認する
-		{
-			gGameLayer->UpdateWait();//レイヤーの更新
-		}
-		if (NULL != gUILayer)//現在は初期化チェック確認する
-		{
-			gUILayer->UpdateLayer();
-		}
-		UpdateCamera();//モデルの移動をもとにカメラ移動
+	//	if (NULL != gGameLayer)//現在は初期化チェック確認する
+	//	{
+	//		gGameLayer->UpdateWait();//レイヤーの更新
+	//	}
+	//	if (NULL != gUILayer)//現在は初期化チェック確認する
+	//	{
+	//		gUILayer->UpdateLayer();
+	//	}
+	//	UpdateCamera();//モデルの移動をもとにカメラ移動
 
-		break;
-	case GSTATE_PLAY_INIT://ウェイト終了後プレイ前の処理
+	//	break;
+	//case GSTATE_PLAY_INIT://ウェイト終了後プレイ前の処理
 
-		//敵の配置を行う
-		gGameLayer->SetEnemy();
-		GameMasterS->SetGameState(GSTATE_PLAY);
-		GameMasterS->SetPlayerState(PSTATE_IDLE);
+	//	//敵の配置を行う
+	//	gGameLayer->SetEnemy();
+	//	GameMasterS->SetGameState(GSTATE_PLAY);
+	//	GameMasterS->SetPlayerState(PSTATE_IDLE);
 
-		//		UpdateCamera();//モデルの移動をもとにカメラ移動
+	//	//		UpdateCamera();//モデルの移動をもとにカメラ移動
 
-		break;
-	case GSTATE_PLAY:
+	//	break;
+	//case GSTATE_PLAY:
 
-		if (NULL != gGameLayer)//現在は初期化チェック確認する
-		{
-			gGameLayer->UpdateLayer();//レイヤーの更新
-		}
-		if (NULL != gUILayer)//現在は初期化チェック確認する
-		{
-			gUILayer->UpdateLayer();
-		}
-		UpdateCamera();//モデルの移動をもとにカメラ移動
+	//	if (NULL != gGameLayer)//現在は初期化チェック確認する
+	//	{
+	//		gGameLayer->UpdateLayer();//レイヤーの更新
+	//	}
+	//	if (NULL != gUILayer)//現在は初期化チェック確認する
+	//	{
+	//		gUILayer->UpdateLayer();
+	//	}
+	//	UpdateCamera();//モデルの移動をもとにカメラ移動
 
-		break;
+	//	break;
 
-	case GSTATE_PAUSE:
-		//ポーズ中は専用のレイヤーを描画する？
-		//モデルの更新処理を制限する
-		break;
-	case GSTATE_CONTINUE:
+	//case GSTATE_PAUSE:
+	//	//ポーズ中は専用のレイヤーを描画する？
+	//	//モデルの更新処理を制限する
+	//	break;
+	//case GSTATE_CONTINUE:
 
-		break;
-	case GSTATE_GAMEOVER:
+	//	break;
+	//case GSTATE_GAMEOVER:
 
-		break;
-	}
+	//	break;
+	//}
 
-	clock_t start = clock();//現在時刻
-	(double)(clock() - start);
+	//clock_t start = clock();//現在時刻
+	//(double)(clock() - start);
 }
 
 
 
 /**
-*	ゲームシーン更新（現在使用していません）
+*	ゲームシーン更新（ゲームタイミング更新にはこちらを使用します）
 *
 *	@author	sasebon
 *	@param	なし
@@ -272,12 +275,23 @@ void GameScene::moveTime(float delta)
 */
 void GameScene::update(float delta)
 {
-	//ループ開始の時間を計測
-	nowTime = clock();//現在時刻
-
-
 	GameMasterS->gameTime -= 0.8f;
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
+
+
+	//1ループ前の時刻を取得
+	GameMasterS->preTime->tv_sec = GameMasterS->nowTime->tv_sec;
+	GameMasterS->preTime->tv_usec = GameMasterS->nowTime->tv_usec;
+
+	//現在時刻を取得
+	gettimeofday(GameMasterS->nowTime, nullptr);
+	//ループにかかった時間を計測
+	GameMasterS->loopTime = (
+		(GameMasterS->nowTime->tv_sec * 1000.0f + GameMasterS->nowTime->tv_usec * 0.001f)
+		- (GameMasterS->preTime->tv_sec * 1000.0f + GameMasterS->preTime->tv_usec * 0.001f)
+		) * 0.001f;
+
+	auto d = Director::getInstance()->getDeltaTime();
 
 	//現在のゲームの状態でゲーム分岐
 	switch (GameMasterS->GetGameState())
@@ -312,15 +326,32 @@ void GameScene::update(float delta)
 		UpdateCamera();//モデルの移動をもとにカメラ移動
 
 		break;
-	case GSTATE_PLAY_INIT://ウェイト終了後プレイ前の処理
+	case GSTATE_PLAY_SET://ウェイト終了後プレイ前の処理
 
 		//敵の配置を行う
 		gGameLayer->SetEnemy();
-		GameMasterS->SetGameState(GSTATE_PLAY);
+		GameMasterS->SetGameState(GSTATE_PLAY_ACTION);
 		GameMasterS->SetPlayerState(PSTATE_IDLE);
 
-		//		UpdateCamera();//モデルの移動をもとにカメラ移動
+		timeCount = 0.0f;
 
+		break;
+	case GSTATE_PLAY_ACTION:
+
+		timeCount += GameMasterS->loopTime;//
+
+		if (timeCount >= TIME_ACTION_UI * FRAME)
+		{
+			timeCount = 0.0f;
+			GameMasterS->SetGameState(GSTATE_PLAY);
+		}
+		else
+		{
+			if (NULL != gUILayer)//現在は初期化チェック確認する
+			{
+				gUILayer->UpdateLayer();
+			}
+		}
 		break;
 	case GSTATE_PLAY:
 
@@ -344,6 +375,9 @@ void GameScene::update(float delta)
 
 		break;
 	case GSTATE_GAMEOVER:
+
+		break;
+	case GSTATE_EVENT:
 
 		break;
 	}

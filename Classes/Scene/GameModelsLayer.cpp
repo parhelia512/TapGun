@@ -158,12 +158,12 @@ void GameModelsLayer::LoadModels()
 		unit[i].sprite3d = _Sprite3D::create(fileName1);
 		unit[i].wrapper = Node::create();
 		unit[i].node1 = Node::create();//弾の先端用ノード
-//		unit[i].colisionNode = Node::create();
+		//		unit[i].colisionNode = Node::create();
 
 		unit[i].wrapper->addChild(unit[i].sprite3d);
 		addChild(unit[i].wrapper);
 		unit[i].wrapper->addChild(unit[i].node1);
-//		unit[i].sprite3d->addChild(unit[i].colisionNode);//当たり判定の基準ノードを3dスプライトに紐付け
+		//		unit[i].sprite3d->addChild(unit[i].colisionNode);//当たり判定の基準ノードを3dスプライトに紐付け
 	}
 
 
@@ -485,12 +485,23 @@ int GameModelsLayer::InitMap(int stage_num)
 */
 void GameModelsLayer::UpdateLayer()
 {
-	UpdatePlayer();//プレイヤーの更新
-	UpdateEnemy();//エネミーの更新
-	UpdateBullets();//敵弾の更新
-	CheckHit();//当たり判定のチェック
+	switch (GameMasterM->GetGameState())
+	{
+	case GSTATE_PLAY_ACTION:
 
-	CheckNextStage();//
+		//
+
+		break;
+	default:
+
+		UpdatePlayer();//プレイヤーの更新
+		UpdateEnemy();//エネミーの更新
+		UpdateBullets();//敵弾の更新
+		CheckHit();//当たり判定のチェック
+
+		CheckNextStage();//
+		break;
+	}
 }
 
 
@@ -651,7 +662,7 @@ void GameModelsLayer::UpdateWait()
 					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, PSIDE_RIGHT);
 					camTarget = Vec3(tmp.x, 0.0f, tmp.y);
 				}
-				GameMasterM->SetGameState(GSTATE_PLAY_INIT);//戦闘ポイントに到着したら、ウェイトからプレイに移行
+				GameMasterM->SetGameState(GSTATE_PLAY_SET);//戦闘ポイントに到着したら、ウェイトからプレイに移行
 
 				//左右に応じたアイドルモーションを開始する
 				player.sprite3d->stopAllActions();
@@ -734,7 +745,7 @@ void GameModelsLayer::UpdatePlayer(void)
 		ActionAppear();
 		break;
 	case PSTATE_DAMAGED:
-
+		ActionDamaged();
 		break;
 	case PSTATE_RUN://ウェイト状態
 
@@ -834,7 +845,7 @@ void GameModelsLayer::ActionIdle()
 				//アニメーションを再生
 				GameMasterM->SetPlayerState(PSTATE_SHOT);
 				player.sprite3d->stopAllActions();
-//				player.sprite3d->startAnimationLoop(shot, 0, (7.0f * FRAME));
+				//				player.sprite3d->startAnimationLoop(shot, 0, (7.0f * FRAME));
 				player.sprite3d->startAnimation(shot);//射撃アニメーションを最後まで再生する
 
 				GameMasterM->rapidFrame = -1.0f;//連射フレームを-1に初期化
@@ -1236,6 +1247,9 @@ void GameModelsLayer::ActionAppear(void)
 		Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->playerSide);
 		camTarget = Vec3(tmp.x, 0.0f, tmp.y);
 		player.sprite3d->startAnimationLoop(idle);
+
+		auto sound = Sound::getInstance();
+		sound->playSE("Shot.wav");
 	}
 	else
 	{
@@ -1311,6 +1325,8 @@ void GameModelsLayer::ActionDamaged(void)
 		player.sprite3d->stopAllActions();
 		player.sprite3d->startAnimationLoop(idle);
 
+		GameMasterM->flgPlayerATK = TRUE;//当たり判定を戻す
+
 		//座標と角度をセットしてキャラクターの座標を補正
 		player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
 		player.wrapper->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
@@ -1366,7 +1382,7 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 {
 	//
 	int num = -1;
-	for (int i = 21; i <= 40; i++)
+	for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
 	{
 		if (FALSE == unit[i].visible)
 		{
@@ -1380,11 +1396,6 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 		//弾を一度初期化する
 		unit[num].Init(num, UKIND_EBULLET);
 
-		unit[num].sprite3d->setScale(1.0f);
-
-		////当たり判定の定義（仮）
-		unit[num].collisionPos = Vec3(0.3, 0.4, 0.3);//当たり判定矩形の大きさを設定
-		unit[num].SetCollision();//当たり判定をセット
 		unit[num].sprite3d->setScale(0.5f);//
 
 		//弾を撃ったエネミーの座標と、プレイヤーの座標を元に、弾の移動方向を求める
@@ -1432,8 +1443,6 @@ void GameModelsLayer::UpdateBullets()
 		{
 			unit[num].Update();//座標と一緒に当たり判定を移動
 		}
-
-		//@テストの消去処理
 	}
 }
 
@@ -1524,7 +1533,7 @@ void  GameModelsLayer::CheckHit(void)
 	{
 		//プレイヤーの当たり判定が存在する場合
 		//全ての敵弾ユニットを更新
-		for (int i = 21; i <= 40; i++)
+		for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
 		{
 			if (TRUE == unit[i].visible)
 			{
@@ -1549,7 +1558,7 @@ void  GameModelsLayer::CheckHit(void)
 
 					//プレイヤーの状態を食らい判定にする
 					player.sprite3d->stopALLAnimation();//すべてのアニメーションを中断して
-					player.sprite3d->startAnimation("dei1");//食らいモーションを再生
+					player.sprite3d->startAnimation("hit1");//食らいモーションを再生
 					GameMasterM->SetPlayerState(PSTATE_DAMAGED);//
 					GameMasterM->playerHitFlag = FALSE;
 					//ダメージを処理
@@ -1575,21 +1584,20 @@ void  GameModelsLayer::CheckHit(void)
 			}
 		}
 	}
-	else if(PSTATE_DAMAGED == GameMasterM->GetPlayerState())
+	else if (PSTATE_DAMAGED == GameMasterM->GetPlayerState())
 	{
 		//当たり判定がオフの時も、プレイヤーが食らいモーションを受けているときは弾とプレイヤーの当たり判定を処理する
 		//（演出のための処理）
 		//プレイヤーの当たり判定が存在する場合
 		//全ての敵弾ユニットを更新
-		for(int i = 21; i <= 40; i++)
+		for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
 		{
-			if(TRUE == unit[i].visible)
+			if (TRUE == unit[i].visible)
 			{
 				//プレイヤーとの当たり判定を処理
 
 				//プレイヤーのグローバル座標を取得
 				Vec3 pPos = player.wrapper->getPosition3D() + player.sprite3d->getPosition3D() + player.centerNode->getPosition3D();
-
 
 				Vec3 dir = pPos - unit[i].sprite3d->getPosition3D();//プレイヤーと敵弾の差のベクトル
 
@@ -1597,26 +1605,31 @@ void  GameModelsLayer::CheckHit(void)
 				float d1 = sqrtf(dir.x * dir.x + dir.y * dir.y);
 				//計算した平面上の距離と高さの距離を求める
 				d1 = sqrtf((dir.z * dir.z) + (d1 * d1));
-				if(0.4f > d1)
+				if (0.4f > d1)
 				{
 					//接触した場合は_sprite3Dの解放を行う
 					unit[i].sprite3d->setVisible(false);
 					unit[i].visible = FALSE;
 					unit[i].speedVec = Vec3(0.0f, 0.0f, 0.0f);
-
 				}
 			}
 		}
 	}
+
 	//========================================================
-	//弾の画面外処理
-
+	//弾の消去処理
 	//全ての敵弾ユニットを更新
-	for (int i = 21; i <= 40; i++)
+	for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
 	{
-		if (FALSE != unit[i].valid && UKIND_EBULLET == unit[i].kind)
+		if (TRUE == unit[i].visible)
 		{
-
+			if (180.0f < unit[i].GetFrame())
+			{
+				//
+				unit[i].speed = 0.0f;
+				unit[i].visible = FALSE;
+				unit[i].sprite3d->setVisible(false);
+			}
 		}
 	}
 }

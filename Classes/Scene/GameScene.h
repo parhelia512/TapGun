@@ -17,6 +17,8 @@ namespace TapGun
 	{
 	public:
 
+		float timeCount;//
+
 		//メンバ変数
 
 		//==フラグ系==
@@ -48,8 +50,6 @@ namespace TapGun
 		void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
 
 	private:
-		clock_t nowTime;//現在時刻
-		float loopTime;//ループに要した時間
 		float fps;//
 		//void UpdatePlayer( void);
 		//void UpdateEnemy( void);

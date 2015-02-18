@@ -89,7 +89,8 @@ namespace TapGun
 #define HIDECAMERA_X 1.1f
 #define HIDECAMERA_Y -1.1f
 
-
+//時間
+#define TIME_ACTION_UI 120.0f//ActionのUIを表示する時間
 	enum _CAMERA_FLAG_
 	{
 		//CAMFLAG_DEFAULT = CameraFlag::DEFAULT,//
@@ -100,13 +101,15 @@ namespace TapGun
 
 	enum _GAME_STATE_
 	{
-		GSTATE_INIT,
-		GSTATE_WAIT,
-		GSTATE_PLAY_INIT,
+		GSTATE_INIT,//
+		GSTATE_WAIT,//ウェイト時
+		GSTATE_PLAY_SET,//戦闘開始前の待ち時間（敵の配置にのみ使用する）
+		GSTATE_PLAY_ACTION,//戦闘開始前の待ち時間（ActionのUIを描画するときに使用する）
 		GSTATE_PLAY,
 		GSTATE_PAUSE,
 		GSTATE_CONTINUE,
 		GSTATE_GAMEOVER,
+		GSTATE_EVENT,//ムービーイベントなどを進行させるときに使用する？（現在未使用）
 		GSTATE_NUM
 	};
 
@@ -180,6 +183,10 @@ namespace TapGun
 	public:
 
 		//変数
+		timeval* nowTime;//現在時刻
+		timeval* preTime;//前フレームまでの時刻
+		float loopTime;//ループに要した時間
+
 		int shotFlag;//プレイヤーの攻撃アニメーション用フラグ(5フレーム以上タッチしているかどうか)
 
 		//各種フラグ（後でprivateに修正する）

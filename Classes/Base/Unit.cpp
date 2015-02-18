@@ -81,7 +81,7 @@ int Unit::Init(int num, int utype)
 
 	//モデルの種別によって当たり判定の設定を行う
 	//敵や弾の種類（副種別）によってさらに条件分けする
-	switch(utype)
+	switch (utype)
 	{
 	case UKIND_ENEMY://エネミー
 
