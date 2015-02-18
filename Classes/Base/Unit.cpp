@@ -147,7 +147,6 @@ void Unit::Update(void)
 	auto loopTime = director->getDeltaTime();//ループに要した時間を取得
 
 
-
 	//フレームを加算
 	frame += 1;
 
@@ -156,17 +155,27 @@ void Unit::Update(void)
 	pos += speedVec * loopTime;
 	sprite3d->setPosition3D(pos);
 
-	//当たり判定を移動
-	Vec3 collision_center = colisionNode->getPosition3D() + sprite3d->getPosition3D();
 
-	Vec3 collision_min = collision_center - collisionPos * 0.5f;
-	Vec3 collision_max = collision_center + collisionPos * 0.5f;
+	switch(kind)
+	{
+	case UKIND_ENEMY:
+		//敵のみ当たり判定を更新する
+		//当たり判定を移動
+	{
+						Vec3 collision_center = colisionNode->getPosition3D() + sprite3d->getPosition3D();
 
+						Vec3 collision_min = collision_center - collisionPos * 0.5f;
+						Vec3 collision_max = collision_center + collisionPos * 0.5f;
 
-	aabbBody.set(collision_min, collision_max);
-	obbHead = OBB(aabbBody);//
+						aabbBody.set(collision_min, collision_max);
+						obbHead = OBB(aabbBody);//
+	}
+		break;
+	default:
+
+		break;
+	}
 }
-
 
 
 /**

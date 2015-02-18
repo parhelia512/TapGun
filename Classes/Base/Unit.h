@@ -99,6 +99,7 @@ namespace TapGun
 
 		cocos2d::Node* colisionNode;//当たり判定基準用ノード
 
+		//当たり判定用ボックスは敵のみ使用する（プレイヤーと敵弾では使用しない）
 		cocos2d::AABB aabbHead;//
 		cocos2d::AABB aabbBody;//
 		cocos2d::OBB obbHead;
@@ -106,8 +107,8 @@ namespace TapGun
 		//==モデル・アニメーション関連クラス==
 		TapGun::_Sprite3D* sprite3d;
 		cocos2d::Node* wrapper;//モデルの親ノード（モデル基準座標として使用する。通常は(0,0,0)座標）
-		cocos2d::Node* nodeLeftHand;//左銃口の子ノード（攻撃時の座標）
-		cocos2d::Node* nodeRightHand;//右銃口の子ノード（）
+		cocos2d::Node* node1;//座標取得用ノード（敵の場合は左手、敵弾の場合は弾の先端の座標を表す）
+		cocos2d::Node* node2;//座標取得用ノード（敵の場合は右手の座標を表す）
 
 		cocos2d::Animation3D* animation;
 		cocos2d::Animate3D* animate;

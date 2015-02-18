@@ -123,7 +123,6 @@ void GameModelsLayer::LoadModels()
 
 
 	//敵のロード
-	//敵は1番~20番に割り当て
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	fileName1 = "enemy";
 	fileName2 = "Enemy.anime";
@@ -136,19 +135,18 @@ void GameModelsLayer::LoadModels()
 		//スプライトとノードのcreate
 		unit[i].sprite3d = _Sprite3D::create(fileName1, fileName2);//1番~20番を敵に割り当て
 		unit[i].wrapper = Node::create();//親ノードも初期化
-		unit[i].nodeLeftHand = Node::create();
-		unit[i].nodeRightHand = Node::create();
+		unit[i].node1 = Node::create();//左手用ノード
+		unit[i].node2 = Node::create();//右手用ノード
 		unit[i].colisionNode = Node::create();//
 
 		//スプライトとノードのaddChild
 		unit[i].wrapper->addChild(unit[i].sprite3d);
 		addChild(unit[i].wrapper);
-		unit[i].sprite3d->addChild(unit[i].nodeRightHand);
-		unit[i].sprite3d->addChild(unit[i].nodeLeftHand);
+		unit[i].sprite3d->addChild(unit[i].node2);
+		unit[i].sprite3d->addChild(unit[i].node1);
 		unit[i].sprite3d->addChild(unit[i].colisionNode);//当たり判定の基準ノードを3dスプライトに紐付け
 	}
 	//敵弾のロード
-	//敵弾モデルは21番~40番に割り当て
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	fileName1 = "bullet";
 #else
@@ -159,11 +157,13 @@ void GameModelsLayer::LoadModels()
 	{
 		unit[i].sprite3d = _Sprite3D::create(fileName1);
 		unit[i].wrapper = Node::create();
-		unit[i].colisionNode = Node::create();
+		unit[i].node1 = Node::create();//弾の先端用ノード
+//		unit[i].colisionNode = Node::create();
 
 		unit[i].wrapper->addChild(unit[i].sprite3d);
 		addChild(unit[i].wrapper);
-		unit[i].sprite3d->addChild(unit[i].colisionNode);//当たり判定の基準ノードを3dスプライトに紐付け
+		unit[i].wrapper->addChild(unit[i].node1);
+//		unit[i].sprite3d->addChild(unit[i].colisionNode);//当たり判定の基準ノードを3dスプライトに紐付け
 	}
 
 
@@ -266,8 +266,8 @@ int GameModelsLayer::InitEnemy(int stage_num)
 		unit[i].SetCollision();//
 		unit[i].eState = ESTATE_NONE;
 
-		unit[i].nodeRightHand->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));//
-		unit[i].nodeLeftHand->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));//
+		unit[i].node2->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));//
+		unit[i].node1->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));//
 	}
 	return TRUE;
 }
@@ -289,8 +289,8 @@ void GameModelsLayer::InitBullet()
 	{
 		unit[i].Init(i, UKIND_EBULLET);
 		unit[i].sprite3d->setVisible(FALSE);
-		unit[i].collisionPos = Vec3(0.8f, 1.5f, 0.8f);//範囲を指定して
-		unit[i].SetCollision();//
+//		unit[i].collisionPos = Vec3(0.8f, 1.5f, 0.8f);//範囲を指定して
+//		unit[i].SetCollision();//
 		unit[i].eState = ESTATE_NONE;
 	}
 }
@@ -1530,16 +1530,17 @@ void  GameModelsLayer::CheckHit(void)
 			{
 				//プレイヤーとの当たり判定を処理
 
-				Vec3 pPos = player.sprite3d->getPosition3D() + player.centerNode->getPosition3D();
+				//プレイヤーのグローバル座標を取得
+				Vec3 pPos = player.wrapper->getPosition3D() + player.sprite3d->getPosition3D() + player.centerNode->getPosition3D();
 
 
-				Vec3 dir = player.sprite3d->getPosition3D() - unit[i].sprite3d->getPosition3D();//プレイヤーと敵弾の差のベクトル
+				Vec3 dir = pPos - unit[i].sprite3d->getPosition3D();//プレイヤーと敵弾の差のベクトル
 
 				//平面の距離を求める
 				float d1 = sqrtf(dir.x * dir.x + dir.y * dir.y);
 				//計算した平面上の距離と高さの距離を求める
 				d1 = sqrtf((dir.z * dir.z) + (d1 * d1));
-				if (0.2f > d1)
+				if (0.4f > d1)
 				{
 					//接触した場合は_sprite3Dの解放を行う
 					unit[i].sprite3d->setVisible(false);
@@ -1548,9 +1549,9 @@ void  GameModelsLayer::CheckHit(void)
 
 					//プレイヤーの状態を食らい判定にする
 					player.sprite3d->stopALLAnimation();//すべてのアニメーションを中断して
-					player.sprite3d->startAnimation("dei2");//食らいモーションを再生
+					player.sprite3d->startAnimation("dei1");//食らいモーションを再生
 					GameMasterM->SetPlayerState(PSTATE_DAMAGED);//
-
+					GameMasterM->playerHitFlag = FALSE;
 					//ダメージを処理
 
 
@@ -1567,11 +1568,46 @@ void  GameModelsLayer::CheckHit(void)
 					player.nowTimeFrom = clock() * 0.001f;//現在時刻を取得
 					player.nowTimeBefore = clock() * 0.001f;
 					player.animCount = 0.0f;
+
+					//一度でも攻撃を受けるとブレーク
+					break;
 				}
 			}
 		}
 	}
+	else if(PSTATE_DAMAGED == GameMasterM->GetPlayerState())
+	{
+		//当たり判定がオフの時も、プレイヤーが食らいモーションを受けているときは弾とプレイヤーの当たり判定を処理する
+		//（演出のための処理）
+		//プレイヤーの当たり判定が存在する場合
+		//全ての敵弾ユニットを更新
+		for(int i = 21; i <= 40; i++)
+		{
+			if(TRUE == unit[i].visible)
+			{
+				//プレイヤーとの当たり判定を処理
 
+				//プレイヤーのグローバル座標を取得
+				Vec3 pPos = player.wrapper->getPosition3D() + player.sprite3d->getPosition3D() + player.centerNode->getPosition3D();
+
+
+				Vec3 dir = pPos - unit[i].sprite3d->getPosition3D();//プレイヤーと敵弾の差のベクトル
+
+				//平面の距離を求める
+				float d1 = sqrtf(dir.x * dir.x + dir.y * dir.y);
+				//計算した平面上の距離と高さの距離を求める
+				d1 = sqrtf((dir.z * dir.z) + (d1 * d1));
+				if(0.4f > d1)
+				{
+					//接触した場合は_sprite3Dの解放を行う
+					unit[i].sprite3d->setVisible(false);
+					unit[i].visible = FALSE;
+					unit[i].speedVec = Vec3(0.0f, 0.0f, 0.0f);
+
+				}
+			}
+		}
+	}
 	//========================================================
 	//弾の画面外処理
 
