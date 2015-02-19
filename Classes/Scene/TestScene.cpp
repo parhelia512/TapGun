@@ -204,7 +204,7 @@ void Test::moveTime( float delta)
 
 	if(tFlag == 1 && aFlag == 0)
 	{
-		spritePlayer->stopAllActions();
+	//	spritePlayer->stopAllActions();
 		spritePlayer->runAction(teHideShotLeft);
 		aFlag = 1;
 	}

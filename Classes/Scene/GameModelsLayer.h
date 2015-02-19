@@ -54,7 +54,12 @@ namespace TapGun
 
 		EnemyTable enemyTable[100];//敵の出現テーブル
 
-		//		Muzzle muzzle;//プレイヤーのマズル
+		timeval* nowTV;//現在時刻
+		timeval* preTV;//
+		float nowTime;//現在時刻（秒）
+		float preTime;//前フレームの時刻（秒）
+
+		//Muzzle muzzle;//プレイヤーのマズル
 
 		//Node* gNode;
 		//Node* lNode;
@@ -124,6 +129,9 @@ namespace TapGun
 		int SearchFreeUnit();//空きユニットの検索
 
 		int enemyStuck;//各ステージごとの残り敵数
+
+		//計算用
+		float getNowTime();
 	};
 }
 #endif //__GAME_MODELSLAYER_H__

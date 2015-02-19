@@ -105,24 +105,24 @@ bool GameScene::init()
 	//setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 
 	sound = Sound::getInstance();
-	
+
 	//sound -> loadBGM( "testBGM.mp3");
 	//sound -> playBGM();
-	sound -> loadSE( "Shot.wav");
-	sound -> loadSE( "Damage_01.wav");
-	sound -> loadSE( "Damage_02.wav");
-	sound -> loadSE( "Damage_03.wav");
-	sound -> loadSE( "Damage_04.wav");
-	
+	sound->loadSE("Shot.wav");
+	sound->loadSE("Damage_01.wav");
+	sound->loadSE("Damage_02.wav");
+	sound->loadSE("Damage_03.wav");
+	sound->loadSE("Damage_04.wav");
+
 	this->scheduleUpdate();
-//	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
+	//	this->schedule(schedule_selector(GameScene::moveTime), 0.016f);//1秒60Fでゲーム更新
 
 
 	//時間取得のための変数を初期化
-	GameMasterS->nowTime = new timeval;
-	GameMasterS->preTime = new timeval;
-	gettimeofday(GameMasterS->nowTime, nullptr);
-	gettimeofday(GameMasterS->preTime, nullptr);
+	GameMasterS->nowTV = new timeval;
+	GameMasterS->preTV = new timeval;
+	gettimeofday(GameMasterS->nowTV, nullptr);
+	gettimeofday(GameMasterS->preTV, nullptr);
 	GameMasterS->loopTime = FRAME;
 	//
 	GameMasterS->reticleAjust = 0.1f;//
@@ -280,16 +280,18 @@ void GameScene::update(float delta)
 
 
 	//1ループ前の時刻を取得
-	GameMasterS->preTime->tv_sec = GameMasterS->nowTime->tv_sec;
-	GameMasterS->preTime->tv_usec = GameMasterS->nowTime->tv_usec;
+	GameMasterS->preTV->tv_sec = GameMasterS->nowTV->tv_sec;
+	GameMasterS->preTV->tv_usec = GameMasterS->nowTV->tv_usec;
 
 	//現在時刻を取得
-	gettimeofday(GameMasterS->nowTime, nullptr);
-	//ループにかかった時間を計測
-	GameMasterS->loopTime = (
-		(GameMasterS->nowTime->tv_sec * 1000.0f + GameMasterS->nowTime->tv_usec * 0.001f)
-		- (GameMasterS->preTime->tv_sec * 1000.0f + GameMasterS->preTime->tv_usec * 0.001f)
-		) * 0.001f;
+	gettimeofday(GameMasterS->nowTV, nullptr);
+	//現在時刻を計算
+
+	GameMasterS->preTime = GameMasterS->preTV->tv_sec * 1000.0f + GameMasterS->preTV->tv_usec * 0.001f;
+	GameMasterS->nowTime = GameMasterS->nowTV->tv_sec * 1000.0f + GameMasterS->nowTV->tv_usec * 0.001f;
+
+	//ループにかかった時間を計測(秒)
+	GameMasterS->loopTime = (GameMasterS->nowTime - GameMasterS->preTime) * 0.001f;
 
 	auto d = Director::getInstance()->getDeltaTime();
 
@@ -334,7 +336,6 @@ void GameScene::update(float delta)
 		GameMasterS->SetPlayerState(PSTATE_IDLE);
 
 		timeCount = 0.0f;
-
 		break;
 	case GSTATE_PLAY_ACTION:
 
@@ -397,7 +398,7 @@ int GameScene::UpdateCamera()
 {
 	if (NULL != gUILayer)
 	{
-
+		//
 	}
 
 	if (NULL != gGameLayer)
@@ -490,7 +491,6 @@ int GameScene::UpdateCamera()
 		////		カメラを公転させる
 		//cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
 		//GameMasterS->SetCameraNodeRot(cameraRot);
-
 	}
 	return TRUE;
 }

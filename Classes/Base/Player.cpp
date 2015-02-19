@@ -28,7 +28,6 @@ void Player::Init( void)
 	collisionPos = Vec3(0, 0, 0);//当たり判定（OBB）の各辺
 
 	colisionNode = Node::create();
-	frame = 0;//管理フレーム
 }
 
 
@@ -76,7 +75,6 @@ void Player::Update(void)
 	auto loopTime = director->getDeltaTime();
 
 	//フレームを加算
-	frame += 1;
 
 	//座標を移動
 	Vec3 pos = wrapper->getPosition3D();
@@ -89,24 +87,36 @@ void Player::Update(void)
 	Vec3 collision_min = collision_center - collisionPos * 0.5f;
 	Vec3 collision_max = collision_center + collisionPos * 0.5f;
 
-
 	aabbBody.set(collision_min, collision_max);
 	obbHead = OBB(aabbBody);//
 }
 
 
-
 /**
-*	キャラクター固有フレームの初期化
+*	Playerの各種変数更新
 *
 *	@author	sasebon
 *	@param	なし
 *	@return	なし
-*	@date	1/20 Ver 1.0
+*	@date	1/8 Ver 1.0
 */
-void Player::InitFrame(void)
+void Player::Update(float loopTime)
 {
-	frame = 0;
+	//フレームを加算
+
+	//座標を移動
+	Vec3 pos = wrapper->getPosition3D();
+	pos += speedVec * loopTime;
+	wrapper->setPosition3D(pos);
+
+	//当たり判定を移動
+	Vec3 collision_center = colisionNode->getPosition3D() + sprite3d->getPosition3D();
+
+	Vec3 collision_min = collision_center - collisionPos * 0.5f;
+	Vec3 collision_max = collision_center + collisionPos * 0.5f;
+
+	aabbBody.set(collision_min, collision_max);
+	obbHead = OBB(aabbBody);//
 }
 
 
@@ -120,7 +130,6 @@ void Player::InitFrame(void)
 */
 void Player::SetFrame(int f)
 {
-	frame = f;
 }
 
 
@@ -152,22 +161,6 @@ void Player::SetAnimation(const std::string& animeName, const int speed)
 	}
 }
 
-
-
-/**
-*	キャラクター固有フレームを返す
-*
-*	@author	sasebon
-*	@param	なし
-*	@return	なし
-*	@date	1/20 Ver 1.0
-*/
-int Player::GetFrame(void)
-{
-	return frame;
-}
-
-
 /**
 *	アニメーション終了までの時間をセット
 *
@@ -178,6 +171,7 @@ int Player::GetFrame(void)
 */
 void Player::setAnimEndTime(float time)
 {
+	//フレームではありません
 	animEndTime = time;
 }
 

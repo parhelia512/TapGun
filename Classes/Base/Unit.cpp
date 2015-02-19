@@ -72,7 +72,7 @@ int Unit::Init(int num, int utype)
 	speedVec = Vec3(0, 0, 0);
 	targetPos = Vec3(0, 0, 0);
 
-	frame = 0;//管理フレーム
+	frame = 0.0f;//管理フレーム
 	animFrame = -2;//
 
 	eWaitFrame = 0;//出現までの待ちフレーム
@@ -146,9 +146,8 @@ void Unit::Update(void)
 	auto director = Director::getInstance();
 	auto loopTime = director->getDeltaTime();//ループに要した時間を取得
 
-
 	//フレームを加算
-	frame += 1;
+	frame += loopTime;
 
 	//座標を移動
 	pos = sprite3d->getPosition3D();
@@ -176,6 +175,49 @@ void Unit::Update(void)
 		break;
 	}
 }
+
+
+
+/**
+*	Unitの各種変数更新
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	1/8 Ver 1.0
+*/
+void Unit::Update(float loopTime)
+{
+	//フレームを加算
+	frame += loopTime;
+
+	//座標を移動
+	pos = sprite3d->getPosition3D();
+	pos += speedVec * loopTime;
+	sprite3d->setPosition3D(pos);
+
+
+	switch (kind)
+	{
+	case UKIND_ENEMY:
+		//敵のみ当たり判定を更新する
+		//当たり判定を移動
+	{
+		Vec3 collision_center = colisionNode->getPosition3D() + sprite3d->getPosition3D();
+
+		Vec3 collision_min = collision_center - collisionPos * 0.5f;
+		Vec3 collision_max = collision_center + collisionPos * 0.5f;
+
+		aabbBody.set(collision_min, collision_max);
+		obbHead = OBB(aabbBody);//
+	}
+		break;
+	default:
+
+		break;
+	}
+}
+
 
 
 /**
