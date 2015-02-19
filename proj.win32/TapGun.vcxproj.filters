@@ -25,6 +25,9 @@
     <Filter Include="Source\Object">
       <UniqueIdentifier>{93248708-cb65-41ee-ae87-797f0cd1de06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Adx2">
+      <UniqueIdentifier>{178dd430-bd50-4cd0-bcb4-a9a43aeeda2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Stage\EnemyTable.cpp">
       <Filter>Source\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Adx2\CueSheet.cpp">
+      <Filter>Source\Adx2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Adx2\Manager.cpp">
+      <Filter>Source\Adx2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +190,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Stage\EnemyTable.h">
       <Filter>Source\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Adx2\ADX2Manager.h">
+      <Filter>Source\Adx2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Adx2\CueSheet.h">
+      <Filter>Source\Adx2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Adx2\Manager.h">
+      <Filter>Source\Adx2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Main.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
