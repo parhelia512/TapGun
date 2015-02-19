@@ -92,7 +92,7 @@ namespace TapGun
 		cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
 		float speed;//移動速度（移動量）
 		cocos2d::Vec3 speedVec;//移動ベクトル（speedをもとに計算する）
-		cocos2d::Vec3 targetPos;//移動時の目標座標（現在は自キャラや弾の移動に用いていますが、無駄と判断すれば今後削除します）
+		cocos2d::Vec3 targetPos;//移動時の目標座標
 		cocos2d::Vec3 collisionPos;//OBBの辺の長さ（現在は１つのみ定義）
 
 		//==当たり判定関連クラス(仮)==
@@ -120,6 +120,7 @@ namespace TapGun
 		void SetCollision(void);//当たり判定を初期化
 
 		void Update(void);//速度をもとに座標移動と当たり判定移動
+		void Update(float loopTime);//速度をもとに座標移動と当たり判定移動
 		void SetPos(cocos2d::Vec3 pos);//引数の座標に移動
 
 		void SetAnimation(const std::string& animeName, const int speed);//

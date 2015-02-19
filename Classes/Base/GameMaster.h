@@ -11,7 +11,7 @@ namespace TapGun
 #define FALSE -1
 #define TRUE 1
 
-#define FRAME 0.01666f
+#define FRAME 0.01666f//時間を
 
 //プレイヤーのパラメータ定義
 #define STS_PLAYERHP 6//プレイヤーの最大HP
@@ -32,6 +32,7 @@ namespace TapGun
 //敵のパラメータ定義
 
 #define STS_ENEMY_HP 6//敵のHP
+#define STS_ENEMY_RUNSPEED 5.0f//敵の走り速度
 #define STS_EBULLET_SPEED 16.0f//敵の弾の速度
 
 #define BATTLE_FEILD_X 0.8//タッチで攻撃可能な画面割合
@@ -184,9 +185,11 @@ namespace TapGun
 	public:
 
 		//変数
-		timeval* nowTime;//現在時刻
-		timeval* preTime;//前フレームまでの時刻
-		float loopTime;//ループに要した時間
+		timeval* nowTV;//現在時刻(timeval)
+		timeval* preTV;//前フレームまでの時刻(timeval)
+		float nowTime;//現在時刻（秒）
+		float preTime;//1ループ前の時刻（秒）
+		float loopTime;//ループに要した時間（秒）
 
 		int shotFlag;//プレイヤーの攻撃アニメーション用フラグ(5フレーム以上タッチしているかどうか)
 

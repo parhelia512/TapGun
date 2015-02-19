@@ -131,7 +131,7 @@ void GameMaster::InitParam()
 	touchFlag = TFLAG_OFF;
 
 	gameTime = 100;
-	
+
 	sPoint = 0;
 	//プレイヤーの移動ポイントを設定する
 	for (int i = 0; i < 100; i++)
@@ -145,7 +145,8 @@ void GameMaster::InitParam()
 	//stagePointの定義
 
 	//ゲーム開始地点
-	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 43.0f);//
+//	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 43.0f);//
+	stagePoint[POINT_START].pos = Vec3(-4.1f, 0.0f, 37.5f);//
 	stagePoint[POINT_START].rot = Vec3(0.0f, 140.0f, 0.0f);
 	stagePoint[POINT_START].pointType = POINT_NONE;
 

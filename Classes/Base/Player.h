@@ -33,14 +33,14 @@ namespace TapGun
 	public:
 
 		//メンバ変数
-		float animCount;//モーションを開始してからの経過時間（モーションを途中から再生した場合は0ではなく途中から時間を数える）
 		float animEndTime;//アニメーション再生終了までの時間
 		//==フラグ系==
 		int hitpoint;
 
-		float nowTimeFrom;//
-		float nowTimeTo;//
-		float nowTimeBefore;
+		//モーション管理用の時間変数
+		float motStartTime;//モーションを開始した時間（秒）
+		float motPreTime;//前ループ時の時間（秒）
+		float motProcTime;//モーションを開始してからの経過時間（秒）
 
 		cocos2d::Vec3 cameraAjust;//回避モーション時のカメラ位置補正
 
@@ -81,12 +81,13 @@ namespace TapGun
 		void SetCollision(void);//当たり判定を初期化
 
 		void Update(void);//速度をもとに座標移動と当たり判定移動
+		void Update(float loopTime);//速度をもとに座標移動と当たり判定移動
 		void SetPos(cocos2d::Vec3 pos);//引数の座標に移動
 
 		void SetAnimation(const std::string& animeName, const int speed);//
 
-		void InitFrame(void);//フレームを初期化
-		int GetFrame(void);//フレームの取得
+//		void InitFrame(void);//フレームを初期化
+//		int GetFrame(void);//フレームの取得
 		void SetFrame(int f);//フレームのセット
 
 		void setAnimEndTime(float time);//
@@ -94,7 +95,7 @@ namespace TapGun
 
 	private:
 
-		int frame;//Unit固有フレーム
+//		int frame;//Unit固有フレーム
 		int animFrame;//アニメーション管理フレーム(animFrame >= 0 : 再生中 | animFrame == -1 : ループ再生 | animFrame == -2 : 無再生)
 	};
 }
