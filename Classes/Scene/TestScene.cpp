@@ -4,7 +4,7 @@
 #include "TestScene.h"
 #include "SimpleAudioEngine.h"
 #include "Define.h"
-#include "Main.h"
+//#include "Main.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -24,7 +24,7 @@
 #endif
 
 USING_NS_CC;
-using namespace ADX2;
+//using namespace ADX2;
 using namespace std;
 using namespace TapGun;
 using namespace CocosDenshion;
@@ -56,17 +56,17 @@ bool Test::init()
 	this -> scheduleUpdate();
 	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
 
-	Manager::initialize();
+//	Manager::initialize();
 
-	_cueSheet = CueSheet::create("sample.acf", "sample.acb");
-	_cueSheet->playCueByID( CRI_MAIN_BGM);
+//	_cueSheet = CueSheet::create("sample.acf", "sample.acb");
+//	_cueSheet->playCueByID( 0);
 
 	return true;
 }
 
 void Test::update( float delta)
 {
-	Manager::getInstance() -> update();
+//	Manager::getInstance() -> update();
 }
 
 void Test::moveTime( float delta)

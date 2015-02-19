@@ -10,7 +10,7 @@
 
 #else
 
-#include "Adx2/ADX2Manager.h"
+//#include "Adx2/ADX2Manager.h"
 
 #endif
 
@@ -35,7 +35,7 @@ namespace TapGun
 
 		CREATE_FUNC(Test);
 
-		CC_SYNTHESIZE_RETAIN( ADX2::CueSheet*, _cueSheet, CueSheet);
+//		CC_SYNTHESIZE_RETAIN( ADX2::CueSheet*, _cueSheet, CueSheet);
 	};
 }
 

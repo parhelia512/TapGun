@@ -47,6 +47,12 @@ bool TitleScene::init()
 	listener->onTouchBegan = CC_CALLBACK_2(TitleScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+	auto cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("Graph/Pictures/Logo.plist");
+ 
+//	Texture2D *texture = cache->getSpriteFrameByName("action.png");
+
+
 	return true;
 }
 
