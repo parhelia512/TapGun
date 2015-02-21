@@ -7,54 +7,54 @@
             <key>title_credit.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{996,1284},{820,78}}</string>
+                <string>{{996,1284},{819,79}}</string>
                 <key>offset</key>
-                <string>{-5,-131}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{225,492},{820,78}}</string>
+                <string>{{12,11},{819,79}}</string>
                 <key>sourceSize</key>
-                <string>{1280,800}</string>
+                <string>{843,101}</string>
             </dict>
             <key>title_credit_push.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1348},{820,78}}</string>
+                <string>{{2,1348},{819,79}}</string>
                 <key>offset</key>
-                <string>{-5,-131}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{225,492},{820,78}}</string>
+                <string>{{12,11},{819,79}}</string>
                 <key>sourceSize</key>
-                <string>{1280,800}</string>
+                <string>{843,101}</string>
             </dict>
             <key>title_end.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{824,1364},{820,78}}</string>
+                <string>{{823,1365},{819,79}}</string>
                 <key>offset</key>
-                <string>{-5,0}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{225,361},{820,78}}</string>
+                <string>{{12,11},{819,79}}</string>
                 <key>sourceSize</key>
-                <string>{1280,800}</string>
+                <string>{843,101}</string>
             </dict>
             <key>title_end_push.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1428},{820,78}}</string>
+                <string>{{2,1429},{819,79}}</string>
                 <key>offset</key>
-                <string>{-5,0}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{225,361},{820,78}}</string>
+                <string>{{12,11},{819,79}}</string>
                 <key>sourceSize</key>
-                <string>{1280,800}</string>
+                <string>{843,101}</string>
             </dict>
             <key>title_haikei.png</key>
             <dict>
@@ -85,28 +85,28 @@
             <key>title_start.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1834,2},{820,78}}</string>
+                <string>{{1834,2},{819,79}}</string>
                 <key>offset</key>
-                <string>{-5,130}</string>
+                <string>{0,1}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{225,231},{820,78}}</string>
+                <string>{{12,10},{819,79}}</string>
                 <key>sourceSize</key>
-                <string>{1280,800}</string>
+                <string>{843,101}</string>
             </dict>
             <key>title_start_push.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1914,2},{820,78}}</string>
+                <string>{{1915,2},{819,79}}</string>
                 <key>offset</key>
-                <string>{-5,130}</string>
+                <string>{0,1}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{225,231},{820,78}}</string>
+                <string>{{12,10},{819,79}}</string>
                 <key>sourceSize</key>
-                <string>{1280,800}</string>
+                <string>{843,101}</string>
             </dict>
             <key>title_touchscreen.png</key>
             <dict>
@@ -142,9 +142,9 @@
             <key>realTextureFileName</key>
             <string>Title.png</string>
             <key>size</key>
-            <string>{1994,1508}</string>
+            <string>{1996,1510}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f91473203d25ca8a56af9c57c8861929:034ee97ad4a5fee9cb03867597f324bd:fb7b55fc20842aa34b80455b5ce613fb$</string>
+            <string>$TexturePacker:SmartUpdate:0de318fe71e4196d920cf6b7e273775f:778318434f9fb9f5488cb72ebe29aa3f:fb7b55fc20842aa34b80455b5ce613fb$</string>
             <key>textureFileName</key>
             <string>Title.png</string>
         </dict>

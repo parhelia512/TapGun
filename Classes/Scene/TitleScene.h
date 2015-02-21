@@ -18,7 +18,9 @@ namespace TapGun
 		void onTouchMoved( cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
 		void onTouchEnded( cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
 
-		void setSprite( void);
+		void menuStartCallback(cocos2d::Ref* pSender);
+		void menuEndCallback(cocos2d::Ref* pSender);
+		void menuCreditCallback(cocos2d::Ref* pSender);
 
 		CREATE_FUNC( TitleScene);
 
@@ -44,13 +46,12 @@ namespace TapGun
 			TitleEnd = ( 1 << 5),
 		};
 
-		enum SpriteName
+		enum MenuName
 		{
-			BG,
-			Logo,
-			Frame,
-			Menu,
-			SpriteNum,
+			Start,
+			End,
+			Credit,
+			MenuNum,
 		};
 
 		unsigned char menuFlag;
@@ -60,8 +61,13 @@ namespace TapGun
 		int logoAlphaCount;
 		int logoAlphaWaitCount;
 		unsigned int frame;
+
 		cocos2d::Sprite* sprite[SpriteNum];
-		cocos2d::Menu* menu[SpriteNum];
+		cocos2d::Menu* menu[MenuNum];
+
+		void setSprite( void);
+		void setMenu( void);
+		void menuAction( void);
 
 		template<class P> static bool checkFlag( P* flag, const P number);
 		template<class P> static void setFlag( P* flag, const P number);

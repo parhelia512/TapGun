@@ -148,6 +148,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Scene\Character.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scene\CreditScene.cpp" />
     <ClCompile Include="..\Classes\Scene\GameModelsLayer.cpp" />
     <ClCompile Include="..\Classes\Scene\GamePlayerLayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -183,6 +184,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Scene\Character.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Classes\Scene\CreditScene.h" />
     <ClInclude Include="..\Classes\Scene\GameModelsLayer.h" />
     <ClInclude Include="..\Classes\Scene\GamePlayerLayer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

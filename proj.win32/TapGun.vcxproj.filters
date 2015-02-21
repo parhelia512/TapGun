@@ -102,6 +102,9 @@
     <ClCompile Include="..\Classes\Stage\EnemyTable.cpp">
       <Filter>Source\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scene\CreditScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Main.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\CreditScene.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
