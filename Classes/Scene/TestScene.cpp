@@ -53,8 +53,8 @@ bool Test::init()
 
 	dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	this -> scheduleUpdate();
-	this -> schedule(schedule_selector(Test::moveTime), 0.016f);
+	scheduleUpdate();
+	schedule( schedule_selector(Test::moveTime), 0.016f);
 
 //	Manager::initialize();
 
