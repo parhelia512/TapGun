@@ -14,43 +14,21 @@
 
 #endif
 
+#define MUZZLE_COUNT 3
+
 namespace TapGun
 {
 	class Muzzle
 	{
 	public:
-		Muzzle();
+		static Muzzle* createMuzzle( _Sprite3D* parentData, std::string pointName);
+		void setMuzzleAction( void);
 		void muzzleUpdate( void);
-		void muzzleflagOn( void);
-		void muzzleFlagOff( void);
-
-		_Sprite3D* sprite3D[5];
-
+		
 	private:
-
 		bool shotFlag;
 		int count;
-	};
-
-	class P_Muzzle : public Muzzle
-	{
-	public:
-		void createMuzzle( _Sprite3D* parentData);
-
-	private:
-	};
-
-	class E_Muzzle
-	{
-	public:
-		void createMuzzle( _Sprite3D* parentData);
-		void muzzleUpdate( void);
-		void muzzleflagOn( void);
-		void muzzleFlagOff( void);
-
-	private:
-		Muzzle* muzzleR;
-		Muzzle* muzzleL;
+		_Sprite3D* sprite3D[MUZZLE_COUNT];
 	};
 }
 
