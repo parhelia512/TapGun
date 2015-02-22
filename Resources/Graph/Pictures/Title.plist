@@ -59,13 +59,13 @@
             <key>title_haikei.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1284,2},{1280,548}}</string>
+                <string>{{1284,2},{1280,570}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{0,1}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,126},{1280,548}}</string>
+                <string>{{0,114},{1280,570}}</string>
                 <key>sourceSize</key>
                 <string>{1280,800}</string>
             </dict>
@@ -85,7 +85,7 @@
             <key>title_start.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1834,2},{819,79}}</string>
+                <string>{{1856,2},{819,79}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>title_start_push.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1915,2},{819,79}}</string>
+                <string>{{1937,2},{819,79}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -142,9 +142,9 @@
             <key>realTextureFileName</key>
             <string>Title.png</string>
             <key>size</key>
-            <string>{1996,1510}</string>
+            <string>{2018,1510}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:0de318fe71e4196d920cf6b7e273775f:778318434f9fb9f5488cb72ebe29aa3f:fb7b55fc20842aa34b80455b5ce613fb$</string>
+            <string>$TexturePacker:SmartUpdate:76cbd329bacd21255e3138406e56765e:c8612cecb66d0bdb0c8d362fd2d8f8e1:fb7b55fc20842aa34b80455b5ce613fb$</string>
             <key>textureFileName</key>
             <string>Title.png</string>
         </dict>

@@ -1,6 +1,8 @@
 
 #include <fstream>
 #include "cocos2d.h"
+#include "base/CCAsyncTaskPool.h"
+#include "3d/CCMesh.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -65,6 +67,21 @@ namespace TapGun
 		return createObject( firstPath.c_str(), secondPath.c_str(), thirdPath.c_str());
 	}
 
+	void _Sprite3D::createAsync( const string& modelPath, const function<void(_Sprite3D*, void*)>& callback, void* callbackparam)
+	{
+		createObjectAsync( modelPath.c_str(), "", nullptr, callback, callbackparam);
+	}
+		
+	void _Sprite3D::createAsync( const string& modelPath, const string& texturePath, const function<void(_Sprite3D*, void*)>& callback, void* callbackparam)
+	{
+		createObjectAsync( modelPath.c_str(), texturePath.c_str(), nullptr, callback, callbackparam);
+	}
+
+	void _Sprite3D::createAsync( const string& modelPath, const string& texturePath, const string& animePath, const function<void(_Sprite3D*, void*)>& callback, void* callbackparam)
+	{
+		createObjectAsync( modelPath.c_str(), texturePath.c_str(), animePath.c_str(), callback, callbackparam);
+	}
+
 	_Sprite3D* _Sprite3D::createObject( const char* firstPath, const char* secondPath, const char* thirdPath)
 	{
 		string filePath;
@@ -100,10 +117,10 @@ namespace TapGun
 					filePath = filePath + str.at(i) + ".c3b";
 				  #endif
 				#endif
-					if (sprite && sprite->initWithFile( filePath))
+					if( sprite && sprite -> initWithFile( filePath))
 					{
-						sprite->_contentSize = sprite->getBoundingBox().size;
-						sprite->autorelease();
+						sprite -> _contentSize = sprite -> getBoundingBox().size;
+						sprite -> autorelease();
 					}
 					Flag[ResouceType::NoExt] = true;
 				}
@@ -185,6 +202,196 @@ namespace TapGun
 			return nullptr;
 		}
 		return sprite;
+	}
+
+	void _Sprite3D::createObjectAsync( const char* modelPath, const char* texturePath, const char* animePath, const function<void(_Sprite3D*, void*)>& callback, void* callbackparam)
+	{
+		string filePath;
+		bool Flag[ResouceType::Num] = { false };
+		map< int, string> str;
+		auto sprite = new (nothrow) _Sprite3D();
+
+		if( &modelPath == nullptr) return;
+		else str[0] = modelPath;
+		if( texturePath != nullptr) str[1] = texturePath;
+		if( animePath != nullptr) str[2] = animePath;
+
+		for( int i = 0; i < str.size(); i++)
+		{
+			if( &str.at(i) == nullptr) break;
+
+			switch( checkResourcePath(str.at(i)))
+			{
+			case ResouceType::NoExt:
+				if( Flag[ResouceType::NoExt] == false && Flag[ResouceType::Model] == false)
+				{					
+					filePath = getResourcePath( ResouceType::NoExt);
+				#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+				  #ifdef DEBUG
+					filePath = filePath + str.at(i) + ".c3t";
+				  #else
+					filePath = filePath + str.at(i) + ".c3b";
+				  #endif
+				#else
+				#ifdef _DEBUG
+					filePath = filePath + str.at(i) + ".c3t";
+				  #else
+					filePath = filePath + str.at(i) + ".c3b";
+				  #endif
+				#endif
+
+					if( sprite -> loadFromCache( filePath))
+					{
+						sprite -> autorelease();
+						if( !str.empty()) { sprite -> setTexture( texturePath); }
+						callback( sprite, callbackparam);
+						return;
+					}
+	
+					sprite -> _asyncLoadParam.afterLoadCallback = callback;
+					string str = texturePath;
+					if( str.size() > 4) { sprite -> _asyncLoadParam.texPath = getResourcePath( ResouceType::Model) + texturePath; }
+					else { sprite -> _asyncLoadParam.texPath = texturePath; }
+					sprite -> _asyncLoadParam.modlePath = filePath;
+					sprite -> _asyncLoadParam.callbackParam = callbackparam;
+					sprite -> _asyncLoadParam.materialdatas = new (nothrow) MaterialDatas();
+					sprite -> _asyncLoadParam.meshdatas = new (nothrow) MeshDatas();
+					sprite -> _asyncLoadParam.nodeDatas = new (nothrow) NodeDatas();
+					AsyncTaskPool::getInstance() -> enqueue( AsyncTaskPool::TaskType::TASK_IO, CC_CALLBACK_1( Sprite3D::afterAsyncLoad, sprite), (void*)(&sprite -> _asyncLoadParam), [sprite]()
+					{
+						sprite -> _asyncLoadParam.result = sprite -> loadFromFile( sprite -> _asyncLoadParam.modlePath, sprite -> _asyncLoadParam.nodeDatas, sprite -> _asyncLoadParam.meshdatas, sprite -> _asyncLoadParam.materialdatas);
+					});
+
+					Flag[ResouceType::NoExt] = true;
+				}
+				break;
+
+			case ResouceType::Model:
+				if( Flag[ResouceType::Model] == false && Flag[ResouceType::NoExt] == false)
+				{
+					filePath = getResourcePath( ResouceType::Model);
+					filePath = filePath + str.at(i);
+
+					if( sprite -> loadFromCache( filePath))
+					{
+						sprite -> autorelease();
+						if( !str.empty()) { sprite -> setTexture( texturePath); }
+						callback( sprite, callbackparam);
+						return;
+					}
+	
+					sprite -> _asyncLoadParam.afterLoadCallback = callback;
+					string str = texturePath;
+					if( str.size() > 4) { sprite -> _asyncLoadParam.texPath = getResourcePath( ResouceType::Model) + texturePath; }
+					else { sprite -> _asyncLoadParam.texPath = texturePath; }
+					sprite -> _asyncLoadParam.modlePath = filePath;
+					sprite -> _asyncLoadParam.callbackParam = callbackparam;
+					sprite -> _asyncLoadParam.materialdatas = new (nothrow) MaterialDatas();
+					sprite -> _asyncLoadParam.meshdatas = new (nothrow) MeshDatas();
+					sprite -> _asyncLoadParam.nodeDatas = new (nothrow) NodeDatas();
+					AsyncTaskPool::getInstance() -> enqueue( AsyncTaskPool::TaskType::TASK_IO, CC_CALLBACK_1( Sprite3D::afterAsyncLoad, sprite), (void*)(&sprite -> _asyncLoadParam), [sprite]()
+					{
+						sprite -> _asyncLoadParam.result = sprite -> loadFromFile( sprite -> _asyncLoadParam.modlePath, sprite -> _asyncLoadParam.nodeDatas, sprite -> _asyncLoadParam.meshdatas, sprite -> _asyncLoadParam.materialdatas);
+					});
+					Flag[ResouceType::Model] = true;
+				}
+				break;
+
+			case ResouceType::Anime:
+				if( Flag[ResouceType::Anime] == false)
+				{
+					filePath = getResourcePath( ResouceType::Anime);
+					filePath = filePath + str.at(i);
+					sprite -> load3DModelAnimeData( filePath);
+					Flag[ResouceType::Anime] = true;
+				}
+				break;
+
+			default:
+				CC_SAFE_DELETE( sprite);
+				return;
+			}
+		}
+		if( Flag[ResouceType::NoExt] == false && Flag[ResouceType::Model] == false)
+		{
+			CC_SAFE_DELETE(sprite);
+			return;
+		}
+	}
+
+	void _Sprite3D::afterAsyncLoad( void* param)
+	{
+		_Sprite3D::AsyncLoadParam* asyncParam = (_Sprite3D::AsyncLoadParam*)param;
+		autorelease();
+		if( asyncParam)
+		{
+			if( asyncParam -> result)
+			{
+				_meshes.clear();
+				_meshVertexDatas.clear();
+				CC_SAFE_RELEASE_NULL( _skeleton);
+				removeAllAttachNode();
+			
+				//create in the main thread
+				auto& meshdatas = asyncParam -> meshdatas;
+				auto& materialdatas = asyncParam -> materialdatas;
+				auto& nodeDatas = asyncParam -> nodeDatas;
+				if( initFrom( *nodeDatas, *meshdatas, *materialdatas))
+				{
+					auto spritedata = Sprite3DCache::getInstance() -> getSpriteData( asyncParam -> modlePath);
+					if( spritedata == nullptr)
+					{
+						//add to cache
+						auto data = new (std::nothrow) Sprite3DCache::Sprite3DData();
+						data -> materialdatas = materialdatas;
+						data -> nodedatas = nodeDatas;
+						data -> meshVertexDatas = _meshVertexDatas;
+						for( const auto mesh : _meshes) { data -> glProgramStates.pushBack( mesh -> getGLProgramState()); }
+					
+						Sprite3DCache::getInstance() -> addSprite3DData( asyncParam -> modlePath, data);
+						meshdatas = nullptr;
+						materialdatas = nullptr;
+						nodeDatas = nullptr;
+					}
+				}
+				delete meshdatas;
+				delete materialdatas;
+				delete nodeDatas;
+			
+				if( asyncParam -> texPath != "") { setTexture( asyncParam -> texPath); }
+			}
+			else
+			{
+				CCLOG( "file load failed: %s ", asyncParam -> modlePath.c_str());
+			}
+			asyncParam -> afterLoadCallback( this, asyncParam -> callbackParam);
+		}
+	}
+
+	bool _Sprite3D::loadFromCache( const string& path)
+	{
+		auto spritedata = Sprite3DCache::getInstance() -> getSpriteData( path);
+		if( spritedata)
+		{
+			for( auto it : spritedata -> meshVertexDatas) { _meshVertexDatas.pushBack( it); }
+			_skeleton = Skeleton3D::create( spritedata -> nodedatas -> skeleton);
+			CC_SAFE_RETAIN( _skeleton);
+		
+			for( const auto& it : spritedata -> nodedatas -> nodes)
+			{
+				if( it) { createNode( it, this, *(spritedata -> materialdatas), spritedata -> nodedatas -> nodes.size() == 1); }
+			}
+		
+			for( const auto& it : spritedata -> nodedatas -> skeleton)
+			{
+				if( it) { createAttachSprite3DNode( it,*(spritedata -> materialdatas)); }
+			}
+		
+			for( ssize_t i = 0; i < _meshes.size(); i++) { _meshes.at( i) -> setGLProgramState( spritedata -> glProgramStates.at( i)); }
+			return true;
+		}
+	
+		return false;
 	}
 
 	ResouceType _Sprite3D::checkResourcePath( const string& filePath)
