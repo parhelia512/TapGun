@@ -51,14 +51,15 @@ namespace TapGun
 		cocos2d::Vec3 targetPos;
 		
 		int SetAI(int idle, int atk, int appear);
-
+		void SetNextEnemy(int num1, int num2, int num3);
 
 		int number;
 		int kind;//敵の種類
 		int alive;//生存チェック
-		int nextEnemyNum;//この敵が消えたときに、次に出てくる敵
-		int nextEnemiesNum[5];//この敵が消えたときに、次に出てくる敵
+		int nextEnemiesNum[3];//この敵が消えたときに、次に出てくる敵
 		int finishFlag;//この敵が消えると（倒す、または逃げる）とウェーブ終了（TRUE/FALSE）
+
+		int hitpoint;
 //		int AIType;
 
 		//
@@ -68,6 +69,7 @@ namespace TapGun
 
 		float atkFrame;//攻撃間隔（秒）
 		float waitFrame;//出現してから移動し始めるまでの時間
+		float sleepTime;//
 	private:
 
 	};

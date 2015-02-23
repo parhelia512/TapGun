@@ -141,7 +141,10 @@ namespace TapGun
 
 		void ShootBullet(int enemy_num);//
 
-		int SearchFreeUnit();//空きユニットの検索
+//		int SearchFreeUnit();//空きユニットの検索
+
+		int SearchFreeEnemy();//空きユニットの検索
+
 
 		int enemyStuck;//各ステージごとの残り敵数
 

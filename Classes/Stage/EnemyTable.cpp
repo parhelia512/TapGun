@@ -30,12 +30,17 @@ void EnemyTable::InitAll()
 	for (int i = 0; i < 100; i++)
 	{
 		enemyData[i].kind = EKIND_TWIN;//“G‚ÍŒ»Ý‚·‚×‚ÄƒcƒCƒ“ƒ}ƒVƒ“ƒKƒ“‚Å‰Šú‰»
-		enemyData[i].nextEnemyNum = -1;
+		for (int j = 0; j < 3; j++)
+		{
+			enemyData[j].nextEnemiesNum[j] = -1;
+		}
 		enemyData[i].number = -1;
 		enemyData[i].standbyPos = Vec3(0.0f, 0.0f, 0.0f);
 		enemyData[i].targetPos = Vec3(0.0f, 0.0f, 0.0f);
 		enemyData[i].alive = FALSE;
 		enemyData[i].finishFlag = FALSE;
+
+		enemyData[i].hitpoint = 0;
 
 		enemyData[i].AIIdle = -1;
 		enemyData[i].AIAtk = -1;
@@ -43,6 +48,5 @@ void EnemyTable::InitAll()
 
 		enemyData[i].atkFrame = 0.0f;//UŒ‚ŠÔŠui•bj
 		enemyData[i].waitFrame = 0.0f;//oŒ»‚µ‚Ä‚©‚çˆÚ“®‚µŽn‚ß‚é‚Ü‚Å‚ÌŽžŠÔ
-
 	}
 }

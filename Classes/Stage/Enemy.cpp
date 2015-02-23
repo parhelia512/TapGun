@@ -15,6 +15,13 @@ using namespace TapGun;
 
 
 
+void Enemy::SetNextEnemy(int num1, int num2, int num3)
+{
+	nextEnemiesNum[0] = num1;
+	nextEnemiesNum[1] = num2;
+	nextEnemiesNum[2] = num3;
+}
+
 
 int Enemy::SetAI(int idle, int atk, int appear)
 {

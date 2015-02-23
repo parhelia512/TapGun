@@ -21,7 +21,7 @@ namespace TapGun
 
 #define STS_RUNSPEED 4.0f//プレイヤーのウェイト時の速度
 
-#define STS_HIDEWAIT (25)//回避モーションが終了するまでの全体フレーム
+#define STS_HIDEWAIT (25.0f)//回避モーションが終了するまでの全体フレーム
 #define STS_HIDESTART 1//回避ボタンを押してから回避モーションが始まるまでの時間
 #define STS_MUTEKISTART 0//回避モーションが始まってから無敵時間に移行するまでの時間
 #define STS_APPEARSTART 1//回避ボタンを離してから突撃モーションが始まるまでの時間
@@ -56,7 +56,7 @@ namespace TapGun
 //Action時のカメラの設定(右)
 #define C_PERSE_R 35//カメラ視野角
 #define C_SETX_R -0.62f
-#define C_SETY_R 1.61f
+#define C_SETY_R 1.51f
 #define C_SETZ_R 5.3f
 #define C_ROTX_R -4.0f
 #define C_ROTY_R 10.0f
@@ -65,7 +65,7 @@ namespace TapGun
 //Action時のカメラの設定(左)
 #define C_PERSE_L 35//カメラ視野角
 #define C_SETX_L 0.52f
-#define C_SETY_L 1.61f
+#define C_SETY_L 1.51f
 #define C_SETZ_L 2.3f
 #define C_ROTX_L 0.0f
 #define C_ROTY_L -10.0f
@@ -102,6 +102,7 @@ namespace TapGun
 #define HIDECAMERA_Y -1.1f
 
 //時間
+#define TIME_MAXTIME 180.0f//ゲーム本編の最大時間
 #define TIME_ACTION_UI 1.8f//ActionのUIを表示する時間（秒）
 	enum _CAMERA_FLAG_
 	{
@@ -215,8 +216,8 @@ namespace TapGun
 		//各種public変数は今後privateに置き換えていきます
 
 		//タイム
-		float maxTime;//ウェーブの最大時間（秒）
-		float nokoriTime;//ウェーブの残り時間（秒）
+	//	float maxTime;//ウェーブの最大時間（秒）
+		float gameActionTime;//ウェーブの残り時間（秒）
 
 		timeval* nowTV;//現在時刻(timeval)
 		timeval* preTV;//前フレームまでの時刻(timeval)
@@ -241,7 +242,7 @@ namespace TapGun
 //		float hideFrame;//回避フレーム
 		float mutekiFrame;//無敵時間
 		
-		float gameTime;//ゲーム全体の時間
+//		float gameTime;//ゲーム全体の時間
 
 		float reticleAjust;//指の位置とレティクルの位置の差（画面に対する割合）
 

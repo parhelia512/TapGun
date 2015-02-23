@@ -201,7 +201,7 @@ void GameScene::moveTime(float delta)
 */
 void GameScene::update(float delta)
 {
-	GameMasterS->gameTime -= 0.8f;
+//	GameMasterS->gameTime -= 0.8f;
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
 
@@ -289,6 +289,13 @@ void GameScene::update(float delta)
 		//プレイヤーが死亡したら
 		if(PSTATE_CONTINUE == GameMasterS->GetPlayerState())
 		{
+			//ゲーム内時間の更新はここで行う
+			GameMasterS->gameActionTime -= GameMasterS->loopTime;
+			if (GameMasterS->gameActionTime <= 0)
+			{
+				//フレーム
+			}
+
 			GameMasterS->SetGameState(GSTATE_CONTINUE_INIT);
 			break;
 		}
@@ -354,36 +361,10 @@ int GameScene::UpdateCamera()
 		{
 
 		case PSTATE_DODGE:
-			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
-			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
-
-
-			//		プレイヤーの座標にカメラのノードを置く
-			//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
-			GameMasterS->SetCameraNodePos(cameraPos);
-
-			//		カメラを公転させる
-			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
-			GameMasterS->SetCameraNodeRot(cameraRot);
-			break;
 		case PSTATE_HIDE:
-
-			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
-			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
-
-
-			//		プレイヤーの座標にカメラのノードを置く
-			//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
-			GameMasterS->SetCameraNodePos(cameraPos);
-
-			//		カメラを公転させる
-			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
-			GameMasterS->SetCameraNodeRot(cameraRot);
-			break;
 		case PSTATE_APPEAR:
 			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
 			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
-
 
 			//		プレイヤーの座標にカメラのノードを置く
 			//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);

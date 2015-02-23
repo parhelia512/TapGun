@@ -81,7 +81,7 @@ namespace TapGun
 		int AIAppear;//
 
 		int nextEnemy;//このエネミーが倒れたときに次に出てくるエネミーの番号
-		int nextEnemis[3];//このエネミーを倒した次に出てくるエネミーの番号
+		int nextEnemies[3];//このエネミーを倒した次に出てくるエネミーの番号
 
 		//パラメータ
 		int kind;//Unit種別（_UNIT_KIND_）
@@ -89,9 +89,10 @@ namespace TapGun
 
 		int eState;//敵の状態
 
+		//管理フレーム
 		float atkFrame;//攻撃までのカウント（秒）
 		float eWaitFrame;//出現までの待ち時間（秒）
-
+		float sleepTime;
 		cocos2d::Vec3 StandbyPos;//待機座標
 		int tableNum;
 

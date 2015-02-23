@@ -65,9 +65,9 @@ void GameUILayer::InitLayer(void)
 */
 int GameUILayer::SerchFreeUI()
 {
-	for(int i = 0; i < MAX_UI; i++)
+	for (int i = 0; i < MAX_UI; i++)
 	{
-		if(FALSE == Ui[i].valid)
+		if (FALSE == Ui[i].valid)
 		{
 			return i;
 		}
