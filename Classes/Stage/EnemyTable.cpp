@@ -36,6 +36,13 @@ void EnemyTable::InitAll()
 		enemyData[i].targetPos = Vec3(0.0f, 0.0f, 0.0f);
 		enemyData[i].alive = FALSE;
 		enemyData[i].finishFlag = FALSE;
-		enemyData[i].AIType = -1;
+
+		enemyData[i].AIIdle = -1;
+		enemyData[i].AIAtk = -1;
+		enemyData[i].AIappear = -1;//出現パターン
+
+		enemyData[i].atkFrame = 0.0f;//攻撃間隔（秒）
+		enemyData[i].waitFrame = 0.0f;//出現してから移動し始めるまでの時間
+
 	}
 }

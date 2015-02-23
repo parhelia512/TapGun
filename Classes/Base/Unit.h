@@ -53,14 +53,13 @@ namespace TapGun
 		ESTATE_SLEEP,
 		ESTATE_WAIT,
 		ESTATE_ATTACK1,
-		ESTATE_ATTACK2,
-		ESTATE_ATTACK3,
+//		ESTATE_ATTACK2,
+//		ESTATE_ATTACK3,
 		ESTATE_DAMAGED,
 		ESTATE_DEAD,//死亡
 		ESTATE_END,//敵の終了処理
 		ESTATE_NUM
 	};
-
 
 	//Unitクラス
 	//プレイヤー・エネミー・弾・マップデータに用います
@@ -75,18 +74,27 @@ namespace TapGun
 		int valid;//Unit使用フラグ（TRUE/FALSE）
 		int visible;//ユニット表示フラグ
 
+		//AI管理
+//		int AIType;//エネミーの行動パターン
+		int AIIdle;//エネミーのアイドルモーション
+		int AIAtk;//エネミーの攻撃モーション
+		int AIAppear;//
+
 		int nextEnemy;//このエネミーが倒れたときに次に出てくるエネミーの番号
-		int AIType;//エネミーの行動パターン
+		int nextEnemis[3];//このエネミーを倒した次に出てくるエネミーの番号
 
+		//パラメータ
 		int kind;//Unit種別（_UNIT_KIND_）
-		int hitpoint;
+		int hitpoint;//
 
-		//敵用ステート
-		int eState;
-		int eWaitFrame;//出現までの待ちフレーム
+		int eState;//敵の状態
+
+		float atkFrame;//攻撃までのカウント（秒）
+		float eWaitFrame;//出現までの待ち時間（秒）
+
 		cocos2d::Vec3 StandbyPos;//待機座標
-		float atkFrame;//
 		int tableNum;
+
 
 		//==変数==
 		cocos2d::Vec3 pos;//モデル座標・・・削除予定（sprite3dの座標を使用）
@@ -124,15 +132,10 @@ namespace TapGun
 		void SetPos(cocos2d::Vec3 pos);//引数の座標に移動
 
 		void SetAnimation(const std::string& animeName, const int speed);//
-		//void SetAnimation(const std::string& animeName, const int speed, const int frame, const int startF, const int endF);
-		//void UpdateAnimation(void);
-		//BOOL CheckAnimation(void);//
 
 		void InitFrame(void);//フレームを初期化
 		int GetFrame(void);//フレームの取得
 		void SetFrame(int f);//フレームのセット
-		//Character();
-		//~Character();
 	private:
 
 		int frame;//Unit固有フレーム
