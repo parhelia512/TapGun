@@ -137,35 +137,82 @@ void GameMaster::InitParam()
 	for (int i = 0; i < 100; i++)
 	{
 		//初期化
-		stagePoint[i].pos = Vec3(0.0f, 0.0f, 0.0f);
-		stagePoint[i].rot = Vec3(0.0f, 0.0f, 0.0f);
+		stagePoint[i].pPos = Vec3(0.0f, 0.0f, 0.0f);
+		stagePoint[i].pRot = Vec3(0.0f, 0.0f, 0.0f);
+		stagePoint[i].cPos = Vec3(0.0f, 0.0f, 0.0f);
+		stagePoint[i].cRot = Vec3(0.0f, 0.0f, 0.0f);
 		stagePoint[i].pointType = POINT_NONE;
 		stagePoint[i].playerSide = PSIDE_RIGHT;//初期化は全てRIGHT
 	}
 	//stagePointの定義
 
+
 	//ゲーム開始地点
-//	stagePoint[POINT_START].pos = Vec3(-12.0f, 0.0f, 43.0f);//
-	stagePoint[POINT_START].pos = Vec3(-4.1f, 0.0f, 37.5f);//
-	stagePoint[POINT_START].rot = Vec3(0.0f, 140.0f, 0.0f);
+	stagePoint[POINT_START].pPos = Vec3(-3.47f, 0.0f, 0.0f);//
+	stagePoint[POINT_START].pRot = Vec3(0.0f, 140.0f, 0.0f);
 	stagePoint[POINT_START].pointType = POINT_NONE;
 
-	//ステージ１
-	stagePoint[POINT_STAGE1].pos = Vec3(-4.0f, 0.0f, 37.7f);//
-	stagePoint[POINT_STAGE1].rot = Vec3(0.0f, 180.0f, 0.0f);
-	stagePoint[POINT_STAGE1].pointType = POINT_BATTLE;
-	stagePoint[POINT_STAGE1].playerSide = PSIDE_LEFT;
-	stagePoint[POINT_STAGE1].hidePoint = setHidePoint(stagePoint[POINT_STAGE1]);
+	//W
+	stagePoint[POINT_W1].pPos = Vec3(6.856f, 0.0f, -3.849f);//
+	stagePoint[POINT_W1].pRot = Vec3(0.0f, 165.0f, 0.0f);
+	stagePoint[POINT_W1].cPos = Vec3(6.363f, 1.0f, -1.101f);//
+	stagePoint[POINT_W1].cRot = Vec3(MACRO_CROT_X(87.167f), MACRO_CROT_Y(-23.778f), 0.0f);
+	stagePoint[POINT_W1].pointType = POINT_BATTLE;
+	stagePoint[POINT_W1].playerSide = PSIDE_LEFT;
+	stagePoint[POINT_W1].hidePoint = setHidePoint(stagePoint[POINT_W1]);//カメラの回避座標をセット
 
-	//連結ポイント
-	stagePoint[POINT_S2_1].pos = Vec3(0.7f, 0.0f, 20.35f);
-	stagePoint[POINT_S2_1].rot = Vec3(0.0f, 130.0f, 0.0f);
-	stagePoint[POINT_S2_1].pointType = POINT_CHANGE;
+	//L
+	//stagePoint[POINT_L1_2a].pPos = Vec3(0.7f, 0.0f, 20.35f);
+	//stagePoint[POINT_L1_2a].pRot = Vec3(0.0f, 130.0f, 0.0f);
+	//stagePoint[POINT_L1_2a].pointType = POINT_CHANGE;
+
+
+	//W
+	stagePoint[POINT_W2].pPos = Vec3(18.56f, 0.0f, -16.27f);//
+	stagePoint[POINT_W2].pRot = Vec3(0.0f, 150.0f, 0.0f);
+	stagePoint[POINT_W2].cPos = Vec3(17.526f, 1.665f, 13.716f);//
+	stagePoint[POINT_W2].cRot = Vec3(85.444f, -37.629f, 0.0f);
+	stagePoint[POINT_W2].pointType = POINT_BATTLE;
+	stagePoint[POINT_W2].playerSide = PSIDE_LEFT;
+	stagePoint[POINT_W2].hidePoint = setHidePoint(stagePoint[POINT_W2]);//カメラの回避座標をセット
+
+
+	//L
+	//stagePoint[POINT_L2_1a].pPos = Vec3(0.7f, 0.0f, 20.35f);
+	//stagePoint[POINT_L2_1a].pRot = Vec3(0.0f, 130.0f, 0.0f);
+	//stagePoint[POINT_L2_1a].pointType = POINT_CHANGE;
+
+
+	//W
+	stagePoint[POINT_W3].pPos = Vec3(17.715f, 0.0f, -32.801f);//
+	stagePoint[POINT_W3].pRot = Vec3(0.0f, -60.0f, 0.0f);
+	stagePoint[POINT_W3].cPos = Vec3(20.365f, 2.131f, -32.342f);//
+	stagePoint[POINT_W3].cRot = Vec3(77.804f, -93.801f, 0.0f);
+	stagePoint[POINT_W3].pointType = POINT_BATTLE;
+	stagePoint[POINT_W3].playerSide = PSIDE_RIGHT;
+	stagePoint[POINT_W3].hidePoint = setHidePoint(stagePoint[POINT_W3]);//カメラの回避座標をセット
+
+
+	//L
+	//stagePoint[POINT_L2_2a].pPos = Vec3(0.7f, 0.0f, 20.35f);
+	//stagePoint[POINT_L2_2a].pRot = Vec3(0.0f, 130.0f, 0.0f);
+	//stagePoint[POINT_L2_2a].pointType = POINT_CHANGE;
+
+
+	//W
+	stagePoint[POINT_W4].pPos = Vec3(0.807f, -2.0f, -32.287f);//
+	stagePoint[POINT_W4].pRot = Vec3(0.0f, -145.0f, 0.0f);
+	stagePoint[POINT_W4].cPos = Vec3(0.676f, -0.34f, -29.174f);
+	stagePoint[POINT_W4].cRot = Vec3(86.57f, 11.325f, 0.0f);
+	stagePoint[POINT_W4].pointType = POINT_BATTLE;
+	stagePoint[POINT_W4].playerSide = PSIDE_RIGHT;
+	stagePoint[POINT_W4].hidePoint = setHidePoint(stagePoint[POINT_W4]);//カメラの回避座標をセット
+
 
 
 	//クリア
-	stagePoint[POINT_FINISH].pos = Vec3(12.0f, 0.0f, 5.0f);
-	stagePoint[POINT_FINISH].rot = Vec3(0.0f, 165.0f, 0.0f);
+	stagePoint[POINT_FINISH].pPos = Vec3(12.0f, 0.0f, 5.0f);
+	stagePoint[POINT_FINISH].pRot = Vec3(0.0f, 165.0f, 0.0f);
 	stagePoint[POINT_FINISH].pointType = POINT_CLEAR;
 }
 
@@ -320,6 +367,19 @@ void GameMaster::AddCameraNodeRot(cocos2d::Vec3 rot)
 
 
 /**
+*	3D用カメラの注視点セット
+*
+*	@author	sasebon
+*	@param	カメラ座標
+*	@return	なし
+*	@date	1/16 Ver 1.0
+*/
+void GameMaster::SetCameraLookAt(cocos2d::Vec3 pos)
+{
+	camera3D->lookAt(pos, Vec3::UNIT_Y);//lookAtは原点に置き、setPositionで視点を動かします。
+}
+
+/**
 *	3D用カメラの初期化
 *
 *	@author	sasebon
@@ -335,11 +395,9 @@ void GameMaster::InitCamera3D()
 	//
 
 	CamNode = Node::create();
-	camera3D = Camera::createPerspective(C_PERSE_L, (GLfloat)screenSize.width / screenSize.height, 1, 1000);
+	camera3D = Camera::createPerspective(C_PERSE_L, (GLfloat)screenSize.width / screenSize.height, 1, 500);
 
-	//
-
-	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 1, 0));//lookAtは原点に置き、setPositionで視点を動かします。
+	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3::UNIT_Y);//lookAtは原点に置き、setPositionで視点を動かします。
 	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
 
 	CamNode->addChild(camera3D);
@@ -645,15 +703,15 @@ Vec2 GameMaster::setHidePoint(StagePoint stagePoint)
 
 	if(PSIDE_LEFT == stagePoint.playerSide)
 	{
-		hidePoint.x = hidePoint.x * cosf(stagePoint.rot.y) - hidePoint.y * sinf(stagePoint.rot.y);
-		hidePoint.y = hidePoint.x * sinf(stagePoint.rot.y) + hidePoint.y * cosf(stagePoint.rot.y);
+		hidePoint.x = hidePoint.x * cosf(stagePoint.pRot.y) - hidePoint.y * sinf(stagePoint.pRot.y);
+		hidePoint.y = hidePoint.x * sinf(stagePoint.pRot.y) + hidePoint.y * cosf(stagePoint.pRot.y);
 	}
 	else
 	{
 		hidePoint = Vec2(HIDEPOINT_X, -HIDEPOINT_Y);
 
-		hidePoint.x = hidePoint.x * cosf(stagePoint.rot.y) - hidePoint.y * sinf(stagePoint.rot.y);
-		hidePoint.y = hidePoint.x * sinf(stagePoint.rot.y) + hidePoint.y * cosf(stagePoint.rot.y);
+		hidePoint.x = hidePoint.x * cosf(stagePoint.pRot.y) - hidePoint.y * sinf(stagePoint.pRot.y);
+		hidePoint.y = hidePoint.x * sinf(stagePoint.pRot.y) + hidePoint.y * cosf(stagePoint.pRot.y);
 	}
 	return hidePoint;
 }
@@ -677,29 +735,66 @@ float GameMaster::GetPlayerHP(void)
 *
 *	@author	minaka
 *	@param	パラメーター
-*	@return	なし
-*	@date	2/6 Ver 1.0
+*	@return	適切な引数:1,不正な引数:-1
+*	@date	2/22 Ver 1.0
 */
-void GameMaster::SetPlayerHP(float value)
+int GameMaster::SetPlayerHP(float value)
 {
-	playerHP = value;
+	if(value > STS_MAXPLAYERHP)
+	{
+		playerHP = STS_MAXPLAYERHP;
+		return FALSE;
+	}
+	else if(value < 0)
+	{
+		playerHP = 0;
+		return FALSE;
+	}
+	else
+	{
+		playerHP = value;
+		return TRUE;
+	}
 }
 
 
-
-
-
 /**
-*	プレイヤー弾数のセッター
+*	プレイヤーHPのセッター
 *
 *	@author	sasebon
 *	@param	パラメーター
-*	@return	なし
+*	@return	適切な引数:1,不正な引数:-1
+*	@date	2/6 Ver 1.0
+*/
+int GameMaster::AddPlayerHP(float value)
+{
+	playerHP += value;
+	if(playerHP > STS_MAXPLAYERHP)
+	{
+		//
+		playerHP = STS_MAXPLAYERHP;
+		return FALSE;
+	}
+	else if(playerHP < 0)
+	{
+		//
+		playerHP = 0;
+		return FALSE;
+	}
+	return TRUE;
+}
+
+
+/**
+*	プレイヤー弾数のゲッター
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	現在弾数
 *	@date	2/9 Ver 1.0
 */
 int GameMaster::GetPlayerBullets(void)
 {
-
 	return nowBullets;
 }
 
@@ -708,20 +803,23 @@ int GameMaster::GetPlayerBullets(void)
 *
 *	@author	sasebon
 *	@param	パラメーター
-*	@return	なし
+*	@return	適切な引数:1,不正な引数:-1
 *	@date	2/9 Ver 1.0
 */
-void GameMaster::SetPlayerBullets(int value)
+int GameMaster::SetPlayerBullets(int value)
 {
-	if (0 > value)
-	{
-		value = 0;
-	}
-	else if (STS_MAXBULLETS < value)
-	{
-		value = STS_MAXBULLETS;
-	}
 	nowBullets = value;
+	if(0 > value)
+	{
+		nowBullets = 0;
+		return FALSE;
+	}
+	else if(STS_MAXBULLETS < value)
+	{
+		nowBullets = STS_MAXBULLETS;
+		return FALSE;
+	}
+	return TRUE;
 }
 
 
@@ -730,18 +828,21 @@ void GameMaster::SetPlayerBullets(int value)
 *
 *	@author	sasebon
 *	@param	パラメーター
-*	@return	なし
+*	@return	適切な引数:1,不正な引数:-1
 *	@date	2/9 Ver 1.0
 */
-void GameMaster::AddPlayerBullets(int value)
+int GameMaster::AddPlayerBullets(int value)
 {
 	nowBullets += value;
-	if (nowBullets < 0)
+	if(nowBullets < 0)
 	{
 		nowBullets = 0;
+		return FALSE;
 	}
-	else if (STS_MAXBULLETS < nowBullets)
+	else if(STS_MAXBULLETS < nowBullets)
 	{
 		nowBullets = STS_MAXBULLETS;
+		return FALSE;
 	}
+	return TRUE;
 }

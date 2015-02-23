@@ -11,10 +11,10 @@ namespace TapGun
 #define FALSE -1
 #define TRUE 1
 
-#define FRAME 0.01666f//時間を
+//#define FRAME 0.01666f//時間を
 
 //プレイヤーのパラメータ定義
-#define STS_PLAYERHP 6//プレイヤーの最大HP
+#define STS_MAXPLAYERHP 6//プレイヤーの最大HP
 #define STS_RAPIDSPEED 8//プレイヤーの連射速度（フレーム）
 #define STS_MAXBULLETS 30//プレイヤーの最大弾数
 #define STS_MUTEKIFRAME (120 / 60.0f) //無敵時間
@@ -81,6 +81,17 @@ namespace TapGun
 #define W_ROTY 0.0f
 #define W_ROTZ 0.0f
 
+
+//3DSMAXのカメラ角度を通常角度に変換するためのマクロ
+#define MACRO_CROT_X(x) (x - 90)
+#define MACRO_CROT_Y(y) (y + 180)
+//#define MACRO_CROT_Z(a) ()//Zは恐らく使用しない
+
+//秒をフレームに変換/フレームを秒に変換
+#define MACRO_StoF(second) (second * 60.0f)
+#define MACRO_FtoS(frame) (frame * 0.01666f)
+
+
 //プレイヤーが回避する時の軸の座標（プレイヤーから見た相対座標、左側時）
 //プレイヤーは0度基準で配置しているので、X軸Y軸がカメラとそれぞれ反転しています
 #define HIDEPOINT_X 0.35f
@@ -91,7 +102,7 @@ namespace TapGun
 #define HIDECAMERA_Y -1.1f
 
 //時間
-#define TIME_ACTION_UI 120.0f//ActionのUIを表示する時間
+#define TIME_ACTION_UI 1.8f//ActionのUIを表示する時間（秒）
 	enum _CAMERA_FLAG_
 	{
 		//CAMFLAG_DEFAULT = CameraFlag::DEFAULT,//
@@ -108,8 +119,9 @@ namespace TapGun
 		GSTATE_PLAY_ACTION,//戦闘開始前の待ち時間（ActionのUIを描画するときに使用する）
 		GSTATE_PLAY,
 		GSTATE_PAUSE,
-		GSTATE_CONTINUE,
-		GSTATE_GAMEOVER,
+		GSTATE_CONTINUE_INIT,//コンティニュー画面前の準備
+		GSTATE_CONTINUE,//コンティニューするかどうかの操作はここで行う
+		GSTATE_GAMEOVER,//
 		GSTATE_EVENT,//ムービーイベントなどを進行させるときに使用する？（現在未使用）
 		GSTATE_NUM
 	};
@@ -118,13 +130,15 @@ namespace TapGun
 	{
 		PSTATE_IDLE,
 		PSTATE_SHOT,
+//		PSTATE_PLAY_SET,//アクションの準備中
 		PSTATE_DODGE,//隠れ中
 		PSTATE_HIDE,//隠れている
 		PSTATE_APPEAR,//隠れた状態から出る
-		PSTATE_DAMAGED,
-		PSTATE_RECOVER,
+		PSTATE_DAMAGED,//攻撃を食らった
+		PSTATE_RECOVER,//被弾からの回復
 		PSTATE_RUN,
-		PSTATE_DEAD,
+		PSTATE_DEAD,//プレイヤーの死亡
+		PSTATE_CONTINUE,//プレイヤー死亡後の操作待ち
 		PSTATE_NUM
 	};
 
@@ -162,10 +176,22 @@ namespace TapGun
 
 	enum _STAGE_POINT_
 	{
-		//後で名前を設定
+		//W = ウェーブ
+		//L = ルート
+
 		POINT_START,
-		POINT_STAGE1,
-		POINT_S2_1,
+		//POINT_L1_0,は使用しない
+		POINT_W1,
+//		POINT_L1,
+
+//		POINT_L2_1a,
+		POINT_W2,
+//		POINT_L2,
+
+		//POINT_L3_1,
+		POINT_W3,
+		//POINT_W3_2,
+		POINT_W4,
 		POINT_FINISH,
 	};
 
@@ -173,8 +199,11 @@ namespace TapGun
 	//プレイヤーの進行座標を定義する構造体
 	typedef struct
 	{
-		cocos2d::Vec3 pos;
-		cocos2d::Vec3 rot;
+		cocos2d::Vec3 pPos;//プレイヤーの位置
+		cocos2d::Vec3 pRot;//プレイヤーの角度
+		cocos2d::Vec3 cPos;//カメラの位置
+		cocos2d::Vec3 cRot;//カメラの角度
+
 		int pointType;
 		int playerSide;
 		cocos2d::Point hidePoint;//回避動作の軸となる座標
@@ -183,8 +212,12 @@ namespace TapGun
 	class GameMaster
 	{
 	public:
+		//各種public変数は今後privateに置き換えていきます
 
-		//変数
+		//タイム
+		float maxTime;//ウェーブの最大時間（秒）
+		float nokoriTime;//ウェーブの残り時間（秒）
+
 		timeval* nowTV;//現在時刻(timeval)
 		timeval* preTV;//前フレームまでの時刻(timeval)
 		float nowTime;//現在時刻（秒）
@@ -245,6 +278,8 @@ namespace TapGun
 		void AddCameraNodePos(cocos2d::Vec3 pos);
 		void AddCameraNodeRot(cocos2d::Vec3 rot);
 
+		void SetCameraLookAt(cocos2d::Vec3 pos);
+
 		cocos2d::Camera* GetCamera3D(void);
 		const cocos2d::Node* GetCameraNode(void);
 
@@ -268,12 +303,13 @@ namespace TapGun
 
 		//プレイヤーHPのゲッターとセッター
 		float GetPlayerHP(void);
-		void SetPlayerHP(float value);
+		int SetPlayerHP(float value);
+		int AddPlayerHP(float value);
 
 		//プレイヤー弾数のゲッターとセッター
 		int GetPlayerBullets(void);
-		void SetPlayerBullets(int value);
-		void AddPlayerBullets(int value);
+		int SetPlayerBullets(int value);
+		int AddPlayerBullets(int value);
 
 	private:
 		int playerState;//プレイヤーの状態
