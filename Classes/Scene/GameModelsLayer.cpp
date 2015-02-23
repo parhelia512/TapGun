@@ -121,8 +121,10 @@ void GameModelsLayer::LoadModels()
 	//マップは0番に割り当て
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	fileName1 = "map507";
+	fileName1 = "stage";
 #else
 	fileName1 = "Stage/map507";
+	fileName1 = "Stage/stage";
 #endif
 	unit[UNIT0_MAP].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
 	addChild(unit[UNIT0_MAP].sprite3d);
@@ -228,9 +230,9 @@ void GameModelsLayer::InitPlayer(int stage_num)
 
 	//ステージに応じた初期化
 	player.sprite3d->setScale(1.0f);
-	player.sprite3d->setRotation3D(GameMasterM->stagePoint[POINT_START].rot);//プレイヤーは正面を向く
-	player.wrapper->setPosition3D(GameMasterM->stagePoint[POINT_START].pos);
-	GameMasterM->sPoint = POINT_STAGE1;//ステージ1に走る
+	player.sprite3d->setRotation3D(GameMasterM->stagePoint[POINT_START].pRot);//プレイヤーは正面を向く
+	player.wrapper->setPosition3D(GameMasterM->stagePoint[POINT_START].pPos);
+	GameMasterM->sPoint = POINT_W1;//ステージ1に走る
 
 	//当たり判定の定義（仮）
 	player.collisionPos = Vec3(1.2, 3.0, 1.2);//範囲を指定して
@@ -264,7 +266,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 	//全てのエネミーユニットを初期化
 	//エネミーのセットはsetEnemyで行う
 
-	for (int i = UNIT1_ENEMY; i < UNIT2_BULLET; i++)
+	for(int i = UNIT1_ENEMY; i < UNIT2_BULLET; i++)
 	{
 		unit[i].Init(i, UKIND_ENEMY);
 		unit[i].visible = FALSE;
@@ -313,10 +315,12 @@ void GameModelsLayer::InitBullet()
 */
 void GameModelsLayer::SetEnemy(void)
 {
-	switch (GameMasterM->wave)
+	//現在ウェーブで場合分け
+	switch(GameMasterM->wave)
 	{
-	case 0://ステージ1
+	case 0://ウェーブ1
 
+		enemyTable->InitAll();//エネミー出現テーブルを初期化（）
 		enemyTable->finishNumber = 10;//9体の敵が出る
 
 		//敵の初期化
@@ -344,12 +348,28 @@ void GameModelsLayer::SetEnemy(void)
 		}
 
 		//敵の出現ポイントをセット
-		enemyTable->standbyPos[0] = (Vec3(-4.65f, 0.0f, 18.15f));
-		enemyTable->standbyPos[1] = (Vec3(0.65f, 0.0f, 10.8f));
-		enemyTable->standbyPos[2] = (Vec3(9.1f, 0.0f, 18.65f));
-		enemyTable->standbyPos[3] = (Vec3(-5.7f, 0.0f, 28.4f));
+		enemyTable->standbyPos[0] = (Vec3(17.539f, 0.0f, -16.435));
+		enemyTable->standbyPos[1] = (Vec3(14.574f, 0.0f, 11.887f));
+		enemyTable->standbyPos[2] = (Vec3(5.965f, 0.0f, -11.007f));
+		enemyTable->standbyPos[3] = (Vec3(9.19f, 0.0f, -16.823f));
+		enemyTable->standbyPos[4] = (Vec3(17.907f, 0.0f, -15.401f));
+		enemyTable->standbyPos[5] = (Vec3(17.539f, 0.0f, -16.435f));
+		enemyTable->standbyPos[6] = (Vec3(9.19f, 0.0f, -16.823f));
+		enemyTable->standbyPos[7] = (Vec3(9.19f, 0.0f, -16.823f));
+		enemyTable->standbyPos[8] = (Vec3(6.028f, 0.0f, -7.788f));
+		enemyTable->standbyPos[9] = (Vec3(6.134f, 0.0f, -15.654f));
 
-		//エネミーの最初のターゲット座標をセット
+		//敵の目標地点をセット
+		enemyTable->targetPos[0] = (Vec3(11.385f, 0.0f, -10.211f));
+		enemyTable->targetPos[1] = (Vec3(10.673f, 0.0f, -13.275f));
+		enemyTable->targetPos[2] = (Vec3(11.385f, 0.0f, -7.781f));
+		enemyTable->targetPos[3] = (Vec3(9.705f, 0.0f, -8.381f));
+		enemyTable->targetPos[4] = (Vec3(10.673f, 0.0f, -13.275f));
+		enemyTable->targetPos[5] = (Vec3(11.385f, 0.0f, -10.211f));
+		enemyTable->targetPos[6] = (Vec3(9.705f, 0.0f, -8.381f));
+		enemyTable->targetPos[7] = (Vec3(11.385f, 0.0f, -10.211f));
+		enemyTable->targetPos[8] = (Vec3(11.385f, 0.0f, -7.781f));
+		enemyTable->targetPos[9] = (Vec3(10.673f, 0.0f, -10.211f));
 
 
 		//エネミーの初期座標をセット
@@ -359,7 +379,7 @@ void GameModelsLayer::SetEnemy(void)
 		enemyTable->enemyData[0].targetPos = enemyTable->targetPos[0];
 		enemyTable->enemyData[0].SetNextEnemy(3, -1, -1);
 		enemyTable->enemyData[0].alive = TRUE;
-		enemyTable->enemyData[0].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[0].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[0].sleepTime = 1.0f;
 		enemyTable->enemyData[0].hitpoint = 5;
 
@@ -367,7 +387,7 @@ void GameModelsLayer::SetEnemy(void)
 		enemyTable->enemyData[1].targetPos = enemyTable->targetPos[1];
 		enemyTable->enemyData[1].SetNextEnemy(4, -1, -1);
 		enemyTable->enemyData[1].alive = TRUE;
-		enemyTable->enemyData[1].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[1].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[1].sleepTime = 1.0f;
 		enemyTable->enemyData[1].hitpoint = 5;
 
@@ -376,52 +396,52 @@ void GameModelsLayer::SetEnemy(void)
 		enemyTable->enemyData[2].targetPos = enemyTable->targetPos[2];
 		enemyTable->enemyData[2].SetNextEnemy(5, -1, -1);
 		enemyTable->enemyData[2].alive = TRUE;
-		enemyTable->enemyData[2].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[2].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[2].sleepTime = 1.0f;
 		enemyTable->enemyData[2].hitpoint = 5;
 
 
-		enemyTable->enemyData[3].standbyPos = enemyTable->standbyPos[0];
-		enemyTable->enemyData[3].targetPos = enemyTable->targetPos[0];
+		enemyTable->enemyData[3].standbyPos = enemyTable->standbyPos[3];
+		enemyTable->enemyData[3].targetPos = enemyTable->targetPos[3];
 		enemyTable->enemyData[3].SetNextEnemy(6, -1, -1);
 		enemyTable->enemyData[3].alive = TRUE;
-		enemyTable->enemyData[3].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[3].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[3].sleepTime = 1.0f;
 		enemyTable->enemyData[3].hitpoint = 5;
 
 
-		enemyTable->enemyData[4].standbyPos = enemyTable->standbyPos[1];
-		enemyTable->enemyData[4].targetPos = enemyTable->targetPos[1];
+		enemyTable->enemyData[4].standbyPos = enemyTable->standbyPos[4];
+		enemyTable->enemyData[4].targetPos = enemyTable->targetPos[4];
 		enemyTable->enemyData[4].SetNextEnemy(7, -1, -1);
 		enemyTable->enemyData[4].alive = TRUE;
-		enemyTable->enemyData[4].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[4].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[4].sleepTime = 1.0f;
 		enemyTable->enemyData[4].hitpoint = 5;
 
 
-		enemyTable->enemyData[5].standbyPos = enemyTable->standbyPos[2];
-		enemyTable->enemyData[5].targetPos = enemyTable->targetPos[2];
+		enemyTable->enemyData[5].standbyPos = enemyTable->standbyPos[5];
+		enemyTable->enemyData[5].targetPos = enemyTable->targetPos[5];
 		enemyTable->enemyData[5].SetNextEnemy(8, -1, -1);
 		enemyTable->enemyData[5].alive = TRUE;
-		enemyTable->enemyData[5].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[5].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[5].sleepTime = 1.0f;
 		enemyTable->enemyData[5].hitpoint = 5;
 
 
-		enemyTable->enemyData[6].standbyPos = enemyTable->standbyPos[0];
-		enemyTable->enemyData[6].targetPos = enemyTable->targetPos[0];
+		enemyTable->enemyData[6].standbyPos = enemyTable->standbyPos[6];
+		enemyTable->enemyData[6].targetPos = enemyTable->targetPos[6];
 		enemyTable->enemyData[6].SetNextEnemy(-1, -1, -1);
 		enemyTable->enemyData[6].alive = TRUE;
-		enemyTable->enemyData[6].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[6].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[6].sleepTime = 1.0f;
 		enemyTable->enemyData[6].hitpoint = 5;
 
 
-		enemyTable->enemyData[7].standbyPos = enemyTable->standbyPos[1];
-		enemyTable->enemyData[7].targetPos = enemyTable->targetPos[1];
+		enemyTable->enemyData[7].standbyPos = enemyTable->standbyPos[7];
+		enemyTable->enemyData[7].targetPos = enemyTable->targetPos[7];
 		enemyTable->enemyData[7].SetNextEnemy(-1, -1, -1);
 		enemyTable->enemyData[7].alive = TRUE;
-		enemyTable->enemyData[7].AIType = AI_TYPE_MATO;//
+		enemyTable->enemyData[7].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[7].sleepTime = 1.0f;
 		enemyTable->enemyData[7].hitpoint = 5;
 
@@ -431,7 +451,7 @@ void GameModelsLayer::SetEnemy(void)
 		enemyTable->enemyData[8].SetNextEnemy(9, -1, -1);
 		enemyTable->enemyData[8].finishFlag = TRUE;
 		enemyTable->enemyData[8].alive = TRUE;
-		enemyTable->enemyData[8].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[8].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[8].sleepTime = 1.0f;
 		enemyTable->enemyData[8].hitpoint = 5;
 
@@ -441,12 +461,12 @@ void GameModelsLayer::SetEnemy(void)
 		enemyTable->enemyData[9].SetNextEnemy(-1, -1, -1);
 		enemyTable->enemyData[9].finishFlag = TRUE;
 		enemyTable->enemyData[9].alive = TRUE;
-		enemyTable->enemyData[9].AIType = AI_TYPE_SINGLE;//
+		enemyTable->enemyData[9].SetAI(AI_ATK_NONE, AI_IDLE_SIDE, AI_ATK_NONE);
 		enemyTable->enemyData[9].sleepTime = 1.0f;
 		enemyTable->enemyData[9].hitpoint = 5;
 
-		//敵の出現定義が済んだら、最初に出現させる敵のセットを行う
 
+		//敵の出現定義が済んだら、最初に出現させる敵のセットを行う
 		unit[1].eState = ESTATE_SLEEP;
 		unit[1].sprite3d->setVisible(true);//敵モデル非表示
 		unit[1].visible = TRUE;//敵モデル非表示
@@ -454,7 +474,11 @@ void GameModelsLayer::SetEnemy(void)
 		unit[1].targetPos = enemyTable->enemyData[0].targetPos;
 		unit[1].StandbyPos = enemyTable->enemyData[0].standbyPos;
 		unit[1].tableNum = 0;
-		unit[1].AIType = enemyTable->enemyData[0].AIType;
+
+		unit[1].AIIdle = enemyTable->enemyData[0].AIIdle;
+		unit[1].AIAtk = enemyTable->enemyData[0].AIAtk;
+		unit[1].AIAppear = enemyTable->enemyData[0].AIappear;
+
 
 		unit[2].eState = ESTATE_SLEEP;
 		unit[2].sprite3d->setVisible(true);//敵モデル非表示
@@ -463,7 +487,10 @@ void GameModelsLayer::SetEnemy(void)
 		unit[2].targetPos = enemyTable->enemyData[1].targetPos;
 		unit[2].StandbyPos = enemyTable->enemyData[1].standbyPos;
 		unit[2].tableNum = 1;
-		unit[2].AIType = enemyTable->enemyData[1].AIType;
+
+		unit[2].AIIdle = enemyTable->enemyData[2].AIIdle;
+		unit[2].AIAtk = enemyTable->enemyData[2].AIAtk;
+		unit[2].AIAppear = enemyTable->enemyData[2].AIappear;
 
 
 		unit[3].eState = ESTATE_SLEEP;
@@ -473,7 +500,10 @@ void GameModelsLayer::SetEnemy(void)
 		unit[3].targetPos = enemyTable->enemyData[2].targetPos;
 		unit[3].StandbyPos = enemyTable->enemyData[2].standbyPos;
 		unit[3].tableNum = 2;
-		unit[3].AIType = enemyTable->enemyData[2].AIType;
+
+		unit[3].AIIdle = enemyTable->enemyData[2].AIIdle;
+		unit[3].AIAtk = enemyTable->enemyData[2].AIAtk;
+		unit[3].AIAppear = enemyTable->enemyData[2].AIappear;
 
 
 		break;
@@ -511,38 +541,6 @@ int GameModelsLayer::InitMap(int stage_num)
 }
 
 
-
-/**
-*	レイヤーの更新
-*
-*	@author	sasebon
-*	@param	なし
-*	@return	なし
-*	@date	1/8 Ver 1.0
-*/
-void GameModelsLayer::UpdateLayer()
-{
-	switch (GameMasterM->GetGameState())
-	{
-	case GSTATE_PLAY_ACTION:
-
-		//
-
-		break;
-	default:
-
-		UpdatePlayer();//プレイヤーの更新
-		UpdateEnemy();//エネミーの更新
-		UpdateBullets();//敵弾の更新
-		CheckHit();//当たり判定のチェック
-
-		CheckNextStage();//
-		break;
-	}
-}
-
-
-
 /**
 *	ウェイト状態の更新
 *
@@ -557,7 +555,8 @@ void GameModelsLayer::UpdateWait()
 	{
 	case 0:
 	{
-		player.targetPos = GameMasterM->stagePoint[GameMasterM->sPoint].pos;//
+		//目標地点を取得し、移動処理の準備を行う
+		player.targetPos = GameMasterM->stagePoint[GameMasterM->sPoint].pPos;//
 		player.speed = STS_RUNSPEED;//スピードは後で調整する
 
 		player.speedVec = player.targetPos - player.wrapper->getPosition3D();//
@@ -590,47 +589,55 @@ void GameModelsLayer::UpdateWait()
 		break;
 	case 2:
 	{
-		UpdatePlayer();//プレイヤーの更新
-		Vec3 tmpPos = player.wrapper->getPosition3D();
+			  UpdatePlayer();//プレイヤーの更新
+			  Vec3 tmpPos = player.wrapper->getPosition3D();
+			  tmpPos = player.targetPos - tmpPos;
+			  //一定以上目的地に近付いたら、カメラとプレイヤーを回転させる準備を行う
 
-		//一定以上目的地に近付いたら、カメラとプレイヤーを回転させる準備を行う
-		if (0.15f * 0.15f >= (player.targetPos.x - tmpPos.x) * (player.targetPos.x - tmpPos.x)
-			+ (player.targetPos.z - tmpPos.z) *(player.targetPos.z - tmpPos.z))
-		{
-			GameMasterM->waitFlag = 3;
-			Vec3 tmp = player.sprite3d->getRotation3D();//プレイヤーの今の角度をもとに
-			rotationR = GameMasterM->stagePoint[GameMasterM->sPoint].rot.y - tmp.y;//戦闘時の角度との差を計算する
-			rotationR *= 0.05;//1フレームごとに変化する角度を計算
-			rotationCount = 0;
 
-			if (POINT_CHANGE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)
-			{
-				changeCameraPos = Vec3(0.0f, 0.0f, 0.0f);
-				changeCameraRot = Vec3(0.0f, 0.0f, 0.0f);
-			}
-			else if (POINT_FINISH == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)
-			{
-				changeCameraPos = Vec3(0.0f, 0.0f, 0.0f);
-				changeCameraRot = Vec3(0.0f, 0.0f, 0.0f);
-			}
-			else if (POINT_BATTLE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)
-			{
-				if (PSIDE_LEFT == GameMasterM->stagePoint[GameMasterM->sPoint].playerSide)
-				{
-					//カメラとプレイヤーの位置も滑らかに変化させる
-					changeCameraPos = Vec3(C_SETX_L - W_SETX, C_SETY_L - W_SETY, C_SETZ_L - W_SETZ) * 0.05;
-					changeCameraRot = Vec3(C_ROTX_L - W_ROTX, C_ROTY_L - W_ROTY, C_ROTZ_L - W_ROTZ)* 0.05;
-				}
-				else
-				{
-					//カメラとプレイヤーの位置も滑らかに変化させる
-					changeCameraPos = Vec3(C_SETX_R - W_SETX, C_SETY_R - W_SETY, C_SETZ_R - W_SETZ) * 0.05;
-					changeCameraRot = Vec3(C_ROTX_R - W_ROTX, C_ROTY_R - W_ROTY, C_ROTZ_R - W_ROTZ)* 0.05;
-				}
-			}
-			player.speed = 0.0f;
-			player.speedVec = Vec3(0.0f, 0.0f, 0.0f);
-		}
+			  //平面の距離を求める
+			  float d1 = sqrtf(tmpPos.x * tmpPos.x + tmpPos.y * tmpPos.y);
+			  //計算した平面上の距離と高さの距離を求める
+			  d1 = sqrtf((tmpPos.z * tmpPos.z) + (d1 * d1));
+
+			  if(0.15f >= d1)
+			  {
+				  GameMasterM->waitFlag = 3;
+				  Vec3 tmp = player.sprite3d->getRotation3D();//プレイヤーの今の角度をもとに
+				  rotationR = GameMasterM->stagePoint[GameMasterM->sPoint].pRot.y - tmp.y;//戦闘時の角度との差を計算する
+				  rotationR *= 0.05;//1フレームごとに変化する角度を計算
+				  rotationCount = 0;
+
+				  if(POINT_CHANGE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)
+				  {
+					  changeCameraPos = Vec3(0.0f, 0.0f, 0.0f);
+					  changeCameraRot = Vec3(0.0f, 0.0f, 0.0f);
+				  }
+				  else if(POINT_FINISH == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)
+				  {
+					  changeCameraPos = Vec3(0.0f, 0.0f, 0.0f);
+					  changeCameraRot = Vec3(0.0f, 0.0f, 0.0f);
+				  }
+				  else if(POINT_BATTLE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)
+				  {
+					  //プレイヤーとカメラの位置関係を計算
+					  Vec3 cP = GameMasterM->stagePoint[GameMasterM->sPoint].cPos - GameMasterM->stagePoint[GameMasterM->sPoint].pPos;
+					  Vec3 cR = (GameMasterM->stagePoint[GameMasterM->sPoint].cRot) - GameMasterM->stagePoint[GameMasterM->sPoint].pRot;
+
+					  if(PSIDE_LEFT == GameMasterM->stagePoint[GameMasterM->sPoint].playerSide)
+					  {
+						  changeCameraPos = Vec3(C_SETX_L - W_SETX, C_SETY_L - W_SETY, C_SETZ_L - W_SETZ) * 0.05;
+						  changeCameraRot = Vec3(C_ROTX_L - W_ROTX, C_ROTY_L - W_ROTY, C_ROTZ_L - W_ROTZ)* 0.05;
+					  }
+					  else
+					  {
+						  changeCameraPos = Vec3(C_SETX_R - W_SETX, C_SETY_R - W_SETY, C_SETZ_R - W_SETZ) * 0.05;
+						  changeCameraRot = Vec3(C_ROTX_R - W_ROTX, C_ROTY_R - W_ROTY, C_ROTZ_R - W_ROTZ)* 0.05;
+					  }
+				  }
+				  player.speed = 0.0f;
+				  player.speedVec = Vec3(0.0f, 0.0f, 0.0f);
+			  }
 	}
 		break;
 	case 3:
@@ -649,8 +656,8 @@ void GameModelsLayer::UpdateWait()
 		{
 			if (POINT_CHANGE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//進行方向切り替え
 			{
-				player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
-				player.wrapper->setPosition3D(GameMasterM->stagePoint[GameMasterM->sPoint].pos);
+				player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].pRot);
+				player.wrapper->setPosition3D(GameMasterM->stagePoint[GameMasterM->sPoint].pPos);
 
 				GameMasterM->sPoint++;//座標と角度が設定できたらポイントを先に進める
 				GameMasterM->waitFlag = 0;
@@ -658,8 +665,8 @@ void GameModelsLayer::UpdateWait()
 			else if (POINT_BATTLE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//次のウェーブに到達した
 			{
 				//座標と角度をセット
-				player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
-				player.wrapper->setPosition3D(GameMasterM->stagePoint[GameMasterM->sPoint].pos);
+				player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].pRot);
+				player.wrapper->setPosition3D(GameMasterM->stagePoint[GameMasterM->sPoint].pPos);
 
 				GameMasterM->playerSide = GameMasterM->stagePoint[GameMasterM->sPoint].playerSide;//現在が左右どちらに立っているかを確認
 
@@ -667,17 +674,17 @@ void GameModelsLayer::UpdateWait()
 				if (PSIDE_LEFT == GameMasterM->playerSide)
 				{
 					//目標角度をもとにノードの移動後座標を取得
-					Vec2 pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
+					Vec2 pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].pRot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
 					Vec3 newPos = player.wrapper->getPosition3D() + Vec3(pos.x, 0.0f, pos.y);
 					player.wrapper->setPosition3D(newPos);//wrapper
 
-					pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
+					pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].pRot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
 					newPos = player.sprite3d->getPosition3D() - Vec3(pos.x, 0.0f, pos.y);
 					player.sprite3d->setPosition3D(newPos);//wrapper
 
 					//目標角度をもとに、回避時のカメラ移動座標を計算
 					//プレイヤーの親ノードに対する回避後カメラ座標の相対座標を計算
-					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, PSIDE_LEFT);
+					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].pRot.y, PSIDE_LEFT);
 					camTarget = Vec3(tmp.x, 0.0f, tmp.y);
 
 					//回避時のカメラ移動前の座標を確保
@@ -686,48 +693,32 @@ void GameModelsLayer::UpdateWait()
 				else
 				{
 					//目標角度をもとにノードの移動後座標を取得
-					Vec2 pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
+					Vec2 pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].pRot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
 					Vec3 newPos = player.wrapper->getPosition3D() + Vec3(pos.x, 0.0f, pos.y);
 					player.wrapper->setPosition3D(newPos);//wrapper
 
-					pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
+					pos = calcRot(GameMasterM->stagePoint[GameMasterM->sPoint].pRot.y, GameMasterM->stagePoint[GameMasterM->sPoint].playerSide);
 					newPos = player.sprite3d->getPosition3D() - Vec3(pos.x, 0.0f, pos.y);
 					player.sprite3d->setPosition3D(newPos);//wrapper
 
 
 					//目標角度をもとに、回避時のカメラ移動座標を計算
-					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].rot.y, PSIDE_RIGHT);
+					Vec2 tmp = calcCamPos3(GameMasterM->stagePoint[GameMasterM->sPoint].pRot.y, PSIDE_RIGHT);
 					camTarget = Vec3(tmp.x, 0.0f, tmp.y);
 				}
 				GameMasterM->SetGameState(GSTATE_PLAY_SET);//戦闘ポイントに到着したら、ウェイトからプレイに移行
-
-				//左右に応じたアイドルモーションを開始する
 				player.sprite3d->stopAllActions();
+				GameMasterM->SetPlayerState(PSTATE_IDLE);
 
 				//ゲームに関係する各種フラグの初期化
 				GameMasterM->flgPlayerATK = FALSE;//プレイヤーの攻撃判定をOFFに
 				GameMasterM->playerHitFlag = TRUE;//プレイヤーの食らい判定をONに
 				GameMasterM->shotFlag = FALSE;//
 
-				//player.sprite3d->startAnimationLoop(idle);
 			}
 			else if (POINT_CLEAR == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//クリアしたら
 			{
-				//if (POINT_CHANGE == GameMasterM->stagePoint[GameMasterM->sPoint].pointType)//進行方向切り替え
-				//{
-				//	player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].rot);
-				//	player.wrapper->setPosition3D(GameMasterM->stagePoint[GameMasterM->sPoint].pos);
 
-				//	GameMasterM->sPoint++;//座標と角度が設定できたらポイントを先に進める
-				//	GameMasterM->waitFlag = 0;
-				//}
-
-				player.sprite3d->setScale(1.0f);
-				player.sprite3d->setRotation3D(GameMasterM->stagePoint[POINT_START].rot);//プレイヤーは正面を向く
-				player.wrapper->setPosition3D(GameMasterM->stagePoint[POINT_START].pos);
-				GameMasterM->sPoint = POINT_STAGE1;//ステージ1に走る
-				GameMasterM->waitFlag = 0;
-				GameMasterM->wave = 0;
 			}
 			else
 			{
@@ -763,7 +754,7 @@ void GameModelsLayer::UpdatePlayer(void)
 	//	player.muzzleUpdate();
 
 	//２：プレイヤーの状態を取得して場合分け
-	switch (GameMasterM->GetPlayerState())
+	switch(GameMasterM->GetPlayerState())
 	{
 
 	case PSTATE_IDLE://アイドル状態
@@ -790,7 +781,11 @@ void GameModelsLayer::UpdatePlayer(void)
 	case PSTATE_RUN://ウェイト状態
 
 		break;
-	case PSTATE_DEAD:
+	case PSTATE_DEAD://死亡状態
+		ActionDead();
+		break;
+	case PSTATE_CONTINUE://
+
 		break;
 	}
 	//プレイヤーが攻撃可能な場合、攻撃範囲の座標をタッチしたら攻撃を行う
@@ -816,7 +811,7 @@ void GameModelsLayer::ActionIdle()
 	auto director = Director::getInstance();
 
 
-	if (PSIDE_LEFT == GameMasterM->playerSide)
+	if(PSIDE_LEFT == GameMasterM->playerSide)
 	{
 		shot = "shot_l";
 		h_shot = "h_shot_l";
@@ -829,7 +824,7 @@ void GameModelsLayer::ActionIdle()
 		h_reload = "h_reload_r";
 	}
 
-	if (TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
+	if(TSTATE_ON == GameMasterM->GetTouchState())//タッチされたら
 	{
 		auto s = Director::getInstance()->getWinSize();//画面サイズ取得
 		const Vec2 tPos = GameMasterM->GetTouchPos();//タッチしたスクリーン座標を取得
