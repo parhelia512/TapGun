@@ -79,12 +79,12 @@ bool GameScene::init()
 
 	//ゲームレイヤーを作成
 	gGameLayer = GameModelsLayer::create();
-	this->addChild(gGameLayer);
+//	this->addChild(gGameLayer);
 
 
 	//UIレイヤーを作成
 	gUILayer = GameUILayer::create();
-	this->addChild(gUILayer);
+//	this->addChild(gUILayer);
 
 
 	GameMasterS = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成

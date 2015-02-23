@@ -27,9 +27,9 @@ namespace TapGun
 
 	enum _UNIT_NUM_
 	{
-		UNIT0_MAP = 0,
-		UNIT1_ENEMY = 1,
-		UNIT2_BULLET = 21,
+		UNIT0_MAP = 0,//0はマップ
+		UNIT1_ENEMY = 1,//1~20は敵
+		UNIT2_BULLET = 21,//21~70は弾
 		UNIT3_MAX = MAX_UNIT
 	};
 

@@ -118,13 +118,14 @@ void TitleScene::update( float delta)
 	switch( menuFlag)
 	{
 	case TeamLogo:
-		if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( ResourceLoader::BulletStart)) != nullptr)
-		{
-			modelLoadFlag = true;
-			sp -> setPosition3D( Vec3( 640, 200, 0));
-			sp -> setScale( 300.0f);
-			addChild( sp);
-		}
+		//if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( 15)) != nullptr)
+		//{
+		//	modelLoadFlag = true;
+		//	sp -> setPosition3D( Vec3( 640, 200, 0));
+		//	sp -> setScale( 300.0f);
+		//	sp->startAnimation("slide");
+		//	addChild( sp);
+		//}
 		teamLogoAction();		
 		break;
 
