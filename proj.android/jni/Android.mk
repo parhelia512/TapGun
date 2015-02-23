@@ -33,6 +33,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/Stage/Enemy.cpp \
                    ../../Classes/Stage/EnemyTable.cpp \
 				\
+				   ../../Classes/System/ResourceLoader.cpp \
 				   ../../Classes/System/Sound.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
