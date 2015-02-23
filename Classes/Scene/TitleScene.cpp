@@ -43,11 +43,16 @@ bool TitleScene::init()
 	frame = 0;
 
 	auto cache = SpriteFrameCache::getInstance();
-	cache -> addSpriteFramesWithFile( "Graph/Pictures/Title.plist");
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	cache -> addSpriteFramesWithFile( "Title.plist");
+	cache -> addSpriteFramesWithFile( "P_Hit.plist");
+	cache -> addSpriteFramesWithFile( "E_Hit.plist");
+#else
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/Title.plist");
 	cache -> addSpriteFramesWithFile( "Graph/Pictures/P_Hit.plist");
 	cache -> addSpriteFramesWithFile( "Graph/Pictures/E_Hit.plist");
-
+#endif
 	menuFlag = TeamLogo;
 
 	auto listener = EventListenerTouchOneByOne::create();
@@ -57,9 +62,9 @@ bool TitleScene::init()
 	listener -> onTouchEnded = CC_CALLBACK_2( TitleScene::onTouchEnded, this);
 	_eventDispatcher -> addEventListenerWithSceneGraphPriority( listener, this);
 	
-//	loadSound();
-//	setSprite();
-//	setMenu();
+	loadSound();
+	setSprite();
+	setMenu();
 
 	scheduleUpdate();
 //	schedule( schedule_selector( TitleScene::moveTime), 0.016f * 8);
@@ -74,34 +79,53 @@ void TitleScene::update( float delta)
 	auto sound = Sound::getInstance();
 	auto cache = SpriteFrameCache::getInstance();
 
-	if( frame == ResourceLoader::Map) 
-	{ 
-//		ResourceLoader::getInstance() -> loadModel( "Stage/map507"); 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	if( frame == ResourceLoader::Map)
+	{
+		ResourceLoader::getInstance() -> loadModel( "map507");
 	}
-	else if( frame >= ResourceLoader::EnemyStart && frame <= ResourceLoader::EnemyEnd) 
-	{ 
-		ResourceLoader::getInstance() -> loadModel( "enemy/enemy", "", "Enemy.anime"); 
+	else if( frame >= ResourceLoader::EnemyStart && frame <= ResourceLoader::EnemyEnd)
+	{
+		ResourceLoader::getInstance() -> loadModel( "enemy", "", "Enemy.anime");
 	}
-	else if( frame >= ResourceLoader::BulletStart && frame <= ResourceLoader::BulletEnd) 
-	{ 
-//		ResourceLoader::getInstance() -> loadModel( "Bullet/tama"); 
+	else if( frame >= ResourceLoader::BulletStart && frame <= ResourceLoader::BulletEnd)
+	{
+		ResourceLoader::getInstance() -> loadModel( "tama");
 	}
 	else if( frame == ResourceLoader::Player)
 	{
-//		ResourceLoader::getInstance() -> loadModel( "player/player", "", "Player.anime");
+		ResourceLoader::getInstance() -> loadModel( "player", "", "Player.anime");
 	}
+#else
+	if( frame == ResourceLoader::Map)
+	{
+		ResourceLoader::getInstance() -> loadModel( "Stage/map507");
+	}
+	else if( frame >= ResourceLoader::EnemyStart && frame <= ResourceLoader::EnemyEnd)
+	{
+		ResourceLoader::getInstance() -> loadModel( "enemy/enemy", "", "Enemy.anime");
+	}
+	else if( frame >= ResourceLoader::BulletStart && frame <= ResourceLoader::BulletEnd)
+	{
+		ResourceLoader::getInstance() -> loadModel( "Bullet/tama");
+	}
+	else if( frame == ResourceLoader::Player)
+	{
+		ResourceLoader::getInstance() -> loadModel( "player/player", "", "Player.anime");
+	}
+#endif
 
 	switch( menuFlag)
 	{
 	case TeamLogo:
-		if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( ResourceLoader::EnemyStart + 1)) != nullptr)
+		if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( ResourceLoader::BulletStart)) != nullptr)
 		{
 			modelLoadFlag = true;
 			sp -> setPosition3D( Vec3( 640, 200, 0));
 			sp -> setScale( 300.0f);
 			addChild( sp);
 		}
-	//	teamLogoAction();		
+		teamLogoAction();		
 		break;
 
 	case TitleLogoIn:
@@ -213,8 +237,11 @@ void TitleScene::teamLogoAction( void)
 void TitleScene::setSprite( void)
 {
 	auto visibleSize = Director::getInstance() -> getVisibleSize();
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	teamLogo = Sprite::create( "ty.png");
+#else
 	teamLogo = Sprite::create( "Graph/Pictures/ty.png");
+#endif
 	teamLogo -> setPosition( Vec2( visibleSize.width / 2, visibleSize.height / 2));
 	teamLogo -> setOpacity( 0);
 	addChild( teamLogo);
@@ -305,7 +332,6 @@ void TitleScene::loadSound( void)
 
 	sound -> loadBGM( "Title.mp3");
 	sound -> loadSE( "MoveSE.mp3");
-
 }
 
 template<class P> bool TitleScene::checkFlag( P* flag, const P number) { return ( ( *flag & number) != 0); }

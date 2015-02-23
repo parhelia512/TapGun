@@ -28,7 +28,7 @@ namespace TapGun
 
 
 	//プレイヤークラス
-	class Player : public P_Muzzle
+	class Player : public Muzzle
 	{
 	public:
 

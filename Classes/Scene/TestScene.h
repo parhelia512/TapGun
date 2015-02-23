@@ -6,7 +6,7 @@
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
-#include "ADX2Manager.h"
+//#include "ADX2Manager.h"
 
 #else
 

@@ -60,6 +60,11 @@ bool Test::init()
 
 //	_cueSheet = CueSheet::create("sample.acf", "sample.acb");
 //	_cueSheet->playCueByID( 0);
+	
+	auto sprite = Sprite3D::create( "enemy.c3b");
+	sprite -> setPosition( 640, 200);
+	sprite -> setScale( 300.0f);
+	addChild( sprite);
 
 	return true;
 }

@@ -257,7 +257,7 @@ namespace TapGun
 					sprite -> _asyncLoadParam.materialdatas = new (nothrow) MaterialDatas();
 					sprite -> _asyncLoadParam.meshdatas = new (nothrow) MeshDatas();
 					sprite -> _asyncLoadParam.nodeDatas = new (nothrow) NodeDatas();
-					AsyncTaskPool::getInstance() -> enqueue( AsyncTaskPool::TaskType::TASK_IO, CC_CALLBACK_1( Sprite3D::afterAsyncLoad, sprite), (void*)(&sprite -> _asyncLoadParam), [sprite]()
+					AsyncTaskPool::getInstance() -> enqueue( AsyncTaskPool::TaskType::TASK_IO, CC_CALLBACK_1( _Sprite3D::afterAsyncLoad, sprite), (void*)(&sprite -> _asyncLoadParam), [sprite]()
 					{
 						sprite -> _asyncLoadParam.result = sprite -> loadFromFile( sprite -> _asyncLoadParam.modlePath, sprite -> _asyncLoadParam.nodeDatas, sprite -> _asyncLoadParam.meshdatas, sprite -> _asyncLoadParam.materialdatas);
 					});
@@ -289,7 +289,7 @@ namespace TapGun
 					sprite -> _asyncLoadParam.materialdatas = new (nothrow) MaterialDatas();
 					sprite -> _asyncLoadParam.meshdatas = new (nothrow) MeshDatas();
 					sprite -> _asyncLoadParam.nodeDatas = new (nothrow) NodeDatas();
-					AsyncTaskPool::getInstance() -> enqueue( AsyncTaskPool::TaskType::TASK_IO, CC_CALLBACK_1( Sprite3D::afterAsyncLoad, sprite), (void*)(&sprite -> _asyncLoadParam), [sprite]()
+					AsyncTaskPool::getInstance() -> enqueue( AsyncTaskPool::TaskType::TASK_IO, CC_CALLBACK_1( _Sprite3D::afterAsyncLoad, sprite), (void*)(&sprite -> _asyncLoadParam), [sprite]()
 					{
 						sprite -> _asyncLoadParam.result = sprite -> loadFromFile( sprite -> _asyncLoadParam.modlePath, sprite -> _asyncLoadParam.nodeDatas, sprite -> _asyncLoadParam.meshdatas, sprite -> _asyncLoadParam.materialdatas);
 					});
@@ -308,8 +308,8 @@ namespace TapGun
 				break;
 
 			default:
-				CC_SAFE_DELETE( sprite);
-				return;
+//				CC_SAFE_DELETE( sprite);
+				break;
 			}
 		}
 		if( Flag[ResouceType::NoExt] == false && Flag[ResouceType::Model] == false)
