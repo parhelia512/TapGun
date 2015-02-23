@@ -28,6 +28,10 @@ namespace TapGun
 		static _Sprite3D* create( const std::string& firstPath);
 		static _Sprite3D* create( const std::string& firstPath, const std::string& secondPath);
 		static _Sprite3D* create( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath);
+		
+		static void createAsync( const std::string& firstPath, const std::function<void(_Sprite3D*, void*)>& callback, void* callbackparam);
+		static void createAsync( const std::string& firstPath, const std::string& secondPath, const std::function<void(_Sprite3D*, void*)>& callback, void* callbackparam);
+		static void createAsync( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath, const std::function<void(_Sprite3D*, void*)>& callback, void* callbackparam);
 
 		int startAnimation( const std::string& animeName);
 		int startAnimation( const std::string& animeName, int startTime, int endTime);
@@ -72,8 +76,24 @@ namespace TapGun
 		int load3DModelAnimeData( const std::string& fileName);
 		int load3DModelTextureData( const std::string& fileName);
 		static _Sprite3D* createObject( const char* firstPath, const char* secondPath, const char* thirdPath);
+		static void createObjectAsync( const char* firstPath, const char* secondPath, const char* thirdPath, const std::function<void(_Sprite3D*, void*)>& callback, void* callbackparam);
+		void afterAsyncLoad( void* param);
+		bool loadFromCache( const std::string& path);
 		static std::string getResourcePath( ResouceType type);
 		static ResouceType checkResourcePath( const std::string& filePath);
+
+		struct AsyncLoadParam
+		{
+			std::function<void(_Sprite3D*, void*)> afterLoadCallback; // callback after load
+			void*                           callbackParam;
+			bool                            result; // sprite load result
+			std::string                     modlePath;
+			std::string                     texPath; //
+			cocos2d::MeshDatas* meshdatas;
+			cocos2d::MaterialDatas* materialdatas;
+			cocos2d::NodeDatas*   nodeDatas;
+		};
+		AsyncLoadParam             _asyncLoadParam;
 	};
 }
 

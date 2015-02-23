@@ -3,15 +3,21 @@
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
+#include "Sprite3D.h"
 #include "TitleScene.h"
 #include "GameScene.h"//遷移先のシーンをインクルード
 #include "CreditScene.h"
+#include "ResourceLoader.h"
+#include "Sound.h"
 
 #else
 
+#include "Base/Sprite3D.h"
 #include "Scene/TitleScene.h"
 #include "Scene/GameScene.h"//遷移先のシーンをインクルード
 #include "Scene/CreditScene.h"
+#include "System/ResourceLoader.h"
+#include "System/Sound.h"
 
 #endif
 
@@ -30,7 +36,6 @@ bool TitleScene::init()
 {
 	if (!Layer::init()) { return false; }
 
-	menuFlag = 0;
 	alphaCount = 0;
 	logoAlphaFlag = false;
 	logoAlphaCount = 0;
@@ -40,7 +45,10 @@ bool TitleScene::init()
 	auto cache = SpriteFrameCache::getInstance();
 	cache -> addSpriteFramesWithFile( "Graph/Pictures/Title.plist");
 
-	setFlag( &menuFlag, (unsigned char)Idle);
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/P_Hit.plist");
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/E_Hit.plist");
+
+	menuFlag = TeamLogo;
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener -> setSwallowTouches(_swallowsTouches);
@@ -48,34 +56,65 @@ bool TitleScene::init()
 	listener -> onTouchMoved = CC_CALLBACK_2( TitleScene::onTouchMoved, this);
 	listener -> onTouchEnded = CC_CALLBACK_2( TitleScene::onTouchEnded, this);
 	_eventDispatcher -> addEventListenerWithSceneGraphPriority( listener, this);
-
-	setSprite();
-	setMenu();
+	
+//	loadSound();
+//	setSprite();
+//	setMenu();
 
 	scheduleUpdate();
-	schedule( schedule_selector( TitleScene::moveTime), 0.016f);
+//	schedule( schedule_selector( TitleScene::moveTime), 0.016f * 8);
 
 	return true;
 }
 
 void TitleScene::update( float delta)
 {
+	_Sprite3D* sp;
+	static bool modelLoadFlag = false;
+	auto sound = Sound::getInstance();
+	auto cache = SpriteFrameCache::getInstance();
+
+	if( frame == ResourceLoader::Map) 
+	{ 
+//		ResourceLoader::getInstance() -> loadModel( "Stage/map507"); 
+	}
+	else if( frame >= ResourceLoader::EnemyStart && frame <= ResourceLoader::EnemyEnd) 
+	{ 
+		ResourceLoader::getInstance() -> loadModel( "enemy/enemy", "", "Enemy.anime"); 
+	}
+	else if( frame >= ResourceLoader::BulletStart && frame <= ResourceLoader::BulletEnd) 
+	{ 
+//		ResourceLoader::getInstance() -> loadModel( "Bullet/tama"); 
+	}
+	else if( frame == ResourceLoader::Player)
+	{
+//		ResourceLoader::getInstance() -> loadModel( "player/player", "", "Player.anime");
+	}
+
 	switch( menuFlag)
 	{
-	case Idle:
+	case TeamLogo:
+		if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( ResourceLoader::EnemyStart + 1)) != nullptr)
+		{
+			modelLoadFlag = true;
+			sp -> setPosition3D( Vec3( 640, 200, 0));
+			sp -> setScale( 300.0f);
+			addChild( sp);
+		}
+	//	teamLogoAction();		
 		break;
 
-	case LogoIn:
+	case TitleLogoIn:
 		alphaCount += 4;
 		for( auto &p : sprite) { p -> setOpacity( alphaCount); }
 		if( alphaCount > 180)
 		{
-			resetFlag( &menuFlag, (unsigned char)LogoIn);
-			setFlag( &menuFlag, (unsigned char)LogoOK);
+			menuFlag = TitleLogoOK;
+			sound -> playBGMLoop();
 		}
 		break;
 
-	case LogoOK:
+	case TitleLogoOK:
 		sprite[Menu] -> setVisible( true);
 		if( logoAlphaFlag) 
 		{ 
@@ -127,25 +166,58 @@ void TitleScene::onTouchMoved( Touch *pTouch, Event *pEvent)
 
 void TitleScene::onTouchEnded( Touch *pTouch, Event *pEvent)
 {
-	if( checkFlag( &menuFlag, (unsigned char)Idle))
+	auto sound = Sound::getInstance();
+
+	if( menuFlag == TitleLogoOK)
 	{ 
-		resetFlag( &menuFlag, (unsigned char)Idle);
-		setFlag( &menuFlag, (unsigned char)LogoIn);
-	}
-	if( checkFlag( &menuFlag, (unsigned char)LogoOK))
-	{ 
-		resetFlag( &menuFlag, (unsigned char)LogoOK);
-		setFlag( &menuFlag, (unsigned char)MenuIn);
+		menuFlag = MenuIn;
 		sprite[Logo] -> runAction( MoveTo::create( 1, Point( 3000, sprite[Logo] -> getPositionY())));
 		auto action = Blink::create( 0.2, 3);
+		sound -> playSE( "MoveSE.mp3");
 		auto func = CallFunc::create( [&](void) -> void { sprite[Menu] -> setVisible( false); menuAction(); });
 		sprite[Menu] -> runAction( Sequence::create( action, func, NULL));
+	}
+}
+
+void TitleScene::teamLogoAction( void)
+{
+	if( teamLogoState == LogoIn)
+	{
+		alphaCount += AlphaValue;
+		if( teamLogo -> getOpacity() == AlphaValue * 50) { teamLogoState = LogoOut; }
+		teamLogo -> setOpacity( alphaCount);
+	}
+	else if( teamLogoState == LogoOut)
+	{
+		if( waitCount > WaitTime) { alphaCount -= AlphaValue; }
+		else { waitCount++; }
+		if( teamLogo -> getOpacity() == 0) 
+		{
+			waitCount = 0;
+			teamLogoState = Wait;
+			teamLogo -> setVisible( false);
+		}		
+		teamLogo -> setOpacity( alphaCount);
+	}
+	else if( teamLogoState == Wait)
+	{
+		if( waitCount > 50) 
+		{ 
+			alphaCount = 0;
+			menuFlag = TitleLogoIn;
+		}
+		waitCount++;
 	}
 }
 
 void TitleScene::setSprite( void)
 {
 	auto visibleSize = Director::getInstance() -> getVisibleSize();
+
+	teamLogo = Sprite::create( "Graph/Pictures/ty.png");
+	teamLogo -> setPosition( Vec2( visibleSize.width / 2, visibleSize.height / 2));
+	teamLogo -> setOpacity( 0);
+	addChild( teamLogo);
 
 	sprite[BG] = Sprite::createWithSpriteFrameName( "title_haikei.png");
 	sprite[Frame] = Sprite::createWithSpriteFrameName( "title_waku.png");
@@ -198,6 +270,9 @@ void TitleScene::menuAction( void)
 
 void TitleScene::menuStartCallback( Ref* pSender)
 {
+	auto sound = Sound::getInstance();
+	sound -> stopBGM();
+	sound -> playSE( "MoveSE.mp3");
 	auto scene = GameScene::CreateScene();
 	auto tran = TransitionCrossFade::create( 1, scene);
 	Director::getInstance() -> replaceScene( tran);
@@ -205,6 +280,9 @@ void TitleScene::menuStartCallback( Ref* pSender)
 
 void TitleScene::menuEndCallback( Ref* pSender)
 {
+	auto sound = Sound::getInstance();
+	sound -> stopBGM();
+	sound -> playSE( "MoveSE.mp3");
 	Director::getInstance() -> end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
@@ -213,9 +291,21 @@ void TitleScene::menuEndCallback( Ref* pSender)
 
 void TitleScene::menuCreditCallback( Ref* pSender)
 {
+	auto sound = Sound::getInstance();
+	sound -> stopBGM();
+	sound -> playSE( "MoveSE.mp3");
 	auto scene = CreditScene::createScene();
 	auto tran = TransitionCrossFade::create( 1, scene);
 	Director::getInstance() -> replaceScene( tran);
+}
+
+void TitleScene::loadSound( void)
+{
+	auto sound = Sound::getInstance();
+
+	sound -> loadBGM( "Title.mp3");
+	sound -> loadSE( "MoveSE.mp3");
+
 }
 
 template<class P> bool TitleScene::checkFlag( P* flag, const P number) { return ( ( *flag & number) != 0); }
