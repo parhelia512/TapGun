@@ -294,7 +294,7 @@ LogoUI::LogoUI()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Logo.plist");
 #else
-	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Life/Logo.plist");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Logo.plist");
 #endif
 	logo[Action] = Sprite::createWithSpriteFrameName( "action.png");
 	logo[Wait] = Sprite::createWithSpriteFrameName( "wait.png");

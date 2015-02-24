@@ -1,5 +1,5 @@
-player/mot_player_idling_light.c3b,idle_l
-player/mot_player_idling_light.c3t,idle_l
+player/mot_player_aidling_left.c3b,idle_l
+player/mot_player_aidling_left.c3t,idle_l
 player/mot_player_idling_right.c3b,idle_r
 player/mot_player_idling_right.c3t,idle_r
 

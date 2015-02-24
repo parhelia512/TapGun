@@ -84,26 +84,32 @@ namespace TapGun
 		cocos2d::Vec2 calcCamPos2(float pRot, int pSide);//角度計算
 		cocos2d::Vec2 calcCamPos3(float pRot, int pSide);//角度計算
 
-		//更新
-		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
+		//更新系
+		//		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
 		void UpdateWait(void);//
+		void UpdatePlayer(void);//
+		void UpdateEnemy(void);
+		void UpdateBullets(void);
+		void CheckHit(void);//当たり判定処理
+
+		//ゲーム遷移チェック
+		int CheckNextStage(void);
 
 		void SetEnemy(void);//
 
 		void update(float delta);//現在使用しない
 		void moveTime(float delta);//現在使用しない
 
+		//
+		void ClearEnemies();//敵を全て非表示にする（ゲームオーバー状態にする前に使用する）
+		void KillPlayer();//プレイヤーを死亡状態にする（タイムオーバー死亡前に使用する）
+
 		CREATE_FUNC(GameModelsLayer);
 
 	private:
 
+		//敵のAIセット
 
-		//更新系
-		void UpdatePlayer(void);//
-		void UpdateEnemy(void);
-		void UpdateBullets(void);
-
-		int CheckNextStage(void);
 
 		//プレイヤーの更新
 		void ActionShot(void);
@@ -117,18 +123,25 @@ namespace TapGun
 		void ActionDead(void);
 
 		//エネミーの更新
-		void ActionEnemy1(int num);
-		void ActionEnemy2(int num);
+		void ActionEStandby(int num);
+		void ActionEIdle(int num);
+		void ActionEDodge(int num);
+		void ActionEDamaged(int num);
+		void ActionERecover(int num);
+		void ActionEDead(int num);
+		void ActionEMove(int num);
+		void ActionEAttack(int num);
 
 		//敵の処理
 		void setNextEnemy(int num);
 
+		//
 		void ShootBullet(int enemy_num);//
-		void CheckHit(void);//当たり判定処理
-
-		int SearchFreeUnit();//空きユニットの検索
-
+		int SearchFreeEnemy();//空きユニットの検索
 		int enemyStuck;//各ステージごとの残り敵数
+
+		//カメラの設定
+		int ChangeCamera(int num);
 
 		//計算用
 		float getNowTime();

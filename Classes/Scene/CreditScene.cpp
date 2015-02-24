@@ -4,7 +4,7 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "TitleScene.h"
-#include "CreditSceneScene.h"
+#include "CreditScene.h"
 
 #else
 
@@ -31,7 +31,7 @@ bool CreditScene::init()
 
 	auto visibleSize = Director::getInstance() -> getVisibleSize();
 
-	//Œ»Ý‚Íƒ^ƒbƒ`ƒCƒxƒ“ƒg‚ÌƒŠƒXƒi[‚ð‚±‚±‚É—pˆÓ‚µ‚Ä‚¢‚Ü‚·
+	//Ã¥ÂªÃ§â€ºÃ‡Ã•Ã‰^Ã‰bÃ‰`Ã‰CÃ‰xÃ‰Ã¬Ã‰gÃ‡ÃƒÃ‰Ã¤Ã‰XÃ‰iÃ…[Ã‡ï£¿Ã‡Â±Ã‡Â±Ã‡â€¦Ã³pÃ â€Ã‡ÂµÃ‡Æ’Ã‡Â¢Ã‡â€¹Ã‡âˆ‘
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 
 	listener = EventListenerTouchOneByOne::create();
@@ -72,4 +72,7 @@ void CreditScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 
 void CreditScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)
 {
+	auto scene = TitleScene::createScene();
+	auto tran = TransitionCrossFade::create( 1, scene);
+	Director::getInstance() -> replaceScene( tran);
 }

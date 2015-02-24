@@ -72,16 +72,7 @@
     <ClCompile Include="..\Classes\Object\Muzzle.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scene\Character.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Scene\GameModelsLayer.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scene\GamePlayerLayer.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scene\GamePlayerLayer_Enemy.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\GameScene.cpp">
@@ -158,16 +149,7 @@
     <ClInclude Include="..\Classes\Object\Muzzle.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scene\Character.h">
-      <Filter>Source\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scene\GameModelsLayer.h">
-      <Filter>Source\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\GamePlayerLayer.h">
-      <Filter>Source\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\GamePlayerLayer_Enemy.h">
       <Filter>Source\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\GameScene.h">

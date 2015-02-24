@@ -13,6 +13,7 @@ namespace TapGun
 		Anime,
 		Texture,
 		Picture,
+		Error,
 		Num,
 	};
 
@@ -34,13 +35,13 @@ namespace TapGun
 		static void createAsync( const std::string& firstPath, const std::string& secondPath, const std::string& thirdPath, const std::function<void(_Sprite3D*, void*)>& callback, void* callbackparam);
 
 		int startAnimation( const std::string& animeName);
-		int startAnimation( const std::string& animeName, int startTime, int endTime);
+		int startAnimation(const std::string& animeName, float startTime, float endTime);
 		int startAnimationLoop( const std::string& animeName);
-		int startAnimationLoop( const std::string& animeName, int startTime, int endTime);
+		int startAnimationLoop(const std::string& animeName, float startTime, float endTime);
 		int startAnimationReverse( const std::string& animeName);
-		int startAnimationReverse( const std::string& animeName, int startTime, int endTime);
+		int startAnimationReverse(const std::string& animeName, float startTime, float endTime);
 		int startAnimationReverseLoop( const std::string& animeName);
-		int startAnimationReverseLoop( const std::string& animeName, int startTime, int endTime);
+		int startAnimationReverseLoop(const std::string& animeName, float startTime, float endTime);
 		
 		int stopAnimation( void);
 		int stopALLAnimation( void);
