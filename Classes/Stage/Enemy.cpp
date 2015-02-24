@@ -39,4 +39,5 @@ int Enemy::SetAI(int idle, int atk, int appear)
 		AIappear = -1;
 //		return TRUE;
 	}
+	return 0;
 }

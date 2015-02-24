@@ -75,6 +75,8 @@ bool Test::init()
 	
 	billboard -> setPosition3D( Vec3( 1, 0.5, 1));
 	billboard -> addChild( sprite);
+
+	sprite->getTexture();
 	
 	//現在はタッチイベントのリスナーをここに用意しています
 	auto dispatcher = Director::getInstance()->getEventDispatcher();

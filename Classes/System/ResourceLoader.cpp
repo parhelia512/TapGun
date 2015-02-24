@@ -56,7 +56,7 @@ void ResourceLoader::sprite3DLoadCallback( _Sprite3D* sprite3D, void* param, con
 	point = str.rfind( '.', str.size());
 	if( point > 0) { str.erase( str.size() - ( str.size() - point), str.size()); }
 
-	if( str == "map507")
+	if( str == "stage")
 	{
 		loadFlag[count[0]] = true;
 		models[count[0]] = sprite3D;
@@ -92,7 +92,10 @@ void ResourceLoader::sprite3DLoadCallback( _Sprite3D* sprite3D, void* param, con
 		child = (_Sprite3D*)models[count[2]] -> getChildByName( "tama2");
 		child -> setTexture( "tama_2.png");
 #else
-		models[count[2]] -> setTexture( "");
+		auto child = (_Sprite3D*)models[count[2]] -> getChildByName( "tama1");
+		child -> setTexture( "Graph/Models/Bullet/tama.png");
+		child = (_Sprite3D*)models[count[2]] -> getChildByName( "tama2");
+		child -> setTexture( "Graph/Models/Bullet/tama_2.png");
 #endif
 		count[2]++;
 	}
@@ -121,6 +124,4 @@ void ResourceLoader::sprite3DLoadCallback( _Sprite3D* sprite3D, void* param, con
 	{
 		log( "3DModelFileLoadError : FileName LoadPath no math");
 	}
-
-	
 }

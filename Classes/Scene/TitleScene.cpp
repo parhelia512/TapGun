@@ -50,10 +50,16 @@ bool TitleScene::init()
 	cache -> addSpriteFramesWithFile( "Title.plist");
 	cache -> addSpriteFramesWithFile( "P_Hit.plist");
 	cache -> addSpriteFramesWithFile( "E_Hit.plist");
+	cache -> addSpriteFramesWithFile( "Logo.plist");
+	cache -> addSpriteFramesWithFile( "Number.plist");
+	cache -> addSpriteFramesWithFile( "HPGauge.plist");
 #else
-	cache -> addSpriteFramesWithFile( "Graph/Pictures/Title.plist");
-	cache -> addSpriteFramesWithFile( "Graph/Pictures/P_Hit.plist");
-	cache -> addSpriteFramesWithFile( "Graph/Pictures/E_Hit.plist");
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/Title.plist");
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/P_Hit.plist");
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/E_Hit.plist");
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/Logo.plist");
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/Number.plist");
+	cache -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/HPGauge.plist");
 #endif
 	menuFlag = TeamLogo;
 
@@ -78,20 +84,19 @@ void TitleScene::update( float delta)
 {
 	static bool modelLoadFlag = false;
 	auto sound = Sound::getInstance();
-//	auto cache = SpriteFrameCache::getInstance();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	if( frame == ResourceLoader::Map)
 	{
-//		ResourceLoader::getInstance() -> loadModel( "stage");
+		ResourceLoader::getInstance() -> loadModel( "stage");
 	}
 	else if( frame >= ResourceLoader::EnemyStart && frame <= ResourceLoader::EnemyEnd)
 	{
-//		ResourceLoader::getInstance() -> loadModel( "enemy", "", "Enemy.anime");
+		ResourceLoader::getInstance() -> loadModel( "enemy", "", "Enemy.anime");
 	}
 	else if( frame >= ResourceLoader::BulletStart && frame <= ResourceLoader::BulletEnd)
 	{
-//		ResourceLoader::getInstance() -> loadModel( "tama");
+		ResourceLoader::getInstance() -> loadModel( "tama");
 	}
 	else if( frame == ResourceLoader::Player)
 	{
@@ -100,11 +105,11 @@ void TitleScene::update( float delta)
 #else
 	if( frame == ResourceLoader::Map)
 	{
-		ResourceLoader::getInstance() -> loadModel( "Stage/map507");
+		ResourceLoader::getInstance() -> loadModel( "Stage/stage");
 	}
 	else if( frame >= ResourceLoader::EnemyStart && frame <= ResourceLoader::EnemyEnd)
 	{
-		ResourceLoader::getInstance() -> loadModel( "enemy/enemy", "", "Enemy.anime");
+		ResourceLoader::getInstance() -> loadModel( "Enemy/enemy", "", "Enemy.anime");
 	}
 	else if( frame >= ResourceLoader::BulletStart && frame <= ResourceLoader::BulletEnd)
 	{
@@ -112,22 +117,22 @@ void TitleScene::update( float delta)
 	}
 	else if( frame == ResourceLoader::Player)
 	{
-		ResourceLoader::getInstance() -> loadModel( "player/player", "", "Player.anime");
+		ResourceLoader::getInstance() -> loadModel( "Player/player", "", "Player.anime");
 	}
 #endif
 
 	switch( menuFlag)
 	{
 	case TeamLogo:
-		if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( ResourceLoader::Player)) != nullptr)
-		{
-			modelLoadFlag = true;
-			sp -> setPosition3D( Vec3( 640, 200, 0));
-			sp -> setScale( 300.0f);
-			sp->startAnimationLoop("dei1");
-			addChild( sp);
-		}
-//		teamLogoAction();
+//		if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( 50)) != nullptr)
+//		{
+//			modelLoadFlag = true;
+//			sp -> setPosition3D( Vec3( 640, 400, 50));
+//			sp -> setScale( 300.0f);
+//			sp->startAnimationLoop("dei1");
+//			addChild( sp);
+//		}
+		teamLogoAction();
 		break;
 
 	case TitleLogoIn:

@@ -186,23 +186,17 @@ LifeUI::LifeUI()
 void LifeUI::init( Layer* layer)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Life.plist");
-	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Logo.plist");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "HPGauge.plist");
 	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Number.plist");
 	frame = Sprite::create( "lifekara.png");
 	bullet = Sprite::create( "Bullet.png");
 #else
-	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Life/Life.plist");
-	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Life/Logo.plist");
-	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/Number/Number.plist");
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	frame = Sprite::create( "Graph/Pictures/Life/tai.png");
-	bullet = Sprite::create( "Graph/Pictures/Life/BulletA.png");
-#else
-	frame = Sprite::create( "Graph/Pictures/Life/lifekara.png");
-	bullet = Sprite::create( "Graph/Pictures/Life/Bullet.png");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/HPGauge.plist");
+	SpriteFrameCache::getInstance() -> addSpriteFramesWithFile( "Graph/Pictures/SpriteSheet/Number.plist");
 #endif
-#endif
+
+	frame = Sprite::createWithSpriteFrameName( "HPFrame.png");
+	bullet = Sprite::createWithSpriteFrameName( "BulletFrame.png");
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	bullet -> setScale( 0.2f);

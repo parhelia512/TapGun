@@ -12,26 +12,26 @@ LOCAL_MODULE := cocos2dcpp_shared
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
-                   ../../Classes/AppDelegate.cpp \
+				   ../../Classes/AppDelegate.cpp \
 				\
-                   ../../Classes/Base/GameMaster.cpp \
-                   ../../Classes/Base/Player.cpp \
-                   ../../Classes/Base/UI.cpp \
-                   ../../Classes/Base/Unit.cpp \
-                   ../../Classes/Base/Sprite3D.cpp \
+				   ../../Classes/Base/GameMaster.cpp \
+				   ../../Classes/Base/Player.cpp \
+				   ../../Classes/Base/UI.cpp \
+				   ../../Classes/Base/Unit.cpp \
+				   ../../Classes/Base/Sprite3D.cpp \
 				\
 				   ../../Classes/Object/Muzzle.cpp \
 				\
 				   ../../Classes/Scene/Character.cpp \
 				   ../../Classes/Scene/CreditScene.cpp \
-                   ../../Classes/Scene/GameModelsLayer.cpp \
-                   ../../Classes/Scene/GameScene.cpp \
-                   ../../Classes/Scene/GameUILayer.cpp \
-                   ../../Classes/Scene/TestScene.cpp \
-                   ../../Classes/Scene/TitleScene.cpp \
+				   ../../Classes/Scene/GameModelsLayer.cpp \
+				   ../../Classes/Scene/GameScene.cpp \
+				   ../../Classes/Scene/GameUILayer.cpp \
+				   ../../Classes/Scene/TestScene.cpp \
+				   ../../Classes/Scene/TitleScene.cpp \
 				\
 				   ../../Classes/Stage/Enemy.cpp \
-                   ../../Classes/Stage/EnemyTable.cpp \
+				   ../../Classes/Stage/EnemyTable.cpp \
 				\
 				   ../../Classes/System/ResourceLoader.cpp \
 				   ../../Classes/System/Sound.cpp \

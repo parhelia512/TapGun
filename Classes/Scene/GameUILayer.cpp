@@ -103,7 +103,8 @@ void GameUILayer::LoadUISprite()
 #else
 	fileName1 = "Graph/Pictures/reload.png";
 #endif
-	UIBillBoard[UIKIND_RELOAD] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_RELOAD] = cocos2d::BillBoard::createWithTexture( 
+		Sprite::createWithSpriteFrameName( "rerode.png") -> getTexture(), BillBoard::Mode::VIEW_PLANE_ORIENTED);
 
 
 	//アクションUIの生成
@@ -112,7 +113,8 @@ void GameUILayer::LoadUISprite()
 #else
 	fileName1 = "Graph/Pictures/action.png";
 #endif
-	UIBillBoard[UIKIND_ACTION] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_ACTION] = cocos2d::BillBoard::createWithTexture( 
+		Sprite::createWithSpriteFrameName( "action.png") -> getTexture(), BillBoard::Mode::VIEW_PLANE_ORIENTED);
 
 
 	//ウェイトUIの生成
@@ -121,7 +123,8 @@ void GameUILayer::LoadUISprite()
 #else
 	fileName1 = "Graph/Pictures/wait.png";
 #endif
-	UIBillBoard[UIKIND_WAIT] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
+	UIBillBoard[UIKIND_WAIT] = cocos2d::BillBoard::createWithTexture( 
+		Sprite::createWithSpriteFrameName( "wait.png") -> getTexture(), BillBoard::Mode::VIEW_PLANE_ORIENTED);
 
 
 	//回避アイコンの生成

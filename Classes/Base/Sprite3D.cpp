@@ -212,8 +212,8 @@ namespace TapGun
 		auto sprite = new (nothrow) _Sprite3D();
 
 		if( &modelPath == nullptr) return;
-		else if( texturePath != nullptr) str[0] = texturePath;
-		if( modelPath != nullptr) str[1] = modelPath;
+		else if( modelPath != nullptr) str[0] = modelPath;
+		if( texturePath != nullptr) str[1] = texturePath;
 		if( animePath != nullptr) str[2] = animePath;
 
 		for( int i = 0; i < 3; i++)
@@ -245,7 +245,8 @@ namespace TapGun
 						sprite -> autorelease();
 						if( !str[i].empty()) { sprite -> setTexture( texturePath); }
 						callback( sprite, callbackparam);
-						return;
+						Flag[ResouceType::NoExt] = true;
+						break;
 					}
 	
 					sprite -> _asyncLoadParam.afterLoadCallback = callback;
@@ -277,7 +278,8 @@ namespace TapGun
 						sprite -> autorelease();
 						if( !str[i].empty()) { sprite -> setTexture( texturePath); }
 						callback( sprite, callbackparam);
-						return;
+						Flag[ResouceType::Model] = true;
+						break;
 					}
 	
 					sprite -> _asyncLoadParam.afterLoadCallback = callback;
@@ -308,8 +310,8 @@ namespace TapGun
 				break;
 
 			default:
-				CC_SAFE_DELETE( sprite);
-				return;
+			//	CC_SAFE_DELETE( sprite);
+				break;
 			}
 		}
 		if( Flag[ResouceType::NoExt] == false && Flag[ResouceType::Model] == false)
