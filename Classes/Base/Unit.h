@@ -53,8 +53,6 @@ namespace TapGun
 		ESTATE_SLEEP,
 		ESTATE_WAIT,
 		ESTATE_ATTACK1,
-//		ESTATE_ATTACK2,
-//		ESTATE_ATTACK3,
 		ESTATE_DAMAGED,
 		ESTATE_DEAD,//死亡
 		ESTATE_END,//敵の終了処理
@@ -68,14 +66,10 @@ namespace TapGun
 	public:
 
 		//メンバ変数
-
-
 		//==フラグ系==
-		int valid;//Unit使用フラグ（TRUE/FALSE）
-		int visible;//ユニット表示フラグ
+		int visible;//ユニット表示フラグ( == 使用フラグ)
 
 		//AI管理
-//		int AIType;//エネミーの行動パターン
 		int AIIdle;//エネミーのアイドルモーション
 		int AIAtk;//エネミーの攻撃モーション
 		int AIAppear;//
@@ -134,13 +128,12 @@ namespace TapGun
 
 		void SetAnimation(const std::string& animeName, const int speed);//
 
-		void InitFrame(void);//フレームを初期化
-		int GetFrame(void);//フレームの取得
-		void SetFrame(int f);//フレームのセット
+		void InitTime(void);//時間を初期化
+		int GetTime(void);//キャラクター固有時間の取得
+		void SetTime(float f);//時間のセット
 	private:
 
-		int frame;//Unit固有フレーム
-		int animFrame;//アニメーション管理フレーム(animFrame >= 0 : 再生中 | animFrame == -1 : ループ再生 | animFrame == -2 : 無再生)
+		float time;//Unit固有フレーム
 	};
 }
 #endif //__UNIT_H__

@@ -1,4 +1,3 @@
-
 #include "GameModelsLayer.h"
 
 
@@ -26,7 +25,7 @@ int rotationCount;
 float rotationR;//
 Vec3 changeCameraPos;
 Vec3 changeCameraRot;
-
+ 
 /**
 *	ゲーム本編のモデルレイヤーの初期化
 *
@@ -120,10 +119,8 @@ void GameModelsLayer::LoadModels()
 	//マップのロード
 	//マップは0番に割り当て
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	fileName1 = "map507";
 	fileName1 = "stage";
 #else
-	fileName1 = "Stage/map507";
 	fileName1 = "Stage/stage";
 #endif
 	unit[UNIT0_MAP].sprite3d = _Sprite3D::create(fileName1);//0番は現在マップに割り当て
@@ -156,7 +153,7 @@ void GameModelsLayer::LoadModels()
 	}
 	//敵弾のロード
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	fileName1 = "bullet";
+	fileName1 = "tama";
 #else
 	fileName1 = "Bullet/tama";
 #endif
@@ -270,7 +267,7 @@ int GameModelsLayer::InitEnemy(int stage_num)
 	{
 		unit[i].Init(i, UKIND_ENEMY);
 		unit[i].visible = FALSE;
-		unit[i].sprite3d->setVisible(FALSE);
+		unit[i].sprite3d->setVisible(false);
 		unit[i].collisionPos = Vec3(0.8f, 1.5f, 0.8f);//範囲を指定して
 		unit[i].SetCollision();//
 		unit[i].eState = ESTATE_NONE;
@@ -297,9 +294,7 @@ void GameModelsLayer::InitBullet()
 	for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
 	{
 		unit[i].Init(i, UKIND_EBULLET);
-		unit[i].sprite3d->setVisible(FALSE);
-//		unit[i].collisionPos = Vec3(0.8f, 1.5f, 0.8f);//範囲を指定して
-//		unit[i].SetCollision();//
+		unit[i].sprite3d->setVisible(false);
 		unit[i].eState = ESTATE_NONE;
 	}
 }
@@ -348,7 +343,7 @@ void GameModelsLayer::SetEnemy(void)
 		}
 
 		//敵の出現ポイントをセット
-		enemyTable->standbyPos[0] = (Vec3(17.539f, 0.0f, -16.435));
+		enemyTable->standbyPos[0] = (Vec3(17.539f, 0.0f, -16.435f));
 		enemyTable->standbyPos[1] = (Vec3(14.574f, 0.0f, 11.887f));
 		enemyTable->standbyPos[2] = (Vec3(5.965f, 0.0f, -11.007f));
 		enemyTable->standbyPos[3] = (Vec3(9.19f, 0.0f, -16.823f));
@@ -468,8 +463,8 @@ void GameModelsLayer::SetEnemy(void)
 
 		//敵の出現定義が済んだら、最初に出現させる敵のセットを行う
 		unit[1].eState = ESTATE_SLEEP;
-		unit[1].sprite3d->setVisible(true);//敵モデル非表示
-		unit[1].visible = TRUE;//敵モデル非表示
+		unit[1].sprite3d->setVisible(false);//敵モデル非表示
+		unit[1].visible = TRUE;//敵モデル表示
 		unit[1].sprite3d->setPosition3D(enemyTable->enemyData[0].standbyPos);//敵モデル非表示
 		unit[1].targetPos = enemyTable->enemyData[0].targetPos;
 		unit[1].StandbyPos = enemyTable->enemyData[0].standbyPos;
@@ -481,8 +476,8 @@ void GameModelsLayer::SetEnemy(void)
 
 
 		unit[2].eState = ESTATE_SLEEP;
-		unit[2].sprite3d->setVisible(true);//敵モデル非表示
-		unit[2].visible = TRUE;//敵モデル非表示
+		unit[2].sprite3d->setVisible(false);//敵モデル非表示
+		unit[2].visible = TRUE;//敵モデル表示
 		unit[2].sprite3d->setPosition3D(enemyTable->enemyData[1].standbyPos);//敵モデル非表示
 		unit[2].targetPos = enemyTable->enemyData[1].targetPos;
 		unit[2].StandbyPos = enemyTable->enemyData[1].standbyPos;
@@ -494,8 +489,8 @@ void GameModelsLayer::SetEnemy(void)
 
 
 		unit[3].eState = ESTATE_SLEEP;
-		unit[3].sprite3d->setVisible(true);//敵モデル非表示
-		unit[3].visible = TRUE;//敵モデル非表示
+		unit[3].sprite3d->setVisible(false);//敵モデルは非表示
+		unit[3].visible = TRUE;//敵モデル表示
 		unit[3].sprite3d->setPosition3D(enemyTable->enemyData[2].standbyPos);//敵モデル非表示
 		unit[3].targetPos = enemyTable->enemyData[2].targetPos;
 		unit[3].StandbyPos = enemyTable->enemyData[2].standbyPos;
@@ -531,11 +526,9 @@ void GameModelsLayer::SetEnemy(void)
 int GameModelsLayer::InitMap(int stage_num)
 {
 	unit[UNIT0_MAP].Init();//メンバ変数の初期化をしておく
-
 	unit[UNIT0_MAP].sprite3d->setScale(1.0f);
 	unit[UNIT0_MAP].sprite3d->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
 	unit[UNIT0_MAP].sprite3d->setPosition3D(Vec3(0.0f, 0.0f, 0.0f));
-//	unit[UNIT0_MAP].sprite3d->setPosition3D(Vec3(-20.0f, 0.0f, 50.0f));
 	unit[UNIT0_MAP].Init(0, UKIND_MAP);
 	return TRUE;
 }
@@ -748,15 +741,9 @@ void GameModelsLayer::UpdatePlayer(void)
 	//タッチ座標をもとに攻撃や回避の処理を行う
 	//この関数内では、タッチ状態とタッチフラグの更新は行わないこと。
 
-	//１：プレイヤーのフレーム・座標更新
-	player.Update(GameMasterM->loopTime);
-	//マズルの更新
-	//	player.muzzleUpdate();
-
-	//２：プレイヤーの状態を取得して場合分け
+	//1：プレイヤーの状態を取得して場合分け
 	switch(GameMasterM->GetPlayerState())
 	{
-
 	case PSTATE_IDLE://アイドル状態
 		ActionIdle();
 		break;
@@ -785,10 +772,15 @@ void GameModelsLayer::UpdatePlayer(void)
 		ActionDead();
 		break;
 	case PSTATE_CONTINUE://
-
+		//ここに入るとゲームオーバーフラグがONになる
 		break;
 	}
-	//プレイヤーが攻撃可能な場合、攻撃範囲の座標をタッチしたら攻撃を行う
+
+	//もともとこちらが1だったので、問題が起これば元に戻す
+	//2：プレイヤーのフレーム・座標更新
+	player.Update(GameMasterM->loopTime);
+	//マズルの更新
+	//	player.muzzleUpdate();
 }
 
 
@@ -1410,6 +1402,24 @@ void GameModelsLayer::ActionRecover(void)
 		player.motProcTime = 0.0f;//モーションを再生してからの経過時間（秒）
 		player.motPreTime = getNowTime();//PreTimeに現在時刻を代入
 		player.motStartTime = getNowTime();//StartTimeに現在時刻を代入
+
+		//HPが0になったら
+		if (0 >= GameMasterM->GetPlayerHP())
+		{
+			GameMasterM->SetPlayerState(PSTATE_DEAD);//死亡状態にする
+
+			//必要ならばモーションの停止を行う
+			player.sprite3d->stopAllActions();
+			player.sprite3d->startAnimation("dei2");//
+
+			//
+			player.motProcTime = 0.0f;//モーションを再生してからの経過時間（秒）
+			player.motPreTime = getNowTime();//PreTimeに現在時刻を代入
+			player.motStartTime = getNowTime();//PreTimeに現在時刻を代入
+
+			//座標と角度をセットしてカメラの座標を補正
+			ChangeCamera(2);
+		}
 	}
 	else
 	{
@@ -1448,18 +1458,6 @@ void GameModelsLayer::ActionDead(void)
 	float lTime = getNowTime() - player.motPreTime;//1ループにかかった時間を計算
 	player.motPreTime = getNowTime();//PreTimeに現在時刻を代入
 
-
-	//アニメーションの確認
-	if (0 == player.sprite3d->checkAnimationState())
-	{
-		//食らいモーションが終了したら
-		GameMasterM->SetPlayerState(PSTATE_CONTINUE);//アイドル状態に移行
-	}
-	else
-	{
-		//
-
-	}
 }
 
 
@@ -1512,7 +1510,6 @@ void GameModelsLayer::ShootBullet(int enemy_num)
 		unit[num].speed = STS_EBULLET_SPEED;
 		unit[num].speedVec.x *= unit[num].speed;
 		unit[num].speedVec.z *= unit[num].speed;
-		//unit[num].speedVec.y = 0;//yは今のところ0で扱う
 
 		unit[num].sprite3d->setPosition3D(enemyPos);
 		unit[num].sprite3d->setPositionY(1.2f);
@@ -1538,9 +1535,17 @@ void GameModelsLayer::UpdateBullets()
 	for (int num = UNIT2_BULLET; num <= UNIT3_MAX; num++)
 	{
 		//画面に出ている弾のみを更新
-		if (TRUE == unit[num].visible && TRUE == unit[num].valid)
+		if (TRUE == unit[num].visible)
 		{
 			unit[num].Update(GameMasterM->loopTime);//座標と一緒に当たり判定を移動
+
+			//指定時間が経過したら消去処理
+			if (4.0f <= unit[num].GetTime())
+			{
+				unit[num].speed = 0.0f;
+				unit[num].visible = FALSE;
+				unit[num].sprite3d->setVisible(false);
+			}
 		}
 	}
 }
@@ -1558,7 +1563,7 @@ void GameModelsLayer::UpdateBullets()
 void  GameModelsLayer::CheckHit(void)
 {
 	//========================================================
-	//プレイヤー攻撃処理の仮実装
+	//プレイヤー攻撃処理
 	//タッチ座標（スクリーン座標）からワールド座標を求め、レイを飛ばす
 
 	//レイと敵の当たり判定処理
@@ -1583,10 +1588,7 @@ void  GameModelsLayer::CheckHit(void)
 		const Point absolutePoint = camNode->convertToWorldSpace(pos);//カメラのx,zの絶対座標を取得
 
 		Vec3 cPos = Vec3(pos.x, tmpPos.y, pos.y);//yは
-		//Vec3 cRot = cam3d->getRotation3D() + camNode->getRotation3D();
-
 		Vec2 tPos = GameMasterM->GetTouchPosInView();//タッチ座標を取得
-		//		Vec2 gliv = GameMasterM->GetTouchPos();
 
 		tPos.y -= GameMasterM->reticleAjust * s.height;//レティクルの状態を
 		if (tPos.y < 0.0f)
@@ -1597,24 +1599,20 @@ void  GameModelsLayer::CheckHit(void)
 		Vec3 tmpPosNear = Vec3(tPos.x, tPos.y, -1.0f);//-1.0f == 視錘台の近面（near plane）
 		Vec3 tmpPosFar = Vec3(tPos.x, tPos.y, 1.0f);//1.0f == 視錘台の遠面（far plane）
 
+
+		//現在はレイの計算のためにカメラ位置を一時的に変更し、処理後に位置を元に戻しています
 		cam3d->setPosition3D(cPos);
-		//cam3d->setRotation3D(cRot);
 
 		cam3d->unproject(s, &tmpPosNear, &rayStart);//near planeの3次元座標を取得
 		cam3d->unproject(s, &tmpPosFar, &rayEnd);
 
-		//rayStart = cam3d->getPosition3D();
-
-
 		Ray touchRay(rayStart, rayEnd);//仮レイを設定
-
 
 		//敵とプレイヤーの距離が近い順に当たり判定を処理する
 		int tmpArrayDir[UNIT2_BULLET - UNIT1_ENEMY];
 		int tmpArrayNum[UNIT2_BULLET - UNIT1_ENEMY];
 		for (int i = 0; i < UNIT2_BULLET - UNIT1_ENEMY; i++)
 		{
-			//
 			Vec3 pPos = player.wrapper->getPosition3D() + player.sprite3d->getPosition3D() + player.centerNode->getPosition3D();
 			Vec3 dir = pPos - unit[i].sprite3d->getPosition3D();//プレイヤーと敵弾の差のベクトル
 			//平面の距離を求める
@@ -1628,7 +1626,7 @@ void  GameModelsLayer::CheckHit(void)
 
 		//距離でソート(シェーカーソート)
 		int left = 0;
-		int right = (UNIT2_BULLET - UNIT1_ENEMY - 1);
+		int right = UNIT2_BULLET - UNIT1_ENEMY - 1;
 		int tmp, shift;
 		while (left < right)
 		{
@@ -1671,7 +1669,12 @@ void  GameModelsLayer::CheckHit(void)
 		for (int i = 0; i < UNIT2_BULLET - UNIT1_ENEMY; i++)
 		{
 			int n = tmpArrayNum[i];
-			if (-1 != unit[n].valid && UKIND_ENEMY == unit[n].kind && unit[n].eState != ESTATE_DAMAGED && unit[n].eState != ESTATE_DEAD)
+			//敵の
+			if (TRUE == unit[n].visible
+				&& UKIND_ENEMY == unit[n].kind
+				&& unit[n].eState != ESTATE_DAMAGED
+				&& unit[n].eState != ESTATE_DEAD
+				&& unit[n].eState != ESTATE_SLEEP)
 			{
 				if (touchRay.intersects(unit[n].obbHead))//タッチ座標の法線と敵の当たり判定が接触したかをチェック
 				{
@@ -1681,7 +1684,7 @@ void  GameModelsLayer::CheckHit(void)
 				}
 			}
 		}
-		/*@*/
+		//現在はレイの計算のためにカメラ位置を一時的に変更しているので、処理後に位置を元に戻しています
 		cam3d->setPosition3D(tmpPos);//
 		cam3d->setRotation3D(tmpRot);//
 	}
@@ -1706,6 +1709,9 @@ void  GameModelsLayer::CheckHit(void)
 				float d1 = sqrtf(dir.x * dir.x + dir.y * dir.y);
 				//計算した平面上の距離と高さの距離を求める
 				d1 = sqrtf((dir.z * dir.z) + (d1 * d1));
+
+
+				//弾とプレイヤーの位置を元に当たり判定の処理
 				if (0.4f > d1)
 				{
 					//接触した場合は_sprite3Dの解放を行う
@@ -1715,31 +1721,19 @@ void  GameModelsLayer::CheckHit(void)
 
 					//プレイヤーの状態を食らい判定にする
 					GameMasterM->AddPlayerHP(-1);//ダメージを計算
+					GameMasterM->playerHitFlag = FALSE;//食らい判定を無効化
 
 					player.sprite3d->stopALLAnimation();//すべてのアニメーションを中断して
-
-					if (0 < GameMasterM->GetPlayerHP())
+					switch (GameMasterM->playerSide)
 					{
-						switch (GameMasterM->playerSide)
-						{
-						case PSIDE_LEFT:
-							player.sprite3d->startAnimation("hit_l");//食らいモーションを再生
-							break;
-						case PSIDE_RIGHT:
-							player.sprite3d->startAnimation("hit_r");//食らいモーションを再生
-							break;
-						}
-						GameMasterM->SetPlayerState(PSTATE_DAMAGED);//
+					case PSIDE_LEFT:
+						player.sprite3d->startAnimation("hit_l");//食らいモーションを再生
+						break;
+					case PSIDE_RIGHT:
+						player.sprite3d->startAnimation("hit_r");//食らいモーションを再生
+						break;
 					}
-					else
-					{
-						player.sprite3d->startAnimation("dei_l");//食らいモーションを再生
-						GameMasterM->SetPlayerState(PSTATE_DEAD);//
-					}
-
-
-					GameMasterM->playerHitFlag = FALSE;
-					//ダメージを処理
+					GameMasterM->SetPlayerState(PSTATE_DAMAGED);//
 
 
 					//座標と角度をセットしてキャラクターの座標を補正
@@ -1751,7 +1745,6 @@ void  GameModelsLayer::CheckHit(void)
 					camTarget = Vec3(tmp.x, 0.0f, tmp.y);
 
 					//タイムとフレームの初期化
-					//					player.InitFrame();//フレームをリフレッシュ
 					//モーション管理用の時間を初期化
 					player.motProcTime = 0.0f;//モーションを再生してからの経過時間（秒）
 					player.motPreTime = getNowTime();//PreTimeに現在時刻を代入
@@ -1765,7 +1758,7 @@ void  GameModelsLayer::CheckHit(void)
 	}
 
 	if (FALSE == GameMasterM->playerHitFlag && (PSTATE_DAMAGED == GameMasterM->GetPlayerState() || PSTATE_RECOVER == GameMasterM->GetPlayerState())
-		|| PSTATE_DEAD == GameMasterM->GetPlayerState())
+		)
 	{
 		//当たり判定がオフの時も、プレイヤーが食らいモーションを受けているときは弾とプレイヤーの当たり判定を処理する
 		//（演出のための処理）
@@ -1796,31 +1789,17 @@ void  GameModelsLayer::CheckHit(void)
 			}
 		}
 	}
-
-	//========================================================
-	//弾の消去処理
-	//全ての敵弾ユニットを更新
-	for (int i = UNIT2_BULLET; i < UNIT3_MAX; i++)
-	{
-		if (TRUE == unit[i].visible)
-		{
-			//
-			if (180.0f < unit[i].GetFrame())
-			{
-				//
-				unit[i].speed = 0.0f;
-				unit[i].visible = FALSE;
-				unit[i].sprite3d->setVisible(false);
-			}
-		}
-	}
-	//
 }
 
 
 
-/*
-
+/**
+*	非表示の敵（Unit）を検索
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	敵Unitの配列番号
+*	@date	2/12 Ver 1.0
 */
 int GameModelsLayer::SearchFreeEnemy()
 {
@@ -1833,22 +1812,6 @@ int GameModelsLayer::SearchFreeEnemy()
 	}
 	return -1;
 }
-
-/*
-指定フレームごとに呼び出される
-*/
-void GameModelsLayer::moveTime(float delta)
-{
-
-}
-
-
-
-void GameModelsLayer::update(float delta)
-{
-
-}
-
 
 
 
@@ -1955,22 +1918,11 @@ Vec2 GameModelsLayer::calcCamPos(float pRot, int pSide)
 */
 Vec2 GameModelsLayer::calcCamPos2(float pRot, int pSide)
 {
-	/*
-	行いたい処理
-	・前提
-	カメラの親ノードはプレイヤーの位置に一致させている
-	ただし戦闘中はプレイヤーの親ノードとプレイヤーの座標がずれるので、親ノードとプレイヤーの座標を加算し、ずれた分の座標を戻している
-	⇒つまり、プレイヤーの親ノードから見たプレイヤーの座標がカメラの親ノード座標と一致する
-
-	この状態でP親ノードを回転させることで、プレイヤーの回避を行っている。
-	そのためプレイヤーの座標と角度は更新されない
-
-	P親ノードの回転からP座標の移動を計算し、移動後の座標（P親ノードから見た座標）を取得する
-	その座標をC親ノードに当てはめれば、カメラの動きが正しくなる・・・はず
-	*/
+	//プレイヤーの先頭位置と角度から、カメラの回避時の座標を計算する
+	//回避時のカメラはプレイヤーに追従せず、この関数で計算した座標へ向かって個別に移動します
 
 	//
-	Vec2 ret = Vec2(0.0f, 0.0f);
+	Vec2 pos = Vec2(0.0f, 0.0f);
 	cNode.gNode->setRotation(0.0f);
 	cNode.gNode->setPosition(Vec2(0.0f, 0.0f));
 
@@ -1990,7 +1942,7 @@ Vec2 GameModelsLayer::calcCamPos2(float pRot, int pSide)
 
 		cNode.gNode->setRotation(pRot);
 
-		ret = cNode.gNode->convertToWorldSpace(cNode.lNode2->getPosition());//回転後のlNode2の座標を取得
+		pos = cNode.gNode->convertToWorldSpace(cNode.lNode2->getPosition());//回転後のlNode2の座標を取得
 	}
 	else
 	{
@@ -2001,9 +1953,9 @@ Vec2 GameModelsLayer::calcCamPos2(float pRot, int pSide)
 
 		cNode.gNode->setRotation(pRot);
 
-		ret = cNode.gNode->convertToWorldSpace(cNode.lNode2->getPosition());//回転後のlNode2の座標を取得
+		pos = cNode.gNode->convertToWorldSpace(cNode.lNode2->getPosition());//回転後のlNode2の座標を取得
 	}
-	return ret;
+	return pos;
 }
 
 
@@ -2082,7 +2034,7 @@ void GameModelsLayer::UpdateEnemy()
 	auto random = rand() % 4;
 	for(int num = UNIT1_ENEMY; num < UNIT2_BULLET; num++)
 	{
-		if(TRUE == unit[num].valid && TRUE == unit[num].visible)//エネミーが表示されていれば
+		if(TRUE == unit[num].visible)//エネミーが表示されていれば
 		{
 
 			unit[num].Update(GameMasterM->loopTime);//フレーム・座標・当たり判定の更新
@@ -2106,6 +2058,7 @@ void GameModelsLayer::UpdateEnemy()
 				if (unit[num].sleepTime <= 0.0f)
 				{
 					unit[num].eState = ESTATE_STANDBY;
+					unit[num].sprite3d->setVisible(true);
 				}
 				break;
 			case ESTATE_STANDBY://目標地点への移動開始
@@ -2184,6 +2137,7 @@ void GameModelsLayer::setNextEnemy(int num)
 }
 
 
+
 /**
 *	ウェーブ終了のチェック
 *
@@ -2220,6 +2174,60 @@ int GameModelsLayer::CheckNextStage(void)
 	return TRUE;
 }
 
+
+
+/**
+*	画面外の敵の全消去
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	2/5 Ver 1.0
+*/
+void GameModelsLayer::ClearEnemies()
+{
+	for (int i = UNIT1_ENEMY; i < UNIT2_BULLET; i++)
+	{
+		//現在アクティブなキャラクターを全てオフにする
+		if (TRUE == unit[i].visible)
+		{
+			unit[i].visible = FALSE;
+			unit[i].sprite3d->setVisible(false);
+
+			//必要な初期化処理があればここに追記します
+		}
+	}
+}
+
+
+/**
+*	プレイヤーの状態を死亡状態に変更
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	ウェーブ中:1 ウェーブ終了:-1
+*	@date	2/5 Ver 1.0
+*/
+void GameModelsLayer::KillPlayer()
+{
+	GameMasterM->SetPlayerState(PSTATE_DEAD);
+
+	//必要ならばモーションの停止を行う
+	player.sprite3d->stopAllActions();
+	player.sprite3d->startAnimation("dei2");//
+
+
+	//プレイヤーの座標を指定位置に動かす
+	//座標と角度をセットしてキャラクターの座標を補正
+	player.sprite3d->setRotation3D(GameMasterM->stagePoint[GameMasterM->sPoint].pRot);
+	player.wrapper->setRotation3D(Vec3(0.0f, 0.0f, 0.0f));
+
+
+	//座標と角度をセットしてカメラの座標を補正
+	ChangeCamera(2);
+
+	//その他必要な処理があればここに追記します
+}
 
 
 /**
@@ -2422,21 +2430,21 @@ void GameModelsLayer::ActionEAttack(int num)
 
 	//タイミングを合わせて射撃を行う
 	unit[num].atkFrame -= GameMasterM->loopTime;//アタックフレームを減少させていく
-	if(0.0f >= unit[num].atkFrame)
+	if (0.0f >= unit[num].atkFrame)
 	{
 		//フレームが0になったら
-//		ShootBullet(num);
+		ShootBullet(num);
 		unit[num].atkFrame = 0.33f;//次の弾発射までの時間を設定
 	}
 
 	//アニメーションが終了したら
-	if(0 == unit[num].sprite3d->checkAnimationState())
+	if (0 == unit[num].sprite3d->checkAnimationState())
 	{
 		unit[num].sprite3d->stopALLAnimation();//現在のモーションを終了し
 		unit[num].eState = ESTATE_IDLE;
 
 		//敵のAIの種類でモーションと移動量を変更する
-		switch(unit[num].AIIdle)
+		switch (unit[num].AIIdle)
 		{
 		case AI_IDLE_FAKE:
 			unit[num].sprite3d->startAnimationLoop("dammy_shot");
@@ -2455,3 +2463,62 @@ void GameModelsLayer::ActionEAttack(int num)
 		}
 	}
 }
+
+
+/*
+
+*/
+void GameModelsLayer::update(float delta)
+{
+
+}
+
+
+/*
+指定フレームごとに呼び出される
+*/
+void GameModelsLayer::moveTime(float delta)
+{
+
+}
+
+
+
+
+/**
+*	カメラ設定の変更
+*
+*	@author	sasebon
+*	@param	設定番号
+*	@return	適切な引数:1,不正な引数:-1
+*	@date	2/24 Ver 1.0
+*/
+int GameModelsLayer::ChangeCamera(int num)
+{
+	//ゲームの状態変化に合わせてカメラを切り替えることができます
+	//カメラの座標と角度も変更できますが、あくまでカメラの初期位置であり、移動と回転は他で行う必要があります
+	//カメラの動きを注視点管理で統一したら、この関数は使わなくする予定です
+
+	switch (num)
+	{
+	case 0://0番はOPデモ用の初期設定
+
+		break;
+	case 1://1番はゲーム本編の初期設定
+
+		break;
+	case 2://2番は死亡用の初期設定
+
+		//カメラの位置を任意の値に設定する
+		GameMasterM->SetCamera3DPos(Vec3(KE_POSX, KE_POSY, KE_POSZ));
+		GameMasterM->SetCameraTarget(Vec3(KT_POSX, KT_POSY, KT_POSZ));
+
+		//カメラ座標と注視点からカメラ角度を設定する
+		GameMasterM->CalcCameraRot();
+		break;
+	}
+	return TRUE;
+}
+
+
+

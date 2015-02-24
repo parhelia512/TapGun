@@ -95,7 +95,7 @@ void GameUILayer::LoadUISprite()
 	fileName1 = "Graph/Pictures/reticle.png";
 #endif
 	UIBillBoard[UIKIND_RETICLE] = cocos2d::BillBoard::create(fileName1, BillBoard::Mode::VIEW_PLANE_ORIENTED);
-	 
+
 
 	//リロードアラートの生成
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -130,7 +130,6 @@ void GameUILayer::LoadUISprite()
 #else
 	fileName1 = "Graph/Pictures/wait.png";
 #endif
-
 }
 
 
@@ -183,29 +182,28 @@ void GameUILayer::SetUI()
 	valid[UIKIND_RELOAD] = TRUE;
 
 
-
 	Sprite* sprite[4];
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	sprite[0] = Sprite::create("four4096.png");
-//	sprite[1] = Sprite::create("time.png");
-//	sprite[2] = Sprite::create("kaihiai.png");
-//	sprite[3] = Sprite::create("timelogo.png");
+	//	sprite[1] = Sprite::create("time.png");
+	//	sprite[2] = Sprite::create("kaihiai.png");
+	//	sprite[3] = Sprite::create("timelogo.png");
 #else
-//	sprite[0] = Sprite::create("Graph/Pictures/four2048.png");
-//	sprite[1] = Sprite::create("Graph/Pictures/time.png");
-//	sprite[2] = Sprite::create("Graph/Pictures/kaihiai.png");
-//	sprite[3] = Sprite::create("Graph/Pictures/timelogo.png");
+	//	sprite[0] = Sprite::create("Graph/Pictures/four2048.png");
+	//	sprite[1] = Sprite::create("Graph/Pictures/time.png");
+	//	sprite[2] = Sprite::create("Graph/Pictures/kaihiai.png");
+	//	sprite[3] = Sprite::create("Graph/Pictures/timelogo.png");
 #endif
-//	sprite[0]->setPosition(Vec2(285, 695));
-//	sprite[0]->setScale(0.3f);
+	//	sprite[0]->setPosition(Vec2(285, 695));
+	//	sprite[0]->setScale(0.3f);
 
-//	sprite[1]->setPosition(Vec2(1085, 760));
-//	sprite[2]->setPosition(Vec2(100, 150));
-//	sprite[3]->setPosition(Vec2(250, 80));
+	//	sprite[1]->setPosition(Vec2(1085, 760));
+	//	sprite[2]->setPosition(Vec2(100, 150));
+	//	sprite[3]->setPosition(Vec2(250, 80));
 
-//	addChild(sprite[0]);
+	//	addChild(sprite[0]);
 
-//	for(auto &p : sprite) addChild(p);
+	//	for(auto &p : sprite) addChild(p);
 }
 
 
@@ -300,132 +298,135 @@ void GameUILayer::MoveReticle(void)
 			UIBillBoard[UIKIND_RETICLE]->setVisible(false);
 			break;
 		}
-
-
-		//リロードアラートの挙動
-		//プレイヤーの状態を取得して場合分け
-		switch (GameMasterL->GetPlayerState())
-		{
-		case PSTATE_SHOT:
-		case PSTATE_IDLE:
-		case PSTATE_DAMAGED:
-		case PSTATE_DODGE:
-		case PSTATE_APPEAR://隠れた状態から出る
-			if (GameMasterL->GetPlayerBullets() <= 0)
-			{
-				LogoUI::getInstance()->setLogo(LogoUI::Reload);
-			}
-			else
-			{
-				LogoUI::getInstance()->resetLogo(LogoUI::Reload);
-			}
-			/*
-				if(GameMasterL->nowBullets <= 0)
-				{
-				UIBillBoard[UIKIND_RELOAD]->setVisible(true);
-				}
-				else
-				{
-				UIBillBoard[UIKIND_RELOAD]->setVisible(false);
-				}
-				*/
-			break;
-		case PSTATE_HIDE://隠れている
-			LogoUI::getInstance()->resetLogo(LogoUI::Reload);
-			//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
-			break;
-		case PSTATE_RUN://走っている（Wait時）
-			LogoUI::getInstance()->resetLogo(LogoUI::Reload);
-			//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
-			break;
-		case PSTATE_DEAD://死亡
-			//ウェイト時と死亡時はGSTATE_PLAYではないので、他のステート時は一括でUIの非表示を管理した方がよい
-			//現在はここにも記述しておく
-			LogoUI::getInstance()->resetLogo(LogoUI::Reload);
-			//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
-			break;
-		}
-
-
-		//ウェイトUIの挙動
-		//プレイヤーの状態を取得して場合分け
-		switch (GameMasterL->GetPlayerState())
-		{
-			//		case PSTATE_SHOT:
-			//		case PSTATE_IDLE:
-			//		case PSTATE_DAMAGED:
-			//		case PSTATE_DODGE:
-			//		case PSTATE_APPEAR://隠れた状態から出る
-			//		case PSTATE_HIDE://隠れている
-			//		case PSTATE_DEAD://死亡
-			//			LogoUI::getInstance() -> resetLogo( LogoUI::Wait);
-			////			UIBillBoard[UIKIND_WAIT]->setVisible(false);
-			//			break;
-			//		case PSTATE_RUN://走っている（Wait時）
-			//			static int count = 0;
-			//			if( count % 60 == 0)
-			//			{
-			//				LogoUI::getInstance() -> setLogo( LogoUI::Wait);				
-			//			}
-			//			count++;
-			////			UIBillBoard[UIKIND_WAIT]->setVisible(true);
-			//			break;
-		}
-
-		//ウェイトUIとアクションUIの挙動
-		//ゲームの状態を取得して場合分け
-		switch (GameMasterL->GetGameState())
-		{
-
-		case GSTATE_INIT://
-			break;
-		case GSTATE_WAIT://ウェイト時
-		{
-			static int count = 0;
-			if (count % 60 == 0)
-			{
-				LogoUI::getInstance()->setLogo(LogoUI::Wait);
-			}
-			count++;
-			//			UIBillBoard[UIKIND_WAIT]->setVisible(true);
-		}
-			break;
-		case GSTATE_PLAY_SET://戦闘開始前の待ち時間（敵の配置にのみ使用する）
-			break;
-		case GSTATE_PLAY_ACTION://戦闘開始前の待ち時間（ActionのUIを描画するときに使用する）
-			LogoUI::getInstance()->setLogo(LogoUI::Action);
-			break;
-		case GSTATE_PLAY:
-			break;
-		case GSTATE_PAUSE:
-			break;
-		case GSTATE_CONTINUE:
-			break;
-		case GSTATE_GAMEOVER:
-			break;
-		case GSTATE_EVENT://ムービーイベントなどを進行させるときに使用する？（現在未使用）
-			break;
-		default:
-			break;
-		}
-
-
-		//アクションUIの挙動
-		//プレイヤーの状態を取得して場合分け
-		switch (GameMasterL->GetPlayerState())
-		{
-		case PSTATE_SHOT:
-		case PSTATE_IDLE:
-		case PSTATE_DAMAGED:
-		case PSTATE_DODGE:
-		case PSTATE_APPEAR://隠れた状態から出る
-		case PSTATE_HIDE://隠れている
-		case PSTATE_RUN://走っている（Wait時）
-		case PSTATE_DEAD://死亡
-
-			break;
-		}
 	}
+
+
+	
+
+	//リロードアラートの挙動
+	//プレイヤーの状態を取得して場合分け
+	switch (GameMasterL->GetPlayerState())
+	{
+	case PSTATE_SHOT:
+	case PSTATE_IDLE:
+	case PSTATE_DAMAGED:
+	case PSTATE_DODGE:
+	case PSTATE_APPEAR://隠れた状態から出る
+		if (GameMasterL->GetPlayerBullets() <= 0)
+		{
+			LogoUI::getInstance()->setLogo(LogoUI::Reload);
+		}
+		else
+		{
+			LogoUI::getInstance()->resetLogo(LogoUI::Reload);
+		}
+		/*
+		if(GameMasterL->nowBullets <= 0)
+		{
+		UIBillBoard[UIKIND_RELOAD]->setVisible(true);
+		}
+		else
+		{
+		UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+		}
+		*/
+		break;
+	case PSTATE_HIDE://隠れている
+		LogoUI::getInstance()->resetLogo(LogoUI::Reload);
+		//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+		break;
+	case PSTATE_RUN://走っている（Wait時）
+		LogoUI::getInstance()->resetLogo(LogoUI::Reload);
+		//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+		break;
+	case PSTATE_DEAD://死亡
+		//ウェイト時と死亡時はGSTATE_PLAYではないので、他のステート時は一括でUIの非表示を管理した方がよい
+		//現在はここにも記述しておく
+		LogoUI::getInstance()->resetLogo(LogoUI::Reload);
+		//			UIBillBoard[UIKIND_RELOAD]->setVisible(false);
+		break;
+	}
+
+
+	//ウェイトUIの挙動
+	//プレイヤーの状態を取得して場合分け
+	switch (GameMasterL->GetPlayerState())
+	{
+		//		case PSTATE_SHOT:
+		//		case PSTATE_IDLE:
+		//		case PSTATE_DAMAGED:
+		//		case PSTATE_DODGE:
+		//		case PSTATE_APPEAR://隠れた状態から出る
+		//		case PSTATE_HIDE://隠れている
+		//		case PSTATE_DEAD://死亡
+		//			LogoUI::getInstance() -> resetLogo( LogoUI::Wait);
+		////			UIBillBoard[UIKIND_WAIT]->setVisible(false);
+		//			break;
+		//		case PSTATE_RUN://走っている（Wait時）
+		//			static int count = 0;
+		//			if( count % 60 == 0)
+		//			{
+		//				LogoUI::getInstance() -> setLogo( LogoUI::Wait);				
+		//			}
+		//			count++;
+		////			UIBillBoard[UIKIND_WAIT]->setVisible(true);
+		//			break;
+	}
+
+	//ウェイトUIとアクションUIの挙動
+	//ゲームの状態を取得して場合分け
+	switch (GameMasterL->GetGameState())
+	{
+
+	case GSTATE_INIT://
+		break;
+	case GSTATE_WAIT://ウェイト時
+	{
+		static int count = 0;
+		if (count % 60 == 0)
+		{
+			LogoUI::getInstance()->setLogo(LogoUI::Wait);
+		}
+		count++;
+		//			UIBillBoard[UIKIND_WAIT]->setVisible(true);
+	}
+		break;
+	case GSTATE_PLAY_SET://戦闘開始前の待ち時間（敵の配置にのみ使用する）
+		break;
+	case GSTATE_PLAY_ACTION://戦闘開始前の待ち時間（ActionのUIを描画するときに使用する）
+		LogoUI::getInstance()->setLogo(LogoUI::Action);
+		break;
+	case GSTATE_PLAY:
+		break;
+	case GSTATE_PAUSE:
+		break;
+	case GSTATE_CONTINUE:
+		break;
+	case GSTATE_GAMEOVER:
+		break;
+	case GSTATE_EVENT://ムービーイベントなどを進行させるときに使用する？（現在未使用）
+		break;
+	default:
+		break;
+	}
+
+
+	//アクションUIの挙動
+	//プレイヤーの状態を取得して場合分け
+	switch (GameMasterL->GetPlayerState())
+	{
+	case PSTATE_SHOT:
+	case PSTATE_IDLE:
+	case PSTATE_DAMAGED:
+	case PSTATE_DODGE:
+	case PSTATE_APPEAR://隠れた状態から出る
+	case PSTATE_HIDE://隠れている
+	case PSTATE_RUN://走っている（Wait時）
+	case PSTATE_DEAD://死亡
+
+		break;
+	}
+
 }
 
 

@@ -34,7 +34,7 @@ namespace TapGun
 		void moveTime(float delta);//指定フレームごとの更新関数（こちらを使用する）
 
 		int InitCamera(void);//カメラ座標更新関数（子レイヤー初期化後に使用する）
-		int UpdateCamera(void);//カメラ座標の更新（子レイヤークリエイト後に使用する）
+		void UpdateCamera(void);//カメラ座標の更新（子レイヤークリエイト後に使用する）
 
 
 		//各種レイヤーの初期化に用いる
