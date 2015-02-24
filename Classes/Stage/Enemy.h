@@ -16,6 +16,9 @@
 
 namespace TapGun
 {
+//この定義は今後異なるヘッダファイルに移し替えます
+#define FALSE -1
+#define TRUE 1
 
 	//エネミーの攻撃タイプ
 	enum _ENEMY_ATK_

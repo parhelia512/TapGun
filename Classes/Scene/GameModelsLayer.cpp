@@ -6,12 +6,14 @@
 #include "GameMaster.h"
 #include "Sprite3D.h"
 #include "Sound.h"
+#include "ResourceLoader.h"
 
 #else
 
 #include "Base/Sprite3D.h"
 #include "Base/GameMaster.h"
 #include "System/Sound.h"
+#include "System/ResourceLoader.h"
 
 #endif
 
@@ -102,8 +104,10 @@ void GameModelsLayer::LoadModels()
 	std::string fileName2 = "Player.anime";
 #endif
 
+	auto aa = ResourceLoader::getInstance();
+
 	//スプライトとノードのcreate
-	player.sprite3d = TapGun::_Sprite3D::create(fileName1, fileName2);
+	player.sprite3d = aa->getSprite3D(ResourceLoader::ModelNumber::Player);
 	player.wrapper = Node::create();//モデルの親ノード
 	player.leftNode = Node::create();//プレイヤーの回転軸の基準ノード（左）
 	player.rightNode = Node::create();//プレイヤーの回転軸の基準ノード（右）
