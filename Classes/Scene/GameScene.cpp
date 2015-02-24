@@ -79,12 +79,12 @@ bool GameScene::init()
 
 	//ゲームレイヤーを作成
 	gGameLayer = GameModelsLayer::create();
-//	this->addChild(gGameLayer);
+	this->addChild(gGameLayer);
 
 
 	//UIレイヤーを作成
 	gUILayer = GameUILayer::create();
-//	this->addChild(gUILayer);
+	this->addChild(gUILayer);
 
 
 	GameMasterS = GameMaster::GetInstance();//ゲームパラメータクラスのインスタンス生成
@@ -201,7 +201,6 @@ void GameScene::moveTime(float delta)
 */
 void GameScene::update(float delta)
 {
-//	GameMasterS->gameTime -= 0.8f;
 	GameMasterS->UpdateTouchManager();//タッチ情報を更新
 
 
@@ -224,16 +223,16 @@ void GameScene::update(float delta)
 
 
 	//現在のゲームの状態でゲーム分岐
-	switch(GameMasterS->GetGameState())
+	switch (GameMasterS->GetGameState())
 	{
 		//ゲームの残り時間はGameModelsLayer内で管理します
 
 	case GSTATE_INIT:
-		if(NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
+		if (NULL != gGameLayer)//現在は子レイヤーをクリエイトしたかを確認する
 		{
 			gGameLayer->InitLayer();//
 		}
-		if(NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
+		if (NULL != gUILayer)//現在は子レイヤーをクリエイトしたかを確認する
 		{
 			gUILayer->InitLayer();//
 		}
@@ -244,6 +243,11 @@ void GameScene::update(float delta)
 
 		break;
 
+	case GSTATE_OP:
+
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+
+		break;
 	case GSTATE_WAIT:
 
 		gGameLayer->UpdateWait();
@@ -265,7 +269,7 @@ void GameScene::update(float delta)
 		//シーン切り替え用の変数
 		timeCount += GameMasterS->loopTime;//
 
-		if(timeCount >= TIME_ACTION_UI)
+		if (timeCount >= TIME_ACTION_UI)
 		{
 			//一定時間経過したらウェーブを開始する
 			timeCount = 0.0f;
@@ -273,7 +277,7 @@ void GameScene::update(float delta)
 		}
 		else
 		{
-			if(NULL != gUILayer)//現在は初期化チェック確認する
+			if (NULL != gUILayer)//現在は初期化チェック確認する
 			{
 				gUILayer->UpdateLayer();
 			}
@@ -286,29 +290,51 @@ void GameScene::update(float delta)
 		gGameLayer->UpdateBullets();//敵弾の更新
 		gGameLayer->CheckHit();//当たり判定とダメージのチェック
 
-		//プレイヤーが死亡したら
-		if(PSTATE_CONTINUE == GameMasterS->GetPlayerState())
+
+		if (PSTATE_DEAD != GameMasterS->GetPlayerState())
 		{
+			//死亡していない場合
 			//ゲーム内時間の更新はここで行う
 			GameMasterS->gameActionTime -= GameMasterS->loopTime;
 			if (GameMasterS->gameActionTime <= 0)
 			{
-				//フレーム
+				//ゲームの残り時間が0になったらゲームオーバー
+				GameMasterS->SetGameState(GSTATE_TIMEOVER);//
+				gGameLayer->ClearEnemies();//全ての敵を非表示にする
+				gGameLayer->KillPlayer();//プレイヤーを死亡状態にする
 			}
-
-			GameMasterS->SetGameState(GSTATE_CONTINUE_INIT);
-			break;
+			gGameLayer->CheckNextStage();//ウェーブ終了のチェック
 		}
 		else
 		{
-			gGameLayer->CheckNextStage();//
+			//プレイヤーがダメージ死亡したら
+			GameMasterS->SetGameState(GSTATE_DEADOVER);//ダメージ死亡
+			gGameLayer->ClearEnemies();//全ての敵を非表示にする
+			break;
 		}
 
-		gUILayer->UpdateLayer();
+		if (NULL != gUILayer)//現在は初期化チェック確認する
+		{
+			gUILayer->UpdateLayer();
+		}
+
 		UpdateCamera();//モデルの移動をもとにカメラ移動
 
 		break;
+	case GSTATE_TIMEOVER://プレイヤーがタイムアップで死亡
 
+		gGameLayer->UpdatePlayer();//プレイヤーの更新
+		gGameLayer->UpdateBullets();//弾は画面外へ飛ばす
+		gUILayer->UpdateLayer();
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+		break;
+	case GSTATE_DEADOVER://プレイヤーがダメージで死亡
+
+		gGameLayer->UpdatePlayer();//プレイヤーの更新
+		gGameLayer->UpdateBullets();//弾は画面外へ飛ばす
+		gUILayer->UpdateLayer();
+		UpdateCamera();//モデルの移動をもとにカメラ移動
+		break;
 	case GSTATE_PAUSE:
 		//ポーズ中は専用のレイヤーを描画する？
 		//モデルの更新処理を制限する
@@ -344,40 +370,26 @@ void GameScene::update(float delta)
 *	@return	なし
 *	@date	1/8 Ver 1.0
 */
-int GameScene::UpdateCamera()
+void GameScene::UpdateCamera()
 {
-	if(NULL != gUILayer)
+	if (NULL != gUILayer)
 	{
 		//
 	}
 
-	if(NULL != gGameLayer)
+	if (NULL != gGameLayer)
 	{
 		//プレイヤーの座標取得はとりあえずこのような形で記述しています
 		Vec3 cameraPos;
 		Vec3 cameraRot;
-		//プレイヤーの状態でカメラの位置を調整する
-		switch(GameMasterS->GetPlayerState())
+
+		//ゲームの状態でカメラの位置を動かします
+		//一部のステートはさらにプレイヤーの状態でカメラの位置を動かします
+		switch (GameMasterS->GetGameState())
 		{
+		case GSTATE_OP:
 
-		case PSTATE_DODGE:
-		case PSTATE_HIDE:
-		case PSTATE_APPEAR:
-			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
-			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
-
-			//		プレイヤーの座標にカメラのノードを置く
-			//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
-			GameMasterS->SetCameraNodePos(cameraPos);
-
-			//カメラを公転させる
-			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
-			GameMasterS->SetCameraNodeRot(cameraRot);
-			break;
-
-		case PSTATE_RUN:
-
-			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();// +gGameLayer->player.cameraAjust;
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();
 			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 
 			//プレイヤーの座標にカメラのノードを置く
@@ -386,11 +398,65 @@ int GameScene::UpdateCamera()
 			//カメラを公転させる
 			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
 			GameMasterS->SetCameraNodeRot(cameraRot);
+
+			break;
+		case GSTATE_WAIT:
+
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();
+			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
+
+			//プレイヤーの座標にカメラのノードを置く
+			GameMasterS->SetCameraNodePos(cameraPos);
+
+			//カメラを公転させる
+			cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
+			GameMasterS->SetCameraNodeRot(cameraRot);
+
+			break;
+		case GSTATE_PLAY:
+
+			//プレイ時はさらにプレイヤーの状態でカメラの位置を調整します
+			if (PSTATE_DODGE == GameMasterS->GetPlayerState()
+				|| PSTATE_HIDE == GameMasterS->GetPlayerState()
+				|| PSTATE_APPEAR == GameMasterS->GetPlayerState()
+				)
+			{
+				cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D() + gGameLayer->player.cameraAjust;
+				cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
+
+				//プレイヤーの座標にカメラのノードを置く
+				//GameMasterS->SetCameraNodePos(gGameLayer->player.cameraAjust);
+				GameMasterS->SetCameraNodePos(cameraPos);
+
+				//カメラを公転させる
+				cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
+				GameMasterS->SetCameraNodeRot(cameraRot);
+			}
+			else
+			{
+				cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();
+				cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
+				//プレイヤーの座標にカメラのノードを置く
+				GameMasterS->SetCameraNodePos(cameraPos);
+				//カメラを公転させる
+				cameraRot.y -= 180.0f;//プレイヤーは180度回転させているので補正を行う
+				GameMasterS->SetCameraNodeRot(cameraRot);
+			}
+			break;
+
+		case GSTATE_TIMEOVER:
+		case GSTATE_DEADOVER:
+
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();
+//			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
+			//プレイヤーの座標にカメラのノードを置く
+			GameMasterS->SetCameraNodePos(cameraPos);
+
+			//カメラの回転は注視点基準なのでVec3(0,0,0)
 			break;
 
 		default:
-
-			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();// +gGameLayer->player.cameraAjust;
+			cameraPos = gGameLayer->player.wrapper->getPosition3D() + gGameLayer->player.sprite3d->getPosition3D();
 			cameraRot = gGameLayer->player.wrapper->getRotation3D() + gGameLayer->player.sprite3d->getRotation3D();
 			//プレイヤーの座標にカメラのノードを置く
 			GameMasterS->SetCameraNodePos(cameraPos);
@@ -400,7 +466,6 @@ int GameScene::UpdateCamera()
 			break;
 		}
 	}
-	return TRUE;
 }
 
 

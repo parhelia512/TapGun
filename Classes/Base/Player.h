@@ -94,9 +94,6 @@ namespace TapGun
 		float getAnimEndTime( void);//
 
 	private:
-
-//		int frame;//Unit固有フレーム
-		int animFrame;//アニメーション管理フレーム(animFrame >= 0 : 再生中 | animFrame == -1 : ループ再生 | animFrame == -2 : 無再生)
 	};
 }
 #endif //__UNIT_H__

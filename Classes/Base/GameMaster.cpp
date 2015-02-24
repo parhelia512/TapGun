@@ -365,18 +365,59 @@ void GameMaster::AddCameraNodeRot(cocos2d::Vec3 rot)
 }
 
 
+/**
+*	3D用カメラの座標取得
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	3D用カメラの座標
+*	@date	2/23 Ver 1.0
+*/
+cocos2d::Vec3 GameMaster::GetCamera3DPos(void)
+{
+	return camera3D->getPosition3D();
+}
+
+
+/**
+*	3D用カメラの角度取得
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	3D用カメラの角度
+*	@date	2/23 Ver 1.0
+*/
+cocos2d::Vec3 GameMaster::GetCamera3DRot(void)
+{
+	return camera3D->getRotation3D();
+}
+
 
 /**
 *	3D用カメラの注視点セット
 *
 *	@author	sasebon
-*	@param	カメラ座標
+*	@param	注視点座標
 *	@return	なし
-*	@date	1/16 Ver 1.0
+*	@date	2/23 Ver 1.0
 */
-void GameMaster::SetCameraLookAt(cocos2d::Vec3 pos)
+void GameMaster::SetCameraTarget(cocos2d::Vec3 pos)
 {
+	camTarget = pos;
 	camera3D->lookAt(pos, Vec3::UNIT_Y);//lookAtは原点に置き、setPositionで視点を動かします。
+}
+
+/**
+*	3D用カメラの注視点取得
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	注視点座標
+*	@date	2/24 Ver 1.0
+*/
+Vec3 GameMaster::GetCameraTarget(void)
+{
+	return camTarget;
 }
 
 /**
@@ -393,13 +434,12 @@ void GameMaster::InitCamera3D()
 	//camera3D->createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
 
 	//
-
 	CamNode = Node::create();
 	camera3D = Camera::createPerspective(C_PERSE_L, (GLfloat)screenSize.width / screenSize.height, 1, 500);
 
+	camTarget = Vec3(0.0f, 0.0f, 0.0f);
 	camera3D->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3::UNIT_Y);//lookAtは原点に置き、setPositionで視点を動かします。
 	camera3D->setCameraFlag(CameraFlag::USER1);//USER1を3D用にする
-
 	CamNode->addChild(camera3D);
 }
 
@@ -417,7 +457,6 @@ void GameMaster::InitCamera2D()
 	//今後、ゲームやプレイヤーの状態などで様々なカメラセットが出来るようにする？
 	//camera3D->createPerspective(20, (GLfloat)s.width / s.height, 1, 1000);
 
-	//
 	camera2D = Camera::createOrthographic(screenSize.width, screenSize.height, 0, 100);//
 	camera2D->setCameraFlag(CameraFlag::DEFAULT);//
 }
@@ -687,8 +726,6 @@ int GameMaster::GetTouchState(void)
 
 
 
-
-
 /**
 *	回避動作の軸座標の計算
 *
@@ -740,12 +777,12 @@ float GameMaster::GetPlayerHP(void)
 */
 int GameMaster::SetPlayerHP(float value)
 {
-	if(value > STS_MAXPLAYERHP)
+	if (value > STS_MAXPLAYERHP)
 	{
 		playerHP = STS_MAXPLAYERHP;
 		return FALSE;
 	}
-	else if(value < 0)
+	else if (value < 0)
 	{
 		playerHP = 0;
 		return FALSE;
@@ -769,13 +806,13 @@ int GameMaster::SetPlayerHP(float value)
 int GameMaster::AddPlayerHP(float value)
 {
 	playerHP += value;
-	if(playerHP > STS_MAXPLAYERHP)
+	if (playerHP > STS_MAXPLAYERHP)
 	{
 		//
 		playerHP = STS_MAXPLAYERHP;
 		return FALSE;
 	}
-	else if(playerHP < 0)
+	else if (playerHP < 0)
 	{
 		//
 		playerHP = 0;
@@ -845,4 +882,98 @@ int GameMaster::AddPlayerBullets(int value)
 		return FALSE;
 	}
 	return TRUE;
+}
+
+
+
+
+/**
+*	現在ゲーム時間の取得
+*
+*	@author	sasebon
+*	@param	パラメーター
+*	@return	現在ゲーム時間
+*	@date	2/24 Ver 1.0
+*/
+float GameMaster::GetGameTime(void)
+{
+	return gameActionTime;
+}
+
+
+/**
+*	現在ゲーム時間のセット
+*
+*	@author	sasebon
+*	@param	パラメーター
+*	@return	適切な引数:1,不正な引数:-1
+*	@date	2/24 Ver 1.0
+*/
+int GameMaster::setGameTime(float time)
+{
+	gameActionTime += time;
+	if (gameActionTime < 0.0f)
+	{
+		gameActionTime = 0.0f;
+		return FALSE;
+	}
+	else if (TIME_MAXTIME < gameActionTime)
+	{
+		gameActionTime = TIME_MAXTIME;
+		return FALSE;
+	}
+	return TRUE;
+}
+
+
+/**
+*	現在ゲーム時間の加算
+*
+*	@author	sasebon
+*	@param	パラメーター
+*	@return	適切な引数:1,不正な引数:-1
+*	@date	2/24 Ver 1.0
+*/
+int GameMaster::AddGameTime(float time)
+{
+	gameActionTime += time;
+	if (gameActionTime < 0)
+	{
+		gameActionTime = 0.0f;
+		return FALSE;
+	}
+	else if (TIME_MAXTIME < gameActionTime)
+	{
+		gameActionTime = TIME_MAXTIME;
+		return FALSE;
+	}
+	return TRUE;
+}
+
+
+/**
+*	注視点に対するカメラの向きの計算
+*
+*	@author	sasebon
+*	@param	なし
+*	@return	なし
+*	@date	2/24 Ver 1.0
+*/
+void GameMaster::CalcCameraRot()
+{
+	//カメラ座標と注視点座標の位置からカメラ角度を設定
+	//カメラの向きベクトルを取得
+	Vec3 cVec = GetCameraTarget() - GetCamera3DPos();
+
+	//ベクトルの正規化を行う
+	cVec.normalize();
+
+	//カメラの向きを調整
+	double ry = atan2f(cVec.z, cVec.x);
+	ry = CC_RADIANS_TO_DEGREES(ry);
+
+	double rx = atan2f(cVec.x, cVec.z);
+	rx = CC_RADIANS_TO_DEGREES(rx);
+
+	SetCamera3DRot(Vec3(90.0f - rx, 90.0f - ry, 0.0f));//
 }

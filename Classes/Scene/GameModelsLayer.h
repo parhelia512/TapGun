@@ -27,9 +27,9 @@ namespace TapGun
 
 	enum _UNIT_NUM_
 	{
-		UNIT0_MAP = 0,//0はマップ
-		UNIT1_ENEMY = 1,//1~20は敵
-		UNIT2_BULLET = 21,//21~70は弾
+		UNIT0_MAP = 0,
+		UNIT1_ENEMY = 1,
+		UNIT2_BULLET = 21,
 		UNIT3_MAX = MAX_UNIT
 	};
 
@@ -85,7 +85,7 @@ namespace TapGun
 		cocos2d::Vec2 calcCamPos3(float pRot, int pSide);//角度計算
 
 		//更新系
-//		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
+		//		void UpdateLayer();//レイヤー更新（親シーンから呼び出される）
 		void UpdateWait(void);//
 		void UpdatePlayer(void);//
 		void UpdateEnemy(void);
@@ -99,6 +99,10 @@ namespace TapGun
 
 		void update(float delta);//現在使用しない
 		void moveTime(float delta);//現在使用しない
+
+		//
+		void ClearEnemies();//敵を全て非表示にする（ゲームオーバー状態にする前に使用する）
+		void KillPlayer();//プレイヤーを死亡状態にする（タイムオーバー死亡前に使用する）
 
 		CREATE_FUNC(GameModelsLayer);
 
@@ -122,31 +126,22 @@ namespace TapGun
 		void ActionEStandby(int num);
 		void ActionEIdle(int num);
 		void ActionEDodge(int num);
-//		void ActionEHide(int num);
-//		void ActionEAppear(int num);
 		void ActionEDamaged(int num);
 		void ActionERecover(int num);
-//		void ActionERun(int num);
 		void ActionEDead(int num);
 		void ActionEMove(int num);
 		void ActionEAttack(int num);
 
-		//エネミーの更新
-		//void ActionEnemy1(int num);//その場で威嚇射撃をし続ける
-		//void ActionEnemy2(int num);//一定タイミングで撃つ
-		//void ActionEnemy3(int num);//左右に動いて警戒
-
 		//敵の処理
 		void setNextEnemy(int num);
 
+		//
 		void ShootBullet(int enemy_num);//
-
-//		int SearchFreeUnit();//空きユニットの検索
-
 		int SearchFreeEnemy();//空きユニットの検索
-
-
 		int enemyStuck;//各ステージごとの残り敵数
+
+		//カメラの設定
+		int ChangeCamera(int num);
 
 		//計算用
 		float getNowTime();
