@@ -206,21 +206,21 @@ namespace TapGun
 
 	void _Sprite3D::createObjectAsync( const char* modelPath, const char* texturePath, const char* animePath, const function<void(_Sprite3D*, void*)>& callback, void* callbackparam)
 	{
+		string str[3];
 		string filePath;
 		bool Flag[ResouceType::Num] = { false };
-		map< int, string> str;
 		auto sprite = new (nothrow) _Sprite3D();
 
 		if( &modelPath == nullptr) return;
-		else str[0] = modelPath;
-		if( texturePath != nullptr) str[1] = texturePath;
+		else if( texturePath != nullptr) str[0] = texturePath;
+		if( modelPath != nullptr) str[1] = modelPath;
 		if( animePath != nullptr) str[2] = animePath;
 
-		for( int i = 0; i < str.size(); i++)
+		for( int i = 0; i < 3; i++)
 		{
-			if( &str.at(i) == nullptr) break;
+			if( &str[i] == nullptr) break;
 
-			switch( checkResourcePath(str.at(i)))
+			switch( checkResourcePath( str[i]))
 			{
 			case ResouceType::NoExt:
 				if( Flag[ResouceType::NoExt] == false && Flag[ResouceType::Model] == false)
@@ -228,22 +228,22 @@ namespace TapGun
 					filePath = getResourcePath( ResouceType::NoExt);
 				#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 				  #ifdef DEBUG
-					filePath = filePath + str.at(i) + ".c3t";
+					filePath = filePath + str[i] + ".c3t";
 				  #else
-					filePath = filePath + str.at(i) + ".c3b";
+					filePath = filePath + str[i] + ".c3b";
 				  #endif
 				#else
 				#ifdef _DEBUG
-					filePath = filePath + str.at(i) + ".c3t";
+					filePath = filePath + str[i] + ".c3t";
 				  #else
-					filePath = filePath + str.at(i) + ".c3b";
+					filePath = filePath + str[i] + ".c3b";
 				  #endif
 				#endif
 
 					if( sprite -> loadFromCache( filePath))
 					{
 						sprite -> autorelease();
-						if( !str.empty()) { sprite -> setTexture( texturePath); }
+						if( !str[i].empty()) { sprite -> setTexture( texturePath); }
 						callback( sprite, callbackparam);
 						return;
 					}
@@ -270,12 +270,12 @@ namespace TapGun
 				if( Flag[ResouceType::Model] == false && Flag[ResouceType::NoExt] == false)
 				{
 					filePath = getResourcePath( ResouceType::Model);
-					filePath = filePath + str.at(i);
+					filePath = filePath + str[i];
 
 					if( sprite -> loadFromCache( filePath))
 					{
 						sprite -> autorelease();
-						if( !str.empty()) { sprite -> setTexture( texturePath); }
+						if( !str[i].empty()) { sprite -> setTexture( texturePath); }
 						callback( sprite, callbackparam);
 						return;
 					}
@@ -301,7 +301,7 @@ namespace TapGun
 				if( Flag[ResouceType::Anime] == false)
 				{
 					filePath = getResourcePath( ResouceType::Anime);
-					filePath = filePath + str.at(i);
+					filePath = filePath + str[i];
 					sprite -> load3DModelAnimeData( filePath);
 					Flag[ResouceType::Anime] = true;
 				}
@@ -397,6 +397,7 @@ namespace TapGun
 	ResouceType _Sprite3D::checkResourcePath( const string& filePath)
 	{
 		string str = filePath;
+		if( str.size() < 4) return ResouceType::Error;
 		int point = str.rfind( '.', str.size());
 		if( point == string::npos) return ResouceType::NoExt;
 		str.erase( 0, str.size() - ( str.size() - point));

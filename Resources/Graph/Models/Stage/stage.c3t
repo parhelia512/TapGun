@@ -3,19 +3,13 @@
 	"id": "", 
 	"meshes": [
 		{
-			"attributes": [{
-					"size":   3, 
+			"attributes": [{"size":   3, 
 					"type": "GL_FLOAT", 
-					"attribute": "VERTEX_ATTRIB_POSITION"
-				}, {
-					"size":   3, 
+					"attribute": "VERTEX_ATTRIB_POSITION"}, {"size":   3, 
 					"type": "GL_FLOAT", 
-					"attribute": "VERTEX_ATTRIB_NORMAL"
-				}, {
-					"size":   2, 
+					"attribute": "VERTEX_ATTRIB_NORMAL"}, {"size":   2, 
 					"type": "GL_FLOAT", 
-					"attribute": "VERTEX_ATTRIB_TEX_COORD"
-				}], 
+					"attribute": "VERTEX_ATTRIB_TEX_COORD"}], 
 			"vertices": [
 				 1.000000, -1.000000, -2.000000,  0.000000,  0.000000, -1.000000,  0.001126,  0.499832, 
 				-1.000000, -1.000000, -2.000000,  0.000000,  0.000000, -1.000000,  0.001126,  0.250441, 
@@ -11825,8 +11819,7 @@
 		}
 	], 
 	"materials": [
-		{
-			"id": "box1", 
+		{"id": "box1", 
 			"ambient": [ 0.588235,  0.588235,  0.588235], 
 			"diffuse": [ 0.588235,  0.588235,  0.588235], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
@@ -11834,17 +11827,13 @@
 			"specular": [ 0.900000,  0.900000,  0.900000], 
 			"shininess":  2.000000, 
 			"textures": [
-				{
-					"id": "マップ #1", 
+				{"id": "マップ #1", 
 					"filename": "box1_b.png", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "box2", 
+					"wrapModeV": "REPEAT"}
+			]}, 
+		{"id": "box2", 
 			"ambient": [ 0.588235,  0.588235,  0.588235], 
 			"diffuse": [ 0.588235,  0.588235,  0.588235], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
@@ -11852,17 +11841,13 @@
 			"specular": [ 0.900000,  0.900000,  0.900000], 
 			"shininess":  2.000000, 
 			"textures": [
-				{
-					"id": "マップ #2", 
+				{"id": "マップ #2", 
 					"filename": "box2_b.png", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "Material #118", 
+					"wrapModeV": "REPEAT"}
+			]}, 
+		{"id": "Material #118", 
 			"ambient": [ 0.588000,  0.588000,  0.588000], 
 			"diffuse": [ 0.588000,  0.588000,  0.588000], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
@@ -11870,17 +11855,13 @@
 			"specular": [ 0.900000,  0.900000,  0.900000], 
 			"shininess":  2.000000, 
 			"textures": [
-				{
-					"id": "マップ #100", 
+				{"id": "マップ #100", 
 					"filename": "box1_o.png", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "Material #119", 
+					"wrapModeV": "REPEAT"}
+			]}, 
+		{"id": "Material #121", 
 			"ambient": [ 0.588000,  0.588000,  0.588000], 
 			"diffuse": [ 0.588000,  0.588000,  0.588000], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
@@ -11888,53 +11869,13 @@
 			"specular": [ 0.900000,  0.900000,  0.900000], 
 			"shininess":  2.000000, 
 			"textures": [
-				{
-					"id": "マップ #105", 
-					"filename": "box2_o.png", 
-					"type": "DIFFUSE", 
-					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "Material #120", 
-			"ambient": [ 0.588000,  0.588000,  0.588000], 
-			"diffuse": [ 0.588000,  0.588000,  0.588000], 
-			"emissive": [ 0.000000,  0.000000,  0.000000], 
-			"opacity":  1.000000, 
-			"specular": [ 0.900000,  0.900000,  0.900000], 
-			"shininess":  2.000000, 
-			"textures": [
-				{
-					"id": "マップ #106", 
-					"filename": "box1_p.png", 
-					"type": "DIFFUSE", 
-					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "Material #121", 
-			"ambient": [ 0.588000,  0.588000,  0.588000], 
-			"diffuse": [ 0.588000,  0.588000,  0.588000], 
-			"emissive": [ 0.000000,  0.000000,  0.000000], 
-			"opacity":  1.000000, 
-			"specular": [ 0.900000,  0.900000,  0.900000], 
-			"shininess":  2.000000, 
-			"textures": [
-				{
-					"id": "マップ #107", 
+				{"id": "マップ #107", 
 					"filename": "box2_p.png", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}, 
-		{
-			"id": "Material #117", 
+					"wrapModeV": "REPEAT"}
+			]}, 
+		{"id": "Material #119", 
 			"ambient": [ 0.588000,  0.588000,  0.588000], 
 			"diffuse": [ 0.588000,  0.588000,  0.588000], 
 			"emissive": [ 0.000000,  0.000000,  0.000000], 
@@ -11942,834 +11883,573 @@
 			"specular": [ 0.900000,  0.900000,  0.900000], 
 			"shininess":  2.000000, 
 			"textures": [
-				{
-					"id": "マップ #94", 
+				{"id": "マップ #105", 
+					"filename": "box2_o.png", 
+					"type": "DIFFUSE", 
+					"wrapModeU": "REPEAT", 
+					"wrapModeV": "REPEAT"}
+			]}, 
+		{"id": "Material #120", 
+			"ambient": [ 0.588000,  0.588000,  0.588000], 
+			"diffuse": [ 0.588000,  0.588000,  0.588000], 
+			"emissive": [ 0.000000,  0.000000,  0.000000], 
+			"opacity":  1.000000, 
+			"specular": [ 0.900000,  0.900000,  0.900000], 
+			"shininess":  2.000000, 
+			"textures": [
+				{"id": "マップ #106", 
+					"filename": "box1_p.png", 
+					"type": "DIFFUSE", 
+					"wrapModeU": "REPEAT", 
+					"wrapModeV": "REPEAT"}
+			]}, 
+		{"id": "Material #117", 
+			"ambient": [ 0.588000,  0.588000,  0.588000], 
+			"diffuse": [ 0.588000,  0.588000,  0.588000], 
+			"emissive": [ 0.000000,  0.000000,  0.000000], 
+			"opacity":  1.000000, 
+			"specular": [ 0.900000,  0.900000,  0.900000], 
+			"shininess":  2.000000, 
+			"textures": [
+				{"id": "マップ #94", 
 					"filename": "tex_enkei.png", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
-					"wrapModeV": "REPEAT"
-				}
-			]
-		}
+					"wrapModeV": "REPEAT"}
+			]}
 	], 
 	"nodes": [
-		{
-			"id": "Box161", 
+		{"id": "Box161", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape1_part2", 
+				{"meshpartid": "shape1_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape1_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape1_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box259", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box259", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000, -2.441163,  0.000000,  2.652072,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape2_part1", 
+				{"meshpartid": "shape2_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box260", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box260", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  1.973497, -0.982422, -65.890991,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape3_part2", 
+				{"meshpartid": "shape3_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape3_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape3_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box261", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box261", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  4.000000,  0.000000,  0.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape4_part2", 
+				{"meshpartid": "shape4_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape4_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape4_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box263", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box263", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  8.000000,  0.000000, -2.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape5_part2", 
+				{"meshpartid": "shape5_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape5_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape5_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box264", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box264", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  4.000000,  0.000000, -4.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape6_part2", 
+				{"meshpartid": "shape6_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape6_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape6_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box266", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box266", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  8.000000,  0.000000, -4.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape7_part2", 
+				{"meshpartid": "shape7_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape7_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape7_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box267", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box267", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  12.000000,  0.000000, -4.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape8_part2", 
+				{"meshpartid": "shape8_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape8_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape8_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box268", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box268", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  8.000000,  0.000000, -12.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape9_part2", 
+				{"meshpartid": "shape9_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape9_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape9_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box269", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box269", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  12.000000,  0.000000, -12.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape10_part2", 
+				{"meshpartid": "shape10_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape10_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape10_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box270", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box270", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  16.000000,  0.000000, -8.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape11_part2", 
+				{"meshpartid": "shape11_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape11_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape11_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box271", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box271", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  14.000000,  2.000000, -6.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape12_part2", 
+				{"meshpartid": "shape12_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape12_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape12_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box272", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box272", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  6.000000,  2.000000, -6.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape13_part1", 
+				{"meshpartid": "shape13_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box273", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box273", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  4.000000,  0.000000, -8.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape14_part2", 
+				{"meshpartid": "shape14_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape14_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape14_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box277", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box277", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  22.000000,  0.000000, -10.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape15_part2", 
+				{"meshpartid": "shape15_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape15_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape15_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box278", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box278", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  22.000000,  0.000000, -18.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape16_part2", 
+				{"meshpartid": "shape16_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape16_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape16_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box279", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box279", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  26.000000,  0.000000, -16.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape17_part2", 
+				{"meshpartid": "shape17_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape17_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape17_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box280", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box280", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  20.000000,  0.000000, -12.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape18_part2", 
+				{"meshpartid": "shape18_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape18_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape18_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box281", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box281", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  20.000000,  0.000000, -16.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape19_part1", 
+				{"meshpartid": "shape19_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box282", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box282", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  20.000000,  2.000000, -16.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape20_part1", 
+				{"meshpartid": "shape20_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box283", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box283", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  12.000000,  2.000000, -16.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape21_part2", 
+				{"meshpartid": "shape21_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape21_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape21_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box284", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box284", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  12.000000,  4.000000, -16.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape22_part2", 
+				{"meshpartid": "shape22_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape22_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape22_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box285", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box285", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  30.000000,  0.000000, -16.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape23_part2", 
+				{"meshpartid": "shape23_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape23_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape23_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box286", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box286", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  30.000000,  0.000000, -20.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape24_part2", 
+				{"meshpartid": "shape24_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape24_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape24_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box287", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box287", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  26.000000,  0.000000, -20.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape25_part2", 
+				{"meshpartid": "shape25_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape25_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape25_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box288", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box288", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  30.000000,  2.000000, -18.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape26_part2", 
+				{"meshpartid": "shape26_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape26_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape26_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box289", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box289", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  18.000000,  0.000000, -20.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape27_part2", 
+				{"meshpartid": "shape27_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape27_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape27_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box290", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box290", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  18.000000,  0.000000, -28.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape28_part2", 
+				{"meshpartid": "shape28_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape28_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape28_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box291", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box291", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  22.000000,  0.000000, -26.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape29_part2", 
+				{"meshpartid": "shape29_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape29_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape29_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box292", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box292", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  18.000000,  2.000000, -30.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape30_part2", 
+				{"meshpartid": "shape30_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape30_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape30_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box293", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box293", 
 			"skeleton": false, 
 			"transform": [-0.000000, -0.000000,  1.000000,  0.000000,  1.000000, -0.000000,  0.000000,  0.000000, -0.000000,  1.000000,  0.000000,  0.000000,  13.000000, -2.000000, -27.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape31_part1", 
+				{"meshpartid": "shape31_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box305", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box305", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  0.000000,  0.000000, -22.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape32_part2", 
+				{"meshpartid": "shape32_part2", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape32_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape32_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box316", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box316", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  3.000000, -2.000000, -39.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape33_part1", 
+				{"meshpartid": "shape33_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box324", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box324", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  2.000000,  0.000000, -44.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape34_part2", 
+				{"meshpartid": "shape34_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape34_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape34_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box339", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box339", 
 			"skeleton": false, 
 			"transform": [-0.000000, -0.000000,  1.000000,  0.000000,  1.000000, -0.000000,  0.000000,  0.000000, -0.000000,  1.000000,  0.000000,  0.000000,  13.000000,  0.000000, -61.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape35_part1", 
+				{"meshpartid": "shape35_part1", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box340", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box340", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  18.000000,  2.000000, -60.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape36_part2", 
+				{"meshpartid": "shape36_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape36_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape36_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box355", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box355", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  23.000000,  2.000000, -63.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape37_part1", 
+				{"meshpartid": "shape37_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box357", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box357", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  23.000000,  4.000000, -67.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape38_part1", 
+				{"meshpartid": "shape38_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box358", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box358", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  22.000000,  6.000000, -72.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape39_part2", 
+				{"meshpartid": "shape39_part2", 
 					"materialid": "Material #120", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape39_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape39_part1", 
 					"materialid": "Material #121", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box361", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box361", 
 			"skeleton": false, 
-			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  24.000000,  2.000000, -76.000000,  1.000000]
-		}, 
-		{
-			"id": "Box364", 
+			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  24.000000,  2.000000, -76.000000,  1.000000]}, 
+		{"id": "Box364", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  26.000000,  6.000000, -75.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape40_part1", 
+				{"meshpartid": "shape40_part1", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Sphere001", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Sphere001", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  0.000000, -41.067463,  0.000000,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape41_part1", 
+				{"meshpartid": "shape41_part1", 
 					"materialid": "Material #117", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "オブジェクト001", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box370", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  24.588352, -0.095764, -43.115040,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape42_part2", 
+				{"meshpartid": "shape42_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape42_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape42_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box365", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box365", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  14.266249, -0.982422, -54.056782,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape43_part2", 
+				{"meshpartid": "shape43_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape43_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape43_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "オブジェクト002", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box371", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000, -9.145596, -3.647888, -44.935963,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape44_part2", 
+				{"meshpartid": "shape44_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape44_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape44_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "オブジェクト003", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box372", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000, -9.078949, -1.593506, -23.547073,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape45_part2", 
+				{"meshpartid": "shape45_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape45_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape45_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "オブジェクト004", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box373", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  30.429996,  0.018494, -28.563919,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape46_part2", 
+				{"meshpartid": "shape46_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape46_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape46_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "オブジェクト005", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box374", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  15.789774,  0.018494, -66.237869,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape47_part2", 
+				{"meshpartid": "shape47_part2", 
 					"materialid": "Material #120", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape47_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape47_part1", 
 					"materialid": "Material #121", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box366", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box366", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  16.156578,  3.628540, -78.935303,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape48_part2", 
+				{"meshpartid": "shape48_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape48_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape48_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box367", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box367", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  20.207161,  9.936325, -97.588989,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape49_part2", 
+				{"meshpartid": "shape49_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape49_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape49_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box368", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box368", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  45.468025,  8.670944, -95.485474,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape50_part2", 
+				{"meshpartid": "shape50_part2", 
 					"materialid": "Material #118", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape50_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape50_part1", 
 					"materialid": "Material #119", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}, 
-		{
-			"id": "Box369", 
+					"uvMapping": [[  0]]}
+			]}, 
+		{"id": "Box369", 
 			"skeleton": false, 
 			"transform": [ 1.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, -1.000000,  0.000000,  0.000000,  1.000000,  0.000000,  0.000000,  52.416611,  8.573364, -81.969086,  1.000000], 
 			"parts": [
-				{
-					"meshpartid": "shape51_part2", 
+				{"meshpartid": "shape51_part2", 
 					"materialid": "box1", 
-					"uvMapping": [[  0]]
-				}, 
-				{
-					"meshpartid": "shape51_part1", 
+					"uvMapping": [[  0]]}, 
+				{"meshpartid": "shape51_part1", 
 					"materialid": "box2", 
-					"uvMapping": [[  0]]
-				}
-			]
-		}
+					"uvMapping": [[  0]]}
+			]}
 	], 
 	"animations": []
 }

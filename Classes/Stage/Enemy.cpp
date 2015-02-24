@@ -30,13 +30,13 @@ int Enemy::SetAI(int idle, int atk, int appear)
 		AIIdle = idle;
 		AIAtk = atk;
 		AIappear = appear;
-		return FALSE;
+//		return FALSE;
 	}
 	else
 	{
 		AIIdle = -1;
 		AIAtk = -1;
 		AIappear = -1;
-		return TRUE;
+//		return TRUE;
 	}
 }

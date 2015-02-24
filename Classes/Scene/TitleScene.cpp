@@ -24,6 +24,8 @@
 USING_NS_CC;
 using namespace TapGun;
 
+_Sprite3D* sp;
+
 Scene* TitleScene::createScene()
 {
 	auto scene = Scene::create();
@@ -74,23 +76,22 @@ bool TitleScene::init()
 
 void TitleScene::update( float delta)
 {
-	_Sprite3D* sp;
 	static bool modelLoadFlag = false;
 	auto sound = Sound::getInstance();
-	auto cache = SpriteFrameCache::getInstance();
+//	auto cache = SpriteFrameCache::getInstance();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	if( frame == ResourceLoader::Map)
 	{
-		ResourceLoader::getInstance() -> loadModel( "map507");
+//		ResourceLoader::getInstance() -> loadModel( "stage");
 	}
 	else if( frame >= ResourceLoader::EnemyStart && frame <= ResourceLoader::EnemyEnd)
 	{
-		ResourceLoader::getInstance() -> loadModel( "enemy", "", "Enemy.anime");
+//		ResourceLoader::getInstance() -> loadModel( "enemy", "", "Enemy.anime");
 	}
 	else if( frame >= ResourceLoader::BulletStart && frame <= ResourceLoader::BulletEnd)
 	{
-		ResourceLoader::getInstance() -> loadModel( "tama");
+//		ResourceLoader::getInstance() -> loadModel( "tama");
 	}
 	else if( frame == ResourceLoader::Player)
 	{
@@ -118,15 +119,15 @@ void TitleScene::update( float delta)
 	switch( menuFlag)
 	{
 	case TeamLogo:
-		//if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( 15)) != nullptr)
-		//{
-		//	modelLoadFlag = true;
-		//	sp -> setPosition3D( Vec3( 640, 200, 0));
-		//	sp -> setScale( 300.0f);
-		//	sp->startAnimation("slide");
-		//	addChild( sp);
-		//}
-		teamLogoAction();		
+		if( modelLoadFlag == false && ( sp = ResourceLoader::getInstance() -> getSprite3D( ResourceLoader::Player)) != nullptr)
+		{
+			modelLoadFlag = true;
+			sp -> setPosition3D( Vec3( 640, 200, 0));
+			sp -> setScale( 300.0f);
+			sp->startAnimationLoop("dei1");
+			addChild( sp);
+		}
+//		teamLogoAction();
 		break;
 
 	case TitleLogoIn:

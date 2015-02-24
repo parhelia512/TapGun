@@ -13,6 +13,7 @@ namespace TapGun
 		Anime,
 		Texture,
 		Picture,
+		Error,
 		Num,
 	};
 
