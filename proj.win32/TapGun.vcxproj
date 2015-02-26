@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -25,6 +25,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v110_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -34,6 +35,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v110_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -73,7 +75,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);..\adx2\include\pc;..\cocos2d\cocos\2d;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -138,69 +140,56 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\C++\Base\GameMaster.cpp" />
-    <ClCompile Include="..\Classes\C++\Base\Player.cpp" />
-    <ClCompile Include="..\Classes\C++\Base\Sprite.cpp" />
-    <ClCompile Include="..\Classes\C++\Base\Sprite3D.cpp" />
-    <ClCompile Include="..\Classes\C++\Base\UI.cpp" />
-    <ClCompile Include="..\Classes\C++\Base\Unit.cpp" />
-    <ClCompile Include="..\Classes\C++\Object\Muzzle.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\Character.cpp" />
-    <ClCompile Include="..\Classes\C++\Scene\GameModelsLayer.cpp" />
-    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GamePlayerLayer_Enemy.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\Classes\C++\Scene\GameScene.cpp" />
-    <ClCompile Include="..\Classes\C++\Scene\GameUILayer.cpp" />
-    <ClCompile Include="..\Classes\C++\Scene\TestScene.cpp" />
-    <ClCompile Include="..\Classes\C++\Scene\TitleScene.cpp" />
-    <ClCompile Include="..\Classes\C++\Stage\Enemy.cpp" />
-    <ClCompile Include="..\Classes\C++\Stage\EnemyTable.cpp" />
-    <ClCompile Include="..\Classes\C++\System\Directory.cpp" />
-    <ClCompile Include="..\Classes\C++\System\Errorfunc.cpp" />
-    <ClCompile Include="..\Classes\C++\System\Script.cpp" />
-    <ClCompile Include="..\Classes\C++\System\Shader.cpp" />
-    <ClCompile Include="..\Classes\C++\System\Sound.cpp" />
-    <ClCompile Include="..\Classes\C++\System\Wrapper.cpp" />
+    <ClCompile Include="..\Classes\Base\GameMaster.cpp" />
+    <ClCompile Include="..\Classes\Base\Player.cpp" />
+    <ClCompile Include="..\Classes\Base\Sprite.cpp" />
+    <ClCompile Include="..\Classes\Base\Sprite3D.cpp" />
+    <ClCompile Include="..\Classes\Base\UI.cpp" />
+    <ClCompile Include="..\Classes\Base\Unit.cpp" />
+    <ClCompile Include="..\Classes\Object\Muzzle.cpp" />
+    <ClCompile Include="..\Classes\Scene\CreditScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\GameModelsLayer.cpp" />
+    <ClCompile Include="..\Classes\Scene\GameScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\GameUILayer.cpp" />
+    <ClCompile Include="..\Classes\Scene\TestScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\TitleScene.cpp" />
+    <ClCompile Include="..\Classes\Stage\Enemy.cpp" />
+    <ClCompile Include="..\Classes\Stage\EnemyTable.cpp" />
+    <ClCompile Include="..\Classes\System\Directory.cpp" />
+    <ClCompile Include="..\Classes\System\Errorfunc.cpp" />
+    <ClCompile Include="..\Classes\System\ResourceLoader.cpp" />
+    <ClCompile Include="..\Classes\System\Script.cpp" />
+    <ClCompile Include="..\Classes\System\Shader.cpp" />
+    <ClCompile Include="..\Classes\System\Sound.cpp" />
+    <ClCompile Include="..\Classes\System\Wrapper.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\C++\Base\GameMaster.h" />
-    <ClInclude Include="..\Classes\C++\Base\Player.h" />
-    <ClInclude Include="..\Classes\C++\Base\Sprite.h" />
-    <ClInclude Include="..\Classes\C++\Base\Sprite3D.h" />
-    <ClInclude Include="..\Classes\C++\Base\UI.h" />
-    <ClInclude Include="..\Classes\C++\Base\Unit.h" />
-    <ClInclude Include="..\Classes\C++\Object\Muzzle.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\Character.h" />
-    <ClInclude Include="..\Classes\C++\Scene\GameModelsLayer.h" />
-    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GamePlayerLayer_Enemy.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\Classes\C++\Scene\GameScene.h" />
-    <ClInclude Include="..\Classes\C++\Scene\GameUILayer.h" />
-    <ClInclude Include="..\Classes\C++\Scene\TestScene.h" />
-    <ClInclude Include="..\Classes\C++\Scene\TitleScene.h" />
-    <ClInclude Include="..\Classes\C++\Stage\Enemy.h" />
-    <ClInclude Include="..\Classes\C++\Stage\EnemyTable.h" />
-    <ClInclude Include="..\Classes\C++\System\Directory.h" />
-    <ClInclude Include="..\Classes\C++\System\Errorfunc.h" />
-    <ClInclude Include="..\Classes\C++\System\Script.h" />
-    <ClInclude Include="..\Classes\C++\System\Shader.h" />
-    <ClInclude Include="..\Classes\C++\System\Sound.h" />
-    <ClInclude Include="..\Classes\C++\System\Wrapper.h" />
+    <ClInclude Include="..\Classes\Base\GameMaster.h" />
+    <ClInclude Include="..\Classes\Base\Player.h" />
+    <ClInclude Include="..\Classes\Base\Sprite.h" />
+    <ClInclude Include="..\Classes\Base\Sprite3D.h" />
+    <ClInclude Include="..\Classes\Base\UI.h" />
+    <ClInclude Include="..\Classes\Base\Unit.h" />
     <ClInclude Include="..\Classes\Define.h" />
+    <ClInclude Include="..\Classes\Main.h" />
+    <ClInclude Include="..\Classes\Object\Muzzle.h" />
+    <ClInclude Include="..\Classes\Scene\CreditScene.h" />
+    <ClInclude Include="..\Classes\Scene\GameModelsLayer.h" />
+    <ClInclude Include="..\Classes\Scene\GameScene.h" />
+    <ClInclude Include="..\Classes\Scene\GameUILayer.h" />
+    <ClInclude Include="..\Classes\Scene\TestScene.h" />
+    <ClInclude Include="..\Classes\Scene\TitleScene.h" />
+    <ClInclude Include="..\Classes\Stage\Enemy.h" />
+    <ClInclude Include="..\Classes\Stage\EnemyTable.h" />
+    <ClInclude Include="..\Classes\System\Directory.h" />
+    <ClInclude Include="..\Classes\System\Errorfunc.h" />
+    <ClInclude Include="..\Classes\System\ResourceLoader.h" />
+    <ClInclude Include="..\Classes\System\Script.h" />
+    <ClInclude Include="..\Classes\System\Shader.h" />
+    <ClInclude Include="..\Classes\System\Sound.h" />
+    <ClInclude Include="..\Classes\System\Wrapper.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -221,24 +210,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   <ItemGroup>
     <Text Include="..\Classes\Template.txt" />
     <Text Include="..\Classes\Test.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Classes\Shader\basic.fsh" />
-    <None Include="..\Classes\Shader\basic.vsh" />
-    <None Include="..\Classes\Shader\basic2D.fsh" />
-    <None Include="..\Classes\Shader\basic2D.vsh" />
-    <None Include="..\Classes\Shader\filter.fsh" />
-    <None Include="..\Classes\Shader\filter.vsh" />
-    <None Include="..\Classes\Shader\outline.fsh" />
-    <None Include="..\Classes\Shader\outline.vsh" />
-    <None Include="..\Classes\Shader\particle.fsh" />
-    <None Include="..\Classes\Shader\particle.vsh" />
-    <None Include="..\Classes\Shader\rimlight.fsh" />
-    <None Include="..\Classes\Shader\rimlight.vsh" />
-    <None Include="..\Classes\Shader\test.fsh" />
-    <None Include="..\Classes\Shader\test.vsh" />
-    <None Include="..\Classes\Shader\toon.fsh" />
-    <None Include="..\Classes\Shader\toon.vsh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

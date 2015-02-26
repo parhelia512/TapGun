@@ -157,6 +157,8 @@ public:
     void setLightMask(unsigned int mask) { _lightMask = mask; }
     unsigned int getLightMask() const { return _lightMask; }
 
+	void afterAsyncLoad(void* param);
+
 CC_CONSTRUCTOR_ACCESS:
     
     Sprite3D();
@@ -197,7 +199,7 @@ CC_CONSTRUCTOR_ACCESS:
     
     void onAABBDirty() { _aabbDirty = true; }
     
-    void afterAsyncLoad(void* param);
+    
     
 protected:
 

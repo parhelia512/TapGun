@@ -9,8 +9,8 @@
 
 #else
 
-#include "C++/Scene/TestScene.h"
-#include "C++/Scene/TitleScene.h"
+#include "Scene/TestScene.h"
+#include "Scene/TitleScene.h"
 
 #endif
 
@@ -47,19 +47,22 @@ bool AppDelegate::applicationDidFinishLaunching()
 		director -> setOpenGLView( glview);
 	}
 
-	director -> setDisplayStats( false) ;
+	director -> setDisplayStats( true) ;
 	glview -> setDesignResolutionSize( 1280, 800, ResolutionPolicy::SHOW_ALL);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview -> setFrameSize( 1280, 800);
 #endif
+
 	director -> setAnimationInterval( 1.0 / 60);
+//	director -> setAnimationInterval( 1.0 / 30);
+//	director->setAnimationInterval(1.0 / 120);
+
 #ifdef TEST_SCENE
 	auto scene = Test::createScene();
 #else
 	auto scene = TitleScene::createScene();
 #endif
 	director -> runWithScene( scene);
-
 	return true;
 }
 

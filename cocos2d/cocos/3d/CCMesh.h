@@ -106,6 +106,7 @@ public:
     /**get AABB*/
     const AABB& getAABB() const { return _aabb; }
 
+	void setGLProgramState(GLProgramState* glProgramState);
 CC_CONSTRUCTOR_ACCESS:
     
     Mesh();
@@ -113,7 +114,7 @@ CC_CONSTRUCTOR_ACCESS:
     
     GLProgram* getDefaultGLProgram(bool textured);
     
-    void setGLProgramState(GLProgramState* glProgramState);
+	
     
     MeshCommand& getMeshCommand() { return _meshCommand; }
 
