@@ -15,6 +15,16 @@ player/mot_player_hide_reload_right_ver2.c3t,h_reload_r
 
 player/mot_player_hit1.c3b,hit1
 player/mot_player_hit1.c3t,hit1
+player/mot_player_hitleft1_0218.c3b,hit_l
+player/mot_player_hitleft1_0218.c3t,hit_l
+
+player/mot_player_hitright1_0218.c3b,hit_r
+player/mot_player_hitright1_0218.c3t,hit_r
+
+player/mot_player_hitleft2_0218.c3b,recv_l
+player/mot_player_hitleft2_0218.c3t,recv_l
+player/mot_player_hitright2_0218.c3b,recv_l
+player/mot_player_hitright2_0218.c3t,recv_l
 
 player/mot_player_run.c3b,run
 player/mot_player_run.c3t,run
